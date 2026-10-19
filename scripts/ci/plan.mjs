@@ -90,10 +90,15 @@ function classifyPackage(base, head) {
     }
     // Verify scripts own provider setup as well as execution. Reuse their
     // existing source-file ownership rather than maintaining a second map.
+    // `build:cached` may appear as a direct call, a legacy `npm run`, or the
+    // package-manager-agnostic forwarder; only the trailing script decides.
+    const buildPrefix =
+      "(?:(?:npm run|node scripts/run-script\\.mjs) build:cached && )?";
     const entrypoint = (command) =>
-      /^(?:npm run build:cached && )?node (scripts\/[\w/-]+\.mjs)(?: [\w./=-]+)*$/.exec(
-        command ?? "",
-      )?.[1];
+      new RegExp(
+        `^${buildPrefix}node (scripts/[\\w/-]+\\.mjs)(?: [\\w./=-]+)*$`,
+        "u",
+      ).exec(command ?? "")?.[1];
     const beforeEntry = entrypoint(beforeScripts?.[script]);
     const afterEntry = entrypoint(afterScripts?.[script]);
     const entries = [beforeEntry, afterEntry].filter(Boolean);

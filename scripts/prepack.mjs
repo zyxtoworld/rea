@@ -41,7 +41,11 @@ if (await pathExists(join(root, "src"))) {
   const packageManagerPath = process.env.npm_execpath;
   if (packageManagerPath === undefined)
     throw new Error("Prepack could not resolve the active package manager");
-  run(process.execPath, [packageManagerPath, "run", "build:cached"]);
+  // A JavaScript entry must run through Node; a native launcher (pnpm, bun)
+  // must not, because Node cannot execute it.
+  if (/\.(?:c|m)?js$/u.test(packageManagerPath))
+    run(process.execPath, [packageManagerPath, "run", "build:cached"]);
+  else run(packageManagerPath, ["run", "build:cached"]);
   run(process.execPath, ["scripts/generate-skill-metadata.mjs", "--check"]);
 } else {
   for (const path of [

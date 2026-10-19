@@ -221,6 +221,20 @@ caches deterministic builds and static checks across Git worktrees. After a pack
 Repository invariants live in [AGENTS.md](AGENTS.md). Keep provider-specific
 protocols in adapters and shared CLI/MCP workflows in the application layer.
 
+### Package scripts and the package manager
+
+Scripts that call another script go through `scripts/run-script.mjs` instead of
+hard-coding `npm run`. The forwarder resolves the active manager from
+`npm_execpath`, so a checkout works when the Node install provides only the pnpm
+launchers and no `npm`/`npx` shim, and arguments after `--` are passed through
+unchanged.
+
+The repository still declares `packageManager: npm@…`, and `npm ci` remains the
+supported install. Turborepo reads that field and looks the manager up on `PATH`
+itself, so orchestrated tasks (`turbo run …`, and therefore `check:fast`,
+`build:cached` and the pre-push hook) require a working `npm` executable even
+when scripts are started through another manager.
+
 ### Windows source checkouts
 
 The published npm package includes the Windows x64 native addon and its

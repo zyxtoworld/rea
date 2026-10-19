@@ -1,1 +1,1 @@
-npm run check:fast
+node scripts/run-script.mjs check:fast
