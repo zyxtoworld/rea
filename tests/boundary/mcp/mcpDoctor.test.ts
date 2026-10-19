@@ -17,6 +17,12 @@ import {
   createCatalogIdentity,
 } from "../../../src/catalogIdentity.js";
 import { compactPresentationForMcpInputSchemaProfile } from "../../../src/config/mcpInputSchemaProfile.js";
+import {
+  CORE_TOOL_FAMILIES,
+  TOOL_FAMILY_MEMBERS,
+  toolContractsForFamilies,
+} from "../../../src/contracts/toolFamilies.js";
+import { TOOL_CONTRACTS } from "../../../src/contracts/toolContracts.js";
 import { MCP_STARTUP_POLICY } from "../../../src/mcpStartupPolicy.js";
 
 afterEach(() => vi.useRealTimers());
@@ -82,9 +88,22 @@ describe("production MCP doctor", () => {
         "off",
       ),
     },
+    {
+      name: "core tool families",
+      environment: { REA_MCP_TOOL_PROFILE: "core" },
+      identity: createCatalogIdentity(
+        undefined,
+        "full",
+        toolContractsForFamilies(CORE_TOOL_FAMILIES),
+      ),
+      toolCount: CORE_TOOL_FAMILIES.reduce(
+        (total, family) => total + TOOL_FAMILY_MEMBERS[family].length,
+        0,
+      ),
+    },
   ])(
     "connects to the production stdio child and verifies the $name catalog",
-    async ({ environment, identity }) => {
+    async ({ environment, identity, toolCount = TOOL_CONTRACTS.length }) => {
       const result = await runProductionMcpDoctor({
         command: process.execPath,
         args: [resolve("scripts/rea.mjs"), "mcp"],
@@ -105,12 +124,8 @@ describe("production MCP doctor", () => {
         },
         request_flow: { tool: "binary_session", ok: true },
       });
-      expect(result.inventory?.tools.expected).toBe(
-        result.inventory?.tools.observed,
-      );
-      expect(result.inventory?.tools.expected).toBe(
-        CATALOG_IDENTITY.counts.mcp_tools,
-      );
+      expect(result.inventory?.tools.expected).toBe(toolCount);
+      expect(result.inventory?.tools.observed).toBe(toolCount);
       expect(result.identity?.expected_catalog_digest).toBe(
         identity.digests.combined_sha256,
       );

@@ -25,6 +25,7 @@ import {
   type CompactInputSchemaPresentation,
 } from "../contracts/compactInputSchema.js";
 import { CATALOG_IDENTITY, createCatalogIdentity } from "../catalogIdentity.js";
+import type { ToolContract } from "../contracts/toolContractTypes.js";
 import { transformAdvertisedInputJsonSchema } from "../contracts/toolSchemaMetadata.js";
 import type { EvidenceWriter } from "../application/investigation/InvestigationRecordPort.js";
 import { AnalysisResourceConstraintError } from "../domain/analysisErrorCore.js";
@@ -106,6 +107,13 @@ export const forgetPendingMcpRequest = (
 /** Bind oversized MCP error recovery to this server's Evidence ledger. */
 export class EvidenceMcpServer extends RequestTrackingMcpServer {
   readonly catalogIdentity: ReturnType<typeof createCatalogIdentity>;
+  /**
+   * Tools the server advertises, or undefined when every registered tool is
+   * advertised. A selected profile still registers every contract so canonical
+   * validation and explicit calls keep their meaning; the SDK's disable state
+   * removes the tool from `tools/list`.
+   */
+  readonly advertisedToolNames: ReadonlySet<string> | undefined;
   private readonly compactPresentation:
     | CompactInputSchemaPresentation
     | undefined;
@@ -119,18 +127,26 @@ export class EvidenceMcpServer extends RequestTrackingMcpServer {
     readonly delivery: ToolResultDelivery,
     compactPresentation: CompactInputSchemaPresentation | undefined = undefined,
     private readonly omitOutputSchemas = false,
+    advertisedContracts: readonly ToolContract[] | undefined = undefined,
   ) {
     super(info, options);
     this.compactPresentation =
       compactPresentation === undefined
         ? undefined
         : { budgetBytes: compactPresentation.budgetBytes };
+    this.advertisedToolNames =
+      advertisedContracts === undefined
+        ? undefined
+        : new Set(advertisedContracts.map(({ name }) => name));
     this.catalogIdentity =
-      this.compactPresentation === undefined && !this.omitOutputSchemas
+      this.compactPresentation === undefined &&
+      !this.omitOutputSchemas &&
+      advertisedContracts === undefined
         ? CATALOG_IDENTITY
         : createCatalogIdentity(
             this.compactPresentation,
             this.omitOutputSchemas ? "off" : "full",
+            advertisedContracts,
           );
   }
 
@@ -173,11 +189,20 @@ export class EvidenceMcpServer extends RequestTrackingMcpServer {
         : undefined;
     const registeredConfig =
       inputSchema === undefined ? config : { ...config, inputSchema };
-    return super.registerTool(
+    const registered = super.registerTool(
       name,
       registeredConfig as never,
       callback as never,
     );
+    // A selected profile registers every canonical contract but advertises only
+    // its families. Disabling keeps the catalog honest without a second registry:
+    // `tools/list` omits the tool and `tools/call` reports it as disabled.
+    if (
+      this.advertisedToolNames !== undefined &&
+      !this.advertisedToolNames.has(name)
+    )
+      registered.disable();
+    return registered;
   }
 
   /** Preserve the SDK transport lifecycle while retaining oversized errors. */

@@ -26,8 +26,6 @@ const sortByName = (
     compareUnicodeCodePoints(left.name, right.name),
   );
 
-const sortedToolContracts = sortByName(TOOL_CONTRACTS);
-
 /**
  * Digested per-tool projection. Every contract field that changes what a
  * client receives belongs here, including `returns_target_content`: a server
@@ -108,26 +106,31 @@ export type CatalogDigests = ReturnType<typeof createCatalogDigests>;
 export const createCatalogIdentity = (
   compactPresentation: CompactInputSchemaPresentation | undefined = undefined,
   outputSchemaProfile: McpOutputSchemaProfile = "full",
+  contracts: readonly ToolContract[] = TOOL_CONTRACTS,
 ) => {
   const selectedPresentation =
     compactPresentation === undefined
       ? undefined
       : { budgetBytes: compactPresentation.budgetBytes };
+  const selectedContracts = sortByName(contracts);
+  const defaultCatalog =
+    contracts === TOOL_CONTRACTS &&
+    selectedPresentation === undefined &&
+    outputSchemaProfile === "full";
   // Building and canonicalizing every advertised schema dominates doctor and
   // server startup, so the compiled runtime records the default digests once.
-  let catalogDigests: CatalogDigests | undefined =
-    selectedPresentation === undefined && outputSchemaProfile === "full"
-      ? RECORDED_CATALOG_DIGESTS
-      : undefined;
+  let catalogDigests: CatalogDigests | undefined = defaultCatalog
+    ? RECORDED_CATALOG_DIGESTS
+    : undefined;
   return {
     counts: {
       cli_commands: CLI_COMMAND_NAMES.length,
-      mcp_tools: sortedToolContracts.length,
+      mcp_tools: selectedContracts.length,
       mcp_prompts: promptCatalog.length,
     },
     get digests() {
       return (catalogDigests ??= createCatalogDigests(
-        TOOL_CONTRACTS,
+        selectedContracts,
         PROMPT_CONTRACTS,
         selectedPresentation,
         outputSchemaProfile,

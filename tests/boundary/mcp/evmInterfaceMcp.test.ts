@@ -19,7 +19,7 @@ import { inspectSolidityMetadata } from "../../../src/evm/SolidityMetadata.js";
 import { err, ok } from "../../../src/domain/result.js";
 import { silentLogger } from "../../../src/logger.js";
 import { createServer } from "../../../src/server/createServer.js";
-import { registerEvmTools } from "../../../src/server/registerEvmTools.js";
+import { registerEvmTools } from "../../../src/server/tools/data/registerEvmTools.js";
 import { createApplicationMcpHarness } from "../../fixtures/applicationMcpHarness.js";
 import {
   createDeferred,

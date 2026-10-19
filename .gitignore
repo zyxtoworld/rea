@@ -28,6 +28,13 @@ env/
 .factory/
 codedb.snapshot
 
+# Local scratch scripts and probe output
+*.tmp.ts
+*.tmp.mjs
+*.tmp.txt
+*.out.txt
+.tmp-*
+
 # Testing
 .pytest_cache/
 htmlcov/

@@ -16,7 +16,7 @@ import { EvidenceIntegrityError } from "../../../src/domain/evidenceErrors.js";
 import { err, ok } from "../../../src/domain/result.js";
 import type { WithAdmittedAnalysis } from "../../../src/server/analysisAdmission.js";
 import { createToolResultDelivery } from "../../../src/server/toolResult.js";
-import { registerReverseEngineeringTools } from "../../../src/server/registerReverseEngineeringTools.js";
+import { registerReverseEngineeringTools } from "../../../src/server/tools/debug/registerReverseEngineeringTools.js";
 import {
   createReverseEngineeringMcpHarness,
   invokeWithLiveSignal,

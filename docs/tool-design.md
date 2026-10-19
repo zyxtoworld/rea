@@ -10,6 +10,11 @@ provider-neutral, with exact coverage reported per provider.
 
 Keep the catalog complete; report capability/session availability instead of
 truncating schemas. Serialized bytes alone do not establish agent usability.
+Every tool belongs to exactly one family in
+[`src/contracts/toolFamilies.ts`](../src/contracts/toolFamilies.ts). A new tool
+must join a family, and callers select families with `REA_MCP_TOOL_PROFILE`
+rather than the server dropping tools: the default profile is still complete,
+and the advertised inventory must match `binary_session` and the catalog digest.
 
 ## Choose the tool shape
 

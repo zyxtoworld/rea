@@ -358,6 +358,16 @@ are currently unavailable. Opening or closing a target or observing a provider
 health transition leaves that catalog unchanged and does not emit
 `notifications/tools/list_changed`.
 
+When `REA_MCP_TOOL_PROFILE` selects tool families, the advertised catalog is the
+selected subset instead. Every canonical contract is still registered and still
+validates calls, but a tool outside the selection is absent from `tools/list`
+and reports as disabled on an explicit call. `binary_session` remains
+advertised in every profile, and both its `tool_availability` groups and its
+`server_identity.catalog` counts and digests describe the advertised subset, so
+the union of group names still equals `tools/list`. The selection is fixed at
+startup; restart the server to change it. See [tool family
+profiles](mcp-contracts.md#tool-family-profiles).
+
 Call `binary_session` with `{}` and read `result.tool_availability` to choose a
 callable operation for the current target, provider, host, and negotiated client
 capabilities. The default result contains the complete inventory in groups that
@@ -965,6 +975,63 @@ delivery; it still returns complete `structuredContent` and text results.
 Only client-side schema discovery and validation are omitted, so hosts using
 this profile should rely on REA's validation and retain their usual response
 size limits.
+
+### Tool family profiles
+
+Every public tool belongs to exactly one family. The
+[partition test](../src/contracts/toolFamilies.test.ts) proves that the eight
+families cover the catalog once, so a new tool cannot ship unfiled.
+
+| Family      | Tools | Contents                                                                         |
+| ----------- | ----: | -------------------------------------------------------------------------------- |
+| `session`   |    21 | Target lifecycle, Evidence bundles, residual unknowns, cross-Evidence comparison |
+| `native`    |    70 | Deep provider analysis, navigation, annotations, managed inspection              |
+| `artifacts` |    10 | Artifact inventory/extraction and managed reconstruction                         |
+| `data`      |    16 | Go, Rust, WASM, EVM, SQLite, firmware, Flutter, captures, signals                |
+| `web`       |    33 | Browser, Electron, JavaScript bundles, runtime observation, source recovery      |
+| `mobile`    |    35 | Android packages, Apktool resources, JEB projects, ADB devices                   |
+| `debug`     |    21 | GDB, Rizin, Cutter, Frida, reverse-engineering command surface                   |
+| `workflows` |    10 | Application traces, version comparisons, reconstruction ledgers                  |
+
+A typical session that only walks binaries never calls the 33 web or 35 mobile
+operations, yet a full advertisement makes the client load and forward every
+one of them. The full catalog is 3,169,603 bytes of `tools/list` JSON; output
+schemas are 75% of it and input schemas 21%. `REA_MCP_TOOL_PROFILE` bounds that
+advertisement:
+
+- `full` (default) advertises all 207 tools and preserves the existing behavior
+  and catalog digest.
+- `core` advertises `session`, `native`, and `artifacts`: 101 tools.
+- A comma-separated family list advertises exactly those families, and always
+  includes `session` so `open_binary` and `binary_session` stay reachable.
+
+Measured `tools/list` sizes from this repository's contracts:
+
+| Profile and schema settings                  | Tools |     Bytes | ≈Tokens |
+| -------------------------------------------- | ----: | --------: | ------: |
+| `full`                                       |   207 | 3,169,603 | 969,104 |
+| `core`                                       |   101 | 1,513,240 | 461,627 |
+| `core` + compact input schemas               |   101 | 1,327,152 | 406,782 |
+| `core` + output schemas off                  |   101 |   288,276 |  82,804 |
+| `core` + compact input + output schemas off  |   101 |   102,188 |  27,959 |
+| `debug` + compact input + output schemas off |    42 |    51,028 |  14,642 |
+
+Token counts use `tokenx` over the serialized catalog and are estimates, not
+provider billing. The compact and output-schema profiles compose with the tool
+profile; see [compact input schemas](#compact-input-schema-profile) and [output
+schemas](#output-schemas) for what each changes.
+
+A selected profile is a discovery bound, not an authority change. Canonical
+contracts, server-side input validation, effects, and Evidence provenance are
+identical, and a hidden tool rejects an explicit call as disabled. The setting
+is read at startup; restart the server after changing it, as with
+`REA_MCP_MAX_RESPONSE_BYTES`. `rea doctor` compares the live `tools/list` and
+`binary_session` catalog identity against the same profile it passes to the
+server.
+
+Because the catalog digest covers only the advertised tools, a client that
+reports `aligned` was started with the same profile the doctor used. A profile
+change requires the same restart that any catalog change requires.
 
 ### Function comparison limitations
 

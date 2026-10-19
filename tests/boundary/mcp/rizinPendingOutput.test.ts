@@ -2,7 +2,7 @@ import { Client, InMemoryTransport } from "@modelcontextprotocol/client";
 import { McpServer } from "@modelcontextprotocol/server";
 import { expect, it } from "vitest";
 
-import { registerRizinDebugTools } from "../../../src/server/registerRizinDebugTools.js";
+import { registerRizinDebugTools } from "../../../src/server/tools/debug/registerRizinDebugTools.js";
 import { createToolResultDelivery } from "../../../src/server/toolResult.js";
 import { toolContract } from "../../../src/contracts/toolContracts.js";
 import { silentLogger } from "../../../src/logger.js";

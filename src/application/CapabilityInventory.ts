@@ -230,65 +230,72 @@ export const buildCapabilityInventory = (
   sessionStatus: JsonValue,
   policy: AvailabilityPolicy,
   clientFeatures: ClientFeatureAvailability = NO_CLIENT_FEATURES,
+  advertisedToolNames?: ReadonlySet<string>,
 ): readonly ToolAvailability[] => {
   const status = statusSchema.parse(sessionStatus);
   const descriptors = new Map<string, ProviderDescriptor>(
     status.capabilities.map((descriptor) => [descriptor.operation, descriptor]),
   );
-  return TOOL_CONTRACTS.map((contract): ToolAvailability => {
-    const availability = availabilityFor({
-      name: contract.name,
-      kind: contract.kind,
-      targetOpen: status.open,
-      targetKind: status.kind,
-      targetFormat: status.format,
-      descriptors,
-      policy,
-    });
-    const clientRequirements = clientRequirementsFor(
-      contract.name,
-      clientFeatures,
-    );
-    const clientBlocked = clientRequirements.missing_required.length > 0;
-    const facts = {
-      name: contract.name,
-      surface: contract.kind,
-      ...(availability.defaultModeAvailable === undefined
-        ? {}
-        : { default_mode_available: availability.defaultModeAvailable }),
-      ...(availability.modes === undefined
-        ? {}
-        : { modes: [...availability.modes] }),
-      client_requirements: clientRequirements,
-      effects: { ...contract.effects },
-      annotations: {
-        read_only: contract.annotations.readOnlyHint ?? false,
-        destructive: contract.annotations.destructiveHint ?? false,
-        idempotent: contract.annotations.idempotentHint ?? false,
-        open_world: contract.annotations.openWorldHint ?? true,
-      },
-    };
-    if (clientBlocked)
-      return {
-        ...facts,
-        available: false,
-        reason: "client_capability_missing",
-        remediation: `Use an MCP client that supports: ${clientRequirements.missing_required.join(", ")}.`,
+  const selectedContracts =
+    advertisedToolNames === undefined
+      ? TOOL_CONTRACTS
+      : TOOL_CONTRACTS.filter(({ name }) => advertisedToolNames.has(name));
+  return selectedContracts
+    .map((contract): ToolAvailability => {
+      const availability = availabilityFor({
+        name: contract.name,
+        kind: contract.kind,
+        targetOpen: status.open,
+        targetKind: status.kind,
+        targetFormat: status.format,
+        descriptors,
+        policy,
+      });
+      const clientRequirements = clientRequirementsFor(
+        contract.name,
+        clientFeatures,
+      );
+      const clientBlocked = clientRequirements.missing_required.length > 0;
+      const facts = {
+        name: contract.name,
+        surface: contract.kind,
+        ...(availability.defaultModeAvailable === undefined
+          ? {}
+          : { default_mode_available: availability.defaultModeAvailable }),
+        ...(availability.modes === undefined
+          ? {}
+          : { modes: [...availability.modes] }),
+        client_requirements: clientRequirements,
+        effects: { ...contract.effects },
+        annotations: {
+          read_only: contract.annotations.readOnlyHint ?? false,
+          destructive: contract.annotations.destructiveHint ?? false,
+          idempotent: contract.annotations.idempotentHint ?? false,
+          open_world: contract.annotations.openWorldHint ?? true,
+        },
       };
-    return availability.reason === "available"
-      ? {
-          ...facts,
-          available: true,
-          reason: availability.reason,
-          remediation: null,
-        }
-      : {
+      if (clientBlocked)
+        return {
           ...facts,
           available: false,
-          reason: availability.reason,
-          remediation: availability.remediation,
+          reason: "client_capability_missing",
+          remediation: `Use an MCP client that supports: ${clientRequirements.missing_required.join(", ")}.`,
         };
-  }).sort((left, right) => compareUnicodeCodePoints(left.name, right.name));
+      return availability.reason === "available"
+        ? {
+            ...facts,
+            available: true,
+            reason: availability.reason,
+            remediation: null,
+          }
+        : {
+            ...facts,
+            available: false,
+            reason: availability.reason,
+            remediation: availability.remediation,
+          };
+    })
+    .sort((left, right) => compareUnicodeCodePoints(left.name, right.name));
 };
 
 type ClientRequirements = ToolAvailability["client_requirements"];

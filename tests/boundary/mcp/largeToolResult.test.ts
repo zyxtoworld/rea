@@ -21,7 +21,7 @@ import {
 } from "../../../src/domain/jsonValue.js";
 import { ok } from "../../../src/domain/result.js";
 import { silentLogger } from "../../../src/logger.js";
-import { registerOfficialTools } from "../../../src/server/registerOfficialTools.js";
+import { registerOfficialTools } from "../../../src/server/tools/native/registerOfficialTools.js";
 import { ToolResultDelivery } from "../../../src/server/toolResult.js";
 import { EvidenceMcpServer } from "../../../src/server/EvidenceMcpServer.js";
 import { encodeToolResult } from "../../../src/server/toolResultEncoding.js";

@@ -7,6 +7,7 @@ const SELECTED_REGISTRATION_SETTINGS = [
   "REA_HOPPER_STARTUP_TIMEOUT_MS",
   "REA_JEB_MCP_TIMEOUT_MS",
   "REA_MCP_INPUT_SCHEMA_PROFILE",
+  "REA_MCP_TOOL_PROFILE",
 ] as const;
 
 /** Preserve selected setup settings without copying unrelated process values. */

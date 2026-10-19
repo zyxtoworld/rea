@@ -10,7 +10,7 @@ import { expect, it, onTestFinished } from "vitest";
 import { ArtifactResourceScope } from "../../../src/artifacts/ArtifactResourceScope.js";
 import { silentLogger } from "../../../src/logger.js";
 import { EvidenceMcpServer } from "../../../src/server/EvidenceMcpServer.js";
-import { registerWebScriptTool } from "../../../src/server/registerWebScriptTool.js";
+import { registerWebScriptTool } from "../../../src/server/tools/web/registerWebScriptTool.js";
 import { ToolResultDelivery } from "../../../src/server/toolResult.js";
 import { readWithoutFifoWriter } from "../../fixtures/fifoInput.js";
 import { parseMcpToolError } from "../../fixtures/mcpToolError.js";

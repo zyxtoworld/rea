@@ -12,7 +12,7 @@ on:
       - "src/contracts/go/**"
       - "src/composition/go.ts"
       - "src/cli/goCommands.ts"
-      - "src/server/registerGoTools.ts"
+      - "src/server/tools/data/registerGoTools.ts"
       - "src/server/createServer.ts"
       - "src/cli.ts"
       - "src/cliCommandNames.ts"

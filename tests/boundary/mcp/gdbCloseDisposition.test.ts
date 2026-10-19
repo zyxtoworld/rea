@@ -10,7 +10,7 @@ import { expect, it } from "vitest";
 import { toolContract } from "../../../src/contracts/toolContracts.js";
 import { GdbSessionManager } from "../../../src/gdb/GdbSessionManager.js";
 import { silentLogger } from "../../../src/logger.js";
-import { registerGdbTools } from "../../../src/server/registerGdbTools.js";
+import { registerGdbTools } from "../../../src/server/tools/debug/registerGdbTools.js";
 import { createToolResultDelivery } from "../../../src/server/toolResult.js";
 
 it.skipIf(process.platform === "win32").each(["kill", "detach"])(

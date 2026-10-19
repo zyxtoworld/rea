@@ -12,7 +12,7 @@ on:
       - "src/contracts/signals/**"
       - "src/composition/signals.ts"
       - "src/cli/signalCommands.ts"
-      - "src/server/registerSignalTools.ts"
+      - "src/server/tools/data/registerSignalTools.ts"
       - "src/server/createServer.ts"
       - "src/server/sessionAvailabilityPolicy.ts"
       - "src/application/CapabilityInventory.ts"

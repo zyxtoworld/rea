@@ -9,7 +9,7 @@ import { randomUUID } from "node:crypto";
 import { CutterBridgeClient } from "../../../src/cutter/CutterBridgeClient.js";
 import { CutterBridgeService } from "../../../src/cutter/CutterBridgeService.js";
 import { toolContract } from "../../../src/contracts/toolContracts.js";
-import { registerCutterTools } from "../../../src/server/registerCutterTools.js";
+import { registerCutterTools } from "../../../src/server/tools/debug/registerCutterTools.js";
 import { createToolResultDelivery } from "../../../src/server/toolResult.js";
 import { silentLogger } from "../../../src/logger.js";
 import { createTestTempDirectory } from "../../fixtures/temporaryDirectory.js";

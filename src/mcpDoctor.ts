@@ -11,8 +11,11 @@ import {
   parseMcpInputSchemaProfile,
 } from "./config/mcpInputSchemaProfile.js";
 import { parseMcpOutputSchemaProfile } from "./config/mcpOutputSchemaProfile.js";
+import { parseMcpToolProfile } from "./config/mcpToolProfile.js";
 import { PROMPT_CONTRACTS } from "./contracts/promptContracts.js";
 import { TOOL_CONTRACTS } from "./contracts/toolContracts.js";
+import { toolContractsForFamilies } from "./contracts/toolFamilies.js";
+import type { ToolContract } from "./contracts/toolContractTypes.js";
 import { err, ok } from "./domain/result.js";
 import { PRODUCT_IDENTITY } from "./identity.js";
 import { MCP_STARTUP_POLICY } from "./mcpStartupPolicy.js";
@@ -81,6 +84,7 @@ interface McpDoctorCheck {
 /** Diagnose the actual production stdio adapter with one startup-bounded SDK session. */
 export const runProductionMcpDoctor = async (options: McpDoctorOptions) => {
   const catalog = catalogIdentityForEnvironment(options.environment);
+  const expectedToolNames = advertisedToolNames(options.environment);
   const deadline =
     performance.now() +
     (options.deadlineMs ?? MCP_STARTUP_POLICY.doctorDeadlineMs);
@@ -111,6 +115,7 @@ export const runProductionMcpDoctor = async (options: McpDoctorOptions) => {
       deadline,
       controller.signal,
       catalog,
+      expectedToolNames,
     );
   } catch (cause: unknown) {
     result = {
@@ -197,6 +202,7 @@ const inspectProductionMcpSession = async (
   deadline: number,
   signal: AbortSignal,
   catalog: ReturnType<typeof createCatalogIdentity>,
+  expectedToolNames: readonly string[],
 ) => {
   const request = requestOptions(deadline, signal);
   const [tools, prompts] = await Promise.all([
@@ -217,7 +223,7 @@ const inspectProductionMcpSession = async (
     );
   const inventory = {
     tools: compareInventory(
-      TOOL_CONTRACTS.map(({ name }) => name),
+      expectedToolNames,
       tools.tools.map(({ name }) => name),
     ),
     prompts: compareInventory(
@@ -499,13 +505,38 @@ const catalogIdentityForEnvironment = (
   const outputProfile = parseMcpOutputSchemaProfile(
     environment.REA_MCP_OUTPUT_SCHEMA_PROFILE,
   );
+  const toolProfile = parseMcpToolProfile(environment.REA_MCP_TOOL_PROFILE);
   return createCatalogIdentity(
     compactPresentationForMcpInputSchemaProfile(
       inputProfile.ok ? inputProfile.value : undefined,
     ),
     outputProfile.ok ? (outputProfile.value ?? "full") : "full",
+    advertisedContractsForProfile(toolProfile),
   );
 };
+
+/**
+ * Contracts the server advertises for this environment. A setting the doctor
+ * cannot parse is not proven inert, so the doctor compares against the complete
+ * catalog and reports the mismatch rather than silently narrowing it.
+ */
+const advertisedContractsForProfile = (
+  parsed: ReturnType<typeof parseMcpToolProfile>,
+): readonly ToolContract[] | undefined => {
+  if (!parsed.ok || parsed.value === undefined) return undefined;
+  return parsed.value.profile === "full"
+    ? undefined
+    : toolContractsForFamilies(parsed.value.families);
+};
+
+const advertisedToolNames = (
+  environment: Readonly<Record<string, string | undefined>>,
+): readonly string[] =>
+  (
+    advertisedContractsForProfile(
+      parseMcpToolProfile(environment.REA_MCP_TOOL_PROFILE),
+    ) ?? TOOL_CONTRACTS
+  ).map(({ name }) => name);
 
 const captureStderr = () => {
   const retained = Buffer.allocUnsafe(MCP_STARTUP_POLICY.doctorStderrBytes);

@@ -34,7 +34,7 @@ import { FridaInstrumentationManager } from "../../../src/frida/FridaInstrumenta
 import { silentLogger } from "../../../src/logger.js";
 import { createServer } from "../../../src/server/createServer.js";
 import { EvidenceMcpServer } from "../../../src/server/EvidenceMcpServer.js";
-import { registerFridaTools } from "../../../src/server/registerFridaTools.js";
+import { registerFridaTools } from "../../../src/server/tools/debug/registerFridaTools.js";
 import {
   createToolResultDelivery,
   ToolResultDelivery,

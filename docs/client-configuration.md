@@ -141,6 +141,16 @@ client. This omits only advertised output schemas; REA still validates complete
 structured results against its canonical contracts. See [MCP output schema
 profiles](mcp-contracts.md#output-schemas).
 
+If the upfront catalog is still too large, or the host forwards every tool
+declaration to a model with a small prompt budget, select the tool families the
+task needs. `"REA_MCP_TOOL_PROFILE": "core"` advertises the 101 session, native,
+and artifact tools instead of all 207; a comma-separated list such as
+`"REA_MCP_TOOL_PROFILE": "web,session"` advertises exactly those families. Tools
+outside the selection stay registered and canonical but are absent from
+`tools/list`, and `binary_session` reports only the advertised inventory. See
+[MCP tool family profiles](mcp-contracts.md#tool-family-profiles) for the family
+table and measured sizes. Restart the client after changing it.
+
 ## Kimi Code
 
 Setup registers `rea` in `~/.kimi-code/mcp.json`, or
