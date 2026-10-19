@@ -1,1 +1,4 @@
-npx --no-install lint-staged
+# husky prepends node_modules/.bin to PATH, so the local pinned binary is
+# resolved directly and no package-manager entry point (npm/npx or pnpm/pnpx)
+# has to exist. pnpx is `pnpm dlx`: it downloads instead of using the lockfile.
+lint-staged
