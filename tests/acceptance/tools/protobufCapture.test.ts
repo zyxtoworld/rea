@@ -559,6 +559,8 @@ captureTest(
 
 captureTest(
   "keeps malformed gRPC-web trailers partial through CLI and MCP without changing capture bytes",
+  // Two framings times seven trailer variants, each through CLI and MCP.
+  { timeout: 180_000 },
   async ({ cli, mcp }) => {
     const root = await createTestTempDirectory("rea-grpc-web-trailers-");
     for (const framing of ["grpc-web", "grpc-web-text"] as const)
