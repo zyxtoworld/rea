@@ -1,0 +1,1358 @@
+﻿2026-10-20T14:29:32.9065402Z Current runner version: '2.338.0'
+2026-10-20T14:29:32.9082334Z ##[group]Runner Image Provisioner
+2026-10-20T14:29:32.9082951Z Hosted Compute Agent
+2026-10-20T14:29:32.9083317Z Version: 20261015.610
+2026-10-20T14:29:32.9083702Z Commit: 267fdb4e8bbec4ab5ea31367f3a00d5c480c7656
+2026-10-20T14:29:32.9084188Z Build Date: 2026-10-14T17:06:54Z
+2026-10-20T14:29:32.9084640Z Worker ID: {f915d606-dcc2-4310-8914-32cdb52da4c6}
+2026-10-20T14:29:32.9085085Z Region: centralus
+2026-10-20T14:29:32.9085445Z Cloud: Azure
+2026-10-20T14:29:32.9085789Z ##[endgroup]
+2026-10-20T14:29:32.9086630Z ##[group]Operating System
+2026-10-20T14:29:32.9087064Z Ubuntu
+2026-10-20T14:29:32.9087419Z 24.04.5
+2026-10-20T14:29:32.9087762Z LTS
+2026-10-20T14:29:32.9088101Z ##[endgroup]
+2026-10-20T14:29:32.9088474Z ##[group]Runner Image
+2026-10-20T14:29:32.9088869Z Image: ubuntu-24.04
+2026-10-20T14:29:32.9089207Z Version: 20261018.339.1
+2026-10-20T14:29:32.9090015Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261018.339/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-20T14:29:32.9090950Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261018.339
+2026-10-20T14:29:32.9091551Z ##[endgroup]
+2026-10-20T14:29:32.9092389Z ##[group]GITHUB_TOKEN Permissions
+2026-10-20T14:29:32.9093811Z Contents: read
+2026-10-20T14:29:32.9094161Z Metadata: read
+2026-10-20T14:29:32.9094639Z ##[endgroup]
+2026-10-20T14:29:32.9095952Z Secret source: Actions
+2026-10-20T14:29:32.9096552Z Cache mode: write
+2026-10-20T14:29:32.9097180Z Prepare workflow directory
+2026-10-20T14:29:32.9343661Z Prepare all required actions
+2026-10-20T14:29:32.9385221Z Getting action download info
+2026-10-20T14:29:33.1924156Z Download action repository 'actions/checkout@11d5960a326750d5838078e36cf38b85af677262' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-10-20T14:29:33.3026727Z Download action repository 'actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2026-10-20T14:29:33.4158913Z Download action repository 'actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093' (SHA:d3f86a106a0bac45b974a628896c90dbdf5c8093)
+2026-10-20T14:29:33.8491618Z Download action repository 'actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-10-20T14:29:34.0324633Z Complete job name: Test shard (2/5)
+2026-10-20T14:29:34.0815875Z ##[group]Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+2026-10-20T14:29:34.0816436Z with:
+2026-10-20T14:29:34.0816701Z   repository: zyxtoworld/rea
+2026-10-20T14:29:34.0818826Z   token: ***
+2026-10-20T14:29:34.0819088Z   ssh-strict: true
+2026-10-20T14:29:34.0819350Z   ssh-user: git
+2026-10-20T14:29:34.0819622Z   persist-credentials: true
+2026-10-20T14:29:34.0819914Z   clean: true
+2026-10-20T14:29:34.0820187Z   sparse-checkout-cone-mode: true
+2026-10-20T14:29:34.0820501Z   fetch-depth: 1
+2026-10-20T14:29:34.0820767Z   fetch-tags: false
+2026-10-20T14:29:34.0821037Z   show-progress: true
+2026-10-20T14:29:34.0821339Z   lfs: false
+2026-10-20T14:29:34.0821600Z   submodules: false
+2026-10-20T14:29:34.0821992Z   set-safe-directory: true
+2026-10-20T14:29:34.0822301Z   allow-unsafe-pr-checkout: false
+2026-10-20T14:29:34.0822683Z env:
+2026-10-20T14:29:34.0822917Z   HUSKY: 0
+2026-10-20T14:29:34.0823162Z ##[endgroup]
+2026-10-20T14:29:34.1489749Z Syncing repository: zyxtoworld/rea
+2026-10-20T14:29:34.1491204Z ##[group]Getting Git version info
+2026-10-20T14:29:34.1491815Z Working directory is '/home/runner/work/rea/rea'
+2026-10-20T14:29:34.1492970Z [command]/usr/bin/git version
+2026-10-20T14:29:34.1554077Z git version 2.55.0
+2026-10-20T14:29:34.1566447Z ##[endgroup]
+2026-10-20T14:29:34.1575971Z Temporarily overriding HOME='/home/runner/work/_temp/7ea0c8ed-3978-4f33-91e5-4a169f6fcccd' before making global git config changes
+2026-10-20T14:29:34.1577447Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-20T14:29:34.1579226Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/rea/rea
+2026-10-20T14:29:34.1629454Z Deleting the contents of '/home/runner/work/rea/rea'
+2026-10-20T14:29:34.1634195Z ##[group]Initializing the repository
+2026-10-20T14:29:34.1637099Z [command]/usr/bin/git init /home/runner/work/rea/rea
+2026-10-20T14:29:34.1740242Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-20T14:29:34.1741284Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-20T14:29:34.1742338Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-20T14:29:34.1743063Z hint: call:
+2026-10-20T14:29:34.1743448Z hint:
+2026-10-20T14:29:34.1743952Z hint: 	git config --global init.defaultBranch <name>
+2026-10-20T14:29:34.1744569Z hint:
+2026-10-20T14:29:34.1745111Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-20T14:29:34.1745721Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-20T14:29:34.1746192Z hint:
+2026-10-20T14:29:34.1746609Z hint: 	git branch -m <name>
+2026-10-20T14:29:34.1747097Z hint:
+2026-10-20T14:29:34.1747698Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-20T14:29:34.1748462Z Initialized empty Git repository in /home/runner/work/rea/rea/.git/
+2026-10-20T14:29:34.1754543Z [command]/usr/bin/git remote add origin https://github.com/zyxtoworld/rea
+2026-10-20T14:29:34.1802993Z ##[endgroup]
+2026-10-20T14:29:34.1879985Z ##[group]Disabling automatic garbage collection
+2026-10-20T14:29:34.1885745Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-20T14:29:34.1894173Z ##[endgroup]
+2026-10-20T14:29:34.1894917Z ##[group]Setting up auth
+2026-10-20T14:29:34.1895623Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-20T14:29:34.1897897Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-20T14:29:34.2217528Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-20T14:29:34.2254715Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-20T14:29:34.2443168Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-20T14:29:34.2478425Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-20T14:29:34.2667907Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-20T14:29:34.2709549Z ##[endgroup]
+2026-10-20T14:29:34.2710266Z ##[group]Fetching the repository
+2026-10-20T14:29:34.2716019Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +0fdbcb8d08b7ad3aa60091fddd41fd85d8ba36e8:refs/remotes/origin/main
+2026-10-20T14:29:40.2253169Z From https://github.com/zyxtoworld/rea
+2026-10-20T14:29:40.2253805Z  * [new ref]         0fdbcb8d08b7ad3aa60091fddd41fd85d8ba36e8 -> origin/main
+2026-10-20T14:29:40.2263095Z ##[endgroup]
+2026-10-20T14:29:40.2263744Z ##[group]Determining the checkout info
+2026-10-20T14:29:40.2264118Z ##[endgroup]
+2026-10-20T14:29:40.2264429Z [command]/usr/bin/git sparse-checkout disable
+2026-10-20T14:29:40.2319769Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-20T14:29:40.2354769Z ##[group]Checking out the ref
+2026-10-20T14:29:40.2357723Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-10-20T14:29:40.5088108Z Switched to a new branch 'main'
+2026-10-20T14:29:40.5090939Z branch 'main' set up to track 'origin/main'.
+2026-10-20T14:29:40.5106185Z ##[endgroup]
+2026-10-20T14:29:40.5154321Z [command]/usr/bin/git log -1 --format=%H
+2026-10-20T14:29:40.5184752Z 0fdbcb8d08b7ad3aa60091fddd41fd85d8ba36e8
+2026-10-20T14:29:40.5386485Z ##[group]Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+2026-10-20T14:29:40.5386774Z with:
+2026-10-20T14:29:40.5386930Z   node-version-file: .nvmrc
+2026-10-20T14:29:40.5387104Z   always-auth: false
+2026-10-20T14:29:40.5387263Z   check-latest: false
+2026-10-20T14:29:40.5388623Z   token: ***
+2026-10-20T14:29:40.5388770Z env:
+2026-10-20T14:29:40.5388907Z   HUSKY: 0
+2026-10-20T14:29:40.5389048Z ##[endgroup]
+2026-10-20T14:29:40.6287920Z Node version file is not JSON file
+2026-10-20T14:29:40.6288396Z Resolved .nvmrc as 24.18.0
+2026-10-20T14:29:40.6299588Z Attempting to download 24.18.0...
+2026-10-20T14:29:40.6369842Z (node:2114) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-20T14:29:41.5353946Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-20T14:29:41.5375141Z Acquiring 24.18.0 - x64 from https://github.com/actions/node-versions/releases/download/24.18.0-28070977815/node-24.18.0-linux-x64.tar.gz
+2026-10-20T14:29:42.0252976Z Extracting ...
+2026-10-20T14:29:42.0350155Z [command]/usr/bin/tar xz --strip 1 --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/d5802547-5b00-41b7-b674-fd12e1c8b628 -f /home/runner/work/_temp/35c09b5a-3d32-4ced-8727-8685521d9c34
+2026-10-20T14:29:42.9441005Z Adding to the cache ...
+2026-10-20T14:29:44.4716195Z ##[group]Environment details
+2026-10-20T14:29:44.6389149Z node: v24.18.0
+2026-10-20T14:29:44.6389405Z npm: 11.16.0
+2026-10-20T14:29:44.6389567Z yarn: 1.22.22
+2026-10-20T14:29:44.6390157Z ##[endgroup]
+2026-10-20T14:29:44.6618984Z Prepare all required actions
+2026-10-20T14:29:44.6619373Z Getting action download info
+2026-10-20T14:29:44.7640254Z Download action repository 'actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830' (SHA:0057852bfaa89a56745cba8c7296529d2fc39830)
+2026-10-20T14:29:44.9746616Z ##[group]Run ./.github/actions/npm-cache
+2026-10-20T14:29:44.9746784Z env:
+2026-10-20T14:29:44.9746891Z   HUSKY: 0
+2026-10-20T14:29:44.9747018Z ##[endgroup]
+2026-10-20T14:29:45.0204225Z ##[start-action display=Run cache_path="$(npm config get cache)";id=npm-cache.context]
+2026-10-20T14:29:45.0234962Z ##[group]Run cache_path="$(npm config get cache)"
+2026-10-20T14:29:45.0235223Z [36;1mcache_path="$(npm config get cache)"[0m
+2026-10-20T14:29:45.0235428Z [36;1mruntime_arch="$(node -p 'process.arch')"[0m
+2026-10-20T14:29:45.0235611Z [36;1mcan_save=false[0m
+2026-10-20T14:29:45.0236097Z [36;1mif [[ -n "${DEFAULT_BRANCH}" && "${GITHUB_REF}" == "refs/heads/${DEFAULT_BRANCH}" && ( "${GITHUB_EVENT_NAME}" == "push" || "${GITHUB_EVENT_NAME}" == "schedule" || "${GITHUB_EVENT_NAME}" == "workflow_dispatch" ) ]]; then[0m
+2026-10-20T14:29:45.0236547Z [36;1m  can_save=true[0m
+2026-10-20T14:29:45.0236675Z [36;1mfi[0m
+2026-10-20T14:29:45.0236867Z [36;1mcache_key="npm-download-${RUNNER_OS}-${runtime_arch}-${LOCKFILES_HASH}"[0m
+2026-10-20T14:29:45.0237087Z [36;1m{[0m
+2026-10-20T14:29:45.0237216Z [36;1m  printf 'can-save=%s\n' "${can_save}"[0m
+2026-10-20T14:29:45.0237408Z [36;1m  printf 'path=%s\n' "${cache_path}"[0m
+2026-10-20T14:29:45.0237578Z [36;1m  printf 'key=%s\n' "${cache_key}"[0m
+2026-10-20T14:29:45.0237738Z [36;1m} >> "${GITHUB_OUTPUT}"[0m
+2026-10-20T14:29:45.0386358Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-20T14:29:45.0386556Z env:
+2026-10-20T14:29:45.0386664Z   HUSKY: 0
+2026-10-20T14:29:45.0386776Z   DEFAULT_BRANCH: main
+2026-10-20T14:29:45.0386991Z   LOCKFILES_HASH: f5071eddb3324cda5181d21ca9a73c5081266703f804c96485c6828c63ee576b
+2026-10-20T14:29:45.0387221Z ##[endgroup]
+2026-10-20T14:29:45.1354957Z ##[end-action id=npm-cache.context;outcome=success;conclusion=success;duration_ms=114]
+2026-10-20T14:29:45.1358380Z ##[start-action display=Restore and save npm package downloads;id=npm-cache.__actions_cache]
+2026-10-20T14:29:45.1415757Z ##[group]Run actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+2026-10-20T14:29:45.1415958Z with:
+2026-10-20T14:29:45.1416077Z   path: /home/runner/.npm
+2026-10-20T14:29:45.1416466Z   key: npm-download-Linux-x64-f5071eddb3324cda5181d21ca9a73c5081266703f804c96485c6828c63ee576b
+2026-10-20T14:29:45.1416742Z   enableCrossOsArchive: false
+2026-10-20T14:29:45.1416887Z   fail-on-cache-miss: false
+2026-10-20T14:29:45.1417022Z   lookup-only: false
+2026-10-20T14:29:45.1417142Z   save-always: false
+2026-10-20T14:29:45.1417260Z env:
+2026-10-20T14:29:45.1417362Z   HUSKY: 0
+2026-10-20T14:29:45.1417468Z ##[endgroup]
+2026-10-20T14:29:45.2129507Z (node:2181) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-20T14:29:45.2130035Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-20T14:29:45.3680856Z Cache hit for: npm-download-Linux-x64-f5071eddb3324cda5181d21ca9a73c5081266703f804c96485c6828c63ee576b
+2026-10-20T14:29:45.3745991Z (node:2181) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-20T14:29:46.5144998Z Received 130023424 of 188467926 (69.0%), 123.9 MBs/sec
+2026-10-20T14:29:46.9026224Z Received 188467926 of 188467926 (100.0%), 129.4 MBs/sec
+2026-10-20T14:29:46.9027466Z Cache Size: ~180 MB (188467926 B)
+2026-10-20T14:29:46.9058921Z [command]/usr/bin/tar -xf /home/runner/work/_temp/ee78f3f3-3f3b-4bbb-a7eb-984922319825/cache.tzst -P -C /home/runner/work/rea/rea --use-compress-program unzstd
+2026-10-20T14:29:47.1985536Z Cache restored successfully
+2026-10-20T14:29:47.2117090Z Cache restored from key: npm-download-Linux-x64-f5071eddb3324cda5181d21ca9a73c5081266703f804c96485c6828c63ee576b
+2026-10-20T14:29:47.2350131Z ##[end-action id=npm-cache.__actions_cache;outcome=success;conclusion=success;duration_ms=2099]
+2026-10-20T14:29:47.2352402Z ##[start-action display=Restore npm package downloads without saving;id=npm-cache.__actions_cache_2]
+2026-10-20T14:29:47.2360670Z ##[end-action id=npm-cache.__actions_cache_2;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-20T14:29:47.2403056Z ##[group]Run npm ci
+2026-10-20T14:29:47.2403223Z [36;1mnpm ci[0m
+2026-10-20T14:29:47.2446923Z shell: /usr/bin/bash -e {0}
+2026-10-20T14:29:47.2447073Z env:
+2026-10-20T14:29:47.2447189Z   HUSKY: 0
+2026-10-20T14:29:47.2447303Z ##[endgroup]
+2026-10-20T14:29:49.6080008Z npm warn deprecated prebuild-install@7.1.3: No longer maintained. Please contact the author of the relevant native addon; alternatives are available.
+2026-10-20T14:29:52.2136640Z 
+2026-10-20T14:29:52.2137344Z > rea-agents@6.7.0 prepare
+2026-10-20T14:29:52.2137608Z > node scripts/prepare.mjs
+2026-10-20T14:29:52.2137718Z 
+2026-10-20T14:29:52.3413086Z 
+2026-10-20T14:29:52.3413910Z added 549 packages, and audited 550 packages in 5s
+2026-10-20T14:29:52.3414124Z 
+2026-10-20T14:29:52.3414235Z 151 packages are looking for funding
+2026-10-20T14:29:52.3414544Z   run `npm fund` for details
+2026-10-20T14:29:52.3429436Z 
+2026-10-20T14:29:52.3429677Z found 0 vulnerabilities
+2026-10-20T14:29:52.3431612Z npm warn allow-scripts 2 packages have install scripts not yet covered by allowScripts:
+2026-10-20T14:29:52.3432299Z npm warn allow-scripts   esbuild@0.28.2 (postinstall: node install.js)
+2026-10-20T14:29:52.3432817Z npm warn allow-scripts   esbuild@0.25.12 (postinstall: node install.js)
+2026-10-20T14:29:52.3433159Z npm warn allow-scripts
+2026-10-20T14:29:52.3433543Z npm warn allow-scripts Run `npm approve-scripts --allow-scripts-pending` to review, or `npm approve-scripts <pkg>` to allow.
+2026-10-20T14:29:52.4283974Z ##[group]Run actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+2026-10-20T14:29:52.4284221Z with:
+2026-10-20T14:29:52.4284344Z   name: rea-test-runtime
+2026-10-20T14:29:52.4284474Z   path: .
+2026-10-20T14:29:52.4284589Z   merge-multiple: false
+2026-10-20T14:29:52.4284724Z   repository: zyxtoworld/rea
+2026-10-20T14:29:52.4284865Z   run-id: 39439504364
+2026-10-20T14:29:52.4284986Z env:
+2026-10-20T14:29:52.4285089Z   HUSKY: 0
+2026-10-20T14:29:52.4285341Z ##[endgroup]
+2026-10-20T14:29:52.5294114Z Downloading single artifact
+2026-10-20T14:29:52.5402824Z (node:2270) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-20T14:29:52.5403306Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-20T14:29:52.7084203Z Preparing to download the following artifacts:
+2026-10-20T14:29:52.7084847Z - rea-test-runtime (ID: 12273069117, Size: 7904466, Expected Digest: sha256:dce38b2bbcda2c8b435f16a522d4d691ad2514ae42d725e8e44dd3817c45a3ff)
+2026-10-20T14:29:52.8864386Z Redirecting to blob download url: https://productionresultssa2.blob.core.windows.net/actions-results/b67d0953-c2ea-843b-bebe-9d58b09c83a3/workflow-job-run-3ae73aac-5a98-540f-8dfe-8077facb5b62/artifacts/379eccaeb4590a3ec0f6dff8db8507da20b6d8a26b6d3bd62e6a912c5858fd42.zip
+2026-10-20T14:29:52.8865384Z Starting download of artifact to: /home/runner/work/rea/rea
+2026-10-20T14:29:53.0824776Z (node:2270) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+2026-10-20T14:29:53.5986616Z SHA256 digest of downloaded artifact is dce38b2bbcda2c8b435f16a522d4d691ad2514ae42d725e8e44dd3817c45a3ff
+2026-10-20T14:29:53.5987158Z Artifact download completed successfully.
+2026-10-20T14:29:53.5987375Z Total of 1 artifact(s) downloaded
+2026-10-20T14:29:53.5991709Z Download artifact has finished successfully
+2026-10-20T14:29:53.6225430Z ##[group]Run npm run test:built -- --reporter=default --reporter=blob --shard=2/5
+2026-10-20T14:29:53.6225772Z [36;1mnpm run test:built -- --reporter=default --reporter=blob --shard=2/5[0m
+2026-10-20T14:29:53.6267992Z shell: /usr/bin/bash -e {0}
+2026-10-20T14:29:53.6268144Z env:
+2026-10-20T14:29:53.6268256Z   HUSKY: 0
+2026-10-20T14:29:53.6268379Z   VITEST_BLOB_LABEL: built
+2026-10-20T14:29:53.6268568Z   REA_CI_TEST_HISTORY: .cache/ci-test-history/test-results.json
+2026-10-20T14:29:53.6268792Z ##[endgroup]
+2026-10-20T14:29:53.6986605Z 
+2026-10-20T14:29:53.6987271Z > rea-agents@6.7.0 test:built
+2026-10-20T14:29:53.6987900Z > node scripts/ci/test-group.mjs built --reporter=default --reporter=blob --shard=2/5
+2026-10-20T14:29:53.6988237Z 
+2026-10-20T14:29:53.9642862Z 
+2026-10-20T14:29:53.9645212Z [1m[30m[46m RUN [49m[39m[22m [36mv5.0.3 [39m[90m/home/runner/work/rea/rea[39m
+2026-10-20T14:29:53.9645559Z 
+2026-10-20T14:30:39.9382878Z  [32m✓[39m [30m[43m acceptance [49m[39m tests/acceptance/process/processFinalization.test.ts [2m([22m[2m12 tests[22m[2m)[22m[33m 43528[2mms[22m[39m
+2026-10-20T14:30:39.9384147Z    [33m[2m✓[22m[39m captures a cooperative finalizer through the compiled CLI workflow[33m 2852[2mms[22m[39m
+2026-10-20T14:30:39.9386525Z    [33m[2m✓[22m[39m captures a cooperative finalizer through the compiled MCP workflow[33m 4492[2mms[22m[39m
+2026-10-20T14:30:39.9387408Z    [33m[2m✓[22m[39m records the non-zero exit code of a finalizer through the compiled CLI workflow[33m 3143[2mms[22m[39m
+2026-10-20T14:30:39.9388330Z    [33m[2m✓[22m[39m records the non-zero exit code of a finalizer through the compiled MCP workflow[33m 4089[2mms[22m[39m
+2026-10-20T14:30:39.9389234Z    [33m[2m✓[22m[39m forces SIGKILL after the finalization interval through the compiled CLI workflow[33m 4807[2mms[22m[39m
+2026-10-20T14:30:39.9390375Z    [33m[2m✓[22m[39m forces SIGKILL after the finalization interval through the compiled MCP workflow[33m 5444[2mms[22m[39m
+2026-10-20T14:30:39.9395696Z    [33m[2m✓[22m[39m retains finalization facts with omitted digests and cleans the owned descendant[33m 4165[2mms[22m[39m
+2026-10-20T14:30:39.9396684Z    [33m[2m✓[22m[39m keeps the default identity through the compiled CLI workflow without finalization_ms[33m 2006[2mms[22m[39m
+2026-10-20T14:30:39.9397659Z    [33m[2m✓[22m[39m keeps the default identity through the compiled MCP workflow without finalization_ms[33m 2772[2mms[22m[39m
+2026-10-20T14:30:39.9399027Z    [33m[2m✓[22m[39m rejects an unrepresentable combined capture budget through the compiled CLI workflow[33m 1009[2mms[22m[39m
+2026-10-20T14:30:39.9400031Z    [33m[2m✓[22m[39m rejects an unrepresentable combined capture budget through the compiled MCP workflow[33m 1842[2mms[22m[39m
+2026-10-20T14:30:39.9401042Z    [33m[2m✓[22m[39m cancels the compiled CLI and MCP workflows during finalization without waiting for grace[33m 6905[2mms[22m[39m
+2026-10-20T14:30:43.8089321Z  [32m✓[39m [30m[43m acceptance [49m[39m tests/acceptance/setup/hermesClientSetup.test.ts [2m([22m[2m15 tests[22m[2m)[22m[33m 49430[2mms[22m[39m
+2026-10-20T14:30:43.8090551Z    [33m[2m✓[22m[39m Hermes setup preserves string environment values under YAML 1.1 with quoted keys[33m 6348[2mms[22m[39m
+2026-10-20T14:30:43.8091520Z    [33m[2m✓[22m[39m Hermes setup preserves string environment values under YAML 1.2 with quoted keys[33m 3895[2mms[22m[39m
+2026-10-20T14:30:43.8092669Z    [33m[2m✓[22m[39m Hermes setup preserves string environment values under YAML 1.2 with plain keys[33m 3743[2mms[22m[39m
+2026-10-20T14:30:43.8093612Z    [33m[2m✓[22m[39m Hermes setup, doctor and uninstall use the expanded profile and its personal skill[33m 5712[2mms[22m[39m
+2026-10-20T14:30:43.8094555Z    [33m[2m✓[22m[39m Hermes default sticky-profile selection preserves the root configuration[33m 2203[2mms[22m[39m
+2026-10-20T14:30:43.8095834Z    [33m[2m✓[22m[39m Hermes custom sticky-profile selection preserves the root configuration[33m 5448[2mms[22m[39m
+2026-10-20T14:30:43.8096727Z    [33m[2m✓[22m[39m Hermes suffix sticky-profile selection preserves the root configuration[33m 2599[2mms[22m[39m
+2026-10-20T14:30:43.8097435Z    [33m[2m✓[22m[39m Hermes explicit sticky-profile selection preserves the root configuration[33m 2455[2mms[22m[39m
+2026-10-20T14:30:43.8097960Z    [33m[2m✓[22m[39m Hermes rejects unusable sticky profile missing without writing a fallback home[33m 3714[2mms[22m[39m
+2026-10-20T14:30:43.8098494Z    [33m[2m✓[22m[39m Hermes rejects unusable sticky profile deleted without writing a fallback home[33m 1303[2mms[22m[39m
+2026-10-20T14:30:43.8099357Z    [33m[2m✓[22m[39m Hermes rejects unusable sticky profile ghost without writing a fallback home[33m 1388[2mms[22m[39m
+2026-10-20T14:30:43.8100298Z    [33m[2m✓[22m[39m Hermes rejects unusable sticky profile ../escape without writing a fallback home[33m 1324[2mms[22m[39m
+2026-10-20T14:30:43.8101311Z    [33m[2m✓[22m[39m Hermes rejects unusable sticky profile root without writing a fallback home[33m 1118[2mms[22m[39m
+2026-10-20T14:30:43.8102429Z    [33m[2m✓[22m[39m Hermes named-user home aligns setup, doctor, skill and uninstall despite an isolated HOME[33m 5688[2mms[22m[39m
+2026-10-20T14:30:43.8103246Z    [33m[2m✓[22m[39m Hermes unresolved named home refuses setup before writes and remains diagnostic in doctor[33m 2490[2mms[22m[39m
+2026-10-20T14:31:08.4998230Z  [32m✓[39m [30m[43m acceptance [49m[39m tests/acceptance/applications/javascriptCapturedParameters.test.ts [2m([22m[2m7 tests[22m[2m)[22m[33m 24299[2mms[22m[39m
+2026-10-20T14:31:08.4999297Z    [33m[2m✓[22m[39m preserves incoming values and proven assignments through CLI and stdio MCP[33m 3548[2mms[22m[39m
+2026-10-20T14:31:08.5000207Z    [33m[2m✓[22m[39m distinguishes delayed instance values from immediate static fields and computed keys[33m 3307[2mms[22m[39m
+2026-10-20T14:31:08.5001061Z    [33m[2m✓[22m[39m retains possible aliases through skipped optional-chain and logical assignments[33m 3612[2mms[22m[39m
+2026-10-20T14:31:08.5002042Z    [33m[2m✓[22m[39m orders object and array reads while keeping unsupported expression order unknown[33m 3213[2mms[22m[39m
+2026-10-20T14:31:08.5002922Z    [33m[2m✓[22m[39m shares captured dependency chains while separating values at escape capture points[33m 3540[2mms[22m[39m
+2026-10-20T14:31:08.5003550Z    [33m[2m✓[22m[39m keeps defaults and do-while tests conditional while preserving definite evaluation[33m 3313[2mms[22m[39m
+2026-10-20T14:31:08.5004402Z    [33m[2m✓[22m[39m keeps a captured parameter unknown when comparing export shapes through CLI and MCP[33m 3760[2mms[22m[39m
+2026-10-20T14:31:27.9602288Z  [32m✓[39m [30m[43m acceptance [49m[39m tests/acceptance/applications/javascriptBuiltinDefaultsCli.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 19195[2mms[22m[39m
+2026-10-20T14:31:27.9605824Z    [33m[2m✓[22m[39m preserves earlier and sibling effects without inventing replaced cached-module or process effects[33m 5561[2mms[22m[39m
+2026-10-20T14:31:27.9606687Z    [33m[2m✓[22m[39m excludes monkey-patched CommonJS effects from CLI and MCP evidence[33m 4191[2mms[22m[39m
+2026-10-20T14:31:27.9607518Z    [33m[2m✓[22m[39m retains CommonJS builtin effects and handle links through CLI and MCP[33m 4007[2mms[22m[39m
+2026-10-20T14:31:27.9608362Z    [33m[2m✓[22m[39m retains filesystem effects in the public CLI with import fs from 'node:fs';[33m 1494[2mms[22m[39m
+2026-10-20T14:31:27.9609263Z    [33m[2m✓[22m[39m retains filesystem effects in the public CLI with import {default as fs} from 'node:fs';[33m 1436[2mms[22m[39m
+2026-10-20T14:31:27.9610172Z    [33m[2m✓[22m[39m keeps only direct logical defaults and actual argv elements in the public CLI graph[33m 2504[2mms[22m[39m
+2026-10-20T14:31:34.9769288Z  [32m✓[39m [30m[43m acceptance [49m[39m tests/acceptance/goBinaryCli.test.ts [2m([22m[2m33 tests[22m[2m)[22m[33m 50097[2mms[22m[39m
+2026-10-20T14:31:34.9770942Z    [33m[2m✓[22m[39m bounds overlapping ELF scans through CLI and keeps MCP responsive[33m 3103[2mms[22m[39m
+2026-10-20T14:31:34.9772158Z    [33m[2m✓[22m[39m retains later-load sectionless ELF evidence through public CLI and stdio MCP[33m 3940[2mms[22m[39m
+2026-10-20T14:31:34.9773398Z    [33m[2m✓[22m[39m preserves PE 32-bit inline build info at zero VirtualSize through CLI and stdio MCP[33m 3576[2mms[22m[39m
+2026-10-20T14:31:34.9774516Z    [33m[2m✓[22m[39m preserves PE 32-bit pointer build info at zero VirtualSize through CLI and stdio MCP[33m 3828[2mms[22m[39m
+2026-10-20T14:31:34.9775963Z    [33m[2m✓[22m[39m preserves PE 64-bit inline build info at zero VirtualSize through CLI and stdio MCP[33m 3770[2mms[22m[39m
+2026-10-20T14:31:34.9776977Z    [33m[2m✓[22m[39m preserves PE 64-bit pointer build info at zero VirtualSize through CLI and stdio MCP[33m 3614[2mms[22m[39m
+2026-10-20T14:31:34.9777880Z    [33m[2m✓[22m[39m rejects misaligned 64-bit Mach-O through Go CLI and stdio MCP[33m 4476[2mms[22m[39m
+2026-10-20T14:31:34.9778735Z    [33m[2m✓[22m[39m reports native ELOOP path failure as invalid selected-path input through the public Go CLI[33m 936[2mms[22m[39m
+2026-10-20T14:31:34.9779734Z    [33m[2m✓[22m[39m reports native ENAMETOOLONG path failure as invalid selected-path input through the public Go CLI[33m 997[2mms[22m[39m
+2026-10-20T14:31:34.9780629Z    [33m[2m✓[22m[39m preserves invalid embedded Go text bytes through the public CLI[33m 907[2mms[22m[39m
+2026-10-20T14:31:34.9781432Z    [33m[2m✓[22m[39m reports unsupported_target for dos-short through the public Go CLI[33m 933[2mms[22m[39m
+2026-10-20T14:31:34.9783105Z    [33m[2m✓[22m[39m reports unsupported_target for dos through the public Go CLI[33m 860[2mms[22m[39m
+2026-10-20T14:31:34.9783855Z    [33m[2m✓[22m[39m reports unsupported_target for ne through the public Go CLI[33m 1075[2mms[22m[39m
+2026-10-20T14:31:34.9784573Z    [33m[2m✓[22m[39m reports unsupported_target for le through the public Go CLI[33m 991[2mms[22m[39m
+2026-10-20T14:31:34.9785303Z    [33m[2m✓[22m[39m reports unsupported_target for lx through the public Go CLI[33m 933[2mms[22m[39m
+2026-10-20T14:31:34.9786050Z    [33m[2m✓[22m[39m reports invalid_request for damaged-pe through the public Go CLI[33m 905[2mms[22m[39m
+2026-10-20T14:31:34.9786800Z    [33m[2m✓[22m[39m reports invalid_request for high-bit-ne through the public Go CLI[33m 895[2mms[22m[39m
+2026-10-20T14:31:34.9787891Z    [33m[2m✓[22m[39m reports invalid_request for high-bit-le through the public Go CLI[33m 911[2mms[22m[39m
+2026-10-20T14:31:34.9788823Z    [33m[2m✓[22m[39m reports invalid_request for high-bit-lx through the public Go CLI[33m 925[2mms[22m[39m
+2026-10-20T14:31:34.9789646Z    [33m[2m✓[22m[39m reports invalid_request for high-bit-pe through the public Go CLI[33m 855[2mms[22m[39m
+2026-10-20T14:31:34.9790624Z    [33m[2m✓[22m[39m reports invalid_request for absent-directories through the public Go CLI[33m 895[2mms[22m[39m
+2026-10-20T14:31:34.9791579Z    [33m[2m✓[22m[39m reports invalid_request for optional-header-0-bytes through the public Go CLI[33m 847[2mms[22m[39m
+2026-10-20T14:31:34.9792728Z    [33m[2m✓[22m[39m reports invalid_request for optional-header-1-bytes through the public Go CLI[33m 859[2mms[22m[39m
+2026-10-20T14:31:34.9793661Z    [33m[2m✓[22m[39m reports a readable unsupported carrier through the public Go CLI[33m 882[2mms[22m[39m
+2026-10-20T14:31:34.9794532Z    [33m[2m✓[22m[39m inspects authored elf inline build metadata through the compiled CLI[33m 953[2mms[22m[39m
+2026-10-20T14:31:34.9795484Z    [33m[2m✓[22m[39m inspects authored elf pointer build metadata through the compiled CLI[33m 908[2mms[22m[39m
+2026-10-20T14:31:34.9796595Z    [33m[2m✓[22m[39m inspects authored pe inline build metadata through the compiled CLI[33m 900[2mms[22m[39m
+2026-10-20T14:31:34.9797535Z    [33m[2m✓[22m[39m inspects authored pe pointer build metadata through the compiled CLI[33m 857[2mms[22m[39m
+2026-10-20T14:31:34.9798454Z    [33m[2m✓[22m[39m inspects authored macho inline build metadata through the compiled CLI[33m 956[2mms[22m[39m
+2026-10-20T14:31:34.9799423Z    [33m[2m✓[22m[39m inspects authored macho pointer build metadata through the compiled CLI[33m 846[2mms[22m[39m
+2026-10-20T14:31:34.9800271Z    [33m[2m✓[22m[39m preserves MIPS identity in Go CLI Evidence[33m 942[2mms[22m[39m
+2026-10-20T14:31:34.9801261Z    [33m[2m✓[22m[39m reports missing build information as unknown and preserves unsupported carriers distinctly[33m 893[2mms[22m[39m
+2026-10-20T14:31:34.9802469Z    [33m[2m✓[22m[39m returns unknown dependency coverage for parse-complete GOPATH metadata in CLI Evidence[33m 924[2mms[22m[39m
+2026-10-20T14:31:48.1391597Z  [32m✓[39m [30m[43m acceptance [49m[39m tests/acceptance/applications/sourceMapPrefixCli.test.ts [2m([22m[2m8 tests[22m[2m)[22m[33m 19533[2mms[22m[39m
+2026-10-20T14:31:48.1393047Z    [33m[2m✓[22m[39m keeps missing source-map mappings partial while retaining explicit declarations through CLI[33m 3073[2mms[22m[39m
+2026-10-20T14:31:48.1394135Z    [33m[2m✓[22m[39m keeps missing source-map mappings partial while retaining explicit declarations through stdio MCP[33m 5996[2mms[22m[39m
+2026-10-20T14:31:48.1395134Z    [33m[2m✓[22m[39m recovers retained prefixed source-map originals and byte identity through CLI[33m 1357[2mms[22m[39m
+2026-10-20T14:31:48.1396088Z    [33m[2m✓[22m[39m recovers retained prefixed source-map originals and byte identity through stdio MCP[33m 2288[2mms[22m[39m
+2026-10-20T14:31:48.1396988Z    [33m[2m✓[22m[39m retains nullable source-map declarations and aligned content through CLI[33m 1544[2mms[22m[39m
+2026-10-20T14:31:48.1397897Z    [33m[2m✓[22m[39m retains nullable source-map declarations and aligned content through stdio MCP[33m 2373[2mms[22m[39m
+2026-10-20T14:31:48.1398786Z    [33m[2m✓[22m[39m rejects non-string source-map names without inventing originals through CLI[33m 962[2mms[22m[39m
+2026-10-20T14:31:48.1399708Z    [33m[2m✓[22m[39m rejects non-string source-map names without inventing originals through stdio MCP[33m 1937[2mms[22m[39m
+2026-10-20T14:31:58.9544424Z  [32m✓[39m [30m[43m acceptance [49m[39m tests/acceptance/setup/selectedSkillSetup.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 23803[2mms[22m[39m
+2026-10-20T14:31:58.9545704Z    [33m[2m✓[22m[39m rejects a linked skill root during planning before configuring a client[33m 3887[2mms[22m[39m
+2026-10-20T14:31:58.9546525Z    [33m[2m✓[22m[39m rejects a linked skill references during planning before configuring a client[33m 3824[2mms[22m[39m
+2026-10-20T14:31:58.9547362Z    [33m[2m✓[22m[39m setup refuses a linked skill while allowing registration-only setup[33m 3786[2mms[22m[39m
+2026-10-20T14:31:58.9548176Z    [33m[2m✓[22m[39m uninstall reports retained references and preserves their ownership manifest[33m 1183[2mms[22m[39m
+2026-10-20T14:31:58.9549028Z    [33m[2m✓[22m[39m skill-only setup verifies its selected client copy on install, rerun and repair[33m 9784[2mms[22m[39m
+2026-10-20T14:31:58.9549823Z    [33m[2m✓[22m[39m setup keeps registration and skill readiness selections independent[33m 1337[2mms[22m[39m
+2026-10-20T14:32:05.0365306Z  [32m✓[39m [30m[43m acceptance [49m[39m tests/acceptance/flutterAnalysis.test.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 15776[2mms[22m[39m
+2026-10-20T14:32:05.0366920Z    [33m[2m✓[22m[39m CLI and stdio MCP retain Flutter identity, selected ABI and duplicate-member refusals[33m 7357[2mms[22m[39m
+2026-10-20T14:32:05.0368204Z    [33m[2m✓[22m[39m CLI and MCP retain unsupported snapshot kinds as partial evidence[33m 2715[2mms[22m[39m
+2026-10-20T14:32:05.0369673Z    [33m[2m✓[22m[39m CLI and MCP qualify conflicting load mappings and bounded ELF notes[33m 5702[2mms[22m[39m
+2026-10-20T14:32:16.1022534Z  [32m✓[39m [30m[43m acceptance [49m[39m tests/acceptance/applications/javascriptCommonJsDirectoryLookup.test.ts [2m([22m[2m4 tests[22m[2m)[22m[33m 10565[2mms[22m[39m
+2026-10-20T14:32:16.1023952Z    [33m[2m✓[22m[39m preserves CommonJS directory requests before path normalization through CLI[33m 2364[2mms[22m[39m
+2026-10-20T14:32:16.1025073Z    [33m[2m✓[22m[39m preserves CommonJS directory requests before path normalization through stdio MCP[33m 3449[2mms[22m[39m
+2026-10-20T14:32:16.1026047Z    [33m[2m✓[22m[39m preserves loader-specific node_modules ancestors through CLI[33m 1927[2mms[22m[39m
+2026-10-20T14:32:16.1033018Z    [33m[2m✓[22m[39m preserves loader-specific node_modules ancestors through stdio MCP[33m 2824[2mms[22m[39m
+2026-10-20T14:32:24.0029250Z  [32m✓[39m [30m[43m acceptance [49m[39m tests/acceptance/applications/applicationVersionRelocationCli.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 7688[2mms[22m[39m
+2026-10-20T14:32:24.0037363Z    [33m[2m✓[22m[39m retains exact factory bytes and relocation while exposing unresolved chunk alignment[33m 3932[2mms[22m[39m
+2026-10-20T14:32:24.0038580Z    [33m[2m✓[22m[39m preserves ambiguous imported factory identity through public version comparison[33m 3755[2mms[22m[39m
+2026-10-20T14:32:28.2802633Z  [32m✓[39m [30m[43m acceptance [49m[39m tests/acceptance/setup/geminiWorkspaceTrust.test.ts [2m([22m[2m5 tests[22m[2m)[22m[33m 29134[2mms[22m[39m
+2026-10-20T14:32:28.2803805Z    [33m[2m✓[22m[39m Gemini does not require workspace trust until workspace settings exist[33m 8868[2mms[22m[39m
+2026-10-20T14:32:28.2804695Z    [33m[2m✓[22m[39m Gemini setup and doctor ignore malformed settings in an unlisted workspace[33m 3904[2mms[22m[39m
+2026-10-20T14:32:28.2805632Z    [33m[2m✓[22m[39m Gemini setup and doctor ignore malformed settings in an explicitly untrusted workspace[33m 6156[2mms[22m[39m
+2026-10-20T14:32:28.2806668Z    [33m[2m✓[22m[39m Gemini setup and doctor ignore malformed settings in a restricted workspace with an explicit trust opt-in[33m 3831[2mms[22m[39m
+2026-10-20T14:32:28.2807662Z    [33m[2m✓[22m[39m Gemini still rejects malformed settings and exclusions in a trusted workspace[33m 6373[2mms[22m[39m
+2026-10-20T14:32:33.4040291Z  [32m✓[39m [30m[43m acceptance [49m[39m tests/acceptance/applications/interfaceBuilderPlistNumbers.test.ts [2m([22m[2m9 tests[22m[2m)[22m[33m 9206[2mms[22m[39m
+2026-10-20T14:32:33.4042752Z    [33m[2m✓[22m[39m preserves numeric meaning and graph identity for XML Interface Builder attributes[33m 1231[2mms[22m[39m
+2026-10-20T14:32:33.4043933Z    [33m[2m✓[22m[39m preserves numeric meaning and graph identity for binary Interface Builder attributes[33m 1057[2mms[22m[39m
+2026-10-20T14:32:33.4044783Z    [33m[2m✓[22m[39m preserves numeric meaning and graph identity for integer collision Interface Builder attributes[33m 981[2mms[22m[39m
+2026-10-20T14:32:33.4045847Z    [33m[2m✓[22m[39m preserves numeric meaning and graph identity for integer-real collision Interface Builder attributes[33m 959[2mms[22m[39m
+2026-10-20T14:32:33.4046931Z    [33m[2m✓[22m[39m preserves numeric meaning and graph identity for real Interface Builder attributes[33m 990[2mms[22m[39m
+2026-10-20T14:32:33.4047962Z    [33m[2m✓[22m[39m preserves numeric meaning and graph identity for CDATA real Interface Builder attributes[33m 970[2mms[22m[39m
+2026-10-20T14:32:33.4049038Z    [33m[2m✓[22m[39m preserves numeric meaning and graph identity for hexadecimal Interface Builder attributes[33m 900[2mms[22m[39m
+2026-10-20T14:32:33.4050101Z    [33m[2m✓[22m[39m preserves numeric meaning and graph identity for mixed XML Interface Builder attributes[33m 958[2mms[22m[39m
+2026-10-20T14:32:33.4054081Z    [33m[2m✓[22m[39m preserves numeric meaning and graph identity for segmented keys Interface Builder attributes[33m 1159[2mms[22m[39m
+2026-10-20T14:32:33.7106018Z  [32m✓[39m [30m[43m acceptance [49m[39m tests/acceptance/applications/javascriptEventPayload.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 4567[2mms[22m[39m
+2026-10-20T14:32:33.7109185Z    [33m[2m✓[22m[39m retains large event names and emitter-scoped listener ownership through CLI and stdio MCP[33m 4566[2mms[22m[39m
+2026-10-20T14:32:55.1672727Z  [32m✓[39m [30m[43m acceptance [49m[39m tests/acceptance/setup/launcherAliasesCli.test.ts [2m([22m[2m7 tests[22m[2m)[22m[33m 21570[2mms[22m[39m
+2026-10-20T14:32:55.1674464Z    [33m[2m✓[22m[39m recognizes setup through rea when doctor and uninstall use rea-agents[33m 5009[2mms[22m[39m
+2026-10-20T14:32:55.1675566Z    [33m[2m✓[22m[39m recognizes setup through rea-agents when doctor and uninstall use rea[33m 5290[2mms[22m[39m
+2026-10-20T14:32:55.1676643Z    [33m[2m✓[22m[39m retains dangling launcher identity as unknown for a direct registration[33m 2468[2mms[22m[39m
+2026-10-20T14:32:55.1677739Z    [33m[2m✓[22m[39m retains dangling launcher identity as unknown for a node registration[33m 2191[2mms[22m[39m
+2026-10-20T14:32:55.1678695Z    [33m[2m✓[22m[39m retains cycle launcher identity as unknown for a direct registration[33m 2140[2mms[22m[39m
+2026-10-20T14:32:55.1679654Z    [33m[2m✓[22m[39m retains cycle launcher identity as unknown for a node registration[33m 2154[2mms[22m[39m
+2026-10-20T14:32:55.1680712Z    [33m[2m✓[22m[39m uninstall preserves a different executable reached through symlink parent traversal[33m 2316[2mms[22m[39m
+2026-10-20T14:33:00.6199009Z  [32m✓[39m [30m[43m acceptance [49m[39m tests/acceptance/artifactZipCurrentDirectory.test.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 5259[2mms[22m[39m
+2026-10-20T14:33:00.6200034Z    [33m[2m✓[22m[39m classifies a ZIP local-header offset beyond EOF as malformed input[33m 1220[2mms[22m[39m
+2026-10-20T14:33:00.6200912Z    [33m[2m✓[22m[39m inspects and extracts ZIP members with repeated current-directory prefixes[33m 2055[2mms[22m[39m
+2026-10-20T14:33:00.6201684Z    [33m[2m✓[22m[39m treats a ZIP containing only root directory markers as empty[33m 1982[2mms[22m[39m
+2026-10-20T14:33:05.5676316Z  [32m✓[39m [30m[43m acceptance [49m[39m tests/acceptance/setup/clientConfigurationDiagnosticsCli.test.ts [2m([22m[2m14 tests[22m[2m)[22m[33m 31703[2mms[22m[39m
+2026-10-20T14:33:05.5677994Z    [33m[2m✓[22m[39m setup and uninstall explain cursor configuration malformed UTF-8[33m 2492[2mms[22m[39m
+2026-10-20T14:33:05.5681074Z    [33m[2m✓[22m[39m setup and uninstall explain cursor configuration [][33m 2354[2mms[22m[39m
+2026-10-20T14:33:05.5681569Z    [33m[2m✓[22m[39m setup and uninstall explain cursor configuration null[33m 2379[2mms[22m[39m
+2026-10-20T14:33:05.5682394Z    [33m[2m✓[22m[39m setup and uninstall explain cursor configuration {"mcpServers":null,"keep":1}[33m 2452[2mms[22m[39m
+2026-10-20T14:33:05.5683365Z    [33m[2m✓[22m[39m setup and uninstall explain cursor configuration {"mcpServers":"x","keep":1}[33m 2516[2mms[22m[39m
+2026-10-20T14:33:05.5684258Z    [33m[2m✓[22m[39m setup and uninstall explain pi configuration {"mcpServers":[]}[33m 2373[2mms[22m[39m
+2026-10-20T14:33:05.5685019Z    [33m[2m✓[22m[39m setup and uninstall explain codex configuration mcp_servers = "x"
+2026-10-20T14:33:05.5685448Z [33m 2421[2mms[22m[39m
+2026-10-20T14:33:05.5686048Z    [33m[2m✓[22m[39m setup and uninstall explain opencode configuration {"mcp":{"servers":null}}[33m 2206[2mms[22m[39m
+2026-10-20T14:33:05.5686487Z    [33m[2m✓[22m[39m setup and uninstall explain hermes configuration - item
+2026-10-20T14:33:05.5686749Z [33m 2269[2mms[22m[39m
+2026-10-20T14:33:05.5687033Z    [33m[2m✓[22m[39m setup and uninstall explain hermes configuration mcp_servers: null
+2026-10-20T14:33:05.5687275Z keep: 1
+2026-10-20T14:33:05.5687425Z [33m 2258[2mms[22m[39m
+2026-10-20T14:33:05.5687960Z    [33m[2m✓[22m[39m setup and uninstall explain cursor configuration not-json[33m 2220[2mms[22m[39m
+2026-10-20T14:33:05.5688400Z    [33m[2m✓[22m[39m setup and uninstall explain hermes configuration mcp_servers: [
+2026-10-20T14:33:05.5688711Z [33m 2307[2mms[22m[39m
+2026-10-20T14:33:05.5688985Z    [33m[2m✓[22m[39m setup and uninstall explain dsh configuration - insert: [
+2026-10-20T14:33:05.5689252Z [33m 2264[2mms[22m[39m
+2026-10-20T14:33:05.5689647Z    [33m[2m✓[22m[39m doctor reports an unreadable configuration symlink without changing it[33m 1189[2mms[22m[39m
+2026-10-20T14:33:09.5352652Z  [32m✓[39m [30m[43m acceptance [49m[39m tests/acceptance/applications/javascriptRpcPropertyOwnershipCli.test.ts [2m([22m[2m4 tests[22m[2m)[22m[33m 8331[2mms[22m[39m
+2026-10-20T14:33:09.5353791Z    [33m[2m✓[22m[39m retains standalone GraphQL sources and only suppresses owned copies through CLI[33m 1654[2mms[22m[39m
+2026-10-20T14:33:09.5354761Z    [33m[2m✓[22m[39m retains standalone GraphQL sources and only suppresses owned copies through stdio MCP[33m 2831[2mms[22m[39m
+2026-10-20T14:33:09.5355571Z    [33m[2m✓[22m[39m retains only final known RPC object properties through CLI[33m 1514[2mms[22m[39m
+2026-10-20T14:33:09.5356311Z    [33m[2m✓[22m[39m retains only final known RPC object properties through stdio MCP[33m 2330[2mms[22m[39m
+2026-10-20T14:33:17.3601970Z  [32m✓[39m [30m[43m acceptance [49m[39m tests/acceptance/applications/javascriptChildHandleOwnership.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 7574[2mms[22m[39m
+2026-10-20T14:33:17.3603187Z    [33m[2m✓[22m[39m preserves child ownership uncertainty after replacement through CLI and MCP[33m 3883[2mms[22m[39m
+2026-10-20T14:33:17.3604104Z    [33m[2m✓[22m[39m keeps deferred instance field child ownership uncertain through CLI and MCP[33m 3690[2mms[22m[39m
+2026-10-20T14:33:20.4511768Z  [32m✓[39m [30m[43m acceptance [49m[39m tests/acceptance/tools/historicalCaptureResources.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 14619[2mms[22m[39m
+2026-10-20T14:33:20.4514168Z    [33m[2m✓[22m[39m reports real HAR memory exhaustion through CLI and MCP and preserves server usability[33m 14617[2mms[22m[39m
+2026-10-20T14:33:21.5925148Z  [32m✓[39m [30m[43m acceptance [49m[39m tests/acceptance/artifactZipExtractionPaths.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 4049[2mms[22m[39m
+2026-10-20T14:33:21.5926467Z    [33m[2m✓[22m[39m refuses NFC-colliding ZIP members without an integrity retry[33m 3015[2mms[22m[39m
+2026-10-20T14:33:21.5927920Z    [33m[2m✓[22m[39m extracts one decomposed ZIP name and distinct names with their exact bytes[33m 1033[2mms[22m[39m
+2026-10-20T14:33:24.1404211Z  [32m✓[39m [30m[43m acceptance [49m[39m tests/acceptance/artifactInventoryJvmClass.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 2339[2mms[22m[39m
+2026-10-20T14:33:24.1404954Z    [33m[2m✓[22m[39m keeps valid JVM classes from being classified as Mach-O while identifying FAT controls[33m 2338[2mms[22m[39m
+2026-10-20T14:33:24.4916233Z  [32m✓[39m [30m[43m acceptance [49m[39m tests/acceptance/artifactComparisonPlist.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 3804[2mms[22m[39m
+2026-10-20T14:33:24.4917382Z    [33m[2m✓[22m[39m compares identical complete plist inventories across CLI and MCP and creates no unknowns[33m 3803[2mms[22m[39m
+2026-10-20T14:33:30.3088471Z  [32m✓[39m [30m[43m acceptance [49m[39m tests/acceptance/applications/applicationManifestRoots.test.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 5903[2mms[22m[39m
+2026-10-20T14:33:30.3090183Z    [33m[2m✓[22m[39m keeps dependency manifests out of application roots and Electron entries through CLI[33m 1720[2mms[22m[39m
+2026-10-20T14:33:30.3092485Z    [33m[2m✓[22m[39m keeps dependency manifests out of application roots and Electron entries through stdio MCP[33m 2777[2mms[22m[39m
+2026-10-20T14:33:30.3093981Z    [33m[2m✓[22m[39m keeps the artifact root when only dependency manifests are present[33m 1405[2mms[22m[39m
+2026-10-20T14:33:32.1303792Z  [32m✓[39m [30m[43m acceptance [49m[39m tests/acceptance/setup/repeatedClientSetup.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 7477[2mms[22m[39m
+2026-10-20T14:33:32.1305218Z    [33m[2m✓[22m[39m repeated client flags plan and configure each selected client once[33m 4122[2mms[22m[39m
+2026-10-20T14:33:32.1306147Z    [33m[2m✓[22m[39m uninstall preserves user edits made after an earlier setup[33m 3353[2mms[22m[39m
+2026-10-20T14:33:35.0689137Z  [32m✓[39m [30m[43m acceptance [49m[39m tests/acceptance/applications/keyedArchiveXmlScalars.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 4511[2mms[22m[39m
+2026-10-20T14:33:35.0690617Z    [33m[2m✓[22m[39m preserves malformed XML scalars as explicit unknowns through CLI and MCP[33m 4510[2mms[22m[39m
+2026-10-20T14:33:36.7928626Z  [32m✓[39m [30m[43m acceptance [49m[39m tests/acceptance/applications/packageJsonImports.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 4383[2mms[22m[39m
+2026-10-20T14:33:36.7929759Z    [33m[2m✓[22m[39m reports JSON availability for imported package manifests through CLI[33m 1716[2mms[22m[39m
+2026-10-20T14:33:36.7935967Z    [33m[2m✓[22m[39m reports JSON availability for imported package manifests through stdio MCP[33m 2666[2mms[22m[39m
+2026-10-20T14:34:08.7158296Z  [32m✓[39m [30m[43m acceptance [49m[39m tests/acceptance/applications/javascriptExportedAppPathChanges.test.ts [2m([22m[2m16 tests[22m[2m)[22m[33m 31383[2mms[22m[39m
+2026-10-20T14:34:08.7163516Z    [33m[2m✓[22m[39m retains ESM exported app setter uncertainty (replaced=false) through CLI[33m 1723[2mms[22m[39m
+2026-10-20T14:34:08.7164423Z    [33m[2m✓[22m[39m retains ESM exported app setter uncertainty (replaced=true) through CLI[33m 1416[2mms[22m[39m
+2026-10-20T14:34:08.7165492Z    [33m[2m✓[22m[39m retains CommonJS exported app setter uncertainty (replaced=false) through CLI[33m 1590[2mms[22m[39m
+2026-10-20T14:34:08.7166618Z    [33m[2m✓[22m[39m retains CommonJS exported app setter uncertainty (replaced=true) through CLI[33m 1569[2mms[22m[39m
+2026-10-20T14:34:08.7167763Z    [33m[2m✓[22m[39m retains Object.assign exported app setter uncertainty (replaced=false) through CLI[33m 1530[2mms[22m[39m
+2026-10-20T14:34:08.7168757Z    [33m[2m✓[22m[39m retains Object.assign exported app setter uncertainty (replaced=true) through CLI[33m 1574[2mms[22m[39m
+2026-10-20T14:34:08.7170141Z    [33m[2m✓[22m[39m retains local exports Object.assign exported app setter uncertainty (replaced=false) through CLI[33m 1520[2mms[22m[39m
+2026-10-20T14:34:08.7171234Z    [33m[2m✓[22m[39m retains detached exports Object.assign exported app setter uncertainty (replaced=false) through CLI[33m 1540[2mms[22m[39m
+2026-10-20T14:34:08.7173030Z    [33m[2m✓[22m[39m retains ESM exported app setter uncertainty (replaced=false) through stdio MCP[33m 2728[2mms[22m[39m
+2026-10-20T14:34:08.7174003Z    [33m[2m✓[22m[39m retains ESM exported app setter uncertainty (replaced=true) through stdio MCP[33m 2277[2mms[22m[39m
+2026-10-20T14:34:08.7174961Z    [33m[2m✓[22m[39m retains CommonJS exported app setter uncertainty (replaced=false) through stdio MCP[33m 2330[2mms[22m[39m
+2026-10-20T14:34:08.7175964Z    [33m[2m✓[22m[39m retains CommonJS exported app setter uncertainty (replaced=true) through stdio MCP[33m 2316[2mms[22m[39m
+2026-10-20T14:34:08.7177030Z    [33m[2m✓[22m[39m retains Object.assign exported app setter uncertainty (replaced=false) through stdio MCP[33m 2380[2mms[22m[39m
+2026-10-20T14:34:08.7178111Z    [33m[2m✓[22m[39m retains Object.assign exported app setter uncertainty (replaced=true) through stdio MCP[33m 2295[2mms[22m[39m
+2026-10-20T14:34:08.7179242Z    [33m[2m✓[22m[39m retains local exports Object.assign exported app setter uncertainty (replaced=false) through stdio MCP[33m 2295[2mms[22m[39m
+2026-10-20T14:34:08.7180650Z    [33m[2m✓[22m[39m retains detached exports Object.assign exported app setter uncertainty (replaced=false) through stdio MCP[33m 2296[2mms[22m[39m
+2026-10-20T14:34:13.0808263Z  [32m✓[39m [30m[43m acceptance [49m[39m tests/acceptance/applications/blockSourceMapCli.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 4107[2mms[22m[39m
+2026-10-20T14:34:13.0809661Z    [33m[2m✓[22m[39m links a block source-map URL containing an asterisk through CLI[33m 1528[2mms[22m[39m
+2026-10-20T14:34:13.0810635Z    [33m[2m✓[22m[39m links a block source-map URL containing an asterisk through stdio MCP[33m 2578[2mms[22m[39m
+2026-10-20T14:34:14.0578434Z  [32m✓[39m [30m[43m acceptance [49m[39m tests/acceptance/applications/javascriptReturnedAppPathChanges.test.ts [2m([22m[2m20 tests[22m[2m)[22m[33m 38465[2mms[22m[39m
+2026-10-20T14:34:14.0579653Z    [33m[2m✓[22m[39m preserves returned app path uncertainty for 1 application owners through CLI[33m 1763[2mms[22m[39m
+2026-10-20T14:34:14.0580619Z    [33m[2m✓[22m[39m preserves awaited app path uncertainty for 1 application owners through CLI[33m 1428[2mms[22m[39m
+2026-10-20T14:34:14.0581738Z    [33m[2m✓[22m[39m preserves local app path uncertainty for 1 application owners through CLI[33m 1406[2mms[22m[39m
+2026-10-20T14:34:14.0582824Z    [33m[2m✓[22m[39m preserves replaced app setter path uncertainty for 1 application owners through CLI[33m 1443[2mms[22m[39m
+2026-10-20T14:34:14.0583923Z    [33m[2m✓[22m[39m preserves conditional setter replacement path uncertainty for 1 application owners through CLI[33m 1438[2mms[22m[39m
+2026-10-20T14:34:14.0585128Z    [33m[2m✓[22m[39m preserves original setter captured before replace… path uncertainty for 1 application owners through CLI[33m 1499[2mms[22m[39m
+2026-10-20T14:34:14.0586331Z    [33m[2m✓[22m[39m preserves local setter captured after replacement path uncertainty for 1 application owners through CLI[33m 1418[2mms[22m[39m
+2026-10-20T14:34:14.0587838Z    [33m[2m✓[22m[39m preserves assigned app path uncertainty for 1 application owners through CLI[33m 1485[2mms[22m[39m
+2026-10-20T14:34:14.0589287Z    [33m[2m✓[22m[39m preserves assigned local app path uncertainty for 1 application owners through CLI[33m 1518[2mms[22m[39m
+2026-10-20T14:34:14.0590385Z    [33m[2m✓[22m[39m preserves shared returned app path uncertainty for 3 application owners through CLI[33m 1549[2mms[22m[39m
+2026-10-20T14:34:14.0591475Z    [33m[2m✓[22m[39m preserves returned app path uncertainty for 1 application owners through stdio MCP[33m 2728[2mms[22m[39m
+2026-10-20T14:34:14.0594819Z    [33m[2m✓[22m[39m preserves awaited app path uncertainty for 1 application owners through stdio MCP[33m 2339[2mms[22m[39m
+2026-10-20T14:34:14.0595738Z    [33m[2m✓[22m[39m preserves local app path uncertainty for 1 application owners through stdio MCP[33m 2293[2mms[22m[39m
+2026-10-20T14:34:14.0596810Z    [33m[2m✓[22m[39m preserves replaced app setter path uncertainty for 1 application owners through stdio MCP[33m 2252[2mms[22m[39m
+2026-10-20T14:34:14.0598451Z    [33m[2m✓[22m[39m preserves conditional setter replacement path uncertainty for 1 application owners through stdio MCP[33m 2381[2mms[22m[39m
+2026-10-20T14:34:14.0599596Z    [33m[2m✓[22m[39m preserves original setter captured before replace… path uncertainty for 1 application owners through stdio MCP[33m 2271[2mms[22m[39m
+2026-10-20T14:34:14.0600723Z    [33m[2m✓[22m[39m preserves local setter captured after replacement path uncertainty for 1 application owners through stdio MCP[33m 2361[2mms[22m[39m
+2026-10-20T14:34:14.0601741Z    [33m[2m✓[22m[39m preserves assigned app path uncertainty for 1 application owners through stdio MCP[33m 2284[2mms[22m[39m
+2026-10-20T14:34:14.0603595Z    [33m[2m✓[22m[39m preserves assigned local app path uncertainty for 1 application owners through stdio MCP[33m 2192[2mms[22m[39m
+2026-10-20T14:34:14.0604700Z    [33m[2m✓[22m[39m preserves shared returned app path uncertainty for 3 application owners through stdio MCP[33m 2414[2mms[22m[39m
+2026-10-20T14:34:16.6049485Z  [32m✓[39m [30m[43m acceptance [49m[39m tests/acceptance/managedMemberPointers.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 3269[2mms[22m[39m
+2026-10-20T14:34:16.6050597Z    [33m[2m✓[22m[39m CLI and stdio MCP retain physical member identities through reordered pointers[33m 3268[2mms[22m[39m
+2026-10-20T14:34:19.2447681Z  [32m✓[39m [30m[43m acceptance [49m[39m tests/acceptance/providers/jebConfigurationIsolation.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 4939[2mms[22m[39m
+2026-10-20T14:34:19.2448696Z    [33m[2m✓[22m[39m keeps compiled CLI discovery usable while JEB rejects its malformed timeout[33m 3206[2mms[22m[39m
+2026-10-20T14:34:19.2449455Z    [33m[2m✓[22m[39m starts production stdio MCP and retains peer requests around a JEB configuration refusal[33m 1731[2mms[22m[39m
+2026-10-20T14:34:22.6280603Z  [32m✓[39m [30m[43m acceptance [49m[39m tests/acceptance/applications/androidRuntimeComponentHints.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 5780[2mms[22m[39m
+2026-10-20T14:34:22.6281702Z    [33m[2m✓[22m[39m Android runtime hints follow classified bytecode through CLI and MCP[33m 5779[2mms[22m[39m
+2026-10-20T14:34:27.5524586Z  [32m✓[39m [30m[43m acceptance [49m[39m tests/acceptance/applications/javascriptChildProcessArgumentsCli.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 4445[2mms[22m[39m
+2026-10-20T14:34:27.5525687Z    [33m[2m✓[22m[39m keeps child argv counts unknown after spread through CLI[33m 1763[2mms[22m[39m
+2026-10-20T14:34:27.5526434Z    [33m[2m✓[22m[39m keeps child argv counts unknown after spread through stdio MCP[33m 2681[2mms[22m[39m
+2026-10-20T14:34:27.7149309Z  [32m✓[39m [30m[43m acceptance [49m[39m tests/acceptance/applications/javascriptEscapedArtifactImports.test.ts [2m([22m[2m4 tests[22m[2m)[22m[33m 7966[2mms[22m[39m
+2026-10-20T14:34:27.7150327Z    [33m[2m✓[22m[39m keeps ESM request ../../rea-artifact/shared/window.cjs within its real artifact boundary through CLI[33m 1648[2mms[22m[39m
+2026-10-20T14:34:27.7151434Z    [33m[2m✓[22m[39m keeps ESM request ../shared/window.cjs within its real artifact boundary through CLI[33m 1375[2mms[22m[39m
+2026-10-20T14:34:27.7152621Z    [33m[2m✓[22m[39m keeps ESM request ../../rea-artifact/shared/window.cjs within its real artifact boundary through stdio MCP[33m 2599[2mms[22m[39m
+2026-10-20T14:34:27.7154042Z    [33m[2m✓[22m[39m keeps ESM request ../shared/window.cjs within its real artifact boundary through stdio MCP[33m 2343[2mms[22m[39m
+2026-10-20T14:34:30.3421046Z  [32m✓[39m [30m[43m acceptance [49m[39m tests/acceptance/emptyTargetPathCli.test.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 2636[2mms[22m[39m
+2026-10-20T14:34:30.3423334Z    [33m[2m✓[22m[39m analyze rejects an explicitly empty target before resolving it against cwd[33m 1009[2mms[22m[39m
+2026-10-20T14:34:30.3424301Z    [33m[2m✓[22m[39m inspect-artifact rejects an explicitly empty target before resolving it against cwd[33m 759[2mms[22m[39m
+2026-10-20T14:34:30.3425201Z    [33m[2m✓[22m[39m inspect-artifact still admits an explicitly selected current directory[33m 867[2mms[22m[39m
+2026-10-20T14:34:31.2507423Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/browser/electronActiveHook.test.ts [2m([22m[2m101 tests[22m[2m)[22m[33m 3332[2mms[22m[39m
+2026-10-20T14:34:31.2508413Z    [33m[2m✓[22m[39m retains active hook evidence within its event-retention budget[33m 334[2mms[22m[39m
+2026-10-20T14:34:31.4768096Z [90mstderr[2m | tests/boundary/providers/native/nativeDmgArtifactReader.test.ts[2m > [22m[2mDMG inventory reader ownership[2m > [22m[2mlets inventory clean up a lazy reader after attach fails
+2026-10-20T14:34:31.4769276Z [22m[39m[xmldom fatalError]	missing root element 
+2026-10-20T14:34:31.4769701Z @#[line:0,col:undefined]
+2026-10-20T14:34:31.4769899Z 
+2026-10-20T14:34:31.5299547Z [90mstderr[2m | tests/boundary/providers/native/nativeDmgArtifactReader.test.ts[2m > [22m[2mnative DMG command diagnostics[2m > [22m[2mkeeps unknown attach failures unavailable with command evidence
+2026-10-20T14:34:31.5300143Z [22m[39m[xmldom fatalError]	missing root element 
+2026-10-20T14:34:31.5300364Z @#[line:0,col:undefined]
+2026-10-20T14:34:31.5300460Z 
+2026-10-20T14:34:31.5723025Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/providers/native/nativeDmgArtifactReader.test.ts [2m([22m[2m48 tests[22m[2m | [22m[33m3 skipped[39m[2m)[22m[32m 106[2mms[22m[39m
+2026-10-20T14:34:34.3221267Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/providers/native/nativeProvider.test.ts [2m([22m[2m54 tests[22m[2m)[22m[33m 1866[2mms[22m[39m
+2026-10-20T14:34:35.2855168Z    [32m✓[39m native command failure capture and limits [2m(2)[22m
+2026-10-20T14:34:35.2855923Z      [33m[2m✓[22m[39m rejects output beyond the complete native-command budget[33m 728[2mms[22m[39m
+2026-10-20T14:34:35.2856932Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/providers/GdbSessionManagerCoverage.test.ts [2m([22m[2m154 tests[22m[2m)[22m[33m 4736[2mms[22m[39m
+2026-10-20T14:34:35.2858197Z    [33m[2m✓[22m[39m retains partial GDB command Evidence while an inherited writer remains[33m 1001[2mms[22m[39m
+2026-10-20T14:34:35.2859178Z    [33m[2m✓[22m[39m reports incomplete stop if GDB exits while close waits in the serialized queue[33m 1003[2mms[22m[39m
+2026-10-20T14:34:35.2860114Z    [33m[2m✓[22m[39m retains ownership when manual close receives a truncated empty inferior list[33m 573[2mms[22m[39m
+2026-10-20T14:34:35.2860985Z    [33m[2m✓[22m[39m caps the number of MI records retained for a single command[33m 435[2mms[22m[39m
+2026-10-20T14:34:36.2309716Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/providers/GdbSessionReviewRegressions.test.ts [2m([22m[2m19 tests[22m[2m)[22m[33m 1732[2mms[22m[39m
+2026-10-20T14:34:36.2311067Z    [33m[2m✓[22m[39m returns partial GDB observations with unknown completion on command timeout[33m 302[2mms[22m[39m
+2026-10-20T14:34:36.2312455Z    [33m[2m✓[22m[39m re-reads the configured inferior TTY before detaching after a console alias change[33m 537[2mms[22m[39m
+2026-10-20T14:34:37.1134008Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/filesystem/artifactComparison.test.ts [2m([22m[2m19 tests[22m[2m)[22m[33m 623[2mms[22m[39m
+2026-10-20T14:34:37.1135184Z    [32m✓[39m artifact comparison completeness [2m(2)[22m
+2026-10-20T14:34:37.1135835Z      [33m[2m✓[22m[39m compares every graph member for inventories larger than 500 entries[33m 329[2mms[22m[39m
+2026-10-20T14:34:45.0662537Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/providers/kuna/kunaProjectCache.test.ts [2m([22m[2m28 tests[22m[2m)[22m[33m 9558[2mms[22m[39m
+2026-10-20T14:34:45.0667283Z    [33m[2m✓[22m[39m blocks repeated cache reads while a retained hash descriptor cannot close[33m 377[2mms[22m[39m
+2026-10-20T14:34:45.0668347Z    [33m[2m✓[22m[39m shares one Kuna run between concurrent requests for one export[33m 484[2mms[22m[39m
+2026-10-20T14:34:45.0669370Z    [33m[2m✓[22m[39m applies one deadline to the inventory and the export together[33m 1750[2mms[22m[39m
+2026-10-20T14:34:45.0670330Z    [33m[2m✓[22m[39m evicts least recently used entries above the cap, never a pinned one[33m 681[2mms[22m[39m
+2026-10-20T14:34:45.0671355Z    [33m[2m✓[22m[39m keeps the first publication when another process exports the same key[33m 494[2mms[22m[39m
+2026-10-20T14:34:45.0672409Z    [33m[2m✓[22m[39m keeps failed file cleanup owned until recovery through sweep[33m 378[2mms[22m[39m
+2026-10-20T14:34:45.0673128Z    [33m[2m✓[22m[39m keeps staging owned when a cancelled Kuna process cannot be proven stopped[33m 527[2mms[22m[39m
+2026-10-20T14:34:45.0674173Z    [33m[2m✓[22m[39m rebuilds an entry another cache instance evicted after this one verified it[33m 398[2mms[22m[39m
+2026-10-20T14:34:45.0675217Z    [33m[2m✓[22m[39m reports an abandoned build's unproven cleanup even after a retry replaced it[33m 1261[2mms[22m[39m
+2026-10-20T14:34:46.2618248Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/filesystem/webScriptExport.test.ts [2m([22m[2m28 tests[22m[2m)[22m[33m 728[2mms[22m[39m
+2026-10-20T14:34:46.2619085Z    [32m✓[39m captured script publication boundary [2m(5)[22m
+2026-10-20T14:34:46.2619886Z      [33m[2m✓[22m[39m verifies durable bytes, manifest, capture identity, and existing module analysis[33m 474[2mms[22m[39m
+2026-10-20T14:34:48.9235895Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/providers/kuna/kunaProvider.test.ts [2m([22m[2m31 tests[22m[2m)[22m[33m 11149[2mms[22m[39m
+2026-10-20T14:34:48.9236916Z    [33m[2m✓[22m[39m answers a cold request from one function, then serves the finished export[33m 503[2mms[22m[39m
+2026-10-20T14:34:48.9237819Z    [33m[2m✓[22m[39m rejects oversized cached text before buffering while retaining its full export[33m 390[2mms[22m[39m
+2026-10-20T14:34:48.9238678Z    [33m[2m✓[22m[39m keeps answering pseudocode one function at a time when the export fails[33m 361[2mms[22m[39m
+2026-10-20T14:34:48.9239492Z    [33m[2m✓[22m[39m stops waiting for the export when the caller cancels, without abandoning it[33m 1818[2mms[22m[39m
+2026-10-20T14:34:48.9240287Z    [33m[2m✓[22m[39m stops the export it alone wanted before reporting itself closed[33m 383[2mms[22m[39m
+2026-10-20T14:34:48.9241115Z    [33m[2m✓[22m[39m drains an active single-function request before close (caller signal: false)[33m 371[2mms[22m[39m
+2026-10-20T14:34:48.9241776Z    [33m[2m✓[22m[39m drains an active single-function request before close (caller signal: true)[33m 353[2mms[22m[39m
+2026-10-20T14:34:48.9242672Z    [33m[2m✓[22m[39m retains an active request's workspace when close cannot prove its stop[33m 376[2mms[22m[39m
+2026-10-20T14:34:48.9243447Z    [33m[2m✓[22m[39m keeps reporting a failed close and succeeds once a retry proves the stop[33m 696[2mms[22m[39m
+2026-10-20T14:34:48.9244196Z    [33m[2m✓[22m[39m reports an abandoned export's unproven cleanup from close[33m 388[2mms[22m[39m
+2026-10-20T14:34:48.9244982Z    [33m[2m✓[22m[39m retries the abandoned export's file cleanup before reporting close success[33m 325[2mms[22m[39m
+2026-10-20T14:34:48.9245788Z    [33m[2m✓[22m[39m refuses to launch an executable replaced after the target was opened[33m 306[2mms[22m[39m
+2026-10-20T14:34:48.9246921Z    [33m[2m✓[22m[39m recovers when another server evicts the export this session adopted[33m 457[2mms[22m[39m
+2026-10-20T14:34:48.9247621Z    [33m[2m✓[22m[39m reports a failed export as failed rather than building[33m 440[2mms[22m[39m
+2026-10-20T14:34:48.9248348Z    [33m[2m✓[22m[39m reports a failed export as not retryable in its session (export deadline)[33m 432[2mms[22m[39m
+2026-10-20T14:34:48.9249079Z    [33m[2m✓[22m[39m reports a failed export as not retryable in its session (Kuna failure)[33m 330[2mms[22m[39m
+2026-10-20T14:34:48.9249798Z    [33m[2m✓[22m[39m reports a failed export as not retryable in its session (fixed output buffer)[33m 336[2mms[22m[39m
+2026-10-20T14:34:48.9250284Z    [33m[2m✓[22m[39m lets one caller stop waiting for the shared inventory without failing another[33m 903[2mms[22m[39m
+2026-10-20T14:34:49.5537828Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/sqlite/sqliteDatabaseProvider.test.ts [2m([22m[2m25 tests[22m[2m)[22m[33m 3035[2mms[22m[39m
+2026-10-20T14:34:49.5538795Z    [33m[2m✓[22m[39m inspects committed WAL schema and rows while preserving every source artifact[33m 356[2mms[22m[39m
+2026-10-20T14:34:49.5539577Z    [33m[2m✓[22m[39m selects an exact quoted table and refuses to execute table input as SQL[33m 465[2mms[22m[39m
+2026-10-20T14:34:49.5540645Z    [33m[2m✓[22m[39m attributes table and column selection failures to their own arguments[33m 338[2mms[22m[39m
+2026-10-20T14:34:50.6435780Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/filesystem/asarStreamingAllocation.test.ts [2m([22m[2m21 tests[22m[2m)[22m[33m 855[2mms[22m[39m
+2026-10-20T14:34:50.6436870Z    [32m✓[39m ASAR entry streaming [2m(4)[22m
+2026-10-20T14:34:50.6437959Z      [33m[2m✓[22m[39m streams a packed member in bounded chunks with its complete digest[33m 409[2mms[22m[39m
+2026-10-20T14:34:50.6438843Z      [33m[2m✓[22m[39m streams a unpacked member in bounded chunks with its complete digest[33m 304[2mms[22m[39m
+2026-10-20T14:34:52.7622366Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/javascript/packageConditionalExports.test.ts [2m([22m[2m100 tests[22m[2m)[22m[33m 3669[2mms[22m[39m
+2026-10-20T14:34:53.3722095Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/filesystem/referenceSourceImport.test.ts [2m([22m[2m18 tests[22m[2m)[22m[33m 2306[2mms[22m[39m
+2026-10-20T14:34:53.3723342Z    [32m✓[39m reference source import behavior [2m(5)[22m
+2026-10-20T14:34:53.3724351Z      [33m[2m✓[22m[39m returns every written entry with complete coverage at any scale[33m 2120[2mms[22m[39m
+2026-10-20T14:34:54.1548857Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/evm/evmCleanupRetry.test.ts [2m([22m[2m11 tests[22m[2m)[22m[33m 561[2mms[22m[39m
+2026-10-20T14:35:00.3408081Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/binaryDiagnostics/pwntoolsLayoutProvider.test.ts [2m([22m[2m35 tests[22m[2m | [22m[33m1 skipped[39m[2m)[22m[33m 6025[2mms[22m[39m
+2026-10-20T14:35:00.3409704Z    [33m[2m✓[22m[39m preserves observed SIGXCPU with reported limit evidence[33m 995[2mms[22m[39m
+2026-10-20T14:35:00.3410574Z    [33m[2m✓[22m[39m preserves observed SIGXCPU with missing limit evidence[33m 887[2mms[22m[39m
+2026-10-20T14:35:00.3411497Z    [33m[2m✓[22m[39m preserves observed SIGXCPU with malformed limit evidence[33m 880[2mms[22m[39m
+2026-10-20T14:35:00.3412490Z    [33m[2m✓[22m[39m preserves observed SIGXFSZ with reported limit evidence[33m 878[2mms[22m[39m
+2026-10-20T14:35:01.7888115Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/captures/captureProvider.test.ts [2m([22m[2m37 tests[22m[2m)[22m[33m 8303[2mms[22m[39m
+2026-10-20T14:35:01.7913006Z    [33m[2m✓[22m[39m pages matching observations without changing dissection scope or frame identities[33m 647[2mms[22m[39m
+2026-10-20T14:35:01.7973354Z    [33m[2m✓[22m[39m bounds admission without queuing additional snapshots or delaying cancellation[33m 344[2mms[22m[39m
+2026-10-20T14:35:01.7974152Z    [33m[2m✓[22m[39m discovers installed protocols and field definitions without a capture[33m 946[2mms[22m[39m
+2026-10-20T14:35:01.7974770Z    [33m[2m✓[22m[39m retains field discovery failure facts: overflow[33m 514[2mms[22m[39m
+2026-10-20T14:35:01.7975305Z    [33m[2m✓[22m[39m retains field discovery failure facts: wait[33m 336[2mms[22m[39m
+2026-10-20T14:35:01.7975839Z    [33m[2m✓[22m[39m retains completed discovery on late cancellation and cleanup failure[33m 355[2mms[22m[39m
+2026-10-20T14:35:02.0969901Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/providers/ghidra/ghidraLauncher.test.ts [2m([22m[2m25 tests[22m[2m | [22m[33m3 skipped[39m[2m)[22m[32m 9[2mms[22m[39m
+2026-10-20T14:35:09.2203896Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/signals/recordingProvider.test.ts [2m([22m[2m36 tests[22m[2m)[22m[33m 8331[2mms[22m[39m
+2026-10-20T14:35:09.2204577Z    [33m[2m✓[22m[39m pages literal output without changing decoder arguments or normalizing text[33m 764[2mms[22m[39m
+2026-10-20T14:35:09.2205097Z    [33m[2m✓[22m[39m bounds admission without queuing additional snapshots or delaying cancellation[33m 386[2mms[22m[39m
+2026-10-20T14:35:09.2205822Z    [33m[2m✓[22m[39m retains a completed observation and cleanup ownership for retry[33m 302[2mms[22m[39m
+2026-10-20T14:35:09.2206307Z    [33m[2m✓[22m[39m discovers decoders without reading a recording and retains installation provenance[33m 1007[2mms[22m[39m
+2026-10-20T14:35:09.2206893Z    [33m[2m✓[22m[39m retains completed Evidence and exact cancellation during workspace close: {"failsClose":false,"discovery":true}[33m 312[2mms[22m[39m
+2026-10-20T14:35:10.6112426Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/filesystem/zcodeClientConfiguration.test.ts [2m([22m[2m28 tests[22m[2m)[22m[32m 223[2mms[22m[39m
+2026-10-20T14:35:11.1035271Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/providers/jebMcpCleanup.test.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 233[2mms[22m[39m
+2026-10-20T14:35:12.0164268Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/browser/cdpBrowserProvider.sensitive_data.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 301[2mms[22m[39m
+2026-10-20T14:35:13.0242056Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/providers/native/nativeSelectedArchitecture.test.ts [2m([22m[2m18 tests[22m[2m)[22m[32m 55[2mms[22m[39m
+2026-10-20T14:35:17.1243987Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/filesystem/javascript-applications/javascriptApplicationService.test.ts [2m([22m[2m12 tests[22m[2m)[22m[33m 3648[2mms[22m[39m
+2026-10-20T14:35:17.1245535Z    [32m✓[39m JavaScript source selection cancellation boundary [2m(1)[22m
+2026-10-20T14:35:17.1246736Z      [33m[2m✓[22m[39m keeps unselected files outside scope when the real worker cancels after the last selected file[33m 436[2mms[22m[39m
+2026-10-20T14:35:17.1247514Z    [32m✓[39m Selected JavaScript source failure diagnostics [2m(3)[22m
+2026-10-20T14:35:17.1248265Z      [33m[2m✓[22m[39m analyzes selected files in first-request order and reports only selected progress[33m 449[2mms[22m[39m
+2026-10-20T14:35:17.1249209Z      [33m[2m✓[22m[39m retains selected facts and unselected scope after cancellation between selected sources[33m 427[2mms[22m[39m
+2026-10-20T14:35:17.1249902Z    [32m✓[39m JavaScript application failure diagnostics [2m(7)[22m
+2026-10-20T14:35:17.1250529Z      [33m[2m✓[22m[39m identifies the rejected result field in caller-visible diagnostics[33m 403[2mms[22m[39m
+2026-10-20T14:35:17.1251332Z      [33m[2m✓[22m[39m retains unexpected failures and their input identity in caller-visible diagnostics[33m 388[2mms[22m[39m
+2026-10-20T14:35:17.1252198Z      [33m[2m✓[22m[39m retains non-Error failures (reported failure)[33m 366[2mms[22m[39m
+2026-10-20T14:35:17.1253063Z      [33m[2m✓[22m[39m retains non-Error failures (null)[33m 438[2mms[22m[39m
+2026-10-20T14:35:17.1253723Z      [33m[2m✓[22m[39m preserves long failure messages through JSON projection (0)[33m 366[2mms[22m[39m
+2026-10-20T14:35:17.1254450Z      [33m[2m✓[22m[39m preserves long failure messages through JSON projection (1)[33m 361[2mms[22m[39m
+2026-10-20T14:35:17.6544053Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/sqlite/sqliteDatabaseDescriptorCleanup.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 288[2mms[22m[39m
+2026-10-20T14:35:18.9496687Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/sqlite/sqliteDatabaseInspection.test.ts [2m([22m[2m21 tests[22m[2m | [22m[33m1 skipped[39m[2m)[22m[33m 1138[2mms[22m[39m
+2026-10-20T14:35:18.9502901Z    [33m[2m✓[22m[39m counts schema names once when enforcing the complete reply budget[33m 365[2mms[22m[39m
+2026-10-20T14:35:20.8101625Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/filesystem/staticTaskCache.test.ts [2m([22m[2m15 tests[22m[2m)[22m[33m 18576[2mms[22m[39m
+2026-10-20T14:35:20.8102409Z    [33m[2m✓[22m[39m restores a real lint report across cold, warm, and fresh consumer checkouts[33m 734[2mms[22m[39m
+2026-10-20T14:35:20.8103276Z    [33m[2m✓[22m[39m invalidates Knip for GitHub workflow entrypoints and module contents[33m 1956[2mms[22m[39m
+2026-10-20T14:35:20.8103764Z    [33m[2m✓[22m[39m invalidates Knip for GitHub action manifest entrypoints and module contents[33m 1883[2mms[22m[39m
+2026-10-20T14:35:20.8104272Z    [33m[2m✓[22m[39m rejects a changed imported documentation helper after warming real compiler tasks[33m 1274[2mms[22m[39m
+2026-10-20T14:35:20.8104781Z    [33m[2m✓[22m[39m rejects a changed documentation package scope after warming real compiler tasks[33m 1306[2mms[22m[39m
+2026-10-20T14:35:20.8105271Z    [33m[2m✓[22m[39m rejects a changed source package scope after warming real compiler tasks[33m 1376[2mms[22m[39m
+2026-10-20T14:35:20.8105746Z    [33m[2m✓[22m[39m rejects a changed test package scope after warming real compiler tasks[33m 1139[2mms[22m[39m
+2026-10-20T14:35:20.8106218Z    [33m[2m✓[22m[39m rejects a changed declaration package scope after warming real compiler tasks[33m 1175[2mms[22m[39m
+2026-10-20T14:35:20.8106698Z    [33m[2m✓[22m[39m rejects a changed source declaration after warming real compiler tasks[33m 1265[2mms[22m[39m
+2026-10-20T14:35:20.8107149Z    [33m[2m✓[22m[39m rejects a changed test declaration after warming real compiler tasks[33m 1149[2mms[22m[39m
+2026-10-20T14:35:20.8107600Z    [33m[2m✓[22m[39m rejects a changed script declaration after warming real compiler tasks[33m 1120[2mms[22m[39m
+2026-10-20T14:35:20.8108053Z    [33m[2m✓[22m[39m rejects a changed GitHub action source after warming real compiler tasks[33m 1107[2mms[22m[39m
+2026-10-20T14:35:20.8108534Z    [33m[2m✓[22m[39m rejects a changed GitHub action declaration after warming real compiler tasks[33m 1015[2mms[22m[39m
+2026-10-20T14:35:20.8109021Z    [33m[2m✓[22m[39m rejects a changed GitHub action package scope after warming real compiler tasks[33m 1004[2mms[22m[39m
+2026-10-20T14:35:20.8109504Z    [33m[2m✓[22m[39m invalidates checker task hashes for Node, ignore, and VitePress config changes[33m 1068[2mms[22m[39m
+2026-10-20T14:35:21.2574150Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/providers/hopper/hopperClient.protocol.test.ts [2m([22m[2m19 tests[22m[2m)[22m[33m 2051[2mms[22m[39m
+2026-10-20T14:35:21.2575355Z    [32m✓[39m HopperClient response lifecycle [2m(11)[22m
+2026-10-20T14:35:21.2576341Z      [33m[2m✓[22m[39m accepts an owned-socket response above the former 10 MiB ceiling[33m 616[2mms[22m[39m
+2026-10-20T14:35:21.8085524Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/filesystem/piClientConfiguration.test.ts [2m([22m[2m44 tests[22m[2m)[22m[32m 119[2mms[22m[39m
+2026-10-20T14:35:23.0269740Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/android/jadxArchiveLifecycle.test.ts [2m([22m[2m9 tests[22m[2m)[22m[33m 1402[2mms[22m[39m
+2026-10-20T14:35:23.8102981Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/providers/native/nativeUiFinalization.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 18[2mms[22m[39m
+2026-10-20T14:35:24.1439678Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/javascript/sourceMapDecoder.test.ts [2m([22m[2m14 tests[22m[2m)[22m[33m 2118[2mms[22m[39m
+2026-10-20T14:35:24.1441047Z    [33m[2m✓[22m[39m rejects a codec report from a runtime other than the launching one[33m 351[2mms[22m[39m
+2026-10-20T14:35:24.6313212Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/sqlite/sqliteDatabaseSnapshot.test.ts [2m([22m[2m19 tests[22m[2m)[22m[33m 337[2mms[22m[39m
+2026-10-20T14:35:25.3277750Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/browser/cdpDomSvgIdentity.test.ts [2m([22m[2m9 tests[22m[2m)[22m[33m 387[2mms[22m[39m
+2026-10-20T14:35:28.5554032Z  [31m❯[39m [30m[43m boundary [49m[39m tests/boundary/filesystem/javascript-applications/javascriptApplicationTypeScript.test.ts [2m([22m[2m10 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[33m 4331[2mms[22m[39m
+2026-10-20T14:35:28.5556187Z    [33m[2m✓[22m[39m keeps valid ambient declarations complete in types.d.ts[33m 372[2mms[22m[39m
+2026-10-20T14:35:28.5559357Z    [33m[2m✓[22m[39m keeps valid ambient declarations complete in types.d.mts[33m 302[2mms[22m[39m
+2026-10-20T14:35:28.5560832Z    [32m✓[39m keeps valid ambient declarations complete in types.d.cts[32m 289[2mms[22m[39m
+2026-10-20T14:35:28.5561717Z    [32m✓[39m retains the missing-initializer diagnostic for ordinary TypeScript[32m 1[2mms[22m[39m
+2026-10-20T14:35:28.5562896Z    [33m[2m✓[22m[39m keeps CommonJS TypeScript angle-bracket assertions complete[33m 318[2mms[22m[39m
+2026-10-20T14:35:28.5563879Z    [33m[2m✓[22m[39m retains exported constant evidence through a type-only satisfies expression[33m 355[2mms[22m[39m
+2026-10-20T14:35:28.5564912Z [31m   [31m×[31m resolves erased wrappers through the composed application graph[39m[33m 475[2mms[22m[39m
+2026-10-20T14:35:28.5565925Z    [33m[2m✓[22m[39m retains Electron entrypoint facts through erased TypeScript path-value wrappers[33m 1126[2mms[22m[39m
+2026-10-20T14:35:28.5567901Z    [33m[2m✓[22m[39m retains Electron entrypoint facts through erased TypeScript path-call target wrappers[33m 1087[2mms[22m[39m
+2026-10-20T14:35:28.5568927Z    [32m✓[39m applies TypeScript .mts ambiguity rules while retaining unambiguous generics[32m 3[2mms[22m[39m
+2026-10-20T14:35:29.6167378Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/providers/native/nativeCallTargetCleanup.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 122[2mms[22m[39m
+2026-10-20T14:35:31.2704059Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/filesystem/ghidraJavaProbe.test.ts [2m([22m[2m9 tests[22m[2m)[22m[33m 1430[2mms[22m[39m
+2026-10-20T14:35:31.7190419Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/filesystem/webModuleArtifacts.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 184[2mms[22m[39m
+2026-10-20T14:35:32.7631502Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/filesystem/javascriptExportContainerCoverage.test.ts [2m([22m[2m16 tests[22m[2m)[22m[33m 7002[2mms[22m[39m
+2026-10-20T14:35:32.7632768Z    [32m✓[39m JavaScript export container coverage through authenticated Evidence [2m(6)[22m
+2026-10-20T14:35:32.7634334Z      [33m[2m✓[22m[39m reports empty object presence independently of unresolved values in both directions[33m 486[2mms[22m[39m
+2026-10-20T14:35:32.7635225Z      [33m[2m✓[22m[39m reports empty array presence independently of unresolved values in both directions[33m 449[2mms[22m[39m
+2026-10-20T14:35:32.7636452Z      [33m[2m✓[22m[39m reports nested object presence independently of unresolved values in both directions[33m 402[2mms[22m[39m
+2026-10-20T14:35:32.7637431Z      [33m[2m✓[22m[39m reports nested array presence independently of unresolved values in both directions[33m 409[2mms[22m[39m
+2026-10-20T14:35:32.7639952Z      [33m[2m✓[22m[39m reports container subtree presence independently of unresolved values in both directions[33m 438[2mms[22m[39m
+2026-10-20T14:35:32.7640962Z      [33m[2m✓[22m[39m reports escaped property keys presence independently of unresolved values in both directions[33m 425[2mms[22m[39m
+2026-10-20T14:35:32.7641700Z    [32m✓[39m JavaScript export container coverage controls [2m(10)[22m
+2026-10-20T14:35:32.7642462Z      [33m[2m✓[22m[39m keeps identical {} containers and primitive fields unchanged[33m 397[2mms[22m[39m
+2026-10-20T14:35:32.7643205Z      [33m[2m✓[22m[39m keeps identical [] containers and primitive fields unchanged[33m 496[2mms[22m[39m
+2026-10-20T14:35:32.7644007Z      [33m[2m✓[22m[39m keeps identical { nested: {} } containers and primitive fields unchanged[33m 502[2mms[22m[39m
+2026-10-20T14:35:32.7644776Z      [33m[2m✓[22m[39m keeps identical [[]] containers and primitive fields unchanged[33m 411[2mms[22m[39m
+2026-10-20T14:35:32.7645505Z      [33m[2m✓[22m[39m preserves primitive added beside an unchanged container[33m 454[2mms[22m[39m
+2026-10-20T14:35:32.7646401Z      [33m[2m✓[22m[39m preserves primitive removed beside an unchanged container[33m 389[2mms[22m[39m
+2026-10-20T14:35:32.7647127Z      [33m[2m✓[22m[39m preserves primitive changed beside an unchanged container[33m 468[2mms[22m[39m
+2026-10-20T14:35:32.7647831Z      [33m[2m✓[22m[39m keeps a {} leaf unknown when the opposite parent has partial coverage[33m 475[2mms[22m[39m
+2026-10-20T14:35:32.7648569Z      [33m[2m✓[22m[39m keeps a [] leaf unknown when the opposite parent has partial coverage[33m 402[2mms[22m[39m
+2026-10-20T14:35:32.7649350Z      [33m[2m✓[22m[39m keeps a false leaf unknown when the opposite parent has partial coverage[33m 396[2mms[22m[39m
+2026-10-20T14:35:33.6329550Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/filesystem/clientConfigurationLayeredEnvironment.test.ts [2m([22m[2m10 tests[22m[2m | [22m[33m2 skipped[39m[2m)[22m[32m 105[2mms[22m[39m
+2026-10-20T14:35:33.9507160Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/filesystem/referenceSourceMetadataCleanup.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 103[2mms[22m[39m
+2026-10-20T14:35:34.1497586Z  [2m[90m↓[39m[22m [30m[43m boundary [49m[39m tests/boundary/filesystem/nibNativeHierarchy.test.ts [2m([22m[2m12 tests[22m[2m | [22m[33m12 skipped[39m[2m)[22m
+2026-10-20T14:35:34.3024348Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/filesystem/macHopperInstallOwnership.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 28[2mms[22m[39m
+2026-10-20T14:35:35.2416700Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/providers/hopper/hopperClient.startupWaiters.test.ts [2m([22m[2m8 tests[22m[2m)[22m[33m 787[2mms[22m[39m
+2026-10-20T14:35:35.7509513Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/providers/kuna/kunaProjectConcurrency.test.ts [2m([22m[2m7 tests[22m[2m)[22m[33m 3791[2mms[22m[39m
+2026-10-20T14:35:35.7510972Z    [33m[2m✓[22m[39m preserves concurrent results and reclaims capacity (pin: true)[33m 667[2mms[22m[39m
+2026-10-20T14:35:35.7512120Z    [33m[2m✓[22m[39m preserves concurrent results and reclaims capacity (pin: false)[33m 613[2mms[22m[39m
+2026-10-20T14:35:35.7512976Z    [33m[2m✓[22m[39m rejects an executable changed during sealing[33m 480[2mms[22m[39m
+2026-10-20T14:35:35.7513834Z    [33m[2m✓[22m[39m protects a cache request that arrives after an eviction snapshot starts[33m 977[2mms[22m[39m
+2026-10-20T14:35:35.7514817Z    [33m[2m✓[22m[39m keeps a shared progress callback registered for the remaining waiter[33m 466[2mms[22m[39m
+2026-10-20T14:35:35.7515986Z    [33m[2m✓[22m[39m lets a joining request cancel from the status replayed to it[33m 468[2mms[22m[39m
+2026-10-20T14:35:36.1204081Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/filesystem/referenceSourceReader.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 80[2mms[22m[39m
+2026-10-20T14:35:36.4348173Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/browser/cdpWebRuntimeReview.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 105[2mms[22m[39m
+2026-10-20T14:35:36.6345964Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/filesystem/ghidraLanguageCatalogCleanup.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 33[2mms[22m[39m
+2026-10-20T14:35:37.0839364Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/providers/RizinDebugSessionManagers.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 283[2mms[22m[39m
+2026-10-20T14:35:37.3006953Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/sqlite/sqliteDatabaseBusy.test.ts [2m([22m[2m3 tests[22m[2m | [22m[33m1 skipped[39m[2m)[22m[32m 39[2mms[22m[39m
+2026-10-20T14:35:37.4459025Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/providers/ida/verifierFeatureTrace.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+2026-10-20T14:35:38.2746702Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/filesystem/artifactInventoryDescriptorCleanup.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 200[2mms[22m[39m
+2026-10-20T14:35:38.3690521Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/filesystem/javascriptSourceMapLocations.test.ts [2m([22m[2m8 tests[22m[2m)[22m[33m 2769[2mms[22m[39m
+2026-10-20T14:35:38.3692659Z    [33m[2m✓[22m[39m preserves source-map graph evidence coordinates after "\n"[33m 325[2mms[22m[39m
+2026-10-20T14:35:38.3695117Z    [33m[2m✓[22m[39m preserves source-map graph evidence coordinates after "\r\n"[33m 333[2mms[22m[39m
+2026-10-20T14:35:38.3695807Z    [33m[2m✓[22m[39m preserves source-map graph evidence coordinates after "\r"[33m 303[2mms[22m[39m
+2026-10-20T14:35:38.3696233Z    [33m[2m✓[22m[39m preserves source-map graph evidence coordinates after " "[33m 319[2mms[22m[39m
+2026-10-20T14:35:38.3696638Z    [33m[2m✓[22m[39m preserves source-map graph evidence coordinates after " "[33m 309[2mms[22m[39m
+2026-10-20T14:35:38.3697195Z    [33m[2m✓[22m[39m owns an inline source-map URL once and recovers it from the target after JSON roundtrip[33m 332[2mms[22m[39m
+2026-10-20T14:35:38.3697702Z    [33m[2m✓[22m[39m associates each source-map URL with its edge when aliases share one physical map[33m 396[2mms[22m[39m
+2026-10-20T14:35:38.3698193Z    [33m[2m✓[22m[39m resolves a bare source-map file name and module worker URL next to the script[33m 450[2mms[22m[39m
+2026-10-20T14:35:38.4524314Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/go/goModuleText.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+2026-10-20T14:35:39.3714033Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/providers/native/nativePlistSelection.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 78[2mms[22m[39m
+2026-10-20T14:35:40.2437662Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/providers/native/nativePlistDiagnostics.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 92[2mms[22m[39m
+2026-10-20T14:35:40.4497035Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/filesystem/electronFileScope.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 26[2mms[22m[39m
+2026-10-20T14:35:42.1124629Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/providers/native/artifactProvider.directoryProbes.test.ts [2m([22m[2m12 tests[22m[2m)[22m[33m 876[2mms[22m[39m
+2026-10-20T14:35:42.1125907Z    [32m✓[39m directory inspection probes [2m(12)[22m
+2026-10-20T14:35:42.1126896Z      [33m[2m✓[22m[39m proposes native and plist probes for an application bundle without JavaScript[33m 700[2mms[22m[39m
+2026-10-20T14:35:43.0815543Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/browser/largeBase64Capture.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 4450[2mms[22m[39m
+2026-10-20T14:35:43.0816966Z    [33m[2m✓[22m[39m retains a 4 MiB canonical HAR body through CLI and MCP evidence export[33m 4449[2mms[22m[39m
+2026-10-20T14:35:43.3351645Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/javascript-recovery/wakaruPublicationCancellation.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 19[2mms[22m[39m
+2026-10-20T14:35:43.5051103Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/filesystem/fileHandleChunks.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+2026-10-20T14:35:44.3607332Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/providers/ghidra/addressBoundaryRestoration.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 19[2mms[22m[39m
+2026-10-20T14:35:44.3803787Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/providers/kuna/kunaProjectReaderConcurrency.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 652[2mms[22m[39m
+2026-10-20T14:35:44.3804655Z    [33m[2m✓[22m[39m retries the whole dossier when another read loses its project[33m 651[2mms[22m[39m
+2026-10-20T14:35:44.6017756Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/filesystem/npmRelease.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 42[2mms[22m[39m
+2026-10-20T14:35:45.2184628Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/filesystem/appleDispatchMetadataStrings.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 92[2mms[22m[39m
+2026-10-20T14:35:45.8409608Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/filesystem/testTempHygiene.test.ts [2m([22m[2m7 tests[22m[2m)[22m[33m 503[2mms[22m[39m
+2026-10-20T14:35:46.3066776Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/providers/kuna/kunaInventoryAttribution.test.ts [2m([22m[2m7 tests[22m[2m)[22m[33m 1723[2mms[22m[39m
+2026-10-20T14:35:46.3087947Z    [33m[2m✓[22m[39m keeps search identity for a completed hang callable inventory[33m 1128[2mms[22m[39m
+2026-10-20T14:35:46.8249676Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/filesystem/reverseToolsMutationConfig.test.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 842[2mms[22m[39m
+2026-10-20T14:35:46.8250594Z    [32m✓[39m reverse-tools mutation configuration [2m(3)[22m
+2026-10-20T14:35:46.8251658Z      [33m[2m✓[22m[39m loads nonempty targets and distinct report destinations from both actual Stryker configs[33m 430[2mms[22m[39m
+2026-10-20T14:35:47.6955116Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/filesystem/symlinkParentOwners.test.ts [2m([22m[2m4 tests[22m[2m)[22m[33m 654[2mms[22m[39m
+2026-10-20T14:35:47.6955924Z    [32m✓[39m file owners given a directory symlink followed by .. [2m(4)[22m
+2026-10-20T14:35:47.6956424Z      [33m[2m✓[22m[39m rejects a trailing separator after a regular file[33m 634[2mms[22m[39m
+2026-10-20T14:35:47.7471357Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/filesystem/setupUnavailableProvider.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 548[2mms[22m[39m
+2026-10-20T14:35:47.7472079Z    [32m✓[39m setup with configured but unavailable providers [2m(1)[22m
+2026-10-20T14:35:47.7472736Z      [33m[2m✓[22m[39m preserves Hopper settings and makes the second setup perform no writes[33m 546[2mms[22m[39m
+2026-10-20T14:35:47.9939733Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/filesystem/appleXmlDeclarations.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 82[2mms[22m[39m
+2026-10-20T14:35:48.0434907Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/providers/GdbSessionManagers.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 129[2mms[22m[39m
+2026-10-20T14:35:48.3143657Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/idaStartupDiagnostics.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 111[2mms[22m[39m
+2026-10-20T14:35:48.4307874Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/filesystem/ciPrEvents.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 211[2mms[22m[39m
+2026-10-20T14:35:48.7894305Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/filesystem/directoryArtifactReaderFifoRace.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 213[2mms[22m[39m
+2026-10-20T14:35:49.2631125Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/filesystem/ciStaticArtifacts.test.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 752[2mms[22m[39m
+2026-10-20T14:35:49.2750255Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/filesystem/javascriptNestedReaderCleanup.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 38[2mms[22m[39m
+2026-10-20T14:35:49.4284077Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/providers/ownedCommandCleanup.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+2026-10-20T14:35:49.6375786Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/filesystem/documentationFacts.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 52[2mms[22m[39m
+2026-10-20T14:35:49.7636050Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/providers/kuna/kunaInstallationAttribution.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 299[2mms[22m[39m
+2026-10-20T14:35:49.9555445Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/providers/ghidra/ghidraTransport.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 21[2mms[22m[39m
+2026-10-20T14:35:50.1299090Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/javascript/packageMainHostPaths.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+2026-10-20T14:35:50.7457229Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/providers/kuna/kunaCommandLifetime.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 377[2mms[22m[39m
+2026-10-20T14:35:50.7458457Z    [33m[2m✓[22m[39m releases completed native outputs after requests settle[33m 376[2mms[22m[39m
+2026-10-20T14:35:51.9816846Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/providers/ghidra/ghidraVerifierTimeouts.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+2026-10-20T14:35:52.1587680Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/providers/android/androidLateCompletion.test.ts [2m([22m[2m5 tests[22m[2m)[22m[33m 2256[2mms[22m[39m
+2026-10-20T14:35:52.1589116Z    [33m[2m✓[22m[39m retains inspect_android_package Evidence when cancellation follows provider completion[33m 454[2mms[22m[39m
+2026-10-20T14:35:52.1590169Z    [33m[2m✓[22m[39m retains search_android_classes Evidence when cancellation follows provider completion[33m 439[2mms[22m[39m
+2026-10-20T14:35:52.1591126Z    [33m[2m✓[22m[39m retains inspect_android_class Evidence when cancellation follows provider completion[33m 438[2mms[22m[39m
+2026-10-20T14:35:52.1592284Z    [33m[2m✓[22m[39m retains inspect_android_method Evidence when cancellation follows provider completion[33m 452[2mms[22m[39m
+2026-10-20T14:35:52.1593313Z    [33m[2m✓[22m[39m retains trace_android_references Evidence when cancellation follows provider completion[33m 473[2mms[22m[39m
+2026-10-20T14:35:52.2765418Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/filesystem/flutterElfNotes.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 102[2mms[22m[39m
+2026-10-20T14:35:52.4653716Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/firmware/firmwareReportFiles.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 17[2mms[22m[39m
+2026-10-20T14:35:53.2520449Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/providers/managed/managedDirectAnalysis.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 309[2mms[22m[39m
+2026-10-20T14:35:53.2527113Z    [32m✓[39m managed direct-analysis path boundary [2m(1)[22m
+2026-10-20T14:35:53.2527946Z      [33m[2m✓[22m[39m returns provider evidence through the shared analysis service[33m 308[2mms[22m[39m
+2026-10-20T14:35:53.8526203Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/filesystem/keyedArchiveDateRange.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 1200[2mms[22m[39m
+2026-10-20T14:35:53.8527775Z    [33m[2m✓[22m[39m built CLI preserves dates with years beyond four digits[33m 1200[2mms[22m[39m
+2026-10-20T14:35:54.0406036Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/android/androidTargetSnapshot.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 27[2mms[22m[39m
+2026-10-20T14:35:54.2494124Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/javascript/sourceMapRuntimeAvailability.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+2026-10-20T14:35:54.6423657Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/browser/cdpBrowserProvider.timelineEvents.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 55[2mms[22m[39m
+2026-10-20T14:35:55.5294080Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/providers/native/nativeReexport.golden.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 45[2mms[22m[39m
+2026-10-20T14:35:55.6229678Z [2m2:35:55 PM[22m [33m[1m[vite][22m[39m [33m[2m(ssr)[22m[39m Failed to load source map for /home/runner/work/rea/rea/scripts/fixtures/browser-verifier-site.mjs.
+2026-10-20T14:35:55.6230260Z Error: An error occurred while trying to read the map file at /app.js.map
+2026-10-20T14:35:55.6230574Z Error: ENOENT: no such file or directory, open '/app.js.map'
+2026-10-20T14:35:55.6231123Z     at Object.readFileSync (node:fs:441:20)
+2026-10-20T14:35:55.6231414Z     at file:///home/runner/work/rea/rea/node_modules/vite/dist/node/chunks/node.js:17495:13
+2026-10-20T14:35:55.6231806Z     at readFromFileMap (file:///home/runner/work/rea/rea/node_modules/vite/dist/node/chunks/node.js:17193:13)
+2026-10-20T14:35:55.6232495Z     at Object.exports.fromMapFileComment (file:///home/runner/work/rea/rea/node_modules/vite/dist/node/chunks/node.js:17288:12)
+2026-10-20T14:35:55.6232977Z     at Object.exports.fromMapFileSource (file:///home/runner/work/rea/rea/node_modules/vite/dist/node/chunks/node.js:17299:22)
+2026-10-20T14:35:55.6233454Z     at extractSourcemapFromFile (file:///home/runner/work/rea/rea/node_modules/vite/dist/node/chunks/node.js:17481:87)
+2026-10-20T14:35:55.6233872Z     at loadAndTransform (file:///home/runner/work/rea/rea/node_modules/vite/dist/node/chunks/node.js:19954:22)
+2026-10-20T14:35:55.7096037Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/browser/browserVerifierFixture.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 7[2mms[22m[39m
+2026-10-20T14:35:55.9106459Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/filesystem/referenceSourceFifoRace.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 75[2mms[22m[39m
+2026-10-20T14:35:56.1697262Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/providers/hopper/hopperArguments.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 82[2mms[22m[39m
+2026-10-20T14:35:56.5196638Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/browser/cdpCaptureNavigation.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 39[2mms[22m[39m
+2026-10-20T14:35:56.6855759Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/providers/RizinCommandTimeout.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 2[2mms[22m[39m
+2026-10-20T14:36:00.6578059Z  [32m✓[39m [30m[43m boundary [49m[39m tests/boundary/filesystem/javascriptArtifactTypeScriptDialect.test.ts [2m([22m[2m26 tests[22m[2m)[22m[33m 6969[2mms[22m[39m
+2026-10-20T14:36:00.6579470Z    [33m[2m✓[22m[39m directory retains assertion.ts syntax-derived reference facts[33m 428[2mms[22m[39m
+2026-10-20T14:36:00.6580328Z    [33m[2m✓[22m[39m directory retains wrapped.ts syntax-derived reference facts[33m 371[2mms[22m[39m
+2026-10-20T14:36:00.6581180Z    [33m[2m✓[22m[39m directory retains as.ts syntax-derived reference facts[33m 415[2mms[22m[39m
+2026-10-20T14:36:00.6582126Z    [33m[2m✓[22m[39m directory retains wrapped-as.ts syntax-derived reference facts[33m 360[2mms[22m[39m
+2026-10-20T14:36:00.6583300Z    [33m[2m✓[22m[39m directory retains generic.ts syntax-derived reference facts[33m 347[2mms[22m[39m
+2026-10-20T14:36:00.6584149Z    [33m[2m✓[22m[39m directory retains component.tsx syntax-derived reference facts[33m 365[2mms[22m[39m
+2026-10-20T14:36:00.6585027Z    [33m[2m✓[22m[39m directory retains component.d.tsx syntax-derived reference facts[33m 385[2mms[22m[39m
+2026-10-20T14:36:00.6585916Z    [33m[2m✓[22m[39m directory retains component.jsx syntax-derived reference facts[33m 348[2mms[22m[39m
+2026-10-20T14:36:00.6586755Z    [33m[2m✓[22m[39m asar retains assertion.ts syntax-derived reference facts[33m 386[2mms[22m[39m
+2026-10-20T14:36:00.6587564Z    [33m[2m✓[22m[39m asar retains wrapped.ts syntax-derived reference facts[33m 381[2mms[22m[39m
+2026-10-20T14:36:00.6588319Z    [33m[2m✓[22m[39m asar retains as.ts syntax-derived reference facts[33m 376[2mms[22m[39m
+2026-10-20T14:36:00.6589333Z    [33m[2m✓[22m[39m asar retains wrapped-as.ts syntax-derived reference facts[33m 405[2mms[22m[39m
+2026-10-20T14:36:00.6590043Z    [33m[2m✓[22m[39m asar retains generic.ts syntax-derived reference facts[33m 449[2mms[22m[39m
+2026-10-20T14:36:00.6590717Z    [33m[2m✓[22m[39m asar retains component.tsx syntax-derived reference facts[33m 353[2mms[22m[39m
+2026-10-20T14:36:00.6591404Z    [33m[2m✓[22m[39m asar retains component.d.tsx syntax-derived reference facts[33m 410[2mms[22m[39m
+2026-10-20T14:36:00.6597762Z    [33m[2m✓[22m[39m asar retains component.jsx syntax-derived reference facts[33m 357[2mms[22m[39m
+2026-10-20T14:36:07.7203676Z  [32m✓[39m [30m[45m cli-boundary [49m[39m tests/boundary/cli/developmentTests.test.ts [2m([22m[2m14 tests[22m[2m)[22m[33m 6914[2mms[22m[39m
+2026-10-20T14:36:07.7205015Z    [32m✓[39m development test runner symlink aliases [2m(1)[22m
+2026-10-20T14:36:07.7205975Z      [33m[2m✓[22m[39m rejects excluded file and directory aliases without running their targets[33m 2188[2mms[22m[39m
+2026-10-20T14:36:07.7206826Z    [32m✓[39m development test runner exact selection [2m(8)[22m
+2026-10-20T14:36:07.7207560Z      [33m[2m✓[22m[39m runs only the exact selected file in local mode[33m 423[2mms[22m[39m
+2026-10-20T14:36:07.7208374Z      [33m[2m✓[22m[39m runs only the exact selected file in focused mode[33m 457[2mms[22m[39m
+2026-10-20T14:36:07.7209273Z      [33m[2m✓[22m[39m runs every selected file and preserves selected test failures[33m 467[2mms[22m[39m
+2026-10-20T14:36:07.7210165Z      [33m[2m✓[22m[39m preserves all configured projects for an exact file[33m 508[2mms[22m[39m
+2026-10-20T14:36:07.7213653Z      [33m[2m✓[22m[39m fails an exact file with no tests even when another selected file passes[33m 463[2mms[22m[39m
+2026-10-20T14:36:07.7217046Z    [32m✓[39m development test runner public CLI [2m(5)[22m
+2026-10-20T14:36:07.7219425Z      [33m[2m✓[22m[39m runs an explicitly selected source test on a clean tree without build artifacts[33m 504[2mms[22m[39m
+2026-10-20T14:36:07.7220687Z      [33m[2m✓[22m[39m uses committed dependency changes to select source tests and reports failures[33m 438[2mms[22m[39m
+2026-10-20T14:36:07.7221543Z      [33m[2m✓[22m[39m runs changed and focused tests from a committed branch regression[33m 897[2mms[22m[39m
+2026-10-20T14:36:07.7325850Z  [2m[90m↓[39m[22m [30m[45m cli-boundary [49m[39m tests/boundary/cli/nativePlistCli.test.ts [2m([22m[2m18 tests[22m[2m | [22m[33m18 skipped[39m[2m)[22m
+2026-10-20T14:36:20.3333021Z  [32m✓[39m [30m[45m cli-boundary [49m[39m tests/boundary/cli/browserCli.test.ts [2m([22m[2m11 tests[22m[2m)[22m[33m 23475[2mms[22m[39m
+2026-10-20T14:36:20.3334145Z    [33m[2m✓[22m[39m browser CLI parity returns the same Evidence discovery and inspection contracts[33m 5618[2mms[22m[39m
+2026-10-20T14:36:20.3335022Z    [33m[2m✓[22m[39m compares redirect metadata uncertainty through the public CLI[33m 2939[2mms[22m[39m
+2026-10-20T14:36:20.3335909Z    [33m[2m✓[22m[39m browser CLI attaches through a browser socket and records it redacted[33m 1993[2mms[22m[39m
+2026-10-20T14:36:20.3337449Z    [32m✓[39m scenario comparison CLI diagnostics [2m(6)[22m
+2026-10-20T14:36:20.3338363Z      [33m[2m✓[22m[39m retains scenario normalization diagnostics for duplicate rule IDs[33m 934[2mms[22m[39m
+2026-10-20T14:36:20.3339767Z      [33m[2m✓[22m[39m retains scenario normalization diagnostics for duplicate artifact kinds[33m 989[2mms[22m[39m
+2026-10-20T14:36:20.3340751Z      [33m[2m✓[22m[39m retains scenario normalization diagnostics for structurally invalid rules[33m 904[2mms[22m[39m
+2026-10-20T14:36:20.3341638Z      [33m[2m✓[22m[39m keeps malformed scenario diagnostics in the selected capture group[33m 1007[2mms[22m[39m
+2026-10-20T14:36:20.3342895Z      [33m[2m✓[22m[39m reports the missing scenario manifest when it is omitted on both captures[33m 955[2mms[22m[39m
+2026-10-20T14:36:20.3343872Z      [33m[2m✓[22m[39m reports the missing scenario manifest when it is misspelled on both captures[33m 1020[2mms[22m[39m
+2026-10-20T14:36:20.3344629Z    [32m✓[39m scenario comparison recovery guidance [2m(1)[22m
+2026-10-20T14:36:20.3345413Z      [33m[2m✓[22m[39m reports independent network recovery alongside console differences[33m 1875[2mms[22m[39m
+2026-10-20T14:36:20.3346099Z    [32m✓[39m browser CLI capture parity [2m(1)[22m
+2026-10-20T14:36:20.3346951Z      [33m[2m✓[22m[39m runs analysis, session, WebMCP, screenshot, and comparison from explicit request scope[33m 5238[2mms[22m[39m
+2026-10-20T14:36:27.1431452Z  [32m✓[39m [30m[45m cli-boundary [49m[39m tests/boundary/cli/adbCli.test.ts [2m([22m[2m26 tests[22m[2m)[22m[33m 5138[2mms[22m[39m
+2026-10-20T14:36:27.1432672Z    [33m[2m✓[22m[39m refuses an ambiguous destination probe before push: {"exit":1,"stdout":"","stderr":"adb: error: closed","overwrite":false}[33m 1023[2mms[22m[39m
+2026-10-20T14:36:27.1433726Z    [33m[2m✓[22m[39m refuses an ambiguous destination probe before push: {"exit":1,"stdout":"","stderr":"adb: error: closed","overwrite":true}[33m 979[2mms[22m[39m
+2026-10-20T14:36:27.1434852Z    [33m[2m✓[22m[39m refuses an ambiguous destination probe before push: {"exit":1,"stdout":"unexpected probe output","stderr":"","overwrite":false}[33m 1019[2mms[22m[39m
+2026-10-20T14:36:27.1435887Z    [33m[2m✓[22m[39m refuses an ambiguous destination probe before push: {"exit":2,"stdout":"","stderr":"","overwrite":false}[33m 973[2mms[22m[39m
+2026-10-20T14:36:27.6679914Z  [32m✓[39m [30m[45m cli-boundary [49m[39m tests/boundary/cli/flutterCli.test.ts [2m([22m[2m9 tests[22m[2m)[22m[33m 476[2mms[22m[39m
+2026-10-20T14:36:34.9817089Z  [32m✓[39m [30m[45m cli-boundary [49m[39m tests/boundary/cli/clientProfileLifecycle.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 27239[2mms[22m[39m
+2026-10-20T14:36:34.9818320Z    [33m[2m✓[22m[39m uninstall reports completed file removals beside a later OpenCode failure and recovers[33m 1955[2mms[22m[39m
+2026-10-20T14:36:34.9819678Z    [33m[2m✓[22m[39m uninstall purge retains unrelated data behind a managed-root symlink[33m 916[2mms[22m[39m
+2026-10-20T14:36:34.9820503Z    [33m[2m✓[22m[39m selected client profiles lifecycle follows the selected roots[33m 12058[2mms[22m[39m
+2026-10-20T14:36:34.9821264Z    [33m[2m✓[22m[39m Devin XDG profile lifecycle follows the selected roots[33m 5855[2mms[22m[39m
+2026-10-20T14:36:34.9822223Z    [33m[2m✓[22m[39m default OpenCode profile lifecycle follows the selected roots[33m 5567[2mms[22m[39m
+2026-10-20T14:36:34.9822955Z    [33m[2m✓[22m[39m uninstall names each retained skill directory[33m 888[2mms[22m[39m
+2026-10-20T14:36:35.4528735Z  [32m✓[39m [30m[45m cli-boundary [49m[39m tests/boundary/cli/dispatcher.test.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 463[2mms[22m[39m
+2026-10-20T14:36:35.4529589Z    [32m✓[39m executable dispatcher [2m(3)[22m
+2026-10-20T14:36:35.4533423Z      [33m[2m✓[22m[39m reserves production MCP routing for bare mode arguments[33m 330[2mms[22m[39m
+2026-10-20T14:36:35.5730043Z  [32m✓[39m [30m[45m cli-boundary [49m[39m tests/boundary/cli/filteredFailureOutput.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 38[2mms[22m[39m
+2026-10-20T14:36:42.1067420Z  [32m✓[39m [30m[45m cli-boundary [49m[39m tests/boundary/cli/referenceSourceSummary.test.ts [2m([22m[2m11 tests[22m[2m)[22m[33m 14428[2mms[22m[39m
+2026-10-20T14:36:42.1068295Z    [32m✓[39m compiled historical-source summaries [2m(2)[22m
+2026-10-20T14:36:42.1068944Z      [33m[2m✓[22m[39m selects a committed summary without changing complete output[33m 5503[2mms[22m[39m
+2026-10-20T14:36:42.1069740Z      [33m[2m✓[22m[39m retains exclusions and parse coverage independently of a hidden outline[33m 841[2mms[22m[39m
+2026-10-20T14:36:42.1070425Z    [32m✓[39m compiled historical-source summary input boundaries [2m(9)[22m
+2026-10-20T14:36:42.1071076Z      [33m[2m✓[22m[39m documents detail and depth in public command help[33m 881[2mms[22m[39m
+2026-10-20T14:36:42.1071710Z      [33m[2m✓[22m[39m rejects --detail summry[33m 827[2mms[22m[39m
+2026-10-20T14:36:42.1072323Z      [33m[2m✓[22m[39m rejects --detail summary --outline-depth -1[33m 909[2mms[22m[39m
+2026-10-20T14:36:42.1072706Z      [33m[2m✓[22m[39m rejects --detail summary --outline-depth 1.5[33m 963[2mms[22m[39m
+2026-10-20T14:36:42.1073164Z      [33m[2m✓[22m[39m rejects --detail summary --outline-depth NaN[33m 960[2mms[22m[39m
+2026-10-20T14:36:42.1073847Z      [33m[2m✓[22m[39m rejects --detail summary --outline-depth 9007199254740992[33m 831[2mms[22m[39m
+2026-10-20T14:36:42.1074457Z      [33m[2m✓[22m[39m rejects --outline-depth 1[33m 929[2mms[22m[39m
+2026-10-20T14:36:42.1074826Z      [33m[2m✓[22m[39m rejects --detail full --outline-depth 1[33m 852[2mms[22m[39m
+2026-10-20T14:36:42.1075213Z      [33m[2m✓[22m[39m preserves the missing-root failure in summary mode[33m 929[2mms[22m[39m
+2026-10-20T14:36:42.1370074Z  [32m✓[39m [30m[45m cli-boundary [49m[39m tests/boundary/cli/apktoolLocaleOption.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 19[2mms[22m[39m
+2026-10-20T14:36:45.3106223Z  [32m✓[39m [30m[45m cli-boundary [49m[39m tests/boundary/cli/appleBundleDirectoryCli.test.ts [2m([22m[2m5 tests[22m[2m)[22m[33m 9688[2mms[22m[39m
+2026-10-20T14:36:45.3106888Z    [33m[2m✓[22m[39m Apple CLI respects directory identity with regular Contents resource[33m 1985[2mms[22m[39m
+2026-10-20T14:36:45.3107561Z    [33m[2m✓[22m[39m Apple CLI respects directory identity with regular Versions resource[33m 1890[2mms[22m[39m
+2026-10-20T14:36:45.3108306Z    [33m[2m✓[22m[39m Apple CLI respects directory identity with implied Contents directory[33m 1948[2mms[22m[39m
+2026-10-20T14:36:45.3108791Z    [33m[2m✓[22m[39m Apple CLI respects directory identity with file shadowing a folded directory[33m 1938[2mms[22m[39m
+2026-10-20T14:36:45.3109558Z    [33m[2m✓[22m[39m Apple CLI does not invent an application from a leaf Contents file[33m 1927[2mms[22m[39m
+2026-10-20T14:37:08.8715400Z  [32m✓[39m [30m[45m cli-boundary [49m[39m tests/boundary/cli/adbUninstallScope.test.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 26534[2mms[22m[39m
+2026-10-20T14:37:08.8744259Z    [33m[2m✓[22m[39m selects user 0 through CLI and MCP for Success, exit 0[33m 8588[2mms[22m[39m
+2026-10-20T14:37:08.8788406Z    [33m[2m✓[22m[39m selects user 0 through CLI and MCP for Failure [not installed for 0], exit 0[33m 9217[2mms[22m[39m
+2026-10-20T14:37:08.8819129Z    [33m[2m✓[22m[39m selects user 0 through CLI and MCP for Failure [not installed for 0], exit 1[33m 8729[2mms[22m[39m
+2026-10-20T14:37:13.5508330Z  [32m✓[39m [30m[45m cli-boundary [49m[39m tests/boundary/cli/adbWindowDisplays.test.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 26812[2mms[22m[39m
+2026-10-20T14:37:13.5509716Z    [33m[2m✓[22m[39m retains display-scoped focus through CLI and MCP: inactive-first[33m 8863[2mms[22m[39m
+2026-10-20T14:37:13.5510745Z    [33m[2m✓[22m[39m retains display-scoped focus through CLI and MCP: active-first[33m 8607[2mms[22m[39m
+2026-10-20T14:37:13.5511684Z    [33m[2m✓[22m[39m retains display-scoped focus through CLI and MCP: active-only[33m 9341[2mms[22m[39m
+2026-10-20T14:37:14.4698811Z  [32m✓[39m [30m[45m cli-boundary [49m[39m tests/boundary/cli/electronResourceSizeCli.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 910[2mms[22m[39m
+2026-10-20T14:37:14.4699902Z    [33m[2m✓[22m[39m Electron resource sizes preserve unknown values and invalid-metadata coverage[33m 910[2mms[22m[39m
+2026-10-20T14:37:14.8502968Z  [32m✓[39m [30m[45m cli-boundary [49m[39m tests/boundary/cli/desktopApplicationCli.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 5947[2mms[22m[39m
+2026-10-20T14:37:14.8503892Z    [33m[2m✓[22m[39m shares directory facts and exact retained-field semantics with the public CLI[33m 5947[2mms[22m[39m
+2026-10-20T14:37:19.2075188Z  [32m✓[39m [30m[45m cli-boundary [49m[39m tests/boundary/cli/scenarioCliInputDiagnostics.test.ts [2m([22m[2m5 tests[22m[2m)[22m[33m 4732[2mms[22m[39m
+2026-10-20T14:37:19.2076047Z    [32m✓[39m scenario CLI schema diagnostics [2m(2)[22m
+2026-10-20T14:37:19.2076607Z      [33m[2m✓[22m[39m reports browser scenario schema paths[33m 958[2mms[22m[39m
+2026-10-20T14:37:19.2077252Z      [33m[2m✓[22m[39m reports Electron scenario schema paths[33m 846[2mms[22m[39m
+2026-10-20T14:37:19.2077866Z    [33m[2m✓[22m[39m names the unresolved Electron executable_path[33m 1007[2mms[22m[39m
+2026-10-20T14:37:19.2078502Z    [33m[2m✓[22m[39m names the unresolved Electron application_path[33m 1024[2mms[22m[39m
+2026-10-20T14:37:19.2079135Z    [33m[2m✓[22m[39m names the unresolved Electron application_root[33m 896[2mms[22m[39m
+2026-10-20T14:37:22.3562310Z  [32m✓[39m [30m[45m cli-boundary [49m[39m tests/boundary/cli/closedStdout.test.ts [2m([22m[2m4 tests[22m[2m)[22m[33m 7498[2mms[22m[39m
+2026-10-20T14:37:22.3563410Z    [32m✓[39m CLI with a closed stdout [2m(4)[22m
+2026-10-20T14:37:22.3564199Z      [33m[2m✓[22m[39m stops quietly with the SIGPIPE status when the reader closes first (toon)[33m 1246[2mms[22m[39m
+2026-10-20T14:37:22.3565156Z      [33m[2m✓[22m[39m stops quietly with the SIGPIPE status when the reader closes first (json)[33m 1275[2mms[22m[39m
+2026-10-20T14:37:22.3566161Z      [33m[2m✓[22m[39m stops quietly with the SIGPIPE status when the reader closes first (mcp doctor)[33m 3094[2mms[22m[39m
+2026-10-20T14:37:22.3567292Z      [33m[2m✓[22m[39m stops quietly when the reader closes during streamed JSON[33m 1883[2mms[22m[39m
+2026-10-20T14:37:25.7987816Z  [32m✓[39m [30m[45m cli-boundary [49m[39m tests/boundary/cli/httpCaptureComparison.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 6582[2mms[22m[39m
+2026-10-20T14:37:25.7991724Z    [33m[2m✓[22m[39m CLI compares incomplete HTTP responses without inventing changes[33m 6582[2mms[22m[39m
+2026-10-20T14:37:25.8229969Z  [32m✓[39m [30m[45m cli-boundary [49m[39m tests/boundary/cli/finishAnalysisCommand.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+2026-10-20T14:37:25.9733965Z  [32m✓[39m [30m[45m cli-boundary [49m[39m tests/boundary/cli/cliToolCoverage.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 55[2mms[22m[39m
+2026-10-20T14:37:26.0114194Z  [32m✓[39m [30m[45m cli-boundary [49m[39m tests/boundary/cli/wasmLateCancellationCli.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 5[2mms[22m[39m
+2026-10-20T14:37:26.0296857Z  [32m✓[39m [30m[45m cli-boundary [49m[39m tests/boundary/cli/nativeUiScenarioInputCli.test.ts [2m([22m[2m4 tests[22m[2m)[22m[33m 3666[2mms[22m[39m
+2026-10-20T14:37:26.0297364Z    [32m✓[39m native UI scenario CLI input [2m(4)[22m
+2026-10-20T14:37:26.0297749Z      [33m[2m✓[22m[39m rejects omitted steps under the shared scenario contract[33m 898[2mms[22m[39m
+2026-10-20T14:37:26.0298201Z      [33m[2m✓[22m[39m rejects malformed JSON as invalid input[33m 911[2mms[22m[39m
+2026-10-20T14:37:26.0298587Z      [33m[2m✓[22m[39m requires at least one schema-valid scenario step[33m 899[2mms[22m[39m
+2026-10-20T14:37:26.0299046Z      [33m[2m✓[22m[39m refuses scenario steps on passive observation instead of dropping them[33m 958[2mms[22m[39m
+2026-10-20T14:37:26.2940464Z  [32m✓[39m [30m[45m cli-boundary [49m[39m tests/boundary/cli/pcapCli.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 258[2mms[22m[39m
+2026-10-20T14:37:31.7412963Z  [32m✓[39m [30m[45m cli-boundary [49m[39m tests/boundary/cli/javascriptArtifactBomRanges.test.ts [2m([22m[2m4 tests[22m[2m)[22m[33m 5684[2mms[22m[39m
+2026-10-20T14:37:31.7414309Z    [33m[2m✓[22m[39m analyze-javascript-application preserves original BOM coordinates for directory[33m 1493[2mms[22m[39m
+2026-10-20T14:37:31.7415302Z    [33m[2m✓[22m[39m analyze preserves original BOM coordinates for directory[33m 1390[2mms[22m[39m
+2026-10-20T14:37:31.7419531Z    [33m[2m✓[22m[39m analyze-javascript-application preserves original BOM coordinates for asar[33m 1344[2mms[22m[39m
+2026-10-20T14:37:31.7420422Z    [33m[2m✓[22m[39m analyze preserves original BOM coordinates for asar[33m 1457[2mms[22m[39m
+2026-10-20T14:37:33.4713642Z  [32m✓[39m [30m[45m mcp-boundary [49m[39m tests/boundary/mcp/artifactMcp.test.ts [2m([22m[2m10 tests[22m[2m)[22m[33m 463[2mms[22m[39m
+2026-10-20T14:37:33.7540694Z  [32m✓[39m [30m[45m mcp-boundary [49m[39m tests/boundary/mcp/enhancedTools.callPathsAndBatches.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 234[2mms[22m[39m
+2026-10-20T14:37:46.8798477Z  [32m✓[39m [30m[45m mcp-boundary [49m[39m tests/boundary/mcp/serverIdentity.test.ts [2m([22m[2m11 tests[22m[2m)[22m[33m 13099[2mms[22m[39m
+2026-10-20T14:37:46.8799309Z    [32m✓[39m server and catalog identity [2m(6)[22m
+2026-10-20T14:37:46.8800016Z      [33m[2m✓[22m[39m derives package and SDK versions from canonical package metadata[33m 489[2mms[22m[39m
+2026-10-20T14:37:46.8800852Z      [33m[2m✓[22m[39m covers each tool's target-content policy in the catalog digest[33m 858[2mms[22m[39m
+2026-10-20T14:37:46.8801693Z      [33m[2m✓[22m[39m binds output schema profile and canonical output contracts into identity[33m 1692[2mms[22m[39m
+2026-10-20T14:37:46.8803003Z      [33m[2m✓[22m[39m changes catalog identity when advertised input examples change[33m 747[2mms[22m[39m
+2026-10-20T14:37:46.8804632Z    [32m✓[39m guided prompt catalog identity [2m(1)[22m
+2026-10-20T14:37:46.8805371Z      [33m[2m✓[22m[39m covers each guided prompt's objective in the catalog digest[33m 379[2mms[22m[39m
+2026-10-20T14:37:46.8806004Z    [32m✓[39m live server identity over MCP [2m(2)[22m
+2026-10-20T14:37:46.8806740Z      [33m[2m✓[22m[39m exposes live identity, a stable catalog, and changing availability[33m 4169[2mms[22m[39m
+2026-10-20T14:37:46.8808119Z      [33m[2m✓[22m[39m compares the caller's digest against the selected compact tools/list catalog[33m 3827[2mms[22m[39m
+2026-10-20T14:37:46.8808840Z    [32m✓[39m active-target availability over MCP [2m(1)[22m
+2026-10-20T14:37:46.8809552Z      [33m[2m✓[22m[39m advertises active-target tools only when a matching target is open[33m 928[2mms[22m[39m
+2026-10-20T14:37:52.9981625Z  [32m✓[39m [30m[45m mcp-boundary [49m[39m tests/boundary/mcp/agentKnownAnswerMcp.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 6074[2mms[22m[39m
+2026-10-20T14:37:52.9982608Z    [32m✓[39m packaged application known-answer evaluation [2m(2)[22m
+2026-10-20T14:37:52.9983395Z      [33m[2m✓[22m[39m grades real packaged bytes and rejects false values, extra claims, and unrelated citations[33m 753[2mms[22m[39m
+2026-10-20T14:37:52.9984210Z      [33m[2m✓[22m[39m binds its oracle to the requested packaged artifact path[33m 618[2mms[22m[39m
+2026-10-20T14:37:52.9984821Z    [32m✓[39m known-answer packaged artifact digest binding [2m(1)[22m
+2026-10-20T14:37:52.9985520Z      [33m[2m✓[22m[39m rejects the same known facts when the target bytes change at the same path[33m 620[2mms[22m[39m
+2026-10-20T14:37:52.9986169Z    [32m✓[39m source-produced parser comparison known answers [2m(1)[22m
+2026-10-20T14:37:52.9987089Z      [33m[2m✓[22m[39m accepts exact source-produced heading changes and rejects fabricated depth or runtime claims[33m 898[2mms[22m[39m
+2026-10-20T14:37:52.9987506Z    [32m✓[39m Notes export known-answer evaluation [2m(2)[22m
+2026-10-20T14:37:52.9987958Z      [33m[2m✓[22m[39m grades real analysis and traces while rejecting false values and unsupported citations[33m 1341[2mms[22m[39m
+2026-10-20T14:37:52.9988499Z      [33m[2m✓[22m[39m binds Notes analysis and derived traces to the requested artifact path and bytes[33m 1842[2mms[22m[39m
+2026-10-20T14:37:53.2009411Z  [32m✓[39m [30m[45m mcp-boundary [49m[39m tests/boundary/mcp/investigationAnalysisMcp.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 189[2mms[22m[39m
+2026-10-20T14:37:53.3524706Z  [32m✓[39m [30m[45m mcp-boundary [49m[39m tests/boundary/mcp/functionComparisonMcp.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 141[2mms[22m[39m
+2026-10-20T14:37:57.4378745Z  [32m✓[39m [30m[45m mcp-boundary [49m[39m tests/boundary/mcp/fridaMcp.test.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 4058[2mms[22m[39m
+2026-10-20T14:37:57.4380063Z    [33m[2m✓[22m[39m advertises Frida MCP schemas and keeps remote credentials out of results[33m 3956[2mms[22m[39m
+2026-10-20T14:37:57.6202595Z  [32m✓[39m [30m[45m mcp-boundary [49m[39m tests/boundary/mcp/serverUnknownsMcp.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 174[2mms[22m[39m
+2026-10-20T14:37:57.8149135Z  [32m✓[39m [30m[45m mcp-boundary [49m[39m tests/boundary/mcp/cutterCancellationMcp.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 180[2mms[22m[39m
+2026-10-20T14:38:00.8296163Z  [32m✓[39m [30m[45m mcp-boundary [49m[39m tests/boundary/mcp/analysisViewMcp.test.ts [2m([22m[2m21 tests[22m[2m)[22m[33m 33133[2mms[22m[39m
+2026-10-20T14:38:00.8296815Z    [33m[2m✓[22m[39m preserves native relationship coverage through inline and retained MCP views[33m 5964[2mms[22m[39m
+2026-10-20T14:38:00.8297378Z    [33m[2m✓[22m[39m advertises typed module references and preserves portable/retained Evidence parity[33m 4898[2mms[22m[39m
+2026-10-20T14:38:00.8297971Z    [33m[2m✓[22m[39m discovers an oversized native dossier by exact metadata and reads its retained view[33m 3281[2mms[22m[39m
+2026-10-20T14:38:00.8298506Z    [33m[2m✓[22m[39m advertises exact schemas and projects one layout section from retained Evidence[33m 4207[2mms[22m[39m
+2026-10-20T14:38:00.8299071Z    [33m[2m✓[22m[39m delivers a bounded native dossier view over MCP without a Ghidra provider or lost connection[33m 4691[2mms[22m[39m
+2026-10-20T14:38:00.8299643Z    [33m[2m✓[22m[39m reads successive native source pages directly from a completed-result transport error[33m 350[2mms[22m[39m
+2026-10-20T14:38:00.8300460Z    [33m[2m✓[22m[39m extracts an environment state identically from retained, portable and file MCP Evidence[33m 4619[2mms[22m[39m
+2026-10-20T14:38:00.8301023Z    [33m[2m✓[22m[39m projects an environment manifest identically from retained, portable and file MCP Evidence[33m 3912[2mms[22m[39m
+2026-10-20T14:38:02.5014068Z  [32m✓[39m [30m[45m mcp-boundary [49m[39m tests/boundary/mcp/ghidraReopen.test.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 4613[2mms[22m[39m
+2026-10-20T14:38:02.5015162Z    [32m✓[39m Ghidra MCP session recovery over Unix sockets [2m(3)[22m
+2026-10-20T14:38:02.5031055Z      [33m[2m✓[22m[39m retires a disconnected live child before lazily starting a replacement[33m 1696[2mms[22m[39m
+2026-10-20T14:38:02.5032809Z      [33m[2m✓[22m[39m retains failed cleanup and refuses replacement until cleanup can be retried[33m 2696[2mms[22m[39m
+2026-10-20T14:38:04.3050789Z  [32m✓[39m [30m[45m mcp-boundary [49m[39m tests/boundary/mcp/browserScenarioMcp.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 3439[2mms[22m[39m
+2026-10-20T14:38:04.3052018Z    [32m✓[39m browser scenario MCP tool [2m(1)[22m
+2026-10-20T14:38:04.3052979Z      [33m[2m✓[22m[39m runs the explicit scenario request without a permission grant[33m 3426[2mms[22m[39m
+2026-10-20T14:38:04.5099726Z {"level":40,"time":1792507084509,"application":"rea","mode":"mcp","layer":"server","providerId":"rea-cdp-browser","error":"browserObservation synthetic import failure","msg":"Optional MCP adapter could not load; its peers remain available"}
+2026-10-20T14:38:06.4855040Z  [32m✓[39m [30m[45m mcp-boundary [49m[39m tests/boundary/mcp/officialTools.test.ts [2m([22m[2m8 tests[22m[2m)[22m[33m 3931[2mms[22m[39m
+2026-10-20T14:38:06.4856489Z    [33m[2m✓[22m[39m returns typed Hopper byte-search unavailability without launching the provider[33m 383[2mms[22m[39m
+2026-10-20T14:38:06.4857352Z    [32m✓[39m official tool input contracts [2m(1)[22m
+2026-10-20T14:38:06.4858205Z      [33m[2m✓[22m[39m rejects misspelled top-level inputs before dispatch and keeps record keys open[33m 3086[2mms[22m[39m
+2026-10-20T14:38:06.5620473Z  [32m✓[39m [30m[45m mcp-boundary [49m[39m tests/boundary/mcp/evidenceImportCancellation.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 70[2mms[22m[39m
+2026-10-20T14:38:06.6276874Z  [32m✓[39m [30m[45m mcp-boundary [49m[39m tests/boundary/mcp/managedWorkflowUnknownIdentityMcp.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 59[2mms[22m[39m
+2026-10-20T14:38:06.6928322Z  [32m✓[39m [30m[45m mcp-boundary [49m[39m tests/boundary/mcp/workflowUnknownIdentityMcp.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 46[2mms[22m[39m
+2026-10-20T14:38:07.3973978Z  [32m✓[39m [30m[45m mcp-boundary [49m[39m tests/boundary/mcp/browserComparisonInput.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 599[2mms[22m[39m
+2026-10-20T14:38:07.3975259Z    [32m✓[39m browser comparison input boundary [2m(1)[22m
+2026-10-20T14:38:07.3976257Z      [33m[2m✓[22m[39m advertises complete producer captures and agrees with SDK validation on both comparison families[33m 599[2mms[22m[39m
+2026-10-20T14:38:08.4647628Z  [32m✓[39m [30m[45m mcp-boundary [49m[39m tests/boundary/mcp/sessionEvidenceRecovery.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 1058[2mms[22m[39m
+2026-10-20T14:38:08.4648359Z    [33m[2m✓[22m[39m preserves investigation records through failed target switch and cleanup retries[33m 537[2mms[22m[39m
+2026-10-20T14:38:08.4648905Z    [33m[2m✓[22m[39m preserves investigation records through failed target restart and cleanup retries[33m 520[2mms[22m[39m
+2026-10-20T14:38:08.5093294Z  [32m✓[39m [30m[45m mcp-boundary [49m[39m tests/boundary/mcp/reconstructionCoverageMcp.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 19[2mms[22m[39m
+2026-10-20T14:38:08.7586358Z {"level":30,"time":1792507088758,"application":"rea","mode":"mcp","layer":"server","tool":"list_javascript_runtime_targets","durationMs":0.6,"status":"ok","msg":"MCP tool execution completed"}
+2026-10-20T14:38:08.7815659Z {"level":40,"time":1792507088781,"application":"rea","mode":"mcp","layer":"server","providerId":"rea-playwright-browser-scenario","error":"browserScenarioCapture synthetic import failure","msg":"Optional MCP adapter could not load; its peers remain available"}
+2026-10-20T14:38:11.5814157Z  [32m✓[39m [30m[45m mcp-boundary [49m[39m tests/boundary/mcp/apktoolMcp.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 3046[2mms[22m[39m
+2026-10-20T14:38:11.5815193Z    [33m[2m✓[22m[39m advertises exact valid Apktool schemas and records inline evidence through MCP[33m 3046[2mms[22m[39m
+2026-10-20T14:38:11.6083281Z  [32m✓[39m [30m[45m mcp-boundary [49m[39m tests/boundary/mcp/evidenceImportLifecycle.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 21[2mms[22m[39m
+2026-10-20T14:38:11.9607490Z {"level":30,"time":1792507088766,"application":"rea","mode":"mcp","layer":"server","tool":"reconcile_javascript_runtime","durationMs":4.22,"status":"ok","msg":"MCP tool execution completed"}
+2026-10-20T14:38:12.2549287Z {"level":30,"time":1792507092254,"application":"rea","mode":"mcp","layer":"server","tool":"list_javascript_runtime_targets","durationMs":0.28,"status":"ok","msg":"MCP tool execution completed"}
+2026-10-20T14:38:12.2700903Z {"level":40,"time":1792507092269,"application":"rea","mode":"mcp","layer":"server","providerId":"rea-cdp-electron","error":"electronObservation synthetic import failure","msg":"Optional MCP adapter could not load; its peers remain available"}
+2026-10-20T14:38:15.2068784Z {"level":30,"time":1792507092263,"application":"rea","mode":"mcp","layer":"server","tool":"reconcile_javascript_runtime","durationMs":5.31,"status":"ok","msg":"MCP tool execution completed"}
+2026-10-20T14:38:15.6119903Z {"level":30,"time":1792507095611,"application":"rea","mode":"mcp","layer":"server","tool":"list_javascript_runtime_targets","durationMs":0.32,"status":"ok","msg":"MCP tool execution completed"}
+2026-10-20T14:38:15.6194610Z {"level":30,"time":1792507095617,"application":"rea","mode":"mcp","layer":"server","tool":"reconcile_javascript_runtime","durationMs":4.11,"status":"ok","msg":"MCP tool execution completed"}
+2026-10-20T14:38:16.0620211Z {"level":30,"time":1792507096061,"application":"rea","mode":"mcp","layer":"server","tool":"analyze_javascript_application","durationMs":441.18,"status":"ok","msg":"MCP tool execution completed"}
+2026-10-20T14:38:16.0915055Z {"level":40,"time":1792507096091,"application":"rea","mode":"mcp","layer":"server","providerId":"rea-playwright-electron-active","error":"electronActiveObservation synthetic import failure","msg":"Optional MCP adapter could not load; its peers remain available"}
+2026-10-20T14:38:18.5783469Z  [32m✓[39m [30m[45m mcp-boundary [49m[39m tests/boundary/mcp/packetCaptureMcp.test.ts [2m([22m[2m5 tests[22m[2m)[22m[33m 6960[2mms[22m[39m
+2026-10-20T14:38:18.5784941Z    [33m[2m✓[22m[39m advertises valid target-free schemas and missing-tool diagnostics: inspect_packet_capture[33m 3223[2mms[22m[39m
+2026-10-20T14:38:18.5786083Z    [33m[2m✓[22m[39m advertises valid target-free schemas and missing-tool diagnostics: inspect_packet_fields[33m 3698[2mms[22m[39m
+2026-10-20T14:38:19.5465560Z {"level":30,"time":1792507099546,"application":"rea","mode":"mcp","layer":"server","tool":"list_javascript_runtime_targets","durationMs":0.24,"status":"ok","msg":"MCP tool execution completed"}
+2026-10-20T14:38:19.5538914Z {"level":30,"time":1792507099551,"application":"rea","mode":"mcp","layer":"server","tool":"reconcile_javascript_runtime","durationMs":3.65,"status":"ok","msg":"MCP tool execution completed"}
+2026-10-20T14:38:19.9713181Z {"level":30,"time":1792507099970,"application":"rea","mode":"mcp","layer":"server","tool":"analyze_javascript_application","durationMs":415.59,"status":"ok","msg":"MCP tool execution completed"}
+2026-10-20T14:38:19.9774167Z {"level":40,"time":1792507099977,"application":"rea","mode":"mcp","layer":"server","providerId":"rea-v8-inspector","error":"javascriptRuntimeObservation synthetic import failure","msg":"Optional MCP adapter could not load; its peers remain available"}
+2026-10-20T14:38:21.8698801Z  [32m✓[39m [30m[45m mcp-boundary [49m[39m tests/boundary/mcp/functionCallDirectionsMcp.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 3285[2mms[22m[39m
+2026-10-20T14:38:21.8700352Z    [33m[2m✓[22m[39m preserves directional gaps through advertised schemas and public path reconstruction[33m 3285[2mms[22m[39m
+2026-10-20T14:38:21.9043451Z  [32m✓[39m [30m[45m mcp-boundary [49m[39m tests/boundary/mcp/completionInventoryAliasMcp.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 28[2mms[22m[39m
+2026-10-20T14:38:22.0900739Z  [32m✓[39m [30m[45m mcp-boundary [49m[39m tests/boundary/mcp/toolInputAdmission.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 176[2mms[22m[39m
+2026-10-20T14:38:22.3665340Z  [32m✓[39m [30m[45m mcp-boundary [49m[39m tests/boundary/mcp/ghidraCompactReferencesMcp.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 255[2mms[22m[39m
+2026-10-20T14:38:23.6188286Z {"level":30,"time":1792507103618,"application":"rea","mode":"mcp","layer":"server","tool":"list_browser_targets","durationMs":0.43,"status":"ok","msg":"MCP tool execution completed"}
+2026-10-20T14:38:23.6414404Z {"level":40,"time":1792507103639,"application":"rea","mode":"mcp","layer":"server","providerId":"rea-cdp-browser","error":"all optional adapters unavailable","msg":"Optional MCP adapter could not load; its peers remain available"}
+2026-10-20T14:38:23.9554560Z  [32m✓[39m [30m[45m mcp-boundary [49m[39m tests/boundary/mcp/javascriptEndpointCandidate.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 1572[2mms[22m[39m
+2026-10-20T14:38:23.9555296Z    [33m[2m✓[22m[39m preserves Map omission and uncertain endpoint Evidence through public MCP[33m 1571[2mms[22m[39m
+2026-10-20T14:38:24.0655188Z  [32m✓[39m [30m[45m mcp-boundary [49m[39m tests/boundary/mcp/enhancedTools.06-rejects-incomplete-function-dossiers-at.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 86[2mms[22m[39m
+2026-10-20T14:38:24.0892224Z  [32m✓[39m [30m[45m mcp-boundary [49m[39m tests/boundary/mcp/enhancedTools.inputValidation.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 18[2mms[22m[39m
+2026-10-20T14:38:26.9916343Z {"level":30,"time":1792507103635,"application":"rea","mode":"mcp","layer":"server","tool":"reconcile_javascript_runtime","durationMs":3.78,"status":"ok","msg":"MCP tool execution completed"}
+2026-10-20T14:38:26.9918600Z {"level":40,"time":1792507103639,"application":"rea","mode":"mcp","layer":"server","providerId":"rea-playwright-browser-scenario","error":"all optional adapters unavailable","msg":"Optional MCP adapter could not load; its peers remain available"}
+2026-10-20T14:38:26.9920601Z {"level":40,"time":1792507103639,"application":"rea","mode":"mcp","layer":"server","providerId":"rea-cdp-electron","error":"all optional adapters unavailable","msg":"Optional MCP adapter could not load; its peers remain available"}
+2026-10-20T14:38:26.9922609Z {"level":40,"time":1792507103639,"application":"rea","mode":"mcp","layer":"server","providerId":"rea-playwright-electron-active","error":"all optional adapters unavailable","msg":"Optional MCP adapter could not load; its peers remain available"}
+2026-10-20T14:38:26.9927191Z {"level":40,"time":1792507103639,"application":"rea","mode":"mcp","layer":"server","providerId":"rea-v8-inspector","error":"all optional adapters unavailable","msg":"Optional MCP adapter could not load; its peers remain available"}
+2026-10-20T14:38:27.2537323Z  [32m✓[39m [30m[45m mcp-boundary [49m[39m tests/boundary/mcp/optionalProviderIsolation.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 22749[2mms[22m[39m
+2026-10-20T14:38:27.2538063Z    [33m[2m✓[22m[39m isolates browserObservation and retains successful peers[33m 4275[2mms[22m[39m
+2026-10-20T14:38:27.2538770Z    [33m[2m✓[22m[39m isolates browserScenarioCapture and retains successful peers[33m 3489[2mms[22m[39m
+2026-10-20T14:38:27.2539960Z    [33m[2m✓[22m[39m isolates electronObservation and retains successful peers[33m 3822[2mms[22m[39m
+2026-10-20T14:38:27.2540700Z    [33m[2m✓[22m[39m isolates electronActiveObservation and retains successful peers[33m 3886[2mms[22m[39m
+2026-10-20T14:38:27.2541500Z    [33m[2m✓[22m[39m isolates javascriptRuntimeObservation and retains successful peers[33m 3662[2mms[22m[39m
+2026-10-20T14:38:27.2542766Z    [33m[2m✓[22m[39m starts with every optional adapter failed and creates fresh connection state[33m 3615[2mms[22m[39m
+2026-10-20T14:38:28.5190246Z  [32m✓[39m [30m[43m process-global [49m[39m tests/process-global/stableArtifactConsumers.test.ts [2m([22m[2m27 tests[22m[2m)[22m[32m 132[2mms[22m[39m
+2026-10-20T14:38:28.9770041Z  [32m✓[39m [30m[43m process-global [49m[39m tests/process-global/pwntoolsCleanup.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 299[2mms[22m[39m
+2026-10-20T14:38:29.1887576Z  [32m✓[39m [30m[43m process-global [49m[39m tests/process-global/artifactReadFailurePrecedence.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 45[2mms[22m[39m
+2026-10-20T14:38:30.2360206Z  [32m✓[39m [30m[43m process-global [49m[39m tests/process-global/runnerCancellation.test.ts [2m([22m[2m11 tests[22m[2m | [22m[33m5 skipped[39m[2m)[22m[33m 5957[2mms[22m[39m
+2026-10-20T14:38:30.2362498Z    [33m[2m✓[22m[39m holds ownership until an uncooperative command has finished cancellation[33m 1163[2mms[22m[39m
+2026-10-20T14:38:30.2363842Z    [33m[2m✓[22m[39m retains the lock when the command exits but a descendant ignores cancellation[33m 1301[2mms[22m[39m
+2026-10-20T14:38:30.2364970Z    [33m[2m✓[22m[39m does not treat an old database timestamp as permission to replace a live owner[33m 1578[2mms[22m[39m
+2026-10-20T14:38:30.2366034Z    [33m[2m✓[22m[39m recovers after abrupt owner death and keeps simultaneous contenders exclusive[33m 1586[2mms[22m[39m
+2026-10-20T14:38:30.5695492Z  [32m✓[39m [30m[43m process-global [49m[39m tests/process-global/verifierRun.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 179[2mms[22m[39m
+2026-10-20T14:38:30.6832463Z  [32m✓[39m [30m[43m process-global [49m[39m tests/process-global/cliUpdateAlias.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 251[2mms[22m[39m
+2026-10-20T14:38:31.1615962Z  [32m✓[39m [30m[43m process-global [49m[39m tests/process-global/commandFinalizationCancellation.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 27[2mms[22m[39m
+2026-10-20T14:38:32.1096371Z  [32m✓[39m [30m[43m process-global [49m[39m tests/process-global/pwntoolsCliRemediation.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 261[2mms[22m[39m
+2026-10-20T14:38:32.4614464Z  [32m✓[39m [30m[43m process-global [49m[39m tests/process-global/hopperLeaseDescriptorPermissions.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 7[2mms[22m[39m
+2026-10-20T14:38:32.6713932Z  [32m✓[39m [30m[43m process-global [49m[39m tests/process-global/regularFileNoFollowFallback.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 21[2mms[22m[39m
+2026-10-20T14:38:33.7708716Z  [32m✓[39m [30m[43m process-global [49m[39m tests/process-global/cliSelectedEnvironment.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 1241[2mms[22m[39m
+2026-10-20T14:38:33.7709565Z    [32m✓[39m CLI selected environment [2m(2)[22m
+2026-10-20T14:38:33.7710405Z      [33m[2m✓[22m[39m retains the selected binary provider and launcher after caller and ambient environment changes[33m 1194[2mms[22m[39m
+2026-10-20T14:38:33.9976778Z  [32m✓[39m [30m[43m process-boundary [49m[39m tests/boundary/process/processSnapshotHandleOwnership.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 33[2mms[22m[39m
+2026-10-20T14:38:37.1886820Z  [32m✓[39m [30m[43m process-boundary [49m[39m tests/boundary/process/electronLaunchRejections.test.ts [2m([22m[2m13 tests[22m[2m)[22m[33m 3051[2mms[22m[39m
+2026-10-20T14:38:37.1888455Z    [33m[2m✓[22m[39m absorbs the orphans of a real Playwright launch that exits at once[33m 416[2mms[22m[39m
+2026-10-20T14:38:37.1889326Z    [33m[2m✓[22m[39m still fails on an unrelated Playwright rejection during a real failing launch[33m 358[2mms[22m[39m
+2026-10-20T14:38:37.1890167Z    [33m[2m✓[22m[39m holds each orphan once across many overlapping successful launches[33m 320[2mms[22m[39m
+2026-10-20T14:38:41.2549026Z  [32m✓[39m [30m[43m process-boundary [49m[39m tests/boundary/process/processCaptureNormalization.test.ts [2m([22m[2m8 tests[22m[2m)[22m[33m 3879[2mms[22m[39m
+2026-10-20T14:38:41.2550108Z    [33m[2m✓[22m[39m captures a POSIX PATH executable with a literal backslash in its basename[33m 348[2mms[22m[39m
+2026-10-20T14:38:41.2550707Z    [33m[2m✓[22m[39m preserves numeric reports and original normalized PTY text in Evidence[33m 346[2mms[22m[39m
+2026-10-20T14:38:41.2551218Z    [33m[2m✓[22m[39m preserves literal replacement $&$& and rejects legacy comparison semantics[33m 366[2mms[22m[39m
+2026-10-20T14:38:41.2551745Z    [33m[2m✓[22m[39m preserves literal replacement $$ $` $' $1 and rejects legacy comparison semantics[33m 358[2mms[22m[39m
+2026-10-20T14:38:41.2552403Z    [33m[2m✓[22m[39m preserves literal replacement - and rejects legacy comparison semantics[33m 345[2mms[22m[39m
+2026-10-20T14:38:41.2553234Z    [33m[2m✓[22m[39m honors pids=false in owned Linux capture samples and committed Evidence[33m 893[2mms[22m[39m
+2026-10-20T14:38:41.2554026Z    [33m[2m✓[22m[39m honors pids=true in owned Linux capture samples and committed Evidence[33m 871[2mms[22m[39m
+2026-10-20T14:38:41.2554795Z    [33m[2m✓[22m[39m preserves selected nested path identities in actual PTY Evidence[33m 350[2mms[22m[39m
+2026-10-20T14:38:43.4215393Z  [32m✓[39m [30m[43m process-boundary [49m[39m tests/boundary/process/ghidraJavaProbePreparation.test.ts [2m([22m[2m6 tests[22m[2m | [22m[33m3 skipped[39m[2m)[22m[33m 2025[2mms[22m[39m
+2026-10-20T14:38:43.4216745Z    [33m[2m✓[22m[39m keeps Linux ownership preparation inside the Java probe deadline[33m 2007[2mms[22m[39m
+2026-10-20T14:38:44.2891703Z  [32m✓[39m [30m[43m process-boundary [49m[39m tests/boundary/process/packedBridgeVerification.test.ts [2m([22m[2m20 tests[22m[2m)[22m[33m 729[2mms[22m[39m
+2026-10-20T14:38:44.4873435Z  [32m✓[39m [30m[43m process-boundary [49m[39m tests/boundary/process/providerProcessOutput.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 69[2mms[22m[39m
+2026-10-20T14:38:44.6219477Z  [32m✓[39m [30m[43m process-boundary [49m[39m tests/boundary/process/javascriptVerifierScopeOracle.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+2026-10-20T14:38:45.5044443Z  [32m✓[39m [30m[43m process-boundary [49m[39m tests/boundary/process/sourceMapUncHosts.test.ts [2m([22m[2m11 tests[22m[2m)[22m[33m 714[2mms[22m[39m
+2026-10-20T14:38:49.8022634Z  [32m✓[39m [30m[43m process-boundary [49m[39m tests/boundary/process/directAnalysisSignals.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 4170[2mms[22m[39m
+2026-10-20T14:38:49.8023511Z    [33m[2m✓[22m[39m finishes direct cleanup when SIGINT is delivered again[33m 701[2mms[22m[39m
+2026-10-20T14:38:49.8024189Z    [33m[2m✓[22m[39m finishes native cleanup when SIGINT is delivered again[33m 701[2mms[22m[39m
+2026-10-20T14:38:49.8024900Z    [33m[2m✓[22m[39m finishes managed cleanup when SIGINT is delivered again[33m 685[2mms[22m[39m
+2026-10-20T14:38:49.8025586Z    [33m[2m✓[22m[39m finishes direct cleanup when SIGTERM is delivered again[33m 684[2mms[22m[39m
+2026-10-20T14:38:49.8026261Z    [33m[2m✓[22m[39m finishes native cleanup when SIGTERM is delivered again[33m 715[2mms[22m[39m
+2026-10-20T14:38:49.8026942Z    [33m[2m✓[22m[39m finishes managed cleanup when SIGTERM is delivered again[33m 683[2mms[22m[39m
+2026-10-20T14:38:50.0049339Z  [32m✓[39m [30m[43m process-boundary [49m[39m tests/boundary/process/ProcessEvidence.host.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+2026-10-20T14:38:50.5364498Z  [32m✓[39m [30m[43m process-boundary [49m[39m tests/boundary/process/processCaptureTerminal.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 361[2mms[22m[39m
+2026-10-20T14:38:50.5365170Z    [33m[2m✓[22m[39m captures one command's terminal output, selected files, and owned cleanup[33m 359[2mms[22m[39m
+2026-10-20T14:38:50.9906736Z  [32m✓[39m [30m[43m process-boundary [49m[39m tests/boundary/process/processCaptureCallerReason.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 280[2mms[22m[39m
+2026-10-20T14:38:51.2040847Z  [32m✓[39m [30m[43m process-boundary [49m[39m tests/boundary/process/filesystemSnapshotFifoRace.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 87[2mms[22m[39m
+2026-10-20T14:38:51.3377207Z  [32m✓[39m [30m[43m process-boundary [49m[39m tests/boundary/process/verifierRun.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 2[2mms[22m[39m
+2026-10-20T14:38:51.3476195Z 
+2026-10-20T14:38:51.3477136Z [31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+2026-10-20T14:38:51.3477605Z 
+2026-10-20T14:38:51.3479842Z [41m[1m FAIL [22m[49m [30m[43m boundary [49m[39m tests/boundary/filesystem/javascript-applications/javascriptApplicationTypeScript.test.ts[2m > [22mresolves erased wrappers through the composed application graph
+2026-10-20T14:38:51.3486178Z [31m[1mAssertionError[22m: expected [ { …(7) }, { …(7) }, { …(7) }, …(6) ] to deep equally contain ObjectContaining{…}[39m
+2026-10-20T14:38:51.3486847Z 
+2026-10-20T14:38:51.3487256Z [32m- Expected:[39m
+2026-10-20T14:38:51.3487539Z ObjectContaining {
+2026-10-20T14:38:51.3487762Z   "relation": "calls",
+2026-10-20T14:38:51.3487989Z   "resolution": "resolved",
+2026-10-20T14:38:51.3488219Z }
+2026-10-20T14:38:51.3488314Z 
+2026-10-20T14:38:51.3488449Z [31m+ Received:[39m
+2026-10-20T14:38:51.3488649Z [
+2026-10-20T14:38:51.3488842Z   {
+2026-10-20T14:38:51.3489044Z     "evidence": {
+2026-10-20T14:38:51.3489515Z       "context_id": "jsrg_evidence_7db4a75dba8d4364a376895a0332812ea096d66a5b29314dc5bc50c668263319",
+2026-10-20T14:38:51.3489978Z       "location": {
+2026-10-20T14:38:51.3490183Z         "available": true,
+2026-10-20T14:38:51.3490405Z         "value": {
+2026-10-20T14:38:51.3490595Z           "end": {
+2026-10-20T14:38:51.3490803Z             "column": 20,
+2026-10-20T14:38:51.3491025Z             "line": 2,
+2026-10-20T14:38:51.3491243Z           },
+2026-10-20T14:38:51.3491466Z           "kind": "source-range",
+2026-10-20T14:38:51.3491743Z           "source": "app.mts",
+2026-10-20T14:38:51.3492115Z           "start": {
+2026-10-20T14:38:51.3492321Z             "column": 10,
+2026-10-20T14:38:51.3492535Z             "line": 2,
+2026-10-20T14:38:51.3492725Z           },
+2026-10-20T14:38:51.3492906Z         },
+2026-10-20T14:38:51.3493079Z       },
+2026-10-20T14:38:51.3493251Z     },
+2026-10-20T14:38:51.3493439Z     "properties": {},
+2026-10-20T14:38:51.3493663Z     "relation": "defines",
+2026-10-20T14:38:51.3494129Z     "relation_id": "jsrg_relation_03a2ea90b30bb6e58dd2bec8b80e2aa946539daa007044079ad1e10668a595d2",
+2026-10-20T14:38:51.3494587Z     "resolution": "resolved",
+2026-10-20T14:38:51.3496214Z     "source_node_id": "jsrg_node_6d27d38fc86b677fb4a02dae217b0b622719cda51efa5d4bdb8196f894aac65c",
+2026-10-20T14:38:51.3496863Z     "target_node_id": "jsrg_node_db772169744e44524c13eba28608d79290836ee9775f6500ff546fe905b21744",
+2026-10-20T14:38:51.3497283Z   },
+2026-10-20T14:38:51.3497449Z   {
+2026-10-20T14:38:51.3497670Z     "evidence": {
+2026-10-20T14:38:51.3498120Z       "context_id": "jsrg_evidence_78f9c105c9bdc66058baeeecd0dd4e459a815924eafc9f94accb43f6c667e35f",
+2026-10-20T14:38:51.3498560Z       "location": {
+2026-10-20T14:38:51.3498771Z         "available": true,
+2026-10-20T14:38:51.3499015Z         "value": {
+2026-10-20T14:38:51.3499275Z           "end": {
+2026-10-20T14:38:51.3499513Z             "column": 18,
+2026-10-20T14:38:51.3499813Z             "line": 1,
+2026-10-20T14:38:51.3500403Z           },
+2026-10-20T14:38:51.3500701Z           "kind": "source-range",
+2026-10-20T14:38:51.3501064Z           "source": "dependency.ts",
+2026-10-20T14:38:51.3501383Z           "start": {
+2026-10-20T14:38:51.3501656Z             "column": 13,
+2026-10-20T14:38:51.3502104Z             "line": 1,
+2026-10-20T14:38:51.3502372Z           },
+2026-10-20T14:38:51.3502592Z         },
+2026-10-20T14:38:51.3502827Z       },
+2026-10-20T14:38:51.3503042Z     },
+2026-10-20T14:38:51.3503299Z     "properties": {},
+2026-10-20T14:38:51.3503573Z     "relation": "defines",
+2026-10-20T14:38:51.3505349Z     "relation_id": "jsrg_relation_0f6cd7c430dc76d4078cca3f866b647bcc13ef779dda3e6249e658a83cb1167c",
+2026-10-20T14:38:51.3505822Z     "resolution": "resolved",
+2026-10-20T14:38:51.3506305Z     "source_node_id": "jsrg_node_b92fe2dfbf9b30e52d59360b2101f2b38f4c3df73e9fdc814955a3c67f6589ee",
+2026-10-20T14:38:51.3506992Z     "target_node_id": "jsrg_node_852bf932293c6560d29f6fe7f65e8cc0664020ce070399e882eb699d98a68aa5",
+2026-10-20T14:38:51.3507421Z   },
+2026-10-20T14:38:51.3507594Z   {
+2026-10-20T14:38:51.3507815Z     "evidence": {
+2026-10-20T14:38:51.3509781Z       "context_id": "jsrg_evidence_7db4a75dba8d4364a376895a0332812ea096d66a5b29314dc5bc50c668263319",
+2026-10-20T14:38:51.3511288Z       "location": {
+2026-10-20T14:38:51.3511473Z         "available": true,
+2026-10-20T14:38:51.3511660Z         "value": {
+2026-10-20T14:38:51.3513897Z           "end": {
+2026-10-20T14:38:51.3515682Z             "column": 37,
+2026-10-20T14:38:51.3516956Z             "line": 5,
+2026-10-20T14:38:51.3517286Z           },
+2026-10-20T14:38:51.3517509Z           "kind": "source-range",
+2026-10-20T14:38:51.3517795Z           "source": "app.mts",
+2026-10-20T14:38:51.3518030Z           "start": {
+2026-10-20T14:38:51.3518593Z             "column": 31,
+2026-10-20T14:38:51.3519702Z             "line": 5,
+2026-10-20T14:38:51.3519903Z           },
+2026-10-20T14:38:51.3520419Z         },
+2026-10-20T14:38:51.3524511Z       },
+2026-10-20T14:38:51.3524696Z     },
+2026-10-20T14:38:51.3524885Z     "properties": {},
+2026-10-20T14:38:51.3525103Z     "relation": "reads",
+2026-10-20T14:38:51.3527446Z     "relation_id": "jsrg_relation_4f426043b2493148f4130ba16f39e583a652c0deba000582863b895839b3e3d7",
+2026-10-20T14:38:51.3529087Z     "resolution": "resolved",
+2026-10-20T14:38:51.3529542Z     "source_node_id": "jsrg_node_276eff8c5b7c4ddbc4742a90aa155b31485a1f5aa452e3200e2c074fd0793d6b",
+2026-10-20T14:38:51.3531357Z     "target_node_id": "jsrg_node_afcd7712314d153602dffbadb25053e7005dafce65603f0ba0ed4d62d4fba193",
+2026-10-20T14:38:51.3532156Z   },
+2026-10-20T14:38:51.3532327Z   {
+2026-10-20T14:38:51.3532512Z     "evidence": {
+2026-10-20T14:38:51.3534338Z       "context_id": "jsrg_evidence_7db4a75dba8d4364a376895a0332812ea096d66a5b29314dc5bc50c668263319",
+2026-10-20T14:38:51.3534949Z       "location": {
+2026-10-20T14:38:51.3535146Z         "available": true,
+2026-10-20T14:38:51.3535768Z         "value": {
+2026-10-20T14:38:51.3535958Z           "end": {
+2026-10-20T14:38:51.3536165Z             "column": 19,
+2026-10-20T14:38:51.3536564Z             "line": 4,
+2026-10-20T14:38:51.3537615Z           },
+2026-10-20T14:38:51.3538087Z           "kind": "source-range",
+2026-10-20T14:38:51.3538588Z           "source": "app.mts",
+2026-10-20T14:38:51.3539054Z           "start": {
+2026-10-20T14:38:51.3539321Z             "column": 13,
+2026-10-20T14:38:51.3539858Z             "line": 4,
+2026-10-20T14:38:51.3540051Z           },
+2026-10-20T14:38:51.3540239Z         },
+2026-10-20T14:38:51.3540412Z       },
+2026-10-20T14:38:51.3540776Z     },
+2026-10-20T14:38:51.3540993Z     "properties": {},
+2026-10-20T14:38:51.3542254Z     "relation": "defines",
+2026-10-20T14:38:51.3542825Z     "relation_id": "jsrg_relation_5f0ec7ab8706719108ce3f4bf2ca7cbeb2cea60f75bed77576229b70373fb29a",
+2026-10-20T14:38:51.3543420Z     "resolution": "resolved",
+2026-10-20T14:38:51.3544147Z     "source_node_id": "jsrg_node_9658d917f86a933a6433b6e0d1e48318504de9f2c93a6553830ad3d552fc2864",
+2026-10-20T14:38:51.3545305Z     "target_node_id": "jsrg_node_276eff8c5b7c4ddbc4742a90aa155b31485a1f5aa452e3200e2c074fd0793d6b",
+2026-10-20T14:38:51.3545819Z   },
+2026-10-20T14:38:51.3546914Z   {
+2026-10-20T14:38:51.3547096Z     "evidence": {
+2026-10-20T14:38:51.3548505Z       "context_id": "jsrg_evidence_7db4a75dba8d4364a376895a0332812ea096d66a5b29314dc5bc50c668263319",
+2026-10-20T14:38:51.3548976Z       "location": {
+2026-10-20T14:38:51.3549183Z         "available": true,
+2026-10-20T14:38:51.3549414Z         "value": {
+2026-10-20T14:38:51.3549604Z           "end": {
+2026-10-20T14:38:51.3549794Z             "column": 15,
+2026-10-20T14:38:51.3550007Z             "line": 6,
+2026-10-20T14:38:51.3550208Z           },
+2026-10-20T14:38:51.3550434Z           "kind": "source-range",
+2026-10-20T14:38:51.3550705Z           "source": "app.mts",
+2026-10-20T14:38:51.3550946Z           "start": {
+2026-10-20T14:38:51.3551258Z             "column": 4,
+2026-10-20T14:38:51.3552814Z             "line": 6,
+2026-10-20T14:38:51.3553027Z           },
+2026-10-20T14:38:51.3553208Z         },
+2026-10-20T14:38:51.3553389Z       },
+2026-10-20T14:38:51.3553562Z     },
+2026-10-20T14:38:51.3553751Z     "properties": {},
+2026-10-20T14:38:51.3553963Z     "relation": "reads",
+2026-10-20T14:38:51.3554418Z     "relation_id": "jsrg_relation_88e5838fcc8ed44029a301bdaa4c2b2e60283dcb5a03231e56fdfedd8de8237f",
+2026-10-20T14:38:51.3554860Z     "resolution": "resolved",
+2026-10-20T14:38:51.3555484Z     "source_node_id": "jsrg_node_b4b3fb0b9104c6817b72471290483663359ce3f49db263323215d08583658116",
+2026-10-20T14:38:51.3556155Z     "target_node_id": "jsrg_node_eba6b9e2251e3f3ce7a3defe37b62089938f198b90b6d0b6e3bfd2067b630217",
+2026-10-20T14:38:51.3556601Z   },
+2026-10-20T14:38:51.3556771Z   {
+2026-10-20T14:38:51.3556947Z     "evidence": {
+2026-10-20T14:38:51.3557392Z       "context_id": "jsrg_evidence_7db4a75dba8d4364a376895a0332812ea096d66a5b29314dc5bc50c668263319",
+2026-10-20T14:38:51.3557832Z       "location": {
+2026-10-20T14:38:51.3558045Z         "available": true,
+2026-10-20T14:38:51.3558275Z         "value": {
+2026-10-20T14:38:51.3558473Z           "end": {
+2026-10-20T14:38:51.3558673Z             "column": 42,
+2026-10-20T14:38:51.3558894Z             "line": 4,
+2026-10-20T14:38:51.3559095Z           },
+2026-10-20T14:38:51.3559309Z           "kind": "source-range",
+2026-10-20T14:38:51.3559582Z           "source": "app.mts",
+2026-10-20T14:38:51.3559814Z           "start": {
+2026-10-20T14:38:51.3560025Z             "column": 27,
+2026-10-20T14:38:51.3560249Z             "line": 4,
+2026-10-20T14:38:51.3560454Z           },
+2026-10-20T14:38:51.3560630Z         },
+2026-10-20T14:38:51.3560802Z       },
+2026-10-20T14:38:51.3560987Z     },
+2026-10-20T14:38:51.3561167Z     "properties": {},
+2026-10-20T14:38:51.3561412Z     "relation": "returns-to-call",
+2026-10-20T14:38:51.3562018Z     "relation_id": "jsrg_relation_c65a401cab651bb1bcbb949539107e3d058ce7d0ac5ef53634bf1719a0d4693a",
+2026-10-20T14:38:51.3562488Z     "resolution": "candidate",
+2026-10-20T14:38:51.3562936Z     "source_node_id": "jsrg_node_93042d12fe1dc9deb4a3af9479394bdaf253ccb8fe990b7cf11a70eb42eeab72",
+2026-10-20T14:38:51.3563548Z     "target_node_id": "jsrg_node_fd97b6030275c0116f89fa1f9e8c843ca8a1d7b36016bad0215f995777ac37ae",
+2026-10-20T14:38:51.3563962Z   },
+2026-10-20T14:38:51.3564130Z   {
+2026-10-20T14:38:51.3564303Z     "evidence": {
+2026-10-20T14:38:51.3564735Z       "context_id": "jsrg_evidence_7db4a75dba8d4364a376895a0332812ea096d66a5b29314dc5bc50c668263319",
+2026-10-20T14:38:51.3565165Z       "location": {
+2026-10-20T14:38:51.3565372Z         "available": true,
+2026-10-20T14:38:51.3565596Z         "value": {
+2026-10-20T14:38:51.3565781Z           "end": {
+2026-10-20T14:38:51.3565975Z             "column": 17,
+2026-10-20T14:38:51.3580771Z             "line": 6,
+2026-10-20T14:38:51.3581005Z           },
+2026-10-20T14:38:51.3581239Z           "kind": "source-range",
+2026-10-20T14:38:51.3581503Z           "source": "app.mts",
+2026-10-20T14:38:51.3581734Z           "start": {
+2026-10-20T14:38:51.3582299Z             "column": 4,
+2026-10-20T14:38:51.3582501Z             "line": 6,
+2026-10-20T14:38:51.3582692Z           },
+2026-10-20T14:38:51.3582858Z         },
+2026-10-20T14:38:51.3583022Z       },
+2026-10-20T14:38:51.3583180Z     },
+2026-10-20T14:38:51.3583357Z     "properties": {},
+2026-10-20T14:38:51.3583558Z     "relation": "calls",
+2026-10-20T14:38:51.3583998Z     "relation_id": "jsrg_relation_dcfd85b7c0a3f4d6cf745366355c0748949a0b76337ffa14849bf21b97a18fc5",
+2026-10-20T14:38:51.3584447Z     "resolution": "candidate",
+2026-10-20T14:38:51.3584879Z     "source_node_id": "jsrg_node_fd97b6030275c0116f89fa1f9e8c843ca8a1d7b36016bad0215f995777ac37ae",
+2026-10-20T14:38:51.3585503Z     "target_node_id": "jsrg_node_ce21bbcef8f8a9c55ed47ef2413d0086f95a5a29baadf9e35a8757187a2154f9",
+2026-10-20T14:38:51.3585902Z   },
+2026-10-20T14:38:51.3586100Z   {
+2026-10-20T14:38:51.3586272Z     "evidence": {
+2026-10-20T14:38:51.3586686Z       "context_id": "jsrg_evidence_78f9c105c9bdc66058baeeecd0dd4e459a815924eafc9f94accb43f6c667e35f",
+2026-10-20T14:38:51.3587114Z       "location": {
+2026-10-20T14:38:51.3587312Z         "available": true,
+2026-10-20T14:38:51.3587524Z         "value": {
+2026-10-20T14:38:51.3587708Z           "end": {
+2026-10-20T14:38:51.3587900Z             "column": 18,
+2026-10-20T14:38:51.3588110Z             "line": 1,
+2026-10-20T14:38:51.3588302Z           },
+2026-10-20T14:38:51.3588511Z           "kind": "source-range",
+2026-10-20T14:38:51.3588781Z           "source": "dependency.ts",
+2026-10-20T14:38:51.3589143Z           "start": {
+2026-10-20T14:38:51.3589337Z             "column": 13,
+2026-10-20T14:38:51.3589539Z             "line": 1,
+2026-10-20T14:38:51.3589728Z           },
+2026-10-20T14:38:51.3589898Z         },
+2026-10-20T14:38:51.3590068Z       },
+2026-10-20T14:38:51.3590233Z     },
+2026-10-20T14:38:51.3590404Z     "properties": {},
+2026-10-20T14:38:51.3590611Z     "relation": "defines",
+2026-10-20T14:38:51.3591063Z     "relation_id": "jsrg_relation_e842f3d143de6ae518819ab97ac14d7a8b44c76106aa4abe374487f63021153d",
+2026-10-20T14:38:51.3591524Z     "resolution": "resolved",
+2026-10-20T14:38:51.3592076Z     "source_node_id": "jsrg_node_46bf79da36ab737aaa103a9db1ba371570fd4663e1d8722011d50c650354523c",
+2026-10-20T14:38:51.3592712Z     "target_node_id": "jsrg_node_852bf932293c6560d29f6fe7f65e8cc0664020ce070399e882eb699d98a68aa5",
+2026-10-20T14:38:51.3593126Z   },
+2026-10-20T14:38:51.3593285Z   {
+2026-10-20T14:38:51.3593463Z     "evidence": {
+2026-10-20T14:38:51.3593897Z       "context_id": "jsrg_evidence_7db4a75dba8d4364a376895a0332812ea096d66a5b29314dc5bc50c668263319",
+2026-10-20T14:38:51.3594334Z       "location": {
+2026-10-20T14:38:51.3594528Z         "available": true,
+2026-10-20T14:38:51.3594736Z         "value": {
+2026-10-20T14:38:51.3594922Z           "end": {
+2026-10-20T14:38:51.3595121Z             "column": 28,
+2026-10-20T14:38:51.3595338Z             "line": 5,
+2026-10-20T14:38:51.3595536Z           },
+2026-10-20T14:38:51.3595750Z           "kind": "source-range",
+2026-10-20T14:38:51.3596006Z           "source": "app.mts",
+2026-10-20T14:38:51.3596236Z           "start": {
+2026-10-20T14:38:51.3596442Z             "column": 17,
+2026-10-20T14:38:51.3596653Z             "line": 5,
+2026-10-20T14:38:51.3596849Z           },
+2026-10-20T14:38:51.3597027Z         },
+2026-10-20T14:38:51.3597193Z       },
+2026-10-20T14:38:51.3597358Z     },
+2026-10-20T14:38:51.3597544Z     "properties": {},
+2026-10-20T14:38:51.3597758Z     "relation": "defines",
+2026-10-20T14:38:51.3598228Z     "relation_id": "jsrg_relation_fb5dd906371fc92001dd1e897fe13d61a49cbb44c2fa9a1d04fc77be59eb232d",
+2026-10-20T14:38:51.3598689Z     "resolution": "resolved",
+2026-10-20T14:38:51.3599153Z     "source_node_id": "jsrg_node_c68380b1e3361a52aea9c4158ecd037a494c91b1f6bf4b8ede1dd0c448ca713a",
+2026-10-20T14:38:51.3599796Z     "target_node_id": "jsrg_node_b4b3fb0b9104c6817b72471290483663359ce3f49db263323215d08583658116",
+2026-10-20T14:38:51.3600207Z   },
+2026-10-20T14:38:51.3600378Z ]
+2026-10-20T14:38:51.3600478Z 
+2026-10-20T14:38:51.3601188Z [36m [2m❯[22m tests/boundary/filesystem/javascript-applications/javascriptApplicationTypeScript.test.ts:[2m104:45[22m[39m
+2026-10-20T14:38:51.3602179Z     [90m102|[39m     }),
+2026-10-20T14:38:51.3602429Z     [90m103|[39m   );
+2026-10-20T14:38:51.3602840Z     [90m104|[39m   expect(analysis.semantic_graph.relations).toContainEqual(
+2026-10-20T14:38:51.3603357Z     [90m   |[39m                                             [31m^[39m
+2026-10-20T14:38:51.3603925Z     [90m105|[39m     expect.objectContaining({ relation: "calls", resolution: "resolved…
+2026-10-20T14:38:51.3604354Z     [90m106|[39m   );
+2026-10-20T14:38:51.3604484Z 
+2026-10-20T14:38:51.3604720Z [31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+2026-10-20T14:38:51.3604910Z 
+2026-10-20T14:38:51.3604921Z 
+2026-10-20T14:38:51.3605496Z [2m Test Files [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m209 passed[39m[22m[2m | [22m[33m2 skipped[39m[90m (212)[39m
+2026-10-20T14:38:51.3606448Z [2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m1997 passed[39m[22m[2m | [22m[33m49 skipped[39m[90m (2047)[39m
+2026-10-20T14:38:51.3607026Z [2m   Start at [22m 14:29:54
+2026-10-20T14:38:51.3607497Z [2m   Duration [22m 537.34s[2m (tests 95%, import 4%, transform 1%)[22m
+2026-10-20T14:38:51.3620377Z 
+2026-10-20T14:38:51.4302849Z blob report written to /home/runner/work/rea/rea/.vitest/blob/blob-built-2-5.json
+2026-10-20T14:38:51.6574376Z ##[error]Process completed with exit code 1.
+2026-10-20T14:38:51.6632834Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+2026-10-20T14:38:51.6633078Z with:
+2026-10-20T14:38:51.6633210Z   name: vitest-report-built-1
+2026-10-20T14:38:51.6633365Z   path: .vitest/blob/*
+2026-10-20T14:38:51.6633510Z   include-hidden-files: true
+2026-10-20T14:38:51.6633664Z   if-no-files-found: error
+2026-10-20T14:38:51.6633806Z   overwrite: true
+2026-10-20T14:38:51.6633930Z   retention-days: 7
+2026-10-20T14:38:51.6634059Z   compression-level: 6
+2026-10-20T14:38:51.6634193Z env:
+2026-10-20T14:38:51.6634316Z   HUSKY: 0
+2026-10-20T14:38:51.6634429Z ##[endgroup]
+2026-10-20T14:38:51.7712301Z (node:34084) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-20T14:38:51.7712792Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-20T14:38:51.7745875Z With the provided path, there will be 1 file uploaded
+2026-10-20T14:38:51.9759993Z Artifact name is valid!
+2026-10-20T14:38:51.9760400Z Root directory input is valid!
+2026-10-20T14:38:52.1836544Z Beginning upload of artifact content to blob storage
+2026-10-20T14:38:52.2506756Z (node:34084) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-20T14:38:52.5719474Z Uploaded bytes 563995
+2026-10-20T14:38:52.6099720Z Finished uploading artifact content to blob storage!
+2026-10-20T14:38:52.6100168Z SHA256 digest of uploaded artifact zip is 5391fbfb0caecf2d994cbee8d0efe98a0d32e38d20c8a91f0a6b284f19305b8f
+2026-10-20T14:38:52.6100559Z Finalizing artifact upload
+2026-10-20T14:38:52.8599676Z Artifact vitest-report-built-1.zip successfully finalized. Artifact ID 12275055800
+2026-10-20T14:38:52.8600381Z Artifact vitest-report-built-1 has been successfully uploaded! Final size is 563995 bytes. Artifact ID is 12275055800
+2026-10-20T14:38:52.8603679Z Artifact download URL: https://github.com/zyxtoworld/rea/actions/runs/39439504364/artifacts/12275055800
+2026-10-20T14:38:52.8786297Z Post job cleanup.
+2026-10-20T14:38:52.8788635Z ##[start-action display=Restore and save npm package downloads;id=__fc246e63-f34a-4863-9b5c-da291558f7fa.__actions_cache]
+2026-10-20T14:38:52.8790050Z ##[end-action id=__fc246e63-f34a-4863-9b5c-da291558f7fa.__actions_cache;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-20T14:38:52.8832944Z Post job cleanup.
+2026-10-20T14:38:52.9362000Z [command]/usr/bin/git version
+2026-10-20T14:38:52.9397827Z git version 2.55.0
+2026-10-20T14:38:52.9422602Z Temporarily overriding HOME='/home/runner/work/_temp/424a399b-4ae9-4fc3-9ecd-38cd1eaacd6e' before making global git config changes
+2026-10-20T14:38:52.9423194Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-20T14:38:52.9426329Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/rea/rea
+2026-10-20T14:38:52.9460670Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-20T14:38:52.9490670Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-20T14:38:52.9748217Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-20T14:38:52.9774135Z http.https://github.com/.extraheader
+2026-10-20T14:38:52.9782697Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-20T14:38:52.9830741Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-20T14:38:53.0031494Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-20T14:38:53.0069820Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-20T14:38:53.0393636Z Cleaning up orphan processes
+2026-10-20T14:38:53.0662522Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830, actions/checkout@11d5960a326750d5838078e36cf38b85af677262, actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093, actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020, actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

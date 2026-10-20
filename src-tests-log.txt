@@ -1,0 +1,1272 @@
+﻿2026-10-20T14:28:40.6338060Z Current runner version: '2.338.0'
+2026-10-20T14:28:40.6361454Z ##[group]Runner Image Provisioner
+2026-10-20T14:28:40.6362377Z Hosted Compute Agent
+2026-10-20T14:28:40.6363134Z Version: 20261012.601
+2026-10-20T14:28:40.6363792Z Commit: f3dc54e1fb89da6852db922499a0233137369e1d
+2026-10-20T14:28:40.6364941Z Build Date: 2026-10-12T17:48:21Z
+2026-10-20T14:28:40.6365764Z Worker ID: {9e13e5c0-5d1f-447e-90c1-d950fb625858}
+2026-10-20T14:28:40.6366496Z Region: westcentralus
+2026-10-20T14:28:40.6367201Z Cloud: Azure
+2026-10-20T14:28:40.6367743Z ##[endgroup]
+2026-10-20T14:28:40.6369225Z ##[group]Operating System
+2026-10-20T14:28:40.6370021Z Ubuntu
+2026-10-20T14:28:40.6370569Z 24.04.5
+2026-10-20T14:28:40.6371176Z LTS
+2026-10-20T14:28:40.6371714Z ##[endgroup]
+2026-10-20T14:28:40.6372270Z ##[group]Runner Image
+2026-10-20T14:28:40.6372932Z Image: ubuntu-24.04
+2026-10-20T14:28:40.6373523Z Version: 20261012.334.1
+2026-10-20T14:28:40.6375079Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261012.334/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-20T14:28:40.6376651Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261012.334
+2026-10-20T14:28:40.6377702Z ##[endgroup]
+2026-10-20T14:28:40.6378818Z ##[group]GITHUB_TOKEN Permissions
+2026-10-20T14:28:40.6380752Z Contents: read
+2026-10-20T14:28:40.6381427Z Metadata: read
+2026-10-20T14:28:40.6382076Z ##[endgroup]
+2026-10-20T14:28:40.6384364Z Secret source: Actions
+2026-10-20T14:28:40.6385468Z Cache mode: write
+2026-10-20T14:28:40.6386182Z Prepare workflow directory
+2026-10-20T14:28:40.6779287Z Prepare all required actions
+2026-10-20T14:28:40.6825724Z Getting action download info
+2026-10-20T14:28:41.0321315Z Download action repository 'actions/checkout@11d5960a326750d5838078e36cf38b85af677262' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-10-20T14:28:41.1611002Z Download action repository 'actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2026-10-20T14:28:41.2505976Z Download action repository 'actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-10-20T14:28:41.4540361Z Complete job name: Source tests
+2026-10-20T14:28:41.5298455Z ##[group]Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+2026-10-20T14:28:41.5299514Z with:
+2026-10-20T14:28:41.5299970Z   repository: zyxtoworld/rea
+2026-10-20T14:28:41.5303520Z   token: ***
+2026-10-20T14:28:41.5304175Z   ssh-strict: true
+2026-10-20T14:28:41.5304619Z   ssh-user: git
+2026-10-20T14:28:41.5305065Z   persist-credentials: true
+2026-10-20T14:28:41.5305570Z   clean: true
+2026-10-20T14:28:41.5306017Z   sparse-checkout-cone-mode: true
+2026-10-20T14:28:41.5306542Z   fetch-depth: 1
+2026-10-20T14:28:41.5306980Z   fetch-tags: false
+2026-10-20T14:28:41.5307436Z   show-progress: true
+2026-10-20T14:28:41.5307882Z   lfs: false
+2026-10-20T14:28:41.5308298Z   submodules: false
+2026-10-20T14:28:41.5308749Z   set-safe-directory: true
+2026-10-20T14:28:41.5309248Z   allow-unsafe-pr-checkout: false
+2026-10-20T14:28:41.5310039Z env:
+2026-10-20T14:28:41.5310438Z   HUSKY: 0
+2026-10-20T14:28:41.5310844Z ##[endgroup]
+2026-10-20T14:28:41.6385269Z Syncing repository: zyxtoworld/rea
+2026-10-20T14:28:41.6388062Z ##[group]Getting Git version info
+2026-10-20T14:28:41.6389184Z Working directory is '/home/runner/work/rea/rea'
+2026-10-20T14:28:41.6393710Z [command]/usr/bin/git version
+2026-10-20T14:28:41.6453761Z git version 2.55.0
+2026-10-20T14:28:41.6477234Z ##[endgroup]
+2026-10-20T14:28:41.6491561Z Temporarily overriding HOME='/home/runner/work/_temp/9977409d-2d14-4a9c-aa57-10e3a4db488a' before making global git config changes
+2026-10-20T14:28:41.6494080Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-20T14:28:41.6497212Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/rea/rea
+2026-10-20T14:28:41.6555492Z Deleting the contents of '/home/runner/work/rea/rea'
+2026-10-20T14:28:41.6561041Z ##[group]Initializing the repository
+2026-10-20T14:28:41.6566279Z [command]/usr/bin/git init /home/runner/work/rea/rea
+2026-10-20T14:28:41.6652424Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-20T14:28:41.6653768Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-20T14:28:41.6655450Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-20T14:28:41.6656215Z hint: call:
+2026-10-20T14:28:41.6656654Z hint:
+2026-10-20T14:28:41.6657177Z hint: 	git config --global init.defaultBranch <name>
+2026-10-20T14:28:41.6657790Z hint:
+2026-10-20T14:28:41.6658377Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-20T14:28:41.6659311Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-20T14:28:41.6660063Z hint:
+2026-10-20T14:28:41.6660494Z hint: 	git branch -m <name>
+2026-10-20T14:28:41.6660978Z hint:
+2026-10-20T14:28:41.6661606Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-20T14:28:41.6667281Z Initialized empty Git repository in /home/runner/work/rea/rea/.git/
+2026-10-20T14:28:41.6677766Z [command]/usr/bin/git remote add origin https://github.com/zyxtoworld/rea
+2026-10-20T14:28:41.6740661Z ##[endgroup]
+2026-10-20T14:28:41.6742179Z ##[group]Disabling automatic garbage collection
+2026-10-20T14:28:41.6760601Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-20T14:28:41.6807463Z ##[endgroup]
+2026-10-20T14:28:41.6808915Z ##[group]Setting up auth
+2026-10-20T14:28:41.6812352Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-20T14:28:41.6857288Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-20T14:28:41.7236944Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-20T14:28:41.7275412Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-20T14:28:41.7554378Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-20T14:28:41.7599796Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-20T14:28:41.7823268Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-20T14:28:41.7862915Z ##[endgroup]
+2026-10-20T14:28:41.7863810Z ##[group]Fetching the repository
+2026-10-20T14:28:41.7872535Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +0fdbcb8d08b7ad3aa60091fddd41fd85d8ba36e8:refs/remotes/origin/main
+2026-10-20T14:28:44.6051179Z From https://github.com/zyxtoworld/rea
+2026-10-20T14:28:44.6052384Z  * [new ref]         0fdbcb8d08b7ad3aa60091fddd41fd85d8ba36e8 -> origin/main
+2026-10-20T14:28:44.6075682Z ##[endgroup]
+2026-10-20T14:28:44.6077663Z ##[group]Determining the checkout info
+2026-10-20T14:28:44.6080003Z ##[endgroup]
+2026-10-20T14:28:44.6081497Z [command]/usr/bin/git sparse-checkout disable
+2026-10-20T14:28:44.6119180Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-20T14:28:44.6166546Z ##[group]Checking out the ref
+2026-10-20T14:28:44.6175620Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-10-20T14:28:44.9923013Z Switched to a new branch 'main'
+2026-10-20T14:28:44.9945268Z branch 'main' set up to track 'origin/main'.
+2026-10-20T14:28:44.9948702Z ##[endgroup]
+2026-10-20T14:28:44.9992279Z [command]/usr/bin/git log -1 --format=%H
+2026-10-20T14:28:45.0020572Z 0fdbcb8d08b7ad3aa60091fddd41fd85d8ba36e8
+2026-10-20T14:28:45.0364071Z ##[group]Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+2026-10-20T14:28:45.0364719Z with:
+2026-10-20T14:28:45.0365201Z   node-version-file: .nvmrc
+2026-10-20T14:28:45.0365500Z   always-auth: false
+2026-10-20T14:28:45.0365766Z   check-latest: false
+2026-10-20T14:28:45.0368224Z   token: ***
+2026-10-20T14:28:45.0368492Z env:
+2026-10-20T14:28:45.0368730Z   HUSKY: 0
+2026-10-20T14:28:45.0368974Z ##[endgroup]
+2026-10-20T14:28:45.1737943Z Node version file is not JSON file
+2026-10-20T14:28:45.1739984Z Resolved .nvmrc as 24.18.0
+2026-10-20T14:28:45.1758713Z Attempting to download 24.18.0...
+2026-10-20T14:28:45.1868060Z (node:2348) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-20T14:28:45.1869491Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-20T14:28:46.1470387Z Acquiring 24.18.0 - x64 from https://github.com/actions/node-versions/releases/download/24.18.0-28070977815/node-24.18.0-linux-x64.tar.gz
+2026-10-20T14:28:46.8865999Z Extracting ...
+2026-10-20T14:28:46.8993260Z [command]/usr/bin/tar xz --strip 1 --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/bc988210-0d98-4ec1-afda-31fab41e4f33 -f /home/runner/work/_temp/ad00e4ba-b79d-4506-9ad3-f453f8519d72
+2026-10-20T14:28:48.0838138Z Adding to the cache ...
+2026-10-20T14:28:50.0035602Z ##[group]Environment details
+2026-10-20T14:28:50.2220963Z node: v24.18.0
+2026-10-20T14:28:50.2221492Z npm: 11.16.0
+2026-10-20T14:28:50.2221835Z yarn: 1.22.22
+2026-10-20T14:28:50.2222737Z ##[endgroup]
+2026-10-20T14:28:50.2513111Z Prepare all required actions
+2026-10-20T14:28:50.2513705Z Getting action download info
+2026-10-20T14:28:50.3741308Z Download action repository 'actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830' (SHA:0057852bfaa89a56745cba8c7296529d2fc39830)
+2026-10-20T14:28:50.4856611Z ##[group]Run ./.github/actions/npm-cache
+2026-10-20T14:28:50.4856923Z env:
+2026-10-20T14:28:50.4857126Z   HUSKY: 0
+2026-10-20T14:28:50.4857341Z ##[endgroup]
+2026-10-20T14:28:50.5527047Z ##[start-action display=Run cache_path="$(npm config get cache)";id=npm-cache.context]
+2026-10-20T14:28:50.5575969Z ##[group]Run cache_path="$(npm config get cache)"
+2026-10-20T14:28:50.5576466Z [36;1mcache_path="$(npm config get cache)"[0m
+2026-10-20T14:28:50.5576858Z [36;1mruntime_arch="$(node -p 'process.arch')"[0m
+2026-10-20T14:28:50.5577207Z [36;1mcan_save=false[0m
+2026-10-20T14:28:50.5578031Z [36;1mif [[ -n "${DEFAULT_BRANCH}" && "${GITHUB_REF}" == "refs/heads/${DEFAULT_BRANCH}" && ( "${GITHUB_EVENT_NAME}" == "push" || "${GITHUB_EVENT_NAME}" == "schedule" || "${GITHUB_EVENT_NAME}" == "workflow_dispatch" ) ]]; then[0m
+2026-10-20T14:28:50.5578827Z [36;1m  can_save=true[0m
+2026-10-20T14:28:50.5579064Z [36;1mfi[0m
+2026-10-20T14:28:50.5579435Z [36;1mcache_key="npm-download-${RUNNER_OS}-${runtime_arch}-${LOCKFILES_HASH}"[0m
+2026-10-20T14:28:50.5579839Z [36;1m{[0m
+2026-10-20T14:28:50.5580080Z [36;1m  printf 'can-save=%s\n' "${can_save}"[0m
+2026-10-20T14:28:50.5580427Z [36;1m  printf 'path=%s\n' "${cache_path}"[0m
+2026-10-20T14:28:50.5580754Z [36;1m  printf 'key=%s\n' "${cache_key}"[0m
+2026-10-20T14:28:50.5581071Z [36;1m} >> "${GITHUB_OUTPUT}"[0m
+2026-10-20T14:28:50.5843271Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-20T14:28:50.5843697Z env:
+2026-10-20T14:28:50.5844161Z   HUSKY: 0
+2026-10-20T14:28:50.5844385Z   DEFAULT_BRANCH: main
+2026-10-20T14:28:50.5844807Z   LOCKFILES_HASH: f5071eddb3324cda5181d21ca9a73c5081266703f804c96485c6828c63ee576b
+2026-10-20T14:28:50.5845269Z ##[endgroup]
+2026-10-20T14:28:50.7168268Z ##[end-action id=npm-cache.context;outcome=success;conclusion=success;duration_ms=163]
+2026-10-20T14:28:50.7173381Z ##[start-action display=Restore and save npm package downloads;id=npm-cache.__actions_cache]
+2026-10-20T14:28:50.7242534Z ##[group]Run actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+2026-10-20T14:28:50.7242895Z with:
+2026-10-20T14:28:50.7243112Z   path: /home/runner/.npm
+2026-10-20T14:28:50.7243575Z   key: npm-download-Linux-x64-f5071eddb3324cda5181d21ca9a73c5081266703f804c96485c6828c63ee576b
+2026-10-20T14:28:50.7244429Z   enableCrossOsArchive: false
+2026-10-20T14:28:50.7244906Z   fail-on-cache-miss: false
+2026-10-20T14:28:50.7245156Z   lookup-only: false
+2026-10-20T14:28:50.7245370Z   save-always: false
+2026-10-20T14:28:50.7245576Z env:
+2026-10-20T14:28:50.7245768Z   HUSKY: 0
+2026-10-20T14:28:50.7245956Z ##[endgroup]
+2026-10-20T14:28:50.8291490Z (node:2418) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-20T14:28:50.8292649Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-20T14:28:51.0038414Z Cache not found for input keys: npm-download-Linux-x64-f5071eddb3324cda5181d21ca9a73c5081266703f804c96485c6828c63ee576b
+2026-10-20T14:28:51.0091463Z ##[end-action id=npm-cache.__actions_cache;outcome=success;conclusion=success;duration_ms=291]
+2026-10-20T14:28:51.0094932Z ##[start-action display=Restore npm package downloads without saving;id=npm-cache.__actions_cache_2]
+2026-10-20T14:28:51.0105563Z ##[end-action id=npm-cache.__actions_cache_2;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-20T14:28:51.0194806Z ##[group]Run npm ci
+2026-10-20T14:28:51.0195097Z [36;1mnpm ci[0m
+2026-10-20T14:28:51.0259784Z shell: /usr/bin/bash -e {0}
+2026-10-20T14:28:51.0260049Z env:
+2026-10-20T14:28:51.0260244Z   HUSKY: 0
+2026-10-20T14:28:51.0260439Z ##[endgroup]
+2026-10-20T14:28:53.3421891Z npm warn deprecated prebuild-install@7.1.3: No longer maintained. Please contact the author of the relevant native addon; alternatives are available.
+2026-10-20T14:29:03.6353084Z 
+2026-10-20T14:29:03.6354312Z > rea-agents@6.7.0 prepare
+2026-10-20T14:29:03.6355203Z > node scripts/prepare.mjs
+2026-10-20T14:29:03.6355599Z 
+2026-10-20T14:29:03.8534973Z 
+2026-10-20T14:29:03.8535772Z added 549 packages, and audited 550 packages in 13s
+2026-10-20T14:29:03.8536413Z 
+2026-10-20T14:29:03.8537484Z 151 packages are looking for funding
+2026-10-20T14:29:03.8542819Z   run `npm fund` for details
+2026-10-20T14:29:03.8553473Z 
+2026-10-20T14:29:03.8553802Z found 0 vulnerabilities
+2026-10-20T14:29:03.8565147Z npm warn allow-scripts 2 packages have install scripts not yet covered by allowScripts:
+2026-10-20T14:29:03.8566657Z npm warn allow-scripts   esbuild@0.28.2 (postinstall: node install.js)
+2026-10-20T14:29:03.8567810Z npm warn allow-scripts   esbuild@0.25.12 (postinstall: node install.js)
+2026-10-20T14:29:03.8584252Z npm warn allow-scripts
+2026-10-20T14:29:03.8592890Z npm warn allow-scripts Run `npm approve-scripts --allow-scripts-pending` to review, or `npm approve-scripts <pkg>` to allow.
+2026-10-20T14:29:03.9330819Z ##[group]Run npm run test:fast -- --reporter=default --reporter=blob
+2026-10-20T14:29:03.9331335Z [36;1mnpm run test:fast -- --reporter=default --reporter=blob[0m
+2026-10-20T14:29:03.9398119Z shell: /usr/bin/bash -e {0}
+2026-10-20T14:29:03.9398376Z env:
+2026-10-20T14:29:03.9398565Z   HUSKY: 0
+2026-10-20T14:29:03.9398773Z   VITEST_BLOB_LABEL: source
+2026-10-20T14:29:03.9399007Z ##[endgroup]
+2026-10-20T14:29:04.0446165Z 
+2026-10-20T14:29:04.0446720Z > rea-agents@6.7.0 test:fast
+2026-10-20T14:29:04.0447621Z > node scripts/ci/test-group.mjs source --reporter=default --reporter=blob
+2026-10-20T14:29:04.0448160Z 
+2026-10-20T14:29:04.4823587Z 
+2026-10-20T14:29:04.4827913Z [1m[30m[46m RUN [49m[39m[22m [36mv5.0.3 [39m[90m/home/runner/work/rea/rea[39m
+2026-10-20T14:29:04.4828507Z 
+2026-10-20T14:29:08.1566539Z  [32m✓[39m [30m[43m adapters [49m[39m src/dotnet/ManagedMemberInspector.test.ts [2m([22m[2m132 tests[22m[2m)[22m[33m 2737[2mms[22m[39m
+2026-10-20T14:29:08.1568171Z    [32m✓[39m managed member decoding budget [2m(4)[22m
+2026-10-20T14:29:08.1569387Z      [33m[2m✓[22m[39m charges decoded output rather than accumulated decoding bounds[33m 438[2mms[22m[39m
+2026-10-20T14:29:08.1570419Z    [32m✓[39m managed derived edges [2m(1)[22m
+2026-10-20T14:29:08.1571176Z      [33m[2m✓[22m[39m admits call edges before the derived graph exceeds the budget[33m 403[2mms[22m[39m
+2026-10-20T14:29:08.1571859Z    [32m✓[39m managed derived caller names [2m(1)[22m
+2026-10-20T14:29:08.1572995Z      [33m[2m✓[22m[39m admits a caller name before building it[33m 1432[2mms[22m[39m
+2026-10-20T14:29:09.5055409Z  [32m✓[39m [30m[43m adapters [49m[39m src/adb/AdbProvider.test.ts [2m([22m[2m87 tests[22m[2m)[22m[33m 879[2mms[22m[39m
+2026-10-20T14:29:09.8764716Z  [32m✓[39m [30m[43m adapters [49m[39m src/ghidra/GhidraProvider.behavior.test.ts [2m([22m[2m131 tests[22m[2m)[22m[33m 475[2mms[22m[39m
+2026-10-20T14:29:11.4047334Z  [32m✓[39m [30m[43m adapters [49m[39m src/server/http/serveStreamableHttp.test.ts [2m([22m[2m62 tests[22m[2m)[22m[33m 1499[2mms[22m[39m
+2026-10-20T14:29:13.4085882Z  [32m✓[39m [30m[43m adapters [49m[39m src/ida/IdaSessionClient.test.ts [2m([22m[2m61 tests[22m[2m)[22m[33m 2109[2mms[22m[39m
+2026-10-20T14:29:13.4087787Z    [32m✓[39m headless IDA transient busy health [2m(6)[22m
+2026-10-20T14:29:13.4089460Z      [33m[2m✓[22m[39m returns a retryable timeout naming the busy tool at the registration deadline[33m 305[2mms[22m[39m
+2026-10-20T14:29:13.4091362Z      [33m[2m✓[22m[39m never invents a busy tool the worker did not report[33m 308[2mms[22m[39m
+2026-10-20T14:29:13.4093531Z      [33m[2m✓[22m[39m reports free-form text from the worker as unknown instead of echoing it[33m 305[2mms[22m[39m
+2026-10-20T14:29:13.4095869Z      [33m[2m✓[22m[39m reports an over-long name from the worker as unknown instead of echoing it[33m 303[2mms[22m[39m
+2026-10-20T14:29:14.0584139Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/PlaywrightScenarioSession.test.ts [2m([22m[2m36 tests[22m[2m)[22m[32m 107[2mms[22m[39m
+2026-10-20T14:29:14.4846475Z  [32m✓[39m [30m[43m adapters [49m[39m src/ghidra/GhidraInstallation.test.ts [2m([22m[2m93 tests[22m[2m | [22m[33m1 skipped[39m[2m)[22m[32m 62[2mms[22m[39m
+2026-10-20T14:29:15.6045307Z  [32m✓[39m [30m[43m adapters [49m[39m src/native/AppleDispatchMetadata.test.ts [2m([22m[2m52 tests[22m[2m)[22m[32m 70[2mms[22m[39m
+2026-10-20T14:29:16.1276205Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/PlaywrightBrowserScenarioProvider.test.ts [2m([22m[2m31 tests[22m[2m)[22m[32m 148[2mms[22m[39m
+2026-10-20T14:29:18.4378069Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/ProcessOwnership.identity.test.ts [2m([22m[2m23 tests[22m[2m)[22m[33m 2044[2mms[22m[39m
+2026-10-20T14:29:18.4405548Z    [33m[2m✓[22m[39m requires a scoped current relation before exempting a withheld token[33m 485[2mms[22m[39m
+2026-10-20T14:29:18.8336486Z  [32m✓[39m [30m[43m adapters [49m[39m src/native/AppleMachoFixups.test.ts [2m([22m[2m57 tests[22m[2m)[22m[32m 113[2mms[22m[39m
+2026-10-20T14:29:22.1200093Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/CdpCaptureDocuments.baseUrl.test.ts [2m([22m[2m56 tests[22m[2m)[22m[33m 2899[2mms[22m[39m
+2026-10-20T14:29:22.1212831Z    [32m✓[39m XML namespace resolution ordering and capacity [2m(3)[22m
+2026-10-20T14:29:22.1251042Z      [33m[2m✓[22m[39m resolves a deep chain with distinct namespace declarations without quadratic expansion[33m 2862[2mms[22m[39m
+2026-10-20T14:29:23.7476280Z  [32m✓[39m [30m[43m adapters [49m[39m src/apktool/ApktoolProvider.test.ts [2m([22m[2m71 tests[22m[2m)[22m[33m 11392[2mms[22m[39m
+2026-10-20T14:29:23.7478842Z    [33m[2m✓[22m[39m retains observed alias counts after exhausting the aggregate entry budget (2000 entries)[33m 357[2mms[22m[39m
+2026-10-20T14:29:23.7505421Z    [33m[2m✓[22m[39m retains observed alias counts after exhausting the aggregate entry budget (2001 entries)[33m 319[2mms[22m[39m
+2026-10-20T14:29:23.7535344Z    [33m[2m✓[22m[39m discloses qualified and unfamiliar strings tables while preserving exact locale selection (#4612)[33m 946[2mms[22m[39m
+2026-10-20T14:29:23.7565208Z    [33m[2m✓[22m[39m retains reported-version limitations for both operations without refusing 3.1.0 (#3438)[33m 312[2mms[22m[39m
+2026-10-20T14:29:24.2268078Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/PlaywrightScenarioBrowser.test.ts [2m([22m[2m22 tests[22m[2m)[22m[32m 148[2mms[22m[39m
+2026-10-20T14:29:24.6663329Z  [32m✓[39m [30m[43m adapters [49m[39m src/ghidra/GhidraFunctionValues.test.ts [2m([22m[2m73 tests[22m[2m)[22m[32m 94[2mms[22m[39m
+2026-10-20T14:29:28.8464430Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/PlaywrightElectronActiveProvider.test.ts [2m([22m[2m26 tests[22m[2m)[22m[33m 6298[2mms[22m[39m
+2026-10-20T14:29:28.8466715Z    [33m[2m✓[22m[39m passes the selected environment and ownership token to Electron launch[33m 333[2mms[22m[39m
+2026-10-20T14:29:28.8468635Z    [33m[2m✓[22m[39m retains the partial capture without taskkill when Windows lineage is unavailable[33m 330[2mms[22m[39m
+2026-10-20T14:29:28.8470372Z    [33m[2m✓[22m[39m retains the initial snapshot when the final state read fails[33m 482[2mms[22m[39m
+2026-10-20T14:29:28.8472027Z    [33m[2m✓[22m[39m cancels a windowless wait action and cleans up the owned application[33m 318[2mms[22m[39m
+2026-10-20T14:29:28.8474114Z    [33m[2m✓[22m[39m observes an initial state read started after cancellation and rejected by cleanup[33m 307[2mms[22m[39m
+2026-10-20T14:29:28.8475954Z    [33m[2m✓[22m[39m reports an expired final state grace period as the caller's cancellation[33m 310[2mms[22m[39m
+2026-10-20T14:29:28.8477781Z    [33m[2m✓[22m[39m cancels a completed capture when cancellation arrives during application close[33m 320[2mms[22m[39m
+2026-10-20T14:29:28.8479644Z    [33m[2m✓[22m[39m keeps cleanup failure precedence over cancellation observed during cleanup[33m 351[2mms[22m[39m
+2026-10-20T14:29:28.8481414Z    [33m[2m✓[22m[39m retains process cleanup and blocks replacement capture until recovery[33m 541[2mms[22m[39m
+2026-10-20T14:29:28.8483159Z    [33m[2m✓[22m[39m retains transport cleanup and blocks replacement capture until recovery[33m 514[2mms[22m[39m
+2026-10-20T14:29:28.8485183Z    [33m[2m✓[22m[39m retains both cleanup and blocks replacement capture until recovery[33m 511[2mms[22m[39m
+2026-10-20T14:29:29.4956484Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/capture/ProcessHarness.test.ts [2m([22m[2m29 tests[22m[2m)[22m[32m 167[2mms[22m[39m
+2026-10-20T14:29:37.8248659Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/WebBundleAnalysisWorker.test.ts [2m([22m[2m20 tests[22m[2m)[22m[33m 12789[2mms[22m[39m
+2026-10-20T14:29:37.8250594Z    [33m[2m✓[22m[39m reuses one real owned worker for completed facts from consecutive scripts[33m 1165[2mms[22m[39m
+2026-10-20T14:29:37.8251869Z    [33m[2m✓[22m[39m retains exit-7 output when abort follows the observed exit[33m 362[2mms[22m[39m
+2026-10-20T14:29:37.8253109Z    [33m[2m✓[22m[39m keeps a code-0 exit pending while an inherited output pipe can still produce a frame[33m 708[2mms[22m[39m
+2026-10-20T14:29:37.8255460Z    [33m[2m✓[22m[39m retains EOF without a terminal response when abort follows the close event[33m 503[2mms[22m[39m
+2026-10-20T14:29:37.8257314Z    [33m[2m✓[22m[39m retains startup EOF without a ready frame when abort follows the close event[33m 334[2mms[22m[39m
+2026-10-20T14:29:37.8259530Z    [33m[2m✓[22m[39m keeps malformed protocol output primary when abort follows its observation[33m 457[2mms[22m[39m
+2026-10-20T14:29:37.8261630Z    [33m[2m✓[22m[39m consumes a final frame before an inherited descendant pipe closes[33m 321[2mms[22m[39m
+2026-10-20T14:29:37.8275862Z    [33m[2m✓[22m[39m does not classify heap-marker stderr from a healthy worker as exhaustion[33m 651[2mms[22m[39m
+2026-10-20T14:29:37.8277521Z    [33m[2m✓[22m[39m projects late stderr tails with completeness from the actual selection point[33m 1100[2mms[22m[39m
+2026-10-20T14:29:37.8279191Z    [33m[2m✓[22m[39m kills a hung owned child at the deadline and starts a fresh worker for the next script[33m 1243[2mms[22m[39m
+2026-10-20T14:29:37.8281095Z    [33m[2m✓[22m[39m contains child heap exhaustion and reuses the host for a later script[33m 4014[2mms[22m[39m
+2026-10-20T14:29:38.1593244Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/ArtifactAnalysisResources.test.ts [2m([22m[2m22 tests[22m[2m)[22m[32m 47[2mms[22m[39m
+2026-10-20T14:29:38.7631292Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/network/PlaywrightScenarioNetwork.test.ts [2m([22m[2m25 tests[22m[2m)[22m[32m 280[2mms[22m[39m
+2026-10-20T14:29:40.3113197Z  [32m✓[39m [30m[43m adapters [49m[39m src/wasm/WabtArtifactProvider.test.ts [2m([22m[2m28 tests[22m[2m)[22m[33m 10399[2mms[22m[39m
+2026-10-20T14:29:40.3115886Z    [33m[2m✓[22m[39m retries a retained input descriptor before admitting the next WABT operation[33m 1035[2mms[22m[39m
+2026-10-20T14:29:40.3117967Z    [33m[2m✓[22m[39m owns private artifact bytes and retains success outcome[33m 482[2mms[22m[39m
+2026-10-20T14:29:40.3119854Z    [33m[2m✓[22m[39m owns private artifact bytes and retains invalid outcome[33m 324[2mms[22m[39m
+2026-10-20T14:29:40.3121738Z    [33m[2m✓[22m[39m owns private artifact bytes and retains invalid-close outcome[33m 335[2mms[22m[39m
+2026-10-20T14:29:40.3123680Z    [33m[2m✓[22m[39m owns private artifact bytes and retains invalid-close-failure outcome[33m 343[2mms[22m[39m
+2026-10-20T14:29:40.3125871Z    [33m[2m✓[22m[39m owns private artifact bytes and retains malformed outcome[33m 584[2mms[22m[39m
+2026-10-20T14:29:40.3127702Z    [33m[2m✓[22m[39m owns private artifact bytes and retains cancelled outcome[33m 427[2mms[22m[39m
+2026-10-20T14:29:40.3129470Z    [33m[2m✓[22m[39m owns private artifact bytes and retains cancelled-close outcome[33m 618[2mms[22m[39m
+2026-10-20T14:29:40.3131319Z    [33m[2m✓[22m[39m owns private artifact bytes and retains cancelled-close-failure outcome[33m 562[2mms[22m[39m
+2026-10-20T14:29:40.3132956Z    [33m[2m✓[22m[39m owns private artifact bytes and retains cleanup outcome[33m 551[2mms[22m[39m
+2026-10-20T14:29:40.3134857Z    [33m[2m✓[22m[39m owns private artifact bytes and retains changed-snapshot outcome[33m 362[2mms[22m[39m
+2026-10-20T14:29:40.3136386Z    [33m[2m✓[22m[39m owns private artifact bytes and retains malformed-wat outcome[33m 645[2mms[22m[39m
+2026-10-20T14:29:40.3137839Z    [33m[2m✓[22m[39m owns private artifact bytes and retains wat-warning outcome[33m 546[2mms[22m[39m
+2026-10-20T14:29:40.3139857Z    [33m[2m✓[22m[39m preserves finalization abort reason null through cleanup recovery[33m 602[2mms[22m[39m
+2026-10-20T14:29:40.3141843Z    [33m[2m✓[22m[39m preserves finalization abort reason {"reason":"caller-owned object"} through cleanup recovery[33m 572[2mms[22m[39m
+2026-10-20T14:29:40.3143738Z    [33m[2m✓[22m[39m preserves finalization abort reason undefined through cleanup recovery[33m 569[2mms[22m[39m
+2026-10-20T14:29:40.3145853Z    [33m[2m✓[22m[39m reports WABT output beyond the budget as a resource constraint with a bounded excerpt[33m 460[2mms[22m[39m
+2026-10-20T14:29:40.3147657Z    [33m[2m✓[22m[39m does not attribute wasm-objdump output to a wasm2wat launch failure[33m 534[2mms[22m[39m
+2026-10-20T14:29:40.4876812Z  [32m✓[39m [30m[43m adapters [49m[39m src/ida/IdaNativeProtocol.test.ts [2m([22m[2m20 tests[22m[2m)[22m[32m 95[2mms[22m[39m
+2026-10-20T14:29:40.7931619Z  [32m✓[39m [30m[43m adapters [49m[39m src/dotnet/ManagedCilDecoding.test.ts [2m([22m[2m77 tests[22m[2m)[22m[32m 154[2mms[22m[39m
+2026-10-20T14:29:40.8123188Z  [32m✓[39m [30m[43m adapters [49m[39m src/firmware/FirmwareReports.test.ts [2m([22m[2m21 tests[22m[2m)[22m[32m 42[2mms[22m[39m
+2026-10-20T14:29:41.1166323Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/ProcessOwnership.validation.test.ts [2m([22m[2m31 tests[22m[2m)[22m[32m 74[2mms[22m[39m
+2026-10-20T14:29:41.1980446Z  [32m✓[39m [30m[43m adapters [49m[39m src/electron/ElectronFuseProvider.test.ts [2m([22m[2m23 tests[22m[2m)[22m[32m 141[2mms[22m[39m
+2026-10-20T14:29:42.3005195Z  [32m✓[39m [30m[43m adapters [49m[39m src/dotnet/ManagedArtifactInspector.test.ts [2m([22m[2m35 tests[22m[2m)[22m[33m 860[2mms[22m[39m
+2026-10-20T14:29:42.8819389Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/history/HarCapture.test.ts [2m([22m[2m61 tests[22m[2m)[22m[33m 1329[2mms[22m[39m
+2026-10-20T14:29:43.2706446Z  [32m✓[39m [30m[43m adapters [49m[39m src/artifacts/apple/MachoLoadCommandReader.test.ts [2m([22m[2m28 tests[22m[2m)[22m[32m 57[2mms[22m[39m
+2026-10-20T14:29:43.9182366Z  [32m✓[39m [30m[43m adapters [49m[39m src/ida/IdaOperationFailures.test.ts [2m([22m[2m33 tests[22m[2m)[22m[32m 244[2mms[22m[39m
+2026-10-20T14:29:44.2109876Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/ProviderProcessOutput.test.ts [2m([22m[2m21 tests[22m[2m)[22m[32m 46[2mms[22m[39m
+2026-10-20T14:29:44.4914652Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/capture/ProcessSampling.procReadCoverage.test.ts [2m([22m[2m23 tests[22m[2m)[22m[32m 61[2mms[22m[39m
+2026-10-20T14:29:45.0740457Z  [32m✓[39m [30m[43m adapters [49m[39m src/ghidra/GhidraMipsProfile.test.ts [2m([22m[2m64 tests[22m[2m)[22m[32m 51[2mms[22m[39m
+2026-10-20T14:29:45.3656444Z  [32m✓[39m [30m[43m adapters [49m[39m src/ida/IdaDiagnosticRedactor.test.ts [2m([22m[2m55 tests[22m[2m)[22m[32m 47[2mms[22m[39m
+2026-10-20T14:29:45.6294204Z  [32m✓[39m [30m[43m adapters [49m[39m src/electron/ElectronFuseCleanup.test.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 166[2mms[22m[39m
+2026-10-20T14:29:47.0872613Z  [32m✓[39m [30m[43m adapters [49m[39m src/native/SignatureTargetBinding.test.ts [2m([22m[2m25 tests[22m[2m)[22m[32m 73[2mms[22m[39m
+2026-10-20T14:29:47.1229524Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/ProcessOwnership.test.ts [2m([22m[2m18 tests[22m[2m)[22m[33m 1484[2mms[22m[39m
+2026-10-20T14:29:47.4652638Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/ProcessOwnership.observation.test.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 145[2mms[22m[39m
+2026-10-20T14:29:48.4772593Z  [32m✓[39m [30m[43m adapters [49m[39m src/ida/IdaContainment.test.ts [2m([22m[2m40 tests[22m[2m)[22m[32m 182[2mms[22m[39m
+2026-10-20T14:29:48.8068146Z  [32m✓[39m [30m[43m adapters [49m[39m src/native/NativeUiObservation.test.ts [2m([22m[2m27 tests[22m[2m)[22m[32m 91[2mms[22m[39m
+2026-10-20T14:29:49.9693382Z  [32m✓[39m [30m[43m adapters [49m[39m src/ghidra/extensions/GhidraExtensions.test.ts [2m([22m[2m21 tests[22m[2m)[22m[32m 57[2mms[22m[39m
+2026-10-20T14:29:51.0191164Z  [32m✓[39m [30m[43m adapters [49m[39m src/server/environment/serveEnvironment.test.ts [2m([22m[2m13 tests[22m[2m)[22m[33m 312[2mms[22m[39m
+2026-10-20T14:29:51.2972691Z  [32m✓[39m [30m[43m adapters [49m[39m src/native/pe/PeResourceParser.test.ts [2m([22m[2m33 tests[22m[2m)[22m[32m 41[2mms[22m[39m
+2026-10-20T14:29:51.4961575Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/ProcessOwnershipFacts.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+2026-10-20T14:29:51.7779324Z  [32m✓[39m [30m[43m adapters [49m[39m src/apktool/ApktoolConfiguration.test.ts [2m([22m[2m65 tests[22m[2m)[22m[32m 47[2mms[22m[39m
+2026-10-20T14:29:53.0185858Z  [32m✓[39m [30m[43m adapters [49m[39m src/jeb/JebProvider.test.ts [2m([22m[2m21 tests[22m[2m)[22m[32m 19[2mms[22m[39m
+2026-10-20T14:29:54.4606015Z  [32m✓[39m [30m[43m adapters [49m[39m src/ghidra/GhidraSnapshotCache.test.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 178[2mms[22m[39m
+2026-10-20T14:29:54.5152048Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/capture/ProcessCaptureLifecycle.test.ts [2m([22m[2m25 tests[22m[2m)[22m[33m 6771[2mms[22m[39m
+2026-10-20T14:29:54.5154818Z    [33m[2m✓[22m[39m records attempts when a self-exit notification arrives after escalation[33m 376[2mms[22m[39m
+2026-10-20T14:29:54.5156814Z    [33m[2m✓[22m[39m records no exit code when no exit was observed[33m 1204[2mms[22m[39m
+2026-10-20T14:29:54.5158215Z    [33m[2m✓[22m[39m stops waiting for a hung delivery once the exit is observed[33m 1101[2mms[22m[39m
+2026-10-20T14:29:54.5159879Z    [33m[2m✓[22m[39m stops waiting when the escalation delivery never settles and no exit arrives[33m 1201[2mms[22m[39m
+2026-10-20T14:29:54.8025692Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/PlaywrightElectronActiveActions.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 49[2mms[22m[39m
+2026-10-20T14:29:55.5190035Z  [32m✓[39m [30m[43m adapters [49m[39m src/ida/IdaMcpConnection.test.ts [2m([22m[2m15 tests[22m[2m)[22m[33m 394[2mms[22m[39m
+2026-10-20T14:29:55.5351349Z  [32m✓[39m [30m[43m adapters [49m[39m src/apktool/ApktoolCommandRecovery.test.ts [2m([22m[2m18 tests[22m[2m)[22m[32m 113[2mms[22m[39m
+2026-10-20T14:29:55.8179925Z  [32m✓[39m [30m[43m adapters [49m[39m src/flutter/DartElf.test.ts [2m([22m[2m31 tests[22m[2m)[22m[32m 28[2mms[22m[39m
+2026-10-20T14:29:56.0743559Z  [32m✓[39m [30m[43m adapters [49m[39m src/artifacts/ArtifactResourceScope.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 33[2mms[22m[39m
+2026-10-20T14:29:56.1366595Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/IsolatedWebBundleAnalyzer.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 100[2mms[22m[39m
+2026-10-20T14:29:56.3667446Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/PngVisualDiff.test.ts [2m([22m[2m19 tests[22m[2m)[22m[32m 36[2mms[22m[39m
+2026-10-20T14:29:56.5079077Z  [32m✓[39m [30m[43m adapters [49m[39m src/windows/WindowsOwnedProcess.test.ts [2m([22m[2m20 tests[22m[2m)[22m[32m 142[2mms[22m[39m
+2026-10-20T14:29:56.6610039Z  [32m✓[39m [30m[43m adapters [49m[39m src/ghidra/GhidraRequestQueue.test.ts [2m([22m[2m25 tests[22m[2m)[22m[32m 30[2mms[22m[39m
+2026-10-20T14:29:56.8095609Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/CdpCaptureDocuments.test.ts [2m([22m[2m24 tests[22m[2m)[22m[32m 49[2mms[22m[39m
+2026-10-20T14:29:57.4425830Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/PlaywrightScenarioEvents.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 478[2mms[22m[39m
+2026-10-20T14:29:57.6772235Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/capture/ProcessNormalization.test.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 21[2mms[22m[39m
+2026-10-20T14:29:58.8096623Z  [32m✓[39m [30m[43m adapters [49m[39m src/config.test.ts [2m([22m[2m68 tests[22m[2m)[22m[32m 49[2mms[22m[39m
+2026-10-20T14:29:59.4824257Z  [32m✓[39m [30m[43m adapters [49m[39m src/artifacts/apple/KeyedArchiveReader.test.ts [2m([22m[2m20 tests[22m[2m)[22m[33m 393[2mms[22m[39m
+2026-10-20T14:29:59.8455395Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/history/protobuf/ProtobufWire.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 87[2mms[22m[39m
+2026-10-20T14:30:00.0825869Z  [32m✓[39m [30m[43m adapters [49m[39m src/hopper/HopperMachOImage.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 40[2mms[22m[39m
+2026-10-20T14:30:00.1375290Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/PlaywrightScenarioStorage.test.ts [2m([22m[2m11 tests[22m[2m)[22m[33m 3036[2mms[22m[39m
+2026-10-20T14:30:00.1384951Z    [33m[2m✓[22m[39m detaches after setup cancellation even while script installation is pending[33m 1004[2mms[22m[39m
+2026-10-20T14:30:00.1386965Z    [33m[2m✓[22m[39m releases the CDP owner when an attached target reply remains pending[33m 1002[2mms[22m[39m
+2026-10-20T14:30:00.1389066Z    [33m[2m✓[22m[39m retains the exact in-flight detach after the bounded wait expires[33m 1003[2mms[22m[39m
+2026-10-20T14:30:00.3851086Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/capture/FilesystemCoverage.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 76[2mms[22m[39m
+2026-10-20T14:30:00.4351176Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/CdpSafeMetadata.test.ts [2m([22m[2m75 tests[22m[2m)[22m[32m 26[2mms[22m[39m
+2026-10-20T14:30:00.7618238Z  [32m✓[39m [30m[43m adapters [49m[39m src/apktool/ApktoolWorkspace.lifecycle.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 119[2mms[22m[39m
+2026-10-20T14:30:01.7900657Z  [32m✓[39m [30m[43m adapters [49m[39m src/ghidra/GhidraLanguageOverride.test.ts [2m([22m[2m20 tests[22m[2m)[22m[32m 59[2mms[22m[39m
+2026-10-20T14:30:02.1666130Z  [32m✓[39m [30m[43m adapters [49m[39m src/dotnet/ManagedNativeBoundaryInspector.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 128[2mms[22m[39m
+2026-10-20T14:30:02.9304686Z  [32m✓[39m [30m[43m adapters [49m[39m src/artifacts/MachOSliceArtifactReader.test.ts [2m([22m[2m7 tests[22m[2m)[22m[33m 533[2mms[22m[39m
+2026-10-20T14:30:02.9305591Z    [32m✓[39m MachOSliceArtifactReader [2m(1)[22m
+2026-10-20T14:30:02.9306373Z      [33m[2m✓[22m[39m keeps a borrowed source usable after idle and active cancelled slice reads[33m 513[2mms[22m[39m
+2026-10-20T14:30:03.1970191Z  [32m✓[39m [30m[43m adapters [49m[39m src/native/NativeMachoInspection.test.ts [2m([22m[2m21 tests[22m[2m)[22m[32m 48[2mms[22m[39m
+2026-10-20T14:30:03.4928293Z  [32m✓[39m [30m[43m adapters [49m[39m src/electron/ElectronFuseReaderCleanup.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 39[2mms[22m[39m
+2026-10-20T14:30:05.6456152Z  [32m✓[39m [30m[43m adapters [49m[39m src/ghidra/GhidraDoctor.test.ts [2m([22m[2m16 tests[22m[2m)[22m[33m 713[2mms[22m[39m
+2026-10-20T14:30:05.6514931Z    [32m✓[39m Ghidra doctor integration [2m(8)[22m
+2026-10-20T14:30:05.6574960Z      [33m[2m✓[22m[39m accepts a valid BYO Ghidra engine when Hopper is absent[33m 697[2mms[22m[39m
+2026-10-20T14:30:06.2136870Z  [32m✓[39m [30m[43m adapters [49m[39m src/hopper/HopperTargetLease.test.ts [2m([22m[2m15 tests[22m[2m)[22m[33m 360[2mms[22m[39m
+2026-10-20T14:30:06.4954117Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/modules/NativeModuleResolver.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 25[2mms[22m[39m
+2026-10-20T14:30:06.9821782Z  [32m✓[39m [30m[43m adapters [49m[39m src/artifacts/apple/AppleAssetCatalogAnalysis.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 175[2mms[22m[39m
+2026-10-20T14:30:08.5478910Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/ElectronProcessCleanup.test.ts [2m([22m[2m5 tests[22m[2m)[22m[33m 1376[2mms[22m[39m
+2026-10-20T14:30:08.5480288Z    [32m✓[39m Electron cleanup ownership evidence [2m(1)[22m
+2026-10-20T14:30:08.5481997Z      [33m[2m✓[22m[39m keeps a previously token-owned helper unresolved after it reparents and changes groups[33m 1127[2mms[22m[39m
+2026-10-20T14:30:08.7940529Z  [32m✓[39m [30m[43m adapters [49m[39m src/adb/AdbDeviceOutput.test.ts [2m([22m[2m20 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+2026-10-20T14:30:09.0425993Z  [32m✓[39m [30m[43m adapters [49m[39m src/ida/IdaJsonDiagnostic.test.ts [2m([22m[2m39 tests[22m[2m)[22m[32m 35[2mms[22m[39m
+2026-10-20T14:30:09.3152157Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/BrowserScenario.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 26[2mms[22m[39m
+2026-10-20T14:30:10.1236200Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/ElectronCaptureCleanup.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 27[2mms[22m[39m
+2026-10-20T14:30:10.3500777Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/DarwinProcessRunTokenReader.finalization.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 21[2mms[22m[39m
+2026-10-20T14:30:11.2511169Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/OwnedWorkerRuntime.test.ts [2m([22m[2m7 tests[22m[2m)[22m[33m 704[2mms[22m[39m
+2026-10-20T14:30:11.9111489Z  [32m✓[39m [30m[43m adapters [49m[39m src/jeb/JebMcpConnection.test.ts [2m([22m[2m12 tests[22m[2m)[22m[33m 386[2mms[22m[39m
+2026-10-20T14:30:14.3308740Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/ProcessOwnership.finalSweep.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 2232[2mms[22m[39m
+2026-10-20T14:30:14.3310417Z    [33m[2m✓[22m[39m preserves a moved same-generation helper as unresolved through the final deadline[33m 1002[2mms[22m[39m
+2026-10-20T14:30:14.3311572Z    [33m[2m✓[22m[39m retries a moved token-owned helper group without signaling a released peer again[33m 1003[2mms[22m[39m
+2026-10-20T14:30:14.8109305Z  [32m✓[39m [30m[43m adapters [49m[39m src/dotnet/ManagedSignatureResolution.test.ts [2m([22m[2m20 tests[22m[2m)[22m[32m 223[2mms[22m[39m
+2026-10-20T14:30:15.0690292Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/ProviderDeadline.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 61[2mms[22m[39m
+2026-10-20T14:30:15.3257257Z  [32m✓[39m [30m[43m adapters [49m[39m src/wasm/WabtOutput.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 28[2mms[22m[39m
+2026-10-20T14:30:15.7645825Z  [32m✓[39m [30m[43m adapters [49m[39m src/inspector/JavaScriptRuntimeScope.cancellation.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 56[2mms[22m[39m
+2026-10-20T14:30:16.0384169Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/history/CaptureFailures.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 17[2mms[22m[39m
+2026-10-20T14:30:16.2864949Z  [32m✓[39m [30m[43m adapters [49m[39m src/inspector/V8InspectorCaptureProjection.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 48[2mms[22m[39m
+2026-10-20T14:30:17.6525308Z  [32m✓[39m [30m[43m adapters [49m[39m src/server/EvidenceMcpServer.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 122[2mms[22m[39m
+2026-10-20T14:30:18.1084239Z  [32m✓[39m [30m[43m adapters [49m[39m src/artifacts/GodotPckArtifactReader.test.ts [2m([22m[2m26 tests[22m[2m)[22m[32m 191[2mms[22m[39m
+2026-10-20T14:30:21.0259785Z  [32m✓[39m [30m[43m adapters [49m[39m src/setupEnvironment.test.ts [2m([22m[2m10 tests[22m[2m)[22m[33m 1453[2mms[22m[39m
+2026-10-20T14:30:21.0260852Z    [33m[2m✓[22m[39m plans setup and uninstall against selected home and client overrides[33m 711[2mms[22m[39m
+2026-10-20T14:30:21.0261892Z    [33m[2m✓[22m[39m preserves a validated selected JEB endpoint in setup registrations without claiming live readiness[33m 429[2mms[22m[39m
+2026-10-20T14:30:21.3428955Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/ElectronFileScope.cleanup.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 26[2mms[22m[39m
+2026-10-20T14:30:21.6243309Z  [32m✓[39m [30m[43m adapters [49m[39m src/ghidra/GhidraPeProfile.test.ts [2m([22m[2m44 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+2026-10-20T14:30:21.8891184Z  [32m✓[39m [30m[43m adapters [49m[39m src/apktool/ApktoolDecodeOutput.test.ts [2m([22m[2m26 tests[22m[2m)[22m[32m 30[2mms[22m[39m
+2026-10-20T14:30:22.1059218Z  [32m✓[39m [30m[43m adapters [49m[39m src/hopper/HopperRequestQueue.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 27[2mms[22m[39m
+2026-10-20T14:30:23.4319840Z  [32m✓[39m [30m[43m adapters [49m[39m src/javascript/sourceMaps/SourceMapCommand.test.ts [2m([22m[2m7 tests[22m[2m)[22m[33m 1056[2mms[22m[39m
+2026-10-20T14:30:23.4321133Z    [33m[2m✓[22m[39m classifies the same nonzero exit without cancellation[33m 488[2mms[22m[39m
+2026-10-20T14:30:23.6547385Z  [32m✓[39m [30m[43m adapters [49m[39m src/ida/IdaCallGraph.test.ts [2m([22m[2m22 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+2026-10-20T14:30:25.9200918Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/history/QlogCapture.test.ts [2m([22m[2m24 tests[22m[2m)[22m[33m 2023[2mms[22m[39m
+2026-10-20T14:30:25.9202096Z    [33m[2m✓[22m[39m omits a hidden derived total for a stream with more contributions than call arguments allow[33m 1999[2mms[22m[39m
+2026-10-20T14:30:26.1777644Z  [32m✓[39m [30m[43m adapters [49m[39m src/sqlite/SqliteDatabaseSnapshotLimits.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 20[2mms[22m[39m
+2026-10-20T14:30:26.3802863Z  [32m✓[39m [30m[43m adapters [49m[39m src/adb/AdbShellOutput.test.ts [2m([22m[2m18 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+2026-10-20T14:30:26.9784342Z  [32m✓[39m [30m[43m adapters [49m[39m src/apktool/ApktoolStringTables.test.ts [2m([22m[2m15 tests[22m[2m)[22m[33m 357[2mms[22m[39m
+2026-10-20T14:30:28.6436530Z  [32m✓[39m [30m[43m adapters [49m[39m src/server/shutdownRegistration.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+2026-10-20T14:30:29.1340223Z  [32m✓[39m [30m[43m adapters [49m[39m src/server/http/nodeHttpBridge.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 279[2mms[22m[39m
+2026-10-20T14:30:31.1316155Z  [32m✓[39m [30m[43m adapters [49m[39m src/doctorRuntime.test.ts [2m([22m[2m9 tests[22m[2m)[22m[33m 714[2mms[22m[39m
+2026-10-20T14:30:31.1345468Z    [33m[2m✓[22m[39m carries a validated REA_JADX_MCP_JAR into the provider registration environment[33m 348[2mms[22m[39m
+2026-10-20T14:30:32.4687812Z  [32m✓[39m [30m[43m adapters [49m[39m src/ghidra/GhidraRiscvProfile.test.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 39[2mms[22m[39m
+2026-10-20T14:30:32.7100554Z  [32m✓[39m [30m[43m adapters [49m[39m src/artifacts/inventory/ArtifactGraphConstruction.test.ts [2m([22m[2m25 tests[22m[2m)[22m[32m 18[2mms[22m[39m
+2026-10-20T14:30:33.9388504Z  [32m✓[39m [30m[43m adapters [49m[39m src/ghidra/GhidraAnalysisSeeds.test.ts [2m([22m[2m21 tests[22m[2m)[22m[32m 34[2mms[22m[39m
+2026-10-20T14:30:34.1476052Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/ProcessOwnership.procIdentity.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+2026-10-20T14:30:34.2700777Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/ExecFileOutput.test.ts [2m([22m[2m30 tests[22m[2m)[22m[33m 33287[2mms[22m[39m
+2026-10-20T14:30:34.2701623Z    [32m✓[39m execFileOutput cancellation lifecycle [2m(5)[22m
+2026-10-20T14:30:34.2702804Z      [33m[2m✓[22m[39m keeps the first stop reason when timeout arrives during abort cleanup[33m 14011[2mms[22m[39m
+2026-10-20T14:30:34.2704379Z    [32m✓[39m execFileOutput stop signal at a timeout [2m(8)[22m
+2026-10-20T14:30:34.2705625Z      [33m[2m✓[22m[39m stops a timed-out process with the caller's signal and reports the timeout[33m 2209[2mms[22m[39m
+2026-10-20T14:30:34.2706861Z      [33m[2m✓[22m[39m preserves a child failure's missing signal when reporting timeout[33m 10008[2mms[22m[39m
+2026-10-20T14:30:34.2708536Z      [33m[2m✓[22m[39m kills a timed-out process that ignores the stop signal[33m 6008[2mms[22m[39m
+2026-10-20T14:30:34.5120899Z  [32m✓[39m [30m[43m adapters [49m[39m src/dotnet/ManagedMemberPointers.test.ts [2m([22m[2m19 tests[22m[2m)[22m[32m 90[2mms[22m[39m
+2026-10-20T14:30:34.5575470Z  [32m✓[39m [30m[43m adapters [49m[39m src/ghidra/GhidraRawBinaryLoadImage.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 38[2mms[22m[39m
+2026-10-20T14:30:34.7786460Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/ProcessOutputTokenScanner.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 26[2mms[22m[39m
+2026-10-20T14:30:34.9088119Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/capture/ProcessCaptureObservation.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 46[2mms[22m[39m
+2026-10-20T14:30:35.1512628Z  [32m✓[39m [30m[43m adapters [49m[39m src/dotnet/ManagedMetadataExtraData.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 80[2mms[22m[39m
+2026-10-20T14:30:35.2961434Z  [32m✓[39m [30m[43m adapters [49m[39m src/inspector/V8InspectorProvider.closeOwnership.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 73[2mms[22m[39m
+2026-10-20T14:30:35.6537890Z  [32m✓[39m [30m[43m adapters [49m[39m src/ghidra/GhidraLoadImageValues.test.ts [2m([22m[2m38 tests[22m[2m)[22m[32m 63[2mms[22m[39m
+2026-10-20T14:30:35.9077655Z  [32m✓[39m [30m[43m adapters [49m[39m src/artifacts/inventory/ArtifactOccurrenceIdentity.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 207[2mms[22m[39m
+2026-10-20T14:30:36.0412453Z  [32m✓[39m [30m[43m adapters [49m[39m src/javascript/sourceMaps/TraceSourceMap.test.ts [2m([22m[2m25 tests[22m[2m)[22m[32m 39[2mms[22m[39m
+2026-10-20T14:30:36.1645610Z  [32m✓[39m [30m[43m adapters [49m[39m src/pcap/PcapConfiguration.test.ts [2m([22m[2m31 tests[22m[2m)[22m[32m 23[2mms[22m[39m
+2026-10-20T14:30:36.3595699Z  [32m✓[39m [30m[43m adapters [49m[39m src/native/parsers/plist.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 23[2mms[22m[39m
+2026-10-20T14:30:36.4878712Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/capture/ProcessCaptureError.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 22[2mms[22m[39m
+2026-10-20T14:30:36.7314614Z  [32m✓[39m [30m[43m adapters [49m[39m src/artifacts/ZipArtifactReader.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 98[2mms[22m[39m
+2026-10-20T14:30:36.8446249Z  [32m✓[39m [30m[43m adapters [49m[39m src/ghidra/GhidraLoadImageAttest.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 48[2mms[22m[39m
+2026-10-20T14:30:36.9884647Z  [32m✓[39m [30m[43m adapters [49m[39m src/flutter/FlutterPayloadScan.test.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 34[2mms[22m[39m
+2026-10-20T14:30:37.0977784Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/PlaywrightElectronActiveProjection.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 22[2mms[22m[39m
+2026-10-20T14:30:37.3279478Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/capture/FilesystemSnapshot.test.ts [2m([22m[2m10 tests[22m[2m | [22m[33m4 skipped[39m[2m)[22m[32m 27[2mms[22m[39m
+2026-10-20T14:30:37.5809318Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/ProcessOwnership.part2.test.ts [2m([22m[2m8 tests[22m[2m)[22m[33m 376[2mms[22m[39m
+2026-10-20T14:30:37.8442527Z  [32m✓[39m [30m[43m adapters [49m[39m src/rust/RustAuditableReader.test.ts [2m([22m[2m18 tests[22m[2m)[22m[33m 310[2mms[22m[39m
+2026-10-20T14:30:38.1838210Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/CdpElectronInspection.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 52[2mms[22m[39m
+2026-10-20T14:30:38.4427870Z  [32m✓[39m [30m[43m adapters [49m[39m src/windows/WindowsNativeLoader.test.ts [2m([22m[2m21 tests[22m[2m)[22m[32m 22[2mms[22m[39m
+2026-10-20T14:30:38.8114850Z  [32m✓[39m [30m[43m adapters [49m[39m src/inspector/V8InspectorProvider.partial.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 88[2mms[22m[39m
+2026-10-20T14:30:39.0105488Z  [32m✓[39m [30m[43m adapters [49m[39m src/ida/IdaWorkspaceThinning.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 95[2mms[22m[39m
+2026-10-20T14:30:39.2881474Z  [32m✓[39m [30m[43m adapters [49m[39m src/hopper/HopperCleanup.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 30[2mms[22m[39m
+2026-10-20T14:30:39.6216567Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/capture/TerminalRenderer.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 55[2mms[22m[39m
+2026-10-20T14:30:39.6578579Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/WebBundleAnalysisWorkerServer.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 550[2mms[22m[39m
+2026-10-20T14:30:39.6579951Z    [33m[2m✓[22m[39m bounds and binds per-script worker jobs, then reuses one worker for the next script[33m 548[2mms[22m[39m
+2026-10-20T14:30:39.9107512Z  [32m✓[39m [30m[43m adapters [49m[39m src/ghidra/GhidraSessionError.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 20[2mms[22m[39m
+2026-10-20T14:30:39.9256967Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/LinuxResourceLimits.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 35[2mms[22m[39m
+2026-10-20T14:30:40.2001971Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/CdpEndpoint.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 33[2mms[22m[39m
+2026-10-20T14:30:40.5335787Z  [32m✓[39m [30m[43m adapters [49m[39m src/ghidra/GhidraLaunchFailure.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 57[2mms[22m[39m
+2026-10-20T14:30:40.9072176Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/assets/ScriptCaptureAdapters.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 57[2mms[22m[39m
+2026-10-20T14:30:41.1576406Z  [32m✓[39m [30m[43m adapters [49m[39m src/native/AppleSwiftVtables.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+2026-10-20T14:30:41.3715141Z  [32m✓[39m [30m[43m adapters [49m[39m src/ida/IdaCalleeRelationships.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 122[2mms[22m[39m
+2026-10-20T14:30:41.4970636Z  [32m✓[39m [30m[43m adapters [49m[39m src/native/pe/PeResourcesProvider.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 26[2mms[22m[39m
+2026-10-20T14:30:41.7244254Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/CdpPageCaptureScripts.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 52[2mms[22m[39m
+2026-10-20T14:30:41.7896937Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/PlaywrightElectronActiveFuses.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 37[2mms[22m[39m
+2026-10-20T14:30:42.6524949Z  [32m✓[39m [30m[43m adapters [49m[39m src/native/AppleMachoSelection.test.ts [2m([22m[2m19 tests[22m[2m)[22m[32m 19[2mms[22m[39m
+2026-10-20T14:30:42.9938288Z  [32m✓[39m [30m[43m adapters [49m[39m src/ghidra/GhidraDosSnapshot.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 62[2mms[22m[39m
+2026-10-20T14:30:43.1556354Z  [32m✓[39m [30m[43m adapters [49m[39m src/ida/IdaStartupFailures.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 82[2mms[22m[39m
+2026-10-20T14:30:43.2706104Z  [32m✓[39m [30m[43m adapters [49m[39m src/native/parsers/lipo.test.ts [2m([22m[2m19 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+2026-10-20T14:30:43.4635487Z  [32m✓[39m [30m[43m adapters [49m[39m src/electron/ElectronFuseCompletion.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 47[2mms[22m[39m
+2026-10-20T14:30:43.6118501Z  [32m✓[39m [30m[43m adapters [49m[39m src/apktool/ApktoolVersionProbe.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 26[2mms[22m[39m
+2026-10-20T14:30:43.7567498Z  [32m✓[39m [30m[43m adapters [49m[39m src/pcap/PcapOutput.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 67[2mms[22m[39m
+2026-10-20T14:30:44.6667481Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/OwnedCommandPreparation.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 42[2mms[22m[39m
+2026-10-20T14:30:45.1458998Z  [32m✓[39m [30m[43m adapters [49m[39m src/ghidra/GhidraPowerPcProfile.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 29[2mms[22m[39m
+2026-10-20T14:30:45.3702838Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/capture/ProcessScenarioRuntimeValidation.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 19[2mms[22m[39m
+2026-10-20T14:30:45.5663665Z  [32m✓[39m [30m[43m adapters [49m[39m src/artifacts/AnalysisCleanupLease.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+2026-10-20T14:30:45.7977484Z  [32m✓[39m [30m[43m adapters [49m[39m src/hopper/HopperRegexSearch.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+2026-10-20T14:30:46.1390921Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/ProcessOwnership.exitScope.test.ts [2m([22m[2m5 tests[22m[2m)[22m[33m 1251[2mms[22m[39m
+2026-10-20T14:30:46.1393346Z    [33m[2m✓[22m[39m shares native exit waiting before signaling healthy groups in one cleanup attempt[33m 1012[2mms[22m[39m
+2026-10-20T14:30:46.7304900Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/WebBundleAnalysisWorkerReadCompletion.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 670[2mms[22m[39m
+2026-10-20T14:30:46.7306899Z    [33m[2m✓[22m[39m retains completed facts and resolves a result-file lease through another cleanup consumer[33m 669[2mms[22m[39m
+2026-10-20T14:30:47.0916516Z  [32m✓[39m [30m[43m adapters [49m[39m src/dotnet/ManagedArtifactFailures.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 56[2mms[22m[39m
+2026-10-20T14:30:47.4354513Z  [32m✓[39m [30m[43m adapters [49m[39m src/dotnet/ManagedMemberOwnership.test.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 774[2mms[22m[39m
+2026-10-20T14:30:47.4365176Z    [32m✓[39m managed declaring type ownership [2m(3)[22m
+2026-10-20T14:30:47.4385711Z      [33m[2m✓[22m[39m indexes wide valid member lists once per layout[33m 507[2mms[22m[39m
+2026-10-20T14:30:47.7360908Z  [32m✓[39m [30m[43m adapters [49m[39m src/ghidra/GhidraSessionValues.test.ts [2m([22m[2m19 tests[22m[2m)[22m[32m 18[2mms[22m[39m
+2026-10-20T14:30:48.0131359Z  [32m✓[39m [30m[43m adapters [49m[39m src/ghidra/GhidraInventoryValues.test.ts [2m([22m[2m21 tests[22m[2m)[22m[33m 610[2mms[22m[39m
+2026-10-20T14:30:48.0133786Z    [33m[2m✓[22m[39m validates large masked byte queries at the provider boundary without changing caller spelling[33m 594[2mms[22m[39m
+2026-10-20T14:30:48.0833244Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/CdpLargeBase64.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 84[2mms[22m[39m
+2026-10-20T14:30:48.2738588Z  [32m✓[39m [30m[43m adapters [49m[39m src/adb/AdbCommand.test.ts [2m([22m[2m18 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+2026-10-20T14:30:48.5679857Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/PlaywrightScenarioEvents.sharedContext.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 17[2mms[22m[39m
+2026-10-20T14:30:49.4382874Z  [32m✓[39m [30m[43m adapters [49m[39m src/windows/WindowsPrivateRuntime.test.ts [2m([22m[2m11 tests[22m[2m)[22m[33m 1122[2mms[22m[39m
+2026-10-20T14:30:49.4385190Z    [32m✓[39m Windows private runtime cleanup retry [2m(9)[22m
+2026-10-20T14:30:49.4386945Z      [33m[2m✓[22m[39m retains the exact final native error and owner when conflicts persist[33m 903[2mms[22m[39m
+2026-10-20T14:30:49.6330524Z  [32m✓[39m [30m[43m adapters [49m[39m src/artifacts/OrderedReads.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+2026-10-20T14:30:49.9480540Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/ProcessOwnership.exiting.test.ts [2m([22m[2m9 tests[22m[2m)[22m[33m 1193[2mms[22m[39m
+2026-10-20T14:30:49.9482967Z    [33m[2m✓[22m[39m keeps unconfirmed exit explicit at the bounded deadline[33m 1003[2mms[22m[39m
+2026-10-20T14:30:51.0913568Z  [32m✓[39m [30m[43m adapters [49m[39m src/cliLogging.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 23[2mms[22m[39m
+2026-10-20T14:30:51.4586790Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/PlaywrightScenarioArtifacts.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 53[2mms[22m[39m
+2026-10-20T14:30:52.2486490Z  [32m✓[39m [30m[43m adapters [49m[39m src/javascript/analysis/JavaScriptAnalysisWorkerSchemas.test.ts [2m([22m[2m8 tests[22m[2m)[22m[33m 1787[2mms[22m[39m
+2026-10-20T14:30:52.2487757Z    [33m[2m✓[22m[39m transfers bounded alias selection coverage across the worker boundary[33m 1735[2mms[22m[39m
+2026-10-20T14:30:52.4882983Z  [32m✓[39m [30m[43m adapters [49m[39m src/artifacts/apple/NibViewHierarchy.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 46[2mms[22m[39m
+2026-10-20T14:30:52.8119946Z  [32m✓[39m [30m[43m adapters [49m[39m src/artifacts/apple/InterfaceBuilderDecodeBudget.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 48[2mms[22m[39m
+2026-10-20T14:30:53.0043406Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/ProcessStartIdentity.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+2026-10-20T14:30:53.2296547Z  [32m✓[39m [30m[43m adapters [49m[39m src/server/toolResultEncoding.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 33[2mms[22m[39m
+2026-10-20T14:30:53.4360759Z  [32m✓[39m [30m[43m adapters [49m[39m src/ida/IdaBusyHealth.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+2026-10-20T14:30:53.9354409Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/capture/ProcessCaptureOwnershipEvidence.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 256[2mms[22m[39m
+2026-10-20T14:30:53.9643665Z  [32m✓[39m [30m[43m adapters [49m[39m src/javascript/recovery/WakaruCommand.test.ts [2m([22m[2m7 tests[22m[2m)[22m[33m 2229[2mms[22m[39m
+2026-10-20T14:30:53.9646374Z    [33m[2m✓[22m[39m enforces the shared deadline while exited output streams remain open[33m 1102[2mms[22m[39m
+2026-10-20T14:30:53.9648465Z    [33m[2m✓[22m[39m honors cancellation while waiting for output after exit[33m 1102[2mms[22m[39m
+2026-10-20T14:30:54.2326263Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/CdpCaptureStorage.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+2026-10-20T14:30:54.2675346Z  [32m✓[39m [30m[43m adapters [49m[39m src/dotnet/ManagedPeFixtureLayout.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 58[2mms[22m[39m
+2026-10-20T14:30:54.5302525Z  [32m✓[39m [30m[43m adapters [49m[39m src/native/pwntools/RecordedCrashSourceBindings.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+2026-10-20T14:30:54.7895002Z  [32m✓[39m [30m[43m adapters [49m[39m src/ghidra/GhidraJavaProbe.test.ts [2m([22m[2m20 tests[22m[2m)[22m[32m 19[2mms[22m[39m
+2026-10-20T14:30:54.9295940Z  [32m✓[39m [30m[43m adapters [49m[39m src/artifacts/ArtifactPaths.test.ts [2m([22m[2m7 tests[22m[2m)[22m[33m 463[2mms[22m[39m
+2026-10-20T14:30:54.9297616Z    [32m✓[39m English Unicode case collisions [2m(7)[22m
+2026-10-20T14:30:54.9298979Z      [33m[2m✓[22m[39m stays linear for large case-variant subtrees[33m 351[2mms[22m[39m
+2026-10-20T14:30:55.0130278Z  [32m✓[39m [30m[43m adapters [49m[39m src/artifacts/RegularFileAdmission.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+2026-10-20T14:30:55.1919266Z  [32m✓[39m [30m[43m adapters [49m[39m src/reference/ReferenceSourceReader.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+2026-10-20T14:30:55.2475938Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/capture/ProcessCaptureProgress.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+2026-10-20T14:30:55.4387665Z  [32m✓[39m [30m[43m adapters [49m[39m src/wasm/WabtRuntime.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+2026-10-20T14:30:55.6526576Z  [32m✓[39m [30m[43m adapters [49m[39m src/apktool/ApktoolVersionProbe.lifecycle.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 161[2mms[22m[39m
+2026-10-20T14:30:55.9760932Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/history/protobuf/ProtobufCapture.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+2026-10-20T14:30:56.2456410Z  [32m✓[39m [30m[43m adapters [49m[39m src/server/runDerivedOperation.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+2026-10-20T14:30:56.7466438Z  [32m✓[39m [30m[43m adapters [49m[39m src/ida/IdaWorkspaceOwnership.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 40[2mms[22m[39m
+2026-10-20T14:30:56.9906417Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/history/CaptureRedaction.test.ts [2m([22m[2m22 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+2026-10-20T14:30:57.0696132Z  [32m✓[39m [30m[43m adapters [49m[39m src/native/NativeCallObservation.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 27[2mms[22m[39m
+2026-10-20T14:30:57.2806660Z  [32m✓[39m [30m[43m adapters [49m[39m src/artifacts/apple/NibArchive.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 55[2mms[22m[39m
+2026-10-20T14:30:57.6892564Z  [32m✓[39m [30m[43m adapters [49m[39m src/electron/ElectronFuseArchitecture.test.ts [2m([22m[2m20 tests[22m[2m)[22m[32m 138[2mms[22m[39m
+2026-10-20T14:30:57.7747172Z  [32m✓[39m [30m[43m adapters [49m[39m src/native/parsers/demangle.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+2026-10-20T14:30:57.9832292Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/ProcessOwnership.part3.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+2026-10-20T14:30:58.2594877Z  [32m✓[39m [30m[43m adapters [49m[39m src/wasm/WabtInterface.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 349[2mms[22m[39m
+2026-10-20T14:30:58.5137772Z  [32m✓[39m [30m[43m adapters [49m[39m src/evm/SolidityMetadata.test.ts [2m([22m[2m19 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+2026-10-20T14:30:58.8178193Z  [32m✓[39m [30m[43m adapters [49m[39m src/dotnet/ManagedTypeNameDigests.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 44[2mms[22m[39m
+2026-10-20T14:30:59.1176782Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/DetachedPgpSignature.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 45[2mms[22m[39m
+2026-10-20T14:30:59.2776243Z  [32m✓[39m [30m[43m adapters [49m[39m src/hopper/HopperProviderDiscovery.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+2026-10-20T14:30:59.5138393Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/ProcessOwnership.baselineAbsence.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+2026-10-20T14:31:00.0426031Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/SharedStartupAttempt.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+2026-10-20T14:31:00.3116234Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/CdpPageCaptureWorkers.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+2026-10-20T14:31:00.5574799Z  [32m✓[39m [30m[43m adapters [49m[39m src/firmware/FirmwareCommand.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 17[2mms[22m[39m
+2026-10-20T14:31:00.9458860Z  [32m✓[39m [30m[43m adapters [49m[39m src/javascript/sourceMaps/SourceMapDecoder.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 89[2mms[22m[39m
+2026-10-20T14:31:01.1761772Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/history/protobuf/ProtobufBodyTrailer.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 19[2mms[22m[39m
+2026-10-20T14:31:01.4001913Z  [32m✓[39m [30m[43m adapters [49m[39m src/dotnet/ManagedMemberPointerBudget.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+2026-10-20T14:31:01.7663449Z  [32m✓[39m [30m[43m adapters [49m[39m src/ida/IdaMcpEnvironment.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 89[2mms[22m[39m
+2026-10-20T14:31:01.9901010Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/CdpCaptureContextRetention.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+2026-10-20T14:31:02.0187108Z  [32m✓[39m [30m[43m adapters [49m[39m src/dotnet/ManagedDecodeBudget.test.ts [2m([22m[2m7 tests[22m[2m)[22m[33m 2292[2mms[22m[39m
+2026-10-20T14:31:02.0189064Z    [32m✓[39m managed projection admission [2m(5)[22m
+2026-10-20T14:31:02.0193781Z      [33m[2m✓[22m[39m counts escaped JSON bytes exactly at the budget boundary[33m 848[2mms[22m[39m
+2026-10-20T14:31:02.0195835Z      [33m[2m✓[22m[39m charges an admitted record once inside its containing projection[33m 557[2mms[22m[39m
+2026-10-20T14:31:02.0197729Z      [33m[2m✓[22m[39m charges a repeated occurrence of an admitted record again[33m 545[2mms[22m[39m
+2026-10-20T14:31:02.2583503Z  [32m✓[39m [30m[43m adapters [49m[39m src/hopper/HopperAnalysisProfile.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 26[2mms[22m[39m
+2026-10-20T14:31:02.3227018Z  [32m✓[39m [30m[43m adapters [49m[39m src/ida/IdaConfiguration.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 23[2mms[22m[39m
+2026-10-20T14:31:02.5746778Z  [32m✓[39m [30m[43m adapters [49m[39m src/native/pwndbg/CoreFileMappingAuthority.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 17[2mms[22m[39m
+2026-10-20T14:31:02.7951225Z  [32m✓[39m [30m[43m adapters [49m[39m src/hopper/HopperProcessDiagnostic.test.ts [2m([22m[2m19 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+2026-10-20T14:31:03.1267068Z  [32m✓[39m [30m[43m adapters [49m[39m src/ghidra/GhidraDosComLoadImage.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 57[2mms[22m[39m
+2026-10-20T14:31:03.4207201Z  [31m❯[39m [30m[43m adapters [49m[39m src/cliJsonPaths.test.ts [2m([22m[2m13 tests[22m[2m | [22m[31m3 failed[39m[2m)[22m[32m 21[2mms[22m[39m
+2026-10-20T14:31:03.4215022Z    [31m❯[39m CLI JSON path normalization [2m(13)[22m
+2026-10-20T14:31:03.4218717Z      [32m✓[39m keeps blank executable_path ("") invalid at the shared input boundary[32m 5[2mms[22m[39m
+2026-10-20T14:31:03.4220128Z      [32m✓[39m keeps blank executable_path (" \t ") invalid at the shared input boundary[32m 1[2mms[22m[39m
+2026-10-20T14:31:03.4221539Z      [32m✓[39m keeps blank application_path ("") invalid at the shared input boundary[32m 1[2mms[22m[39m
+2026-10-20T14:31:03.4222950Z      [32m✓[39m keeps blank application_path (" \t ") invalid at the shared input boundary[32m 0[2mms[22m[39m
+2026-10-20T14:31:03.4224575Z      [32m✓[39m keeps blank application_root ("") invalid at the shared input boundary[32m 1[2mms[22m[39m
+2026-10-20T14:31:03.4225986Z      [32m✓[39m keeps blank application_root (" \t ") invalid at the shared input boundary[32m 0[2mms[22m[39m
+2026-10-20T14:31:03.4227508Z      [32m✓[39m resolves selected relative paths without trimming names or changing unrelated fields[32m 0[2mms[22m[39m
+2026-10-20T14:31:03.4229128Z [31m     [31m×[31m keeps URL "file:///opt/electron" distinguishable from a local path[39m[32m 8[2mms[22m[39m
+2026-10-20T14:31:03.4230649Z [31m     [31m×[31m keeps URL "FILE:electron" distinguishable from a local path[39m[32m 1[2mms[22m[39m
+2026-10-20T14:31:03.4232132Z [31m     [31m×[31m keeps URL "https://example.test/app" distinguishable from a local path[39m[32m 1[2mms[22m[39m
+2026-10-20T14:31:03.4233304Z      [32m✓[39m keeps resolving local path "bin/electron"[32m 0[2mms[22m[39m
+2026-10-20T14:31:03.4234546Z      [32m✓[39m keeps resolving local path "release:v1/electron"[32m 0[2mms[22m[39m
+2026-10-20T14:31:03.6692598Z      [32m✓[39m keeps resolving local path "C:\\Electron\\electron.exe"[32m 0[2mms[22m[39m
+2026-10-20T14:31:03.6694753Z  [32m✓[39m [30m[43m adapters [49m[39m src/ida/IdaReferenceCoverage.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 107[2mms[22m[39m
+2026-10-20T14:31:03.7436548Z  [32m✓[39m [30m[43m adapters [49m[39m src/dotnet/ManagedMetadataHeaps.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 19[2mms[22m[39m
+2026-10-20T14:31:03.9355747Z  [32m✓[39m [30m[43m adapters [49m[39m src/native/pwntools/PwntoolsInputLimit.test.ts [2m([22m[2m19 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+2026-10-20T14:31:03.9676723Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/LinuxProcessStat.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+2026-10-20T14:31:04.5401826Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/ElectronCaptureCleanup.boundary.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 335[2mms[22m[39m
+2026-10-20T14:31:04.5412123Z    [33m[2m✓[22m[39m retains transport recovery after real owned process-family cleanup[33m 334[2mms[22m[39m
+2026-10-20T14:31:04.8373048Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/history/SazMetadata.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+2026-10-20T14:31:05.2646206Z  [32m✓[39m [30m[43m adapters [49m[39m src/ghidra/GhidraDisabledAnalyzers.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+2026-10-20T14:31:05.6444811Z  [32m✓[39m [30m[43m adapters [49m[39m src/server/RequestTrackingMcpServer.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 55[2mms[22m[39m
+2026-10-20T14:31:05.9376056Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/WebBundleAnalysisWorkerCapacity.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 8[2mms[22m[39m
+2026-10-20T14:31:06.1526298Z  [32m✓[39m [30m[43m adapters [49m[39m src/native/NativeMacOSProviderInput.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+2026-10-20T14:31:06.2000289Z  [32m✓[39m [30m[43m adapters [49m[39m src/adb/AdbHostFileName.test.ts [2m([22m[2m32 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+2026-10-20T14:31:06.3722981Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/ProcessOwnership.nativeExit.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+2026-10-20T14:31:06.4732583Z  [32m✓[39m [30m[43m adapters [49m[39m src/ghidra/GhidraLauncherEnvironment.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+2026-10-20T14:31:06.7652547Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/CdpSnapshotNodes.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+2026-10-20T14:31:06.9825574Z  [32m✓[39m [30m[43m adapters [49m[39m src/artifacts/AsarHeader.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+2026-10-20T14:31:07.4556238Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/ProcessOwnership.sweepExit.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 258[2mms[22m[39m
+2026-10-20T14:31:07.6821234Z  [32m✓[39m [30m[43m adapters [49m[39m src/hopper/HopperProvider.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+2026-10-20T14:31:07.7443020Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/PlaywrightExecutionBoundary.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+2026-10-20T14:31:07.8986653Z  [32m✓[39m [30m[43m adapters [49m[39m src/ghidra/GhidraDiagnostics.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+2026-10-20T14:31:08.0059445Z  [32m✓[39m [30m[43m adapters [49m[39m src/javascript/recovery/RecoveryFiles.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 34[2mms[22m[39m
+2026-10-20T14:31:08.1358906Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/snapshotEnvironment.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+2026-10-20T14:31:08.2463775Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/execution/CdpExecutionWindow.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+2026-10-20T14:31:08.4020943Z  [32m✓[39m [30m[43m adapters [49m[39m src/go/GoPeImage.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+2026-10-20T14:31:08.4947054Z  [32m✓[39m [30m[43m adapters [49m[39m src/evm/EvmoleFailures.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+2026-10-20T14:31:08.7710567Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/CdpCaptureEvents.redirectBodyShape.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 11[2mms[22m[39m
+2026-10-20T14:31:08.9779298Z  [32m✓[39m [30m[43m adapters [49m[39m src/ghidra/GhidraSessionRoot.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+2026-10-20T14:31:09.1620136Z  [32m✓[39m [30m[43m adapters [49m[39m src/server/environment/environmentCapacity.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 103[2mms[22m[39m
+2026-10-20T14:31:09.2155202Z  [32m✓[39m [30m[43m adapters [49m[39m src/evm/EvmoleInterfaceAdapter.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+2026-10-20T14:31:09.3748111Z  [32m✓[39m [30m[43m adapters [49m[39m src/reference/ReferenceSourceReaderFile.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+2026-10-20T14:31:09.4912607Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/capture/ProcessCaptureTerminalRetention.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 10[2mms[22m[39m
+2026-10-20T14:31:09.6918954Z  [32m✓[39m [30m[43m adapters [49m[39m src/inspector/V8InspectorEndpoint.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 28[2mms[22m[39m
+2026-10-20T14:31:09.7291370Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/CdpCaptureCompleteness.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+2026-10-20T14:31:09.9482239Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/CdpCaptureValues.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+2026-10-20T14:31:09.9805167Z  [32m✓[39m [30m[43m adapters [49m[39m src/evm/EvmWorkerLimits.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+2026-10-20T14:31:10.2332397Z  [32m✓[39m [30m[43m adapters [49m[39m src/wasm/WabtFailures.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+2026-10-20T14:31:10.2672073Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/ExecFileBoundedOutput.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 98[2mms[22m[39m
+2026-10-20T14:31:10.4956056Z  [32m✓[39m [30m[43m adapters [49m[39m src/adb/AdbConfiguration.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+2026-10-20T14:31:10.5024884Z  [32m✓[39m [30m[43m adapters [49m[39m src/firmware/FirmwareVersion.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+2026-10-20T14:31:10.7063181Z  [32m✓[39m [30m[43m adapters [49m[39m src/native/NativeUiInterruptionControl.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+2026-10-20T14:31:10.7202300Z  [32m✓[39m [30m[43m adapters [49m[39m src/artifacts/hostExecutableMarking.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+2026-10-20T14:31:10.9323166Z  [32m✓[39m [30m[43m adapters [49m[39m src/homeDirectory.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+2026-10-20T14:31:10.9831727Z  [32m✓[39m [30m[43m adapters [49m[39m src/ida/IdaDoctor.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 16[2mms[22m[39m
+2026-10-20T14:31:11.1565124Z  [32m✓[39m [30m[43m adapters [49m[39m src/artifacts/OwnedFileHandle.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+2026-10-20T14:31:11.2206348Z  [32m✓[39m [30m[43m adapters [49m[39m src/native/pwntools/PwntoolsFailures.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+2026-10-20T14:31:11.5692257Z  [32m✓[39m [30m[43m adapters [49m[39m src/artifacts/AsarEntryStream.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 118[2mms[22m[39m
+2026-10-20T14:31:11.8178755Z  [32m✓[39m [30m[43m adapters [49m[39m src/javascript/recovery/WakaruVersion.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+2026-10-20T14:31:12.0442287Z  [32m✓[39m [30m[43m adapters [49m[39m src/artifacts/apple/PlistNumberLiterals.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 5[2mms[22m[39m
+2026-10-20T14:31:12.5441276Z  [32m✓[39m [30m[43m adapters [49m[39m src/ida/IdaProvider.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+2026-10-20T14:31:12.7587799Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/capture/ProcessTimer.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 4[2mms[22m[39m
+2026-10-20T14:31:13.0131613Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/JavaScriptWorkerMemoryLimit.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+2026-10-20T14:31:13.2376151Z  [32m✓[39m [30m[43m adapters [49m[39m src/evm/EvmBytecodeCarrier.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+2026-10-20T14:31:13.4512197Z  [32m✓[39m [30m[43m adapters [49m[39m src/cliHostInputs.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+2026-10-20T14:31:13.6731710Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/DarwinProcessRunTokenReader.timeout.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+2026-10-20T14:31:13.7762344Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/WebSourceMapFetcher.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+2026-10-20T14:31:13.8992041Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/ProcessOwnership.runId.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 4[2mms[22m[39m
+2026-10-20T14:31:14.0114612Z  [32m✓[39m [30m[43m adapters [49m[39m src/rust/RustBinaryImage.machoAlignment.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+2026-10-20T14:31:14.1226554Z  [32m✓[39m [30m[43m adapters [49m[39m src/artifacts/ArtifactReader.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+2026-10-20T14:31:14.2285107Z  [32m✓[39m [30m[43m adapters [49m[39m src/jeb/JebMcpEndpoint.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+2026-10-20T14:31:14.3665765Z  [32m✓[39m [30m[43m adapters [49m[39m src/go/GoMachoImage.alignment.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+2026-10-20T14:31:14.4468038Z  [32m✓[39m [30m[43m adapters [49m[39m src/native/parsers/echoedPath.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+2026-10-20T14:31:14.5779624Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/capture/ProcessCaptureJournal.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 4[2mms[22m[39m
+2026-10-20T14:31:14.6713570Z  [32m✓[39m [30m[43m adapters [49m[39m src/process/LinuxProcessStatus.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+2026-10-20T14:31:14.8094128Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/history/NodeCaptureAdapter.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+2026-10-20T14:31:14.9080625Z  [32m✓[39m [30m[43m adapters [49m[39m src/artifacts/ArtifactHash.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 10[2mms[22m[39m
+2026-10-20T14:31:15.0620808Z  [32m✓[39m [30m[43m adapters [49m[39m src/browser/CdpResourceContentSize.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+2026-10-20T14:31:15.6133720Z  [32m✓[39m [30m[45m composition [49m[39m tests/composition/reverseEngineeringEdgeCases.test.ts [2m([22m[2m70 tests[22m[2m)[22m[32m 208[2mms[22m[39m
+2026-10-20T14:31:16.0868112Z  [32m✓[39m [30m[45m composition [49m[39m tests/composition/analysis-sessions/binarySession.test.ts [2m([22m[2m43 tests[22m[2m)[22m[32m 292[2mms[22m[39m
+2026-10-20T14:31:16.2452342Z  [32m✓[39m [30m[45m composition [49m[39m tests/composition/reverseEngineering.test.ts [2m([22m[2m23 tests[22m[2m)[22m[32m 64[2mms[22m[39m
+2026-10-20T14:31:16.2909952Z  [32m✓[39m [30m[45m composition [49m[39m tests/composition/analysis-sessions/providerBinding.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 27[2mms[22m[39m
+2026-10-20T14:31:16.3522980Z  [32m✓[39m [30m[45m composition [49m[39m tests/composition/analysis-sessions/binarySessionCleanupRetry.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 51[2mms[22m[39m
+2026-10-20T14:31:16.5956929Z  [32m✓[39m [30m[45m composition [49m[39m tests/composition/analysis-sessions/managedApplicationGraph.test.ts [2m([22m[2m18 tests[22m[2m)[22m[32m 270[2mms[22m[39m
+2026-10-20T14:31:17.0118854Z  [32m✓[39m [30m[45m composition [49m[39m tests/composition/idaProvider.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 45[2mms[22m[39m
+2026-10-20T14:31:17.2779775Z  [32m✓[39m [30m[45m composition [49m[39m tests/composition/directAnalysisCleanup.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 61[2mms[22m[39m
+2026-10-20T14:31:17.3014477Z  [32m✓[39m [30m[45m composition [49m[39m tests/composition/analysis-sessions/compositeProvider.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+2026-10-20T14:31:17.3524762Z  [32m✓[39m [30m[45m composition [49m[39m tests/composition/reverseEngineeringCancellation.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 333[2mms[22m[39m
+2026-10-20T14:31:17.3526662Z    [33m[2m✓[22m[39m waits for a cancelled Rizin process to exit before returning[33m 331[2mms[22m[39m
+2026-10-20T14:31:17.3718634Z  [32m✓[39m [30m[45m composition [49m[39m tests/composition/directAnalysisXrefs.test.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 54[2mms[22m[39m
+2026-10-20T14:31:17.4114339Z  [32m✓[39m [30m[45m composition [49m[39m tests/composition/analysis-sessions/investigationRecords.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 32[2mms[22m[39m
+2026-10-20T14:31:17.4392080Z  [32m✓[39m [30m[45m composition [49m[39m tests/composition/directAnalysisFactories.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 36[2mms[22m[39m
+2026-10-20T14:31:17.4471249Z  [32m✓[39m [30m[45m composition [49m[39m tests/composition/objdumpSelectedDisassembly.test.ts [2m([22m[2m21 tests[22m[2m)[22m[32m 27[2mms[22m[39m
+2026-10-20T14:31:17.4521387Z  [32m✓[39m [30m[45m composition [49m[39m tests/composition/reverseEngineeringCommandPort.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+2026-10-20T14:31:17.4640797Z  [32m✓[39m [30m[45m composition [49m[39m tests/composition/analysis-sessions/powerpc-identity.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 5[2mms[22m[39m
+2026-10-20T14:31:17.4682443Z  [32m✓[39m [30m[45m composition [49m[39m tests/composition/reverseEngineeringAdmission.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 15[2mms[22m[39m
+2026-10-20T14:31:17.4741152Z  [32m✓[39m [30m[45m composition [49m[39m tests/composition/analysis-sessions/mips-identity.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 2[2mms[22m[39m
+2026-10-20T14:31:17.4778272Z  [32m✓[39m [30m[45m composition [49m[39m tests/composition/resolveWindowsProviderExecutable.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+2026-10-20T14:31:17.5117515Z  [32m✓[39m [30m[45m composition [49m[39m tests/composition/directAnalysisLimitations.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 27[2mms[22m[39m
+2026-10-20T14:31:17.5197968Z  [32m✓[39m [30m[45m composition [49m[39m tests/composition/callPathParserOperation.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 2[2mms[22m[39m
+2026-10-20T14:31:17.5364246Z  [32m✓[39m [30m[45m composition [49m[39m tests/composition/reverseEngineeringLocalInspectionEdgeCases.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 2[2mms[22m[39m
+2026-10-20T14:31:17.5366020Z  [32m✓[39m [30m[45m composition [49m[39m tests/composition/evmModuleContract.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+2026-10-20T14:31:17.7896745Z  [32m✓[39m [30m[42m conformance [49m[39m tests/conformance/ghidra/mips-checks.test.ts [2m([22m[2m27 tests[22m[2m)[22m[32m 39[2mms[22m[39m
+2026-10-20T14:31:17.9157709Z  [32m✓[39m [30m[42m conformance [49m[39m tests/conformance/providers/managed/managedNativeVerification.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 67[2mms[22m[39m
+2026-10-20T14:31:17.9618561Z  [32m✓[39m [30m[42m conformance [49m[39m tests/conformance/ghidra/mips-relocatable-checks.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 26[2mms[22m[39m
+2026-10-20T14:31:18.0301475Z  [32m✓[39m [30m[42m conformance [49m[39m tests/conformance/providers/conformanceReplay.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+2026-10-20T14:31:18.0776751Z  [32m✓[39m [30m[42m conformance [49m[39m tests/conformance/providerCompletion.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 68[2mms[22m[39m
+2026-10-20T14:31:18.0986413Z  [32m✓[39m [30m[42m conformance [49m[39m tests/conformance/providers/conformanceTrustGate.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+2026-10-20T14:31:18.1190969Z  [32m✓[39m [30m[42m conformance [49m[39m tests/conformance/ghidra/ppc-checks.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+2026-10-20T14:31:18.1480541Z  [32m✓[39m [30m[42m conformance [49m[39m tests/conformance/providers/hopper/realHopperAssertions.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+2026-10-20T14:31:18.1806246Z  [32m✓[39m [30m[42m conformance [49m[39m tests/conformance/ghidra/psp-checks.test.ts [2m([22m[2m30 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+2026-10-20T14:31:18.1968698Z  [32m✓[39m [30m[42m conformance [49m[39m tests/conformance/providers/ghidra/windowsCapabilities.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+2026-10-20T14:31:18.2193427Z  [32m✓[39m [30m[42m conformance [49m[39m tests/conformance/contracts/analysisErrorProjection.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+2026-10-20T14:31:18.9337339Z  [32m✓[39m [30m[42m conformance [49m[39m tests/conformance/providers/conformancePackage.test.ts [2m([22m[2m14 tests[22m[2m)[22m[33m 892[2mms[22m[39m
+2026-10-20T14:31:18.9339016Z    [32m✓[39m conformance package construction [2m(4)[22m
+2026-10-20T14:31:18.9339767Z      [33m[2m✓[22m[39m accepts packages with more than 100 scenarios and steps[33m 886[2mms[22m[39m
+2026-10-20T14:31:18.9603314Z  [32m✓[39m [30m[42m conformance [49m[39m tests/conformance/providers/hopper/realHopperFixture.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+2026-10-20T14:31:19.0118341Z  [32m✓[39m [30m[42m conformance [49m[39m tests/conformance/releaseConfiguration.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 28[2mms[22m[39m
+2026-10-20T14:31:19.0846329Z  [32m✓[39m [30m[42m conformance [49m[39m tests/conformance/readmeConsistency.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 52[2mms[22m[39m
+2026-10-20T14:31:19.0989797Z  [32m✓[39m [30m[42m conformance [49m[39m tests/conformance/package/packedTarListing.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+2026-10-20T14:31:19.1130095Z  [32m✓[39m [30m[42m conformance [49m[39m tests/conformance/providers/hopper/realHopperExhaustiveSearch.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 1[2mms[22m[39m
+2026-10-20T14:31:19.1637746Z  [32m✓[39m [30m[42m conformance [49m[39m tests/conformance/providers/ghidra/realGhidraWindowsWorkflow.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 17[2mms[22m[39m
+2026-10-20T14:31:19.2863350Z  [32m✓[39m [30m[42m conformance [49m[39m tests/conformance/ida/providerContracts.test.ts [2m([22m[2m52 tests[22m[2m)[22m[32m 209[2mms[22m[39m
+2026-10-20T14:31:19.3063292Z  [32m✓[39m [30m[42m conformance [49m[39m tests/conformance/providers/hopper/realHopperSemantic.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+2026-10-20T14:31:19.3139024Z  [32m✓[39m [30m[42m conformance [49m[39m tests/conformance/contracts/mcpInputSchemaProfile.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 1[2mms[22m[39m
+2026-10-20T14:31:19.3278063Z  [32m✓[39m [30m[42m conformance [49m[39m tests/conformance/package/environmentBundlePackagePin.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 1[2mms[22m[39m
+2026-10-20T14:31:19.3352241Z  [32m✓[39m [30m[42m conformance [49m[39m tests/conformance/contracts/mcpResponseBudget.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 1[2mms[22m[39m
+2026-10-20T14:31:19.3423546Z  [32m✓[39m [30m[42m conformance [49m[39m tests/conformance/providers/ghidra/windowsFixtureSelection.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 0[2mms[22m[39m
+2026-10-20T14:31:20.0005558Z  [32m✓[39m [30m[42m conformance [49m[39m tests/conformance/contracts/targetContentProvenance.test.ts [2m([22m[2m22 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+2026-10-20T14:31:21.2958048Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/webBundleAnalyzer.test.ts [2m([22m[2m53 tests[22m[2m)[22m[33m 1578[2mms[22m[39m
+2026-10-20T14:31:21.2958819Z    [32m✓[39m web bundle analyzer [2m(4)[22m
+2026-10-20T14:31:21.2959474Z      [33m[2m✓[22m[39m analyzes AST nodes after the former fixed node ceiling[33m 536[2mms[22m[39m
+2026-10-20T14:31:21.2960148Z    [32m✓[39m web bundle endpoint candidate classification [2m(2)[22m
+2026-10-20T14:31:21.2961001Z      [33m[2m✓[22m[39m deduplicates repeated candidate sites while keeping script, value and detector identity[33m 680[2mms[22m[39m
+2026-10-20T14:31:21.5145785Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/functionComparison.test.ts [2m([22m[2m55 tests[22m[2m)[22m[32m 143[2mms[22m[39m
+2026-10-20T14:31:21.5706203Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/apple/dylibResolution.test.ts [2m([22m[2m88 tests[22m[2m)[22m[32m 26[2mms[22m[39m
+2026-10-20T14:31:22.0326249Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/analysisView/analysisView.test.ts [2m([22m[2m32 tests[22m[2m)[22m[32m 203[2mms[22m[39m
+2026-10-20T14:31:22.3956807Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/analysisView/environmentManifestView.test.ts [2m([22m[2m32 tests[22m[2m)[22m[33m 339[2mms[22m[39m
+2026-10-20T14:31:26.1640547Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/electronWrappedCallPaths.test.ts [2m([22m[2m149 tests[22m[2m)[22m[33m 5810[2mms[22m[39m
+2026-10-20T14:31:26.1645882Z    [33m[2m✓[22m[39m does not spread a large nested bridge member list into function arguments[33m 4181[2mms[22m[39m
+2026-10-20T14:31:26.3704407Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/apple/appleApplication.test.ts [2m([22m[2m36 tests[22m[2m)[22m[32m 162[2mms[22m[39m
+2026-10-20T14:31:27.5518308Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticAnalysis.member_mutations.test.ts [2m([22m[2m187 tests[22m[2m)[22m[33m 5130[2mms[22m[39m
+2026-10-20T14:31:27.5520170Z    [32m✓[39m property mutation collection on minified bundles [2m(2)[22m
+2026-10-20T14:31:27.5521741Z      [33m[2m✓[22m[39m records each write to one object without replaying earlier writes[33m 940[2mms[22m[39m
+2026-10-20T14:31:27.5523697Z      [33m[2m✓[22m[39m indexes many returned object methods instead of rescanning the object[33m 1789[2mms[22m[39m
+2026-10-20T14:31:27.5525738Z    [32m✓[39m results of methods on an escaped receiver [2m(2)[22m
+2026-10-20T14:31:27.5527360Z      [33m[2m✓[22m[39m keeps a shared result uncertain across a wide escaped receiver (#1495)[33m 1990[2mms[22m[39m
+2026-10-20T14:31:27.6449114Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/process/processCapture.validation.test.ts [2m([22m[2m27 tests[22m[2m)[22m[32m 46[2mms[22m[39m
+2026-10-20T14:31:28.0389490Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/electronModuleInterop.test.ts [2m([22m[2m189 tests[22m[2m)[22m[33m 1648[2mms[22m[39m
+2026-10-20T14:31:28.2176387Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/browserScenarioDiff.test.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 103[2mms[22m[39m
+2026-10-20T14:31:28.6572690Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptApplicationGraph.test.ts [2m([22m[2m19 tests[22m[2m)[22m[33m 405[2mms[22m[39m
+2026-10-20T14:31:28.8891512Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticAnalysis.structure.test.ts [2m([22m[2m102 tests[22m[2m)[22m[32m 208[2mms[22m[39m
+2026-10-20T14:31:28.9827572Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/analysisErrorProjection.test.ts [2m([22m[2m57 tests[22m[2m)[22m[32m 25[2mms[22m[39m
+2026-10-20T14:31:29.1274547Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticGraphQuery.test.ts [2m([22m[2m19 tests[22m[2m)[22m[32m 94[2mms[22m[39m
+2026-10-20T14:31:29.3108556Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/apple/interfaceBuilderGraph.test.ts [2m([22m[2m23 tests[22m[2m)[22m[33m 1607[2mms[22m[39m
+2026-10-20T14:31:29.3111609Z    [32m✓[39m Interface Builder parser bounds [2m(1)[22m
+2026-10-20T14:31:29.3113212Z      [33m[2m✓[22m[39m reports connections discarded by the parser's hard ceiling[33m 1331[2mms[22m[39m
+2026-10-20T14:31:31.9272489Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticAnalysis.builtin_defaults.test.ts [2m([22m[2m100 tests[22m[2m)[22m[33m 2779[2mms[22m[39m
+2026-10-20T14:31:31.9274985Z    [33m[2m✓[22m[39m shares equivalent alias subproblems and repeated intact receiver facts[33m 2580[2mms[22m[39m
+2026-10-20T14:31:32.0523497Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptRpcEndpoints.test.ts [2m([22m[2m96 tests[22m[2m)[22m[32m 109[2mms[22m[39m
+2026-10-20T14:31:32.2742338Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/analysisView/webNetworkCaptureView.test.ts [2m([22m[2m51 tests[22m[2m)[22m[32m 41[2mms[22m[39m
+2026-10-20T14:31:32.7228508Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/reconstructionVerification.functionSources.test.ts [2m([22m[2m69 tests[22m[2m)[22m[33m 368[2mms[22m[39m
+2026-10-20T14:31:32.8977138Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/analysisView/environmentStateView.test.ts [2m([22m[2m37 tests[22m[2m)[22m[32m 104[2mms[22m[39m
+2026-10-20T14:31:32.9830422Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSymbolicBindings.test.ts [2m([22m[2m46 tests[22m[2m)[22m[33m 3649[2mms[22m[39m
+2026-10-20T14:31:32.9836092Z    [33m[2m✓[22m[39m completes a loaded module past a very large array without stack overflow[33m 3485[2mms[22m[39m
+2026-10-20T14:31:33.0920771Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/webCaptureDiff.network.test.ts [2m([22m[2m45 tests[22m[2m)[22m[32m 75[2mms[22m[39m
+2026-10-20T14:31:33.2241559Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticAnalysis.dataflow.test.ts [2m([22m[2m92 tests[22m[2m)[22m[32m 111[2mms[22m[39m
+2026-10-20T14:31:33.2400607Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticAnalysis.reference_lifetimes.test.ts [2m([22m[2m113 tests[22m[2m)[22m[33m 328[2mms[22m[39m
+2026-10-20T14:31:33.2848752Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/process/processTraceComparison.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 37[2mms[22m[39m
+2026-10-20T14:31:33.3195560Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/sourceToBundleComparison.test.ts [2m([22m[2m21 tests[22m[2m)[22m[32m 51[2mms[22m[39m
+2026-10-20T14:31:33.5406904Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/evidence.test.ts [2m([22m[2m28 tests[22m[2m)[22m[32m 79[2mms[22m[39m
+2026-10-20T14:31:34.5329535Z  [32m✓[39m [30m[45m domain [49m[39m src/contracts/toolInputReferences.test.ts [2m([22m[2m23 tests[22m[2m)[22m[33m 801[2mms[22m[39m
+2026-10-20T14:31:34.5389894Z    [33m[2m✓[22m[39m preserves the complete inline Evidence contract before deferred authentication in draft-2020-12[33m 301[2mms[22m[39m
+2026-10-20T14:31:35.3323609Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptStaticAnalysisCalleeBoundary.test.ts [2m([22m[2m63 tests[22m[2m)[22m[33m 1773[2mms[22m[39m
+2026-10-20T14:31:35.3326356Z    [33m[2m✓[22m[39m bounds branching selector work and reports unknown ownership explicitly[33m 1519[2mms[22m[39m
+2026-10-20T14:31:35.8403798Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/analysisView/webNetworkApiSurfaceView.test.ts [2m([22m[2m20 tests[22m[2m)[22m[33m 491[2mms[22m[39m
+2026-10-20T14:31:35.8406042Z    [33m[2m✓[22m[39m charges repeated observed values once when merging[33m 359[2mms[22m[39m
+2026-10-20T14:31:35.9001124Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/referenceSourceGraph.test.ts [2m([22m[2m27 tests[22m[2m)[22m[32m 38[2mms[22m[39m
+2026-10-20T14:31:36.0265357Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticGraphTraversal.test.ts [2m([22m[2m22 tests[22m[2m)[22m[32m 95[2mms[22m[39m
+2026-10-20T14:31:36.1452226Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/reconstructionVerification.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 88[2mms[22m[39m
+2026-10-20T14:31:37.1138387Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticAnalysis.unions.test.ts [2m([22m[2m27 tests[22m[2m)[22m[33m 954[2mms[22m[39m
+2026-10-20T14:31:37.1140490Z    [32m✓[39m semantic expression depth bounds [2m(4)[22m
+2026-10-20T14:31:37.1142129Z      [33m[2m✓[22m[39m bounds nested conditional evaluation and provenance walks[33m 740[2mms[22m[39m
+2026-10-20T14:31:37.2256218Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/reconstructionCoverage.test.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 91[2mms[22m[39m
+2026-10-20T14:31:37.3531091Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/analysisSnapshot.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 106[2mms[22m[39m
+2026-10-20T14:31:37.6027204Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptApplicationAnalysisSteps.test.ts [2m([22m[2m24 tests[22m[2m)[22m[32m 236[2mms[22m[39m
+2026-10-20T14:31:37.6654827Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticCallResolution.test.ts [2m([22m[2m24 tests[22m[2m)[22m[32m 50[2mms[22m[39m
+2026-10-20T14:31:37.7337015Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticAnalysis.calls.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 47[2mms[22m[39m
+2026-10-20T14:31:37.7968148Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptFeatureSeed.array_members.test.ts [2m([22m[2m47 tests[22m[2m)[22m[32m 38[2mms[22m[39m
+2026-10-20T14:31:38.1154521Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptStaticPathResolution.test.ts [2m([22m[2m105 tests[22m[2m)[22m[33m 304[2mms[22m[39m
+2026-10-20T14:31:38.3156413Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticValues.memo.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 187[2mms[22m[39m
+2026-10-20T14:31:38.3825963Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/electronStaticAnalysisOptions.test.ts [2m([22m[2m38 tests[22m[2m)[22m[32m 48[2mms[22m[39m
+2026-10-20T14:31:38.4891197Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptStaticAnalysisModuleIndex.test.ts [2m([22m[2m27 tests[22m[2m)[22m[32m 97[2mms[22m[39m
+2026-10-20T14:31:38.5450094Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/callPath.test.ts [2m([22m[2m29 tests[22m[2m)[22m[33m 3946[2mms[22m[39m
+2026-10-20T14:31:38.5451422Z    [32m✓[39m call path topology and capacity [2m(8)[22m
+2026-10-20T14:31:38.5453098Z      [33m[2m✓[22m[39m retains every distinct generic limitation beyond the push argument limit[33m 344[2mms[22m[39m
+2026-10-20T14:31:38.5454874Z      [33m[2m✓[22m[39m reconstructs a deep function chain without exhausting the call stack[33m 3390[2mms[22m[39m
+2026-10-20T14:31:38.6445708Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/reconstructionReadiness.test.ts [2m([22m[2m21 tests[22m[2m)[22m[32m 97[2mms[22m[39m
+2026-10-20T14:31:38.6970892Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticAnalysis.require_links.test.ts [2m([22m[2m33 tests[22m[2m)[22m[32m 32[2mms[22m[39m
+2026-10-20T14:31:38.7439436Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/native/binaryLayout.test.ts [2m([22m[2m47 tests[22m[2m)[22m[32m 24[2mms[22m[39m
+2026-10-20T14:31:38.7652194Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/native/nativeInvestigationGraph.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+2026-10-20T14:31:38.9046836Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/propertyListKeys.test.ts [2m([22m[2m47 tests[22m[2m)[22m[33m 302[2mms[22m[39m
+2026-10-20T14:31:38.9796640Z  [32m✓[39m [30m[45m domain [49m[39m src/contracts/compactInputSchema.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 147[2mms[22m[39m
+2026-10-20T14:31:39.4973141Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticAnalysisSteps.test.ts [2m([22m[2m9 tests[22m[2m)[22m[33m 578[2mms[22m[39m
+2026-10-20T14:31:39.5322921Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/staticRuntimeCorrelation.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 23[2mms[22m[39m
+2026-10-20T14:31:39.6575769Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptStaticAnalysis.mapEndpoints.test.ts [2m([22m[2m88 tests[22m[2m)[22m[32m 110[2mms[22m[39m
+2026-10-20T14:31:39.6806132Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/binaryTarget.test.ts [2m([22m[2m37 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+2026-10-20T14:31:39.7065010Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/propertyListXml.test.ts [2m([22m[2m71 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+2026-10-20T14:31:39.7807480Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/electronStaticAnalysisIdentity.test.ts [2m([22m[2m34 tests[22m[2m)[22m[32m 65[2mms[22m[39m
+2026-10-20T14:31:39.8164240Z  [32m✓[39m [30m[45m domain [49m[39m src/contracts/toolOutputReferences.test.ts [2m([22m[2m33 tests[22m[2m)[22m[33m 423[2mms[22m[39m
+2026-10-20T14:31:39.9912625Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/browserScenarioCapture.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 115[2mms[22m[39m
+2026-10-20T14:31:40.0205926Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/native/recordedCrash.test.ts [2m([22m[2m29 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+2026-10-20T14:31:40.3101229Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/electronBundledRequireIdentity.test.ts [2m([22m[2m41 tests[22m[2m)[22m[32m 277[2mms[22m[39m
+2026-10-20T14:31:40.4677774Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptStaticAnalysisReturnedRequire.test.ts [2m([22m[2m88 tests[22m[2m)[22m[32m 138[2mms[22m[39m
+2026-10-20T14:31:40.5309037Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptApplicationVersionComparison.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 50[2mms[22m[39m
+2026-10-20T14:31:42.3170438Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticAnalysis.getter_aliases.test.ts [2m([22m[2m40 tests[22m[2m)[22m[33m 2526[2mms[22m[39m
+2026-10-20T14:31:42.3171924Z    [32m✓[39m getter receiver alias boundaries [2m(8)[22m
+2026-10-20T14:31:42.3173232Z      [33m[2m✓[22m[39m resolves a long local alias chain without recursive expansion[33m 2341[2mms[22m[39m
+2026-10-20T14:31:42.4431862Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/changedBehavior.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 117[2mms[22m[39m
+2026-10-20T14:31:42.5252480Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/bundleComparison.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 72[2mms[22m[39m
+2026-10-20T14:31:42.5567337Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/immutableJson.test.ts [2m([22m[2m18 tests[22m[2m)[22m[32m 21[2mms[22m[39m
+2026-10-20T14:31:42.5769711Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/analysisView/artifactInventoryView.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+2026-10-20T14:31:42.6010381Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/process/processTraceSpecification.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+2026-10-20T14:31:42.7831150Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/electron/electronFuses.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 172[2mms[22m[39m
+2026-10-20T14:31:42.8038356Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/explicitSensitiveFailure.test.ts [2m([22m[2m20 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+2026-10-20T14:31:42.8161427Z  [32m✓[39m [30m[45m domain [49m[39m src/contracts/toolEffects.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+2026-10-20T14:31:42.8912832Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptStaticAnalysisLoaderInvocations.test.ts [2m([22m[2m38 tests[22m[2m)[22m[32m 63[2mms[22m[39m
+2026-10-20T14:31:42.9627807Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticChildProcesses.test.ts [2m([22m[2m36 tests[22m[2m)[22m[32m 60[2mms[22m[39m
+2026-10-20T14:31:42.9930112Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/analysisView/scenarioCaptureRecords.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+2026-10-20T14:31:43.0072867Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/dosMz.test.ts [2m([22m[2m28 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+2026-10-20T14:31:43.0304245Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/analysisView/il2cppMetadataView.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+2026-10-20T14:31:43.8052796Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/analysisView/WebNetworkApiSurfaceAccumulator.test.ts [2m([22m[2m14 tests[22m[2m)[22m[33m 767[2mms[22m[39m
+2026-10-20T14:31:43.8055141Z    [33m[2m✓[22m[39m retains repeated segment, status and MIME values once across many samples[33m 303[2mms[22m[39m
+2026-10-20T14:31:43.8422710Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticAnalysis.native_bindings.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 27[2mms[22m[39m
+2026-10-20T14:31:43.9035313Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/reconstructionCoverageEvidence.test.ts [2m([22m[2m29 tests[22m[2m)[22m[32m 51[2mms[22m[39m
+2026-10-20T14:31:43.9781357Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticAnalysis.getter_receivers.test.ts [2m([22m[2m42 tests[22m[2m)[22m[32m 67[2mms[22m[39m
+2026-10-20T14:31:43.9945614Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/apple/plistValue.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+2026-10-20T14:31:44.0307791Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/completionLedgerGeneration.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+2026-10-20T14:31:44.0425458Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/rawBinary.test.ts [2m([22m[2m32 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+2026-10-20T14:31:44.0637181Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/process/processCapture.comparison.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+2026-10-20T14:31:44.0893008Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptAstFingerprint.test.ts [2m([22m[2m35 tests[22m[2m)[22m[32m 18[2mms[22m[39m
+2026-10-20T14:31:44.1130767Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/analysisView/machoView.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+2026-10-20T14:31:44.3822250Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticSharedChildWrites.test.ts [2m([22m[2m67 tests[22m[2m)[22m[32m 259[2mms[22m[39m
+2026-10-20T14:31:44.9854851Z  [32m✓[39m [30m[45m domain [49m[39m src/contracts/tupleSchemaParity.test.ts [2m([22m[2m26 tests[22m[2m)[22m[33m 590[2mms[22m[39m
+2026-10-20T14:31:45.0018911Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/hopperValues.test.ts [2m([22m[2m22 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+2026-10-20T14:31:45.3623076Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/electronStaticAnalysisReturnedApp.test.ts [2m([22m[2m40 tests[22m[2m)[22m[33m 353[2mms[22m[39m
+2026-10-20T14:31:45.4048606Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticAnalysis.promise_ownership.test.ts [2m([22m[2m34 tests[22m[2m)[22m[32m 32[2mms[22m[39m
+2026-10-20T14:31:45.4188735Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/analysisErrorCleanup.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+2026-10-20T14:31:45.4303695Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticReturnedReferences.projection.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+2026-10-20T14:31:45.5008846Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptApplicationVersionRelationshipUncertainty.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 60[2mms[22m[39m
+2026-10-20T14:31:45.5117483Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/webInventory.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+2026-10-20T14:31:45.5216112Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/browserObservation.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+2026-10-20T14:31:45.5749313Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/jsonValue.test.ts [2m([22m[2m22 tests[22m[2m)[22m[32m 38[2mms[22m[39m
+2026-10-20T14:31:45.6672464Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticReturnedReferencesWrites.test.ts [2m([22m[2m39 tests[22m[2m)[22m[32m 83[2mms[22m[39m
+2026-10-20T14:31:46.5727967Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticAnalysis.rejection.test.ts [2m([22m[2m7 tests[22m[2m)[22m[33m 767[2mms[22m[39m
+2026-10-20T14:31:46.5729003Z    [32m✓[39m JavaScript semantic analysis: rejection 1 [2m(7)[22m
+2026-10-20T14:31:46.5729738Z      [33m[2m✓[22m[39m retains semantic facts and values from a deeply left-chained AST[33m 423[2mms[22m[39m
+2026-10-20T14:31:46.8287814Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/jsonShape.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 248[2mms[22m[39m
+2026-10-20T14:31:46.9159511Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptStaticAnalysisReturnedInvocation.test.ts [2m([22m[2m42 tests[22m[2m)[22m[32m 77[2mms[22m[39m
+2026-10-20T14:31:46.9503052Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptApplicationVersionRelocation.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 27[2mms[22m[39m
+2026-10-20T14:31:46.9708927Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/analysisView/protobufCaptureView.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+2026-10-20T14:31:46.9919939Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptStaticAnalysis.partialEndpoints.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+2026-10-20T14:31:47.0087487Z  [32m✓[39m [30m[45m domain [49m[39m src/contracts/sessionPathInputs.test.ts [2m([22m[2m17 tests[22m[2m | [22m[33m3 skipped[39m[2m)[22m[32m 4[2mms[22m[39m
+2026-10-20T14:31:47.9467195Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptStaticAnalysisSourceMaps.test.ts [2m([22m[2m40 tests[22m[2m)[22m[33m 927[2mms[22m[39m
+2026-10-20T14:31:47.9634048Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/process/processScenario.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+2026-10-20T14:31:47.9951862Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptApplicationVersionMatching.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 25[2mms[22m[39m
+2026-10-20T14:31:48.0430805Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/webModuleImports.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 35[2mms[22m[39m
+2026-10-20T14:31:49.2918923Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/htmlArtifactReferences.test.ts [2m([22m[2m50 tests[22m[2m)[22m[33m 1222[2mms[22m[39m
+2026-10-20T14:31:49.2920622Z    [33m[2m✓[22m[39m traverses deep valid document content without recursive stack growth[33m 835[2mms[22m[39m
+2026-10-20T14:31:49.2921854Z    [33m[2m✓[22m[39m counts every inline body but retains bounded locations[33m 371[2mms[22m[39m
+2026-10-20T14:31:49.3074891Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/browserScenario.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+2026-10-20T14:31:49.3535394Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/native/nativeAotPe.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 35[2mms[22m[39m
+2026-10-20T14:31:49.3730345Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/native/nativeAotPe.budget.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+2026-10-20T14:31:49.3915465Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/analysisView/nativeInventoryView.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+2026-10-20T14:31:50.0976686Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticAnalysis.member_depth.test.ts [2m([22m[2m22 tests[22m[2m)[22m[33m 696[2mms[22m[39m
+2026-10-20T14:31:50.1065450Z    [33m[2m✓[22m[39m preserves a 12,000-member native import through both analyzers[33m 660[2mms[22m[39m
+2026-10-20T14:31:50.1188456Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticAnalysis.runtime_boundaries.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+2026-10-20T14:31:50.3154773Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticExpressionShapes.test.ts [2m([22m[2m33 tests[22m[2m)[22m[32m 187[2mms[22m[39m
+2026-10-20T14:31:50.3872251Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptStaticAnalysisAssignedRequire.test.ts [2m([22m[2m46 tests[22m[2m)[22m[32m 53[2mms[22m[39m
+2026-10-20T14:31:50.4273994Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptApplicationVersionRelationships.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 33[2mms[22m[39m
+2026-10-20T14:31:50.4383421Z  [32m✓[39m [30m[45m domain [49m[39m src/contracts/fridaToolContracts.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+2026-10-20T14:31:50.4488562Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/residualUnknown.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+2026-10-20T14:31:50.4638035Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptPackageImportAliases.test.ts [2m([22m[2m39 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+2026-10-20T14:31:50.4920090Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticReturnedReferencesBounded.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 20[2mms[22m[39m
+2026-10-20T14:31:50.5505726Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/evidenceBundle.test.ts [2m([22m[2m8 tests[22m[2m)[22m[33m 10011[2mms[22m[39m
+2026-10-20T14:31:50.5507211Z    [32m✓[39m evidenceBundleForTarget relationship pruning [2m(2)[22m
+2026-10-20T14:31:50.5508421Z      [33m[2m✓[22m[39m projects a valid graph with more than 125,000 dependents[33m 10000[2mms[22m[39m
+2026-10-20T14:31:50.5515990Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptStaticPathResolveOwners.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 48[2mms[22m[39m
+2026-10-20T14:31:50.5660491Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/symbolAnalysis.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+2026-10-20T14:31:50.6199669Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/native/nativeAotPe.sectionRanges.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 54[2mms[22m[39m
+2026-10-20T14:31:50.6802356Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptStaticPathSourceAnchors.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 48[2mms[22m[39m
+2026-10-20T14:31:50.6936677Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/analysisView/interfaceBuilderView.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+2026-10-20T14:31:50.7072036Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/apple/appleAssetCatalog.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+2026-10-20T14:31:50.7294692Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/functionReferenceCompatibility.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 155[2mms[22m[39m
+2026-10-20T14:31:50.7460378Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticObjectReferences.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+2026-10-20T14:31:50.7949479Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticWrapperAssignments.test.ts [2m([22m[2m24 tests[22m[2m)[22m[32m 38[2mms[22m[39m
+2026-10-20T14:31:50.8116271Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticMutationInitializers.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+2026-10-20T14:31:50.8680920Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticRequireCaptures.test.ts [2m([22m[2m34 tests[22m[2m)[22m[32m 48[2mms[22m[39m
+2026-10-20T14:31:51.2776051Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/analysisView/EnvironmentManifestAccumulator.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 395[2mms[22m[39m
+2026-10-20T14:31:51.2778212Z    [33m[2m✓[22m[39m retains repeated observed values, statuses and query names once across many samples[33m 370[2mms[22m[39m
+2026-10-20T14:31:52.5270162Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/stringPatterns.test.ts [2m([22m[2m4 tests[22m[2m)[22m[33m 1241[2mms[22m[39m
+2026-10-20T14:31:52.5276773Z    [33m[2m✓[22m[39m advertises every portable base64 constraint and keeps large inputs stack-safe[33m 645[2mms[22m[39m
+2026-10-20T14:31:52.5278616Z    [33m[2m✓[22m[39m validates complete projected canonical schemas at the encoded-input budget[33m 497[2mms[22m[39m
+2026-10-20T14:31:52.6506105Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/unboundedWorkflowCollections.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 110[2mms[22m[39m
+2026-10-20T14:31:52.6643406Z  [32m✓[39m [30m[45m domain [49m[39m src/contracts/workflowInputContracts.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+2026-10-20T14:31:52.7138883Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/electronStaticAnalysisExportedAppPath.test.ts [2m([22m[2m23 tests[22m[2m)[22m[32m 43[2mms[22m[39m
+2026-10-20T14:31:52.7285504Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/webScriptExportPlan.test.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+2026-10-20T14:31:52.7478862Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticAnalysis.empty_keys.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+2026-10-20T14:31:52.8141344Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptStaticAnalysisProjectedModuleWrites.test.ts [2m([22m[2m21 tests[22m[2m)[22m[32m 54[2mms[22m[39m
+2026-10-20T14:31:52.8278033Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/webNetworkCapture.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+2026-10-20T14:31:52.8966229Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptCommonJsAssignAppPath.test.ts [2m([22m[2m19 tests[22m[2m)[22m[32m 62[2mms[22m[39m
+2026-10-20T14:31:53.1318895Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptStaticAnalysisCapturedGeneric.test.ts [2m([22m[2m28 tests[22m[2m)[22m[32m 223[2mms[22m[39m
+2026-10-20T14:31:53.1437596Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/offsetDateTime.test.ts [2m([22m[2m29 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+2026-10-20T14:31:53.1536288Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/evidenceCompletionLedger.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+2026-10-20T14:31:53.2001193Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/adb/adbDeviceAnalysis.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 37[2mms[22m[39m
+2026-10-20T14:31:53.2372632Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptStaticAnalysis.mapOpaqueEffects.test.ts [2m([22m[2m33 tests[22m[2m)[22m[32m 30[2mms[22m[39m
+2026-10-20T14:31:53.2785680Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticAnalysis.getter_expansion.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 35[2mms[22m[39m
+2026-10-20T14:31:53.3406789Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/immutableJsonSteps.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 46[2mms[22m[39m
+2026-10-20T14:31:53.3535862Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/inputIssueProjection.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+2026-10-20T14:31:53.3700080Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/native/bytePattern.test.ts [2m([22m[2m19 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+2026-10-20T14:31:53.3908106Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSourceParser.test.ts [2m([22m[2m25 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+2026-10-20T14:31:53.4081335Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/referenceSourceSummary.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+2026-10-20T14:31:53.4367933Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/evidenceSteps.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 20[2mms[22m[39m
+2026-10-20T14:31:53.4535825Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/native/objcSwiftMetadata.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+2026-10-20T14:31:53.4726841Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticAmbientWrites.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+2026-10-20T14:31:53.4837129Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/electronNativeLoaderPaths.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+2026-10-20T14:31:53.4915698Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/functionCallCoverage.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 1[2mms[22m[39m
+2026-10-20T14:31:53.4997973Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/artifactGraph.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+2026-10-20T14:31:53.5102799Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/propertyListXmlScalar.test.ts [2m([22m[2m56 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+2026-10-20T14:31:53.5204245Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptIntrinsicInvocation.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+2026-10-20T14:31:53.5823495Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticRestAssignmentCaptures.test.ts [2m([22m[2m26 tests[22m[2m)[22m[32m 50[2mms[22m[39m
+2026-10-20T14:31:53.6179169Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/jsonSerialization.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 27[2mms[22m[39m
+2026-10-20T14:31:53.6268181Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/providerCleanupError.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+2026-10-20T14:31:53.6650237Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/electronStaticAnalysisAppPathSelection.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 32[2mms[22m[39m
+2026-10-20T14:31:54.9774058Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticAnalysis.scope_depth.test.ts [2m([22m[2m9 tests[22m[2m)[22m[33m 4263[2mms[22m[39m
+2026-10-20T14:31:54.9776671Z    [33m[2m✓[22m[39m keeps the expression depth budget across a chain of object wrappers[33m 1383[2mms[22m[39m
+2026-10-20T14:31:54.9779773Z    [33m[2m✓[22m[39m keeps the expression depth budget across a chain of array wrappers[33m 1109[2mms[22m[39m
+2026-10-20T14:31:54.9781918Z    [33m[2m✓[22m[39m keeps the expression depth budget across a chain of sequence-assigned object wrappers[33m 1641[2mms[22m[39m
+2026-10-20T14:31:54.9916014Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/webMcpDiscovery.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+2026-10-20T14:31:55.0410742Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/electronStaticAnalysisPublishedApp.test.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 30[2mms[22m[39m
+2026-10-20T14:31:55.0896846Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptStaticAnalysisServiceWorkers.test.ts [2m([22m[2m25 tests[22m[2m)[22m[32m 22[2mms[22m[39m
+2026-10-20T14:31:55.1030257Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptExportShapeComparisonSchemas.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+2026-10-20T14:31:55.1292591Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptStaticAnalysisSharedHelperWrites.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 17[2mms[22m[39m
+2026-10-20T14:31:55.1421585Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/artifactInventoryEvidence.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+2026-10-20T14:31:55.1618451Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/binaryTarget.riscv.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+2026-10-20T14:31:55.1840992Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptApplicationChangeGraph.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 13[2mms[22m[39m
+2026-10-20T14:31:55.2126376Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticProvenanceAssignments.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 18[2mms[22m[39m
+2026-10-20T14:31:55.2521310Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/canonicalDigest.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 24[2mms[22m[39m
+2026-10-20T14:31:57.6191421Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/portableSchemaPatterns.test.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 2354[2mms[22m[39m
+2026-10-20T14:31:57.6205681Z    [32m✓[39m look-around-free advertised patterns [2m(3)[22m
+2026-10-20T14:31:57.6215858Z      [33m[2m✓[22m[39m accepts exactly the previous normalized relative dylib roots[33m 2284[2mms[22m[39m
+2026-10-20T14:31:57.6809162Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptStaticAnalysis.member_path_depth.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 55[2mms[22m[39m
+2026-10-20T14:31:57.7273184Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptStaticAnalysisInvocationIteration.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 33[2mms[22m[39m
+2026-10-20T14:31:57.7623039Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptStaticAnalysisCopiedRequire.test.ts [2m([22m[2m23 tests[22m[2m)[22m[32m 29[2mms[22m[39m
+2026-10-20T14:31:57.7860965Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticResponseAssignments.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 18[2mms[22m[39m
+2026-10-20T14:31:57.8226686Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticAnalysis.logical_assignment.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 18[2mms[22m[39m
+2026-10-20T14:31:57.8580692Z  [32m✓[39m [30m[45m domain [49m[39m src/contracts/toolFamilies.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+2026-10-20T14:31:57.8967122Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticAnalysis.eval_effects.test.ts [2m([22m[2m22 tests[22m[2m)[22m[32m 27[2mms[22m[39m
+2026-10-20T14:31:57.9573051Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptStaticAnalysisCallableReceivers.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 54[2mms[22m[39m
+2026-10-20T14:31:57.9706468Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/analysisView/pcapCaptureView.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 5[2mms[22m[39m
+2026-10-20T14:31:57.9956035Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptVitePreloadDependencies.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+2026-10-20T14:31:58.0447798Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/canonicalJsonDigestSteps.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 31[2mms[22m[39m
+2026-10-20T14:31:58.0578957Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticAnalysis.accessor_writes.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+2026-10-20T14:31:58.0800753Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticAnalysis.response_endpoints.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+2026-10-20T14:31:58.0885381Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/managed/managedReconstruction.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+2026-10-20T14:31:58.1156725Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptStaticAnalysisLoaderMayTargets.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 20[2mms[22m[39m
+2026-10-20T14:31:58.1352606Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticProvenance.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+2026-10-20T14:31:58.1420353Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/binaryTarget.mips.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 1[2mms[22m[39m
+2026-10-20T14:31:58.2342622Z  [32m✓[39m [30m[45m domain [49m[39m src/contracts/advertisedInputExamples.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 86[2mms[22m[39m
+2026-10-20T14:31:58.2797561Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptStaticAnalysisMainModule.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 32[2mms[22m[39m
+2026-10-20T14:31:58.3129002Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptStaticAnalysis.sqliteStorage.test.ts [2m([22m[2m25 tests[22m[2m)[22m[32m 20[2mms[22m[39m
+2026-10-20T14:31:58.3416912Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/xmlDocument.test.ts [2m([22m[2m23 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+2026-10-20T14:31:58.3576196Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/process/processTraceAdapters.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+2026-10-20T14:31:58.3900151Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptStaticAnalysisLoaderMutationControls.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 20[2mms[22m[39m
+2026-10-20T14:31:58.4879111Z  [32m✓[39m [30m[45m domain [49m[39m src/contracts/canonicalBase64Metadata.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 89[2mms[22m[39m
+2026-10-20T14:31:58.5228987Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptStaticAnalysisAssignmentLoaders.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 21[2mms[22m[39m
+2026-10-20T14:31:58.5808000Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptBundlerRegistrationIdentity.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 51[2mms[22m[39m
+2026-10-20T14:31:58.6349918Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticReturnedReferencesCopies.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 47[2mms[22m[39m
+2026-10-20T14:31:58.6496132Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/childProcessOptionsRegression.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+2026-10-20T14:31:58.6715805Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticAnalysis.conditional_write.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+2026-10-20T14:31:58.6947987Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/analysisProfile.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 17[2mms[22m[39m
+2026-10-20T14:31:58.7247585Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/propertyListXmlData.test.ts [2m([22m[2m27 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+2026-10-20T14:31:58.7368427Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticAnalysis.timers.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+2026-10-20T14:31:58.7913099Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/analysisView/environmentStateWriteCutoffs.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 47[2mms[22m[39m
+2026-10-20T14:31:58.8129844Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptStaticAnalysisDelegateEligibility.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+2026-10-20T14:31:58.8370644Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticAnalysis.fingerprints.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+2026-10-20T14:31:58.8465862Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/native/nativeMetadataRecovery.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+2026-10-20T14:31:58.8562524Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptAstValues.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+2026-10-20T14:31:58.9223220Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptStaticAnalysisTypedMemberStores.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 54[2mms[22m[39m
+2026-10-20T14:31:58.9410212Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptStaticAnalysisLocations.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+2026-10-20T14:31:59.0066262Z  [32m✓[39m [30m[45m domain [49m[39m src/contracts/analysisDetail.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 57[2mms[22m[39m
+2026-10-20T14:31:59.3782320Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/reconstructionObligationLedgerSchemas.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 360[2mms[22m[39m
+2026-10-20T14:31:59.3783775Z    [32m✓[39m reconstruction obligation ledger schemas [2m(1)[22m
+2026-10-20T14:31:59.3785212Z      [33m[2m✓[22m[39m accepts manifests and ledgers above the former count ceilings[33m 360[2mms[22m[39m
+2026-10-20T14:31:59.4725098Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/webCaptureFrameComparison.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 81[2mms[22m[39m
+2026-10-20T14:31:59.4903301Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticAnalysis.function_names.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+2026-10-20T14:31:59.5055941Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/recordedTransportUrl.test.ts [2m([22m[2m18 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+2026-10-20T14:31:59.5196581Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/artifactPathSyntax.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 1[2mms[22m[39m
+2026-10-20T14:31:59.5295836Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/pngHeader.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+2026-10-20T14:31:59.5472254Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticFunctionEscapes.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+2026-10-20T14:31:59.5764614Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptStaticAnalysisFactoryAlternatives.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 20[2mms[22m[39m
+2026-10-20T14:31:59.5846807Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/sourceMapEnvelope.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 1[2mms[22m[39m
+2026-10-20T14:31:59.5916458Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/binaryTarget.powerpc.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 1[2mms[22m[39m
+2026-10-20T14:31:59.6059133Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptFeatureSeed.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+2026-10-20T14:31:59.6249851Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/reconstructionUnknowns.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 1[2mms[22m[39m
+2026-10-20T14:31:59.6326824Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/evidenceRecordSummary.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 2[2mms[22m[39m
+2026-10-20T14:31:59.6427724Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/analysisView/environmentManifestRules.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+2026-10-20T14:31:59.6524829Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/elfFixedHeader.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+2026-10-20T14:31:59.6893382Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptStaticAnalysisInvocationReadSite.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 25[2mms[22m[39m
+2026-10-20T14:31:59.6993135Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/electronStaticAnalysisComputedPreferences.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+2026-10-20T14:31:59.7212532Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticAnalysis.resource_handles.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+2026-10-20T14:31:59.7342373Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/apktool/apktoolResourceAnalysis.test.ts [2m([22m[2m38 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+2026-10-20T14:31:59.7443814Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/native/nativeAotPe.headerRanges.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+2026-10-20T14:31:59.7535714Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptFeatureSeed.unicode.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 1[2mms[22m[39m
+2026-10-20T14:31:59.7614729Z  [32m✓[39m [30m[45m domain [49m[39m src/contracts/jeb/jebToolContracts.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 1[2mms[22m[39m
+2026-10-20T14:32:01.3973435Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptStaticAnalysis.no_finding_caps.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 1627[2mms[22m[39m
+2026-10-20T14:32:01.3974752Z    [32m✓[39m JavaScript static analysis findings [2m(2)[22m
+2026-10-20T14:32:01.3975525Z      [33m[2m✓[22m[39m retains every static reference and Electron property in large literals[33m 1625[2mms[22m[39m
+2026-10-20T14:32:01.4045447Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/signals/annotationTextWindow.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 1[2mms[22m[39m
+2026-10-20T14:32:01.4276652Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptStaticAnalysisCapturedRequire.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+2026-10-20T14:32:01.4457887Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptStaticAnalysisProcessMainModule.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+2026-10-20T14:32:01.4518346Z  [32m✓[39m [30m[45m domain [49m[39m src/contracts/sessionLifecycleInputs.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 1[2mms[22m[39m
+2026-10-20T14:32:01.4717675Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/evm/evmInterface.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+2026-10-20T14:32:01.4780684Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/mobileApplicationGraphProjection.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 1[2mms[22m[39m
+2026-10-20T14:32:01.4874281Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticAnalysis.recoveredArguments.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+2026-10-20T14:32:01.4945838Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/jsonValueByteLength.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 1[2mms[22m[39m
+2026-10-20T14:32:01.5120478Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptStaticAnalysis.event_source.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+2026-10-20T14:32:01.6880883Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptReturnedReferenceCoverage.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 169[2mms[22m[39m
+2026-10-20T14:32:02.0666186Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/paddedBase64.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 363[2mms[22m[39m
+2026-10-20T14:32:02.0715530Z    [33m[2m✓[22m[39m validates large bodies and malformed suffixes without a regexp stack overflow[33m 361[2mms[22m[39m
+2026-10-20T14:32:02.0833110Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticAnalysis.signed_zero.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+2026-10-20T14:32:02.0890402Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/webBundleAnalyzerAst.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 1[2mms[22m[39m
+2026-10-20T14:32:02.0961433Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptStaticAnalysis.send_beacon.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+2026-10-20T14:32:02.1096432Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticAnalysis.invalid_templates.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 7[2mms[22m[39m
+2026-10-20T14:32:02.1267178Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptSemanticFingerprints.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+2026-10-20T14:32:02.1536022Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/runtimeVersion.test.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+2026-10-20T14:32:02.1817632Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/jsonStringByteLength.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 19[2mms[22m[39m
+2026-10-20T14:32:02.1901386Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/analysisAccessDenied.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+2026-10-20T14:32:02.2071731Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptAnalysisResourceControls.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 3[2mms[22m[39m
+2026-10-20T14:32:02.2127878Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/managed/managedMemberSignatureIdentity.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 1[2mms[22m[39m
+2026-10-20T14:32:02.2188832Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/browserNetworkEvidence.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 1[2mms[22m[39m
+2026-10-20T14:32:02.2253430Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/webSourcePosition.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 1[2mms[22m[39m
+2026-10-20T14:32:02.2312579Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptPackageSubpathPatterns.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 1[2mms[22m[39m
+2026-10-20T14:32:02.2498748Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/native/nativeAotSnapshotObservation.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+2026-10-20T14:32:02.2561261Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/artifactExpansionBudget.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 1[2mms[22m[39m
+2026-10-20T14:32:02.2632193Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/sourceMapContents.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 0[2mms[22m[39m
+2026-10-20T14:32:02.2689087Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/explicitSensitiveValues.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 1[2mms[22m[39m
+2026-10-20T14:32:02.2736079Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/localPath.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 1[2mms[22m[39m
+2026-10-20T14:32:02.2790880Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/javascript/javascriptStaticAnalysis.routeProperties.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 1[2mms[22m[39m
+2026-10-20T14:32:02.2936053Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/urlComponents.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 1[2mms[22m[39m
+2026-10-20T14:32:02.3017800Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/propertyListXmlText.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 1[2mms[22m[39m
+2026-10-20T14:32:02.3067572Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/referenceSourcePathIdentity.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 0[2mms[22m[39m
+2026-10-20T14:32:03.9266446Z  [32m✓[39m [30m[46m evaluation [49m[39m tests/evaluation/model-evals/knownAnswerEvaluation.test.ts [2m([22m[2m67 tests[22m[2m)[22m[32m 269[2mms[22m[39m
+2026-10-20T14:32:03.9673578Z  [32m✓[39m [30m[46m evaluation [49m[39m tests/evaluation/model-evals/codexAgentEval.test.ts [2m([22m[2m24 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+2026-10-20T14:32:04.8586461Z  [32m✓[39m [30m[46m evaluation [49m[39m tests/evaluation/moduleBoundaries.test.ts [2m([22m[2m113 tests[22m[2m)[22m[33m 859[2mms[22m[39m
+2026-10-20T14:32:07.8642945Z  [32m✓[39m [30m[46m evaluation [49m[39m tests/evaluation/analysisEfficiencyComparison.test.ts [2m([22m[2m11 tests[22m[2m)[22m[33m 2991[2mms[22m[39m
+2026-10-20T14:32:07.8658100Z    [33m[2m✓[22m[39m wireshark-http.cap: repeated modes reject stable observation changes[33m 688[2mms[22m[39m
+2026-10-20T14:32:07.8680150Z    [33m[2m✓[22m[39m wireshark-http_redirects.pcapng: repeated modes reject stable observation changes[33m 700[2mms[22m[39m
+2026-10-20T14:32:07.9243203Z  [32m✓[39m [30m[46m evaluation [49m[39m tests/evaluation/ciTestSelection.test.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 41[2mms[22m[39m
+2026-10-20T14:32:07.9580039Z  [32m✓[39m [30m[46m evaluation [49m[39m tests/evaluation/model-evals/agentEvaluationReport.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 20[2mms[22m[39m
+2026-10-20T14:32:09.1276540Z  [32m✓[39m [30m[46m evaluation [49m[39m tests/evaluation/package/nativeAotDiagnostics.test.ts [2m([22m[2m5 tests[22m[2m | [22m[33m1 skipped[39m[2m)[22m[33m 1150[2mms[22m[39m
+2026-10-20T14:32:09.1279218Z    [33m[2m✓[22m[39m redacts authenticated feed URLs from the uncaught restore diagnostic[33m 1084[2mms[22m[39m
+2026-10-20T14:32:09.1825098Z  [32m✓[39m [30m[46m evaluation [49m[39m tests/evaluation/package/packagePlatformDiagnostics.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+2026-10-20T14:32:09.2637547Z  [32m✓[39m [30m[46m evaluation [49m[39m tests/evaluation/sazWorkflowSemantics.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 73[2mms[22m[39m
+2026-10-20T14:32:09.3330716Z  [32m✓[39m [30m[46m evaluation [49m[39m tests/evaluation/signalWorkflowSemantics.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 61[2mms[22m[39m
+2026-10-20T14:32:09.3416452Z [90mstderr[2m | tests/evaluation/package/nativeAotBuild.test.ts[2m > [22m[2mrestores the exact publish target before compiling without network restore
+2026-10-20T14:32:09.3418444Z [22m[39mNativeAOT dependency restore: attempt 1/2
+2026-10-20T14:32:09.3420282Z NativeAOT compilation (dependencies already restored)
+2026-10-20T14:32:09.3421081Z 
+2026-10-20T14:32:09.6736512Z  [32m✓[39m [30m[45m domain [49m[39m src/domain/apple/keyedArchive.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 16001[2mms[22m[39m
+2026-10-20T14:32:09.6738115Z    [32m✓[39m projectKeyedArchive root reference projection [2m(4)[22m
+2026-10-20T14:32:09.6739403Z      [33m[2m✓[22m[39m enforces one traversal budget across root values[33m 15996[2mms[22m[39m
+2026-10-20T14:32:09.9035215Z  [32m✓[39m [30m[46m evaluation [49m[39m tests/evaluation/package/packageSetupSupport.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+2026-10-20T14:32:09.9155213Z  [32m✓[39m [30m[46m evaluation [49m[39m tests/evaluation/testDiscovery.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+2026-10-20T14:32:09.9733443Z  [32m✓[39m [30m[46m evaluation [49m[39m tests/evaluation/packetWorkflowSemantics.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 53[2mms[22m[39m
+2026-10-20T14:32:10.0436482Z  [32m✓[39m [30m[46m evaluation [49m[39m tests/evaluation/model-evals/openAiModelFixture.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 45[2mms[22m[39m
+2026-10-20T14:32:10.4298781Z [90mstderr[2m | tests/evaluation/package/nativeAotBuild.test.ts[2m > [22m[2mstops after two restore failures and preserves the final diagnostic
+2026-10-20T14:32:10.4300363Z [22m[39mNativeAOT dependency restore: attempt 1/2
+2026-10-20T14:32:10.4302265Z NativeAOT dependency restore failed; retrying in 1 second
+2026-10-20T14:32:10.4303314Z 
+2026-10-20T14:32:10.6492845Z  [32m✓[39m [30m[43m services [49m[39m src/application/javascript/JavaScriptArtifactPathResolution.test.ts [2m([22m[2m291 tests[22m[2m)[22m[32m 137[2mms[22m[39m
+2026-10-20T14:32:11.3506076Z [90mstderr[2m | tests/evaluation/package/nativeAotBuild.test.ts[2m > [22m[2mstops after two restore failures and preserves the final diagnostic
+2026-10-20T14:32:11.3555678Z  [32m✓[39m [30m[46m evaluation [49m[39m tests/evaluation/package/nativeAotBuild.test.ts [2m([22m[2m4 tests[22m[2m)[22m[33m 2007[2mms[22m[39m
+2026-10-20T14:32:11.3564871Z [22m[39mNativeAOT dependency restore: attempt 2/2
+2026-10-20T14:32:11.3614132Z 
+2026-10-20T14:32:11.3615055Z    [33m[2m✓[22m[39m retries without logging credential-bearing restore diagnostics[33m 1003[2mms[22m[39m
+2026-10-20T14:32:11.3625032Z    [33m[2m✓[22m[39m stops after two restore failures and preserves the final diagnostic[33m 1001[2mms[22m[39m
+2026-10-20T14:32:11.3627035Z [90mstderr[2m | tests/evaluation/package/nativeAotBuild.test.ts[2m > [22m[2mdoes not retry compilation failures
+2026-10-20T14:32:11.3629267Z [22m[39mNativeAOT dependency restore: attempt 1/2
+2026-10-20T14:32:11.3643244Z NativeAOT compilation (dependencies already restored)
+2026-10-20T14:32:11.3644048Z 
+2026-10-20T14:32:13.9805991Z  [32m✓[39m [30m[43m services [49m[39m src/application/frida/FridaInstrumentationManager.test.ts [2m([22m[2m43 tests[22m[2m)[22m[33m 2811[2mms[22m[39m
+2026-10-20T14:32:13.9810049Z    [33m[2m✓[22m[39m does not carry earlier script truncation into a complete later load[33m 720[2mms[22m[39m
+2026-10-20T14:32:13.9813626Z    [33m[2m✓[22m[39m reports truncation when that script loses its own message[33m 659[2mms[22m[39m
+2026-10-20T14:32:13.9815235Z    [33m[2m✓[22m[39m retains the newest contiguous messages across repeated budget evictions[33m 1363[2mms[22m[39m
+2026-10-20T14:32:17.1790797Z  [32m✓[39m [30m[43m services [49m[39m src/application/analysisView/AnalysisViewService.test.ts [2m([22m[2m52 tests[22m[2m)[22m[33m 3129[2mms[22m[39m
+2026-10-20T14:32:17.1796883Z    [33m[2m✓[22m[39m refuses an object-dense borrowed capture before making a full schema clone[33m 907[2mms[22m[39m
+2026-10-20T14:32:17.1798725Z    [33m[2m✓[22m[39m keeps inline-envelope admission live alongside capture validation and grouping[33m 955[2mms[22m[39m
+2026-10-20T14:32:17.1800837Z    [33m[2m✓[22m[39m admits raw_result and parameters before authenticating a portable capture[33m 639[2mms[22m[39m
+2026-10-20T14:32:17.2273055Z  [32m✓[39m [30m[43m services [49m[39m src/application/binary/AnalysisProviderRegistry.test.ts [2m([22m[2m22 tests[22m[2m)[22m[32m 26[2mms[22m[39m
+2026-10-20T14:32:17.2795033Z  [32m✓[39m [30m[43m services [49m[39m src/application/frida/FridaInstrumentationService.test.ts [2m([22m[2m28 tests[22m[2m)[22m[32m 19[2mms[22m[39m
+2026-10-20T14:32:18.1127760Z  [32m✓[39m [30m[43m services [49m[39m src/application/native/NativeValueTrace.test.ts [2m([22m[2m14 tests[22m[2m)[22m[33m 809[2mms[22m[39m
+2026-10-20T14:32:18.1128682Z    [32m✓[39m native value parameter-use node membership [2m(3)[22m
+2026-10-20T14:32:18.1129443Z      [33m[2m✓[22m[39m retains only parameter uses whose parameter nodes fit the node budget[33m 546[2mms[22m[39m
+2026-10-20T14:32:19.3627520Z  [32m✓[39m [30m[43m services [49m[39m src/application/Doctor.test.ts [2m([22m[2m49 tests[22m[2m)[22m[33m 878[2mms[22m[39m
+2026-10-20T14:32:19.3667058Z    [32m✓[39m doctor Hopper startup timeout [2m(17)[22m
+2026-10-20T14:32:19.3695160Z      [33m[2m✓[22m[39m checks timeout 0 with Hopper present=true and an available peer[33m 859[2mms[22m[39m
+2026-10-20T14:32:19.5854130Z  [32m✓[39m [30m[43m services [49m[39m src/application/native/EnhancedNativeInvestigation.test.ts [2m([22m[2m28 tests[22m[2m)[22m[32m 164[2mms[22m[39m
+2026-10-20T14:32:19.9690510Z  [32m✓[39m [30m[43m services [49m[39m src/application/native/NativeFunctionMatchingService.test.ts [2m([22m[2m15 tests[22m[2m)[22m[33m 327[2mms[22m[39m
+2026-10-20T14:32:20.0766653Z  [32m✓[39m [30m[43m services [49m[39m src/application/CapabilityInventory.test.ts [2m([22m[2m28 tests[22m[2m)[22m[32m 71[2mms[22m[39m
+2026-10-20T14:32:20.9962290Z  [32m✓[39m [30m[43m services [49m[39m src/application/javascript/JavaScriptSemanticGraphBuilder.test.ts [2m([22m[2m68 tests[22m[2m)[22m[33m 9211[2mms[22m[39m
+2026-10-20T14:32:20.9964666Z    [33m[2m✓[22m[39m bounds semantic node projection and reports the ceiling in coverage[33m 3962[2mms[22m[39m
+2026-10-20T14:32:20.9966334Z    [33m[2m✓[22m[39m does not mark a file truncated when it exactly fills its budget[33m 2317[2mms[22m[39m
+2026-10-20T14:32:20.9968123Z    [33m[2m✓[22m[39m projects and adopts more than the default per-file capacity when explicitly offered[33m 2203[2mms[22m[39m
+2026-10-20T14:32:21.0840708Z  [32m✓[39m [30m[43m services [49m[39m src/application/WebNetworkCaptureService.test.ts [2m([22m[2m40 tests[22m[2m)[22m[32m 42[2mms[22m[39m
+2026-10-20T14:32:21.6256497Z  [32m✓[39m [30m[43m services [49m[39m src/application/binary/AnalysisSnapshotCache.test.ts [2m([22m[2m24 tests[22m[2m)[22m[33m 1528[2mms[22m[39m
+2026-10-20T14:32:21.6258367Z    [32m✓[39m analysis snapshot cache capacity [2m(1)[22m
+2026-10-20T14:32:21.6260020Z      [33m[2m✓[22m[39m shares capacity across query kinds while allowing replacements and fresh partitions[33m 1496[2mms[22m[39m
+2026-10-20T14:32:22.0479702Z  [32m✓[39m [30m[43m services [49m[39m src/application/Setup.planning.test.ts [2m([22m[2m25 tests[22m[2m)[22m[32m 24[2mms[22m[39m
+2026-10-20T14:32:22.0751020Z  [32m✓[39m [30m[43m services [49m[39m src/application/native/NativeCallRoutes.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+2026-10-20T14:32:22.1122784Z  [32m✓[39m [30m[43m services [49m[39m src/application/LinuxHopper.test.ts [2m([22m[2m47 tests[22m[2m)[22m[32m 21[2mms[22m[39m
+2026-10-20T14:32:22.1326512Z  [32m✓[39m [30m[43m services [49m[39m src/application/Setup.configuration.test.ts [2m([22m[2m21 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+2026-10-20T14:32:25.6135412Z  [32m✓[39m [30m[43m services [49m[39m src/application/binary/BinarySessionLiveness.test.ts [2m([22m[2m10 tests[22m[2m)[22m[33m 3966[2mms[22m[39m
+2026-10-20T14:32:25.6138577Z    [32m✓[39m BinarySession open liveness [2m(9)[22m
+2026-10-20T14:32:25.6141130Z      [33m[2m✓[22m[39m retires a locally blocked owner even when its native health is idle[33m 459[2mms[22m[39m
+2026-10-20T14:32:25.6144905Z      [33m[2m✓[22m[39m reuses the retained client while the child stays live[33m 412[2mms[22m[39m
+2026-10-20T14:32:25.6147292Z      [33m[2m✓[22m[39m starts a fresh client when the retained child died[33m 404[2mms[22m[39m
+2026-10-20T14:32:25.6150796Z      [33m[2m✓[22m[39m treats an uncharacterized operation failure as dead[33m 383[2mms[22m[39m
+2026-10-20T14:32:25.6153147Z      [33m[2m✓[22m[39m retires a retained client whose startup never completed[33m 377[2mms[22m[39m
+2026-10-20T14:32:25.6156723Z      [33m[2m✓[22m[39m probes instantiated children through health when snapshots are absent[33m 385[2mms[22m[39m
+2026-10-20T14:32:25.6180142Z      [33m[2m✓[22m[39m retires a dead no-snapshot child after its health probe fails[33m 391[2mms[22m[39m
+2026-10-20T14:32:25.6182554Z      [33m[2m✓[22m[39m does not instantiate a child to answer health before first use[33m 377[2mms[22m[39m
+2026-10-20T14:32:25.6184718Z      [33m[2m✓[22m[39m reports cancellation without touching the session when aborted mid-probe[33m 579[2mms[22m[39m
+2026-10-20T14:32:25.6526928Z  [32m✓[39m [30m[43m services [49m[39m src/application/Update.test.ts [2m([22m[2m35 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+2026-10-20T14:32:25.8278982Z  [32m✓[39m [30m[43m services [49m[39m src/application/investigation/EvidenceLedger.residualUnknown.test.ts [2m([22m[2m10 tests[22m[2m)[22m[33m 3682[2mms[22m[39m
+2026-10-20T14:32:25.8282826Z    [32m✓[39m residual unknown dependency histories [2m(4)[22m
+2026-10-20T14:32:25.8286827Z      [33m[2m✓[22m[39m imports a valid dependency chain deeper than the JavaScript call stack[33m 3648[2mms[22m[39m
+2026-10-20T14:32:25.8708662Z  [32m✓[39m [30m[43m services [49m[39m src/application/WorkflowEvidence.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 22[2mms[22m[39m
+2026-10-20T14:32:25.8961469Z  [32m✓[39m [30m[43m services [49m[39m src/application/binary/DeferredAnalysisClient.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+2026-10-20T14:32:25.9875182Z  [32m✓[39m [30m[43m services [49m[39m src/application/environment/environmentReplay.test.ts [2m([22m[2m15 tests[22m[2m)[22m[33m 302[2mms[22m[39m
+2026-10-20T14:32:26.1995689Z  [32m✓[39m [30m[43m services [49m[39m src/application/javascript/JavaScriptArtifactGraphStructure.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 131[2mms[22m[39m
+2026-10-20T14:32:26.2521826Z  [32m✓[39m [30m[43m services [49m[39m src/application/WebModuleTraceService.test.ts [2m([22m[2m23 tests[22m[2m)[22m[32m 26[2mms[22m[39m
+2026-10-20T14:32:26.3699255Z  [32m✓[39m [30m[43m services [49m[39m src/application/ReconstructionObligationLedger.closure.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 69[2mms[22m[39m
+2026-10-20T14:32:26.4239037Z  [32m✓[39m [30m[43m services [49m[39m src/application/environment/environmentTools.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 30[2mms[22m[39m
+2026-10-20T14:32:26.4450531Z  [32m✓[39m [30m[43m services [49m[39m src/application/ClaudeDesktopConfigLocation.test.ts [2m([22m[2m26 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+2026-10-20T14:32:26.4872010Z  [32m✓[39m [30m[43m services [49m[39m src/application/Setup.recovery.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+2026-10-20T14:32:26.5875172Z  [32m✓[39m [30m[43m services [49m[39m src/application/environment/environmentExport.test.ts [2m([22m[2m11 tests[22m[2m)[22m[33m 615[2mms[22m[39m
+2026-10-20T14:32:26.6071241Z  [32m✓[39m [30m[43m services [49m[39m src/application/binary/BinarySessionStatus.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+2026-10-20T14:32:26.7160768Z  [32m✓[39m [30m[43m services [49m[39m src/application/javascript/JavaScriptSemanticGraphResources.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 203[2mms[22m[39m
+2026-10-20T14:32:27.0515778Z  [32m✓[39m [30m[43m services [49m[39m src/application/environment/environmentBundle.test.ts [2m([22m[2m10 tests[22m[2m)[22m[33m 324[2mms[22m[39m
+2026-10-20T14:32:27.0899392Z  [32m✓[39m [30m[43m services [49m[39m src/application/ReconstructionObligationCandidates.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 22[2mms[22m[39m
+2026-10-20T14:32:27.1315575Z  [32m✓[39m [30m[43m services [49m[39m src/application/investigation/InvestigationRecords.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 27[2mms[22m[39m
+2026-10-20T14:32:27.1497691Z  [32m✓[39m [30m[43m services [49m[39m src/application/javascript/JavaScriptRuntimeObservationService.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+2026-10-20T14:32:27.1902384Z  [32m✓[39m [30m[43m services [49m[39m src/application/ReferenceSourceImportEntries.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+2026-10-20T14:32:27.2143692Z  [32m✓[39m [30m[43m services [49m[39m src/application/LinuxHopperPackageRuntime.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+2026-10-20T14:32:27.2346087Z  [32m✓[39m [30m[43m services [49m[39m src/application/AnalysisContextQueries.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+2026-10-20T14:32:27.2525064Z  [32m✓[39m [30m[43m services [49m[39m src/application/EnhancedToolSelectorOrigin.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+2026-10-20T14:32:27.2650358Z  [32m✓[39m [30m[43m services [49m[39m src/application/binary/CompositeProvider.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+2026-10-20T14:32:27.3951405Z  [32m✓[39m [30m[43m services [49m[39m src/application/javascript/JavaScriptSemanticUnknownCapacity.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 122[2mms[22m[39m
+2026-10-20T14:32:27.8494366Z  [32m✓[39m [30m[43m services [49m[39m src/application/LinuxHopperPython.test.ts [2m([22m[2m14 tests[22m[2m)[22m[33m 444[2mms[22m[39m
+2026-10-20T14:32:27.8495881Z    [32m✓[39m distribution Python isolation and cancellation [2m(3)[22m
+2026-10-20T14:32:27.8497267Z      [33m[2m✓[22m[39m runs the real producer without loading caller Python modules or PYTHONHOME[33m 381[2mms[22m[39m
+2026-10-20T14:32:27.8649668Z  [32m✓[39m [30m[43m services [49m[39m src/application/AnalysisDocument.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+2026-10-20T14:32:27.8924347Z  [32m✓[39m [30m[43m services [49m[39m src/application/go/GoBinaryService.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+2026-10-20T14:32:27.9172653Z  [32m✓[39m [30m[43m services [49m[39m src/application/javascript/ElectronObservationService.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+2026-10-20T14:32:27.9339561Z  [32m✓[39m [30m[43m services [49m[39m src/application/javascript/JavaScriptHtmlBaseResolution.test.ts [2m([22m[2m38 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+2026-10-20T14:32:27.9746336Z  [32m✓[39m [30m[43m services [49m[39m src/application/WebSourceLocationService.test.ts [2m([22m[2m19 tests[22m[2m)[22m[32m 25[2mms[22m[39m
+2026-10-20T14:32:28.0078146Z  [32m✓[39m [30m[43m services [49m[39m src/application/investigation/EvidenceLedger.test.ts [2m([22m[2m9 tests[22m[2m)[22m[33m 1390[2mms[22m[39m
+2026-10-20T14:32:28.0079748Z    [32m✓[39m evidence ledger metadata imports [2m(3)[22m
+2026-10-20T14:32:28.0080970Z      [33m[2m✓[22m[39m retains more than ten thousand inline evidence records[33m 1020[2mms[22m[39m
+2026-10-20T14:32:28.0082457Z      [33m[2m✓[22m[39m retains inline evidence larger than the former session byte quota[33m 357[2mms[22m[39m
+2026-10-20T14:32:28.0217969Z  [32m✓[39m [30m[43m services [49m[39m src/application/BrowserObservationService.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 26[2mms[22m[39m
+2026-10-20T14:32:28.0557994Z  [32m✓[39m [30m[43m services [49m[39m src/application/ReconstructionObligationLedger.authority.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 27[2mms[22m[39m
+2026-10-20T14:32:28.0746497Z  [32m✓[39m [30m[43m services [49m[39m src/application/rust/RustBinaryService.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+2026-10-20T14:32:28.0873676Z  [32m✓[39m [30m[43m services [49m[39m src/application/MacHopper.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+2026-10-20T14:32:28.1142192Z  [32m✓[39m [30m[43m services [49m[39m src/application/managed/ManagedReconstructionService.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+2026-10-20T14:32:28.1308401Z  [32m✓[39m [30m[43m services [49m[39m src/application/environment/environmentSource.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 101[2mms[22m[39m
+2026-10-20T14:32:28.3235500Z  [32m✓[39m [30m[43m services [49m[39m src/application/wasm/WasmInterfaceComparisonService.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 175[2mms[22m[39m
+2026-10-20T14:32:28.3538822Z  [32m✓[39m [30m[43m services [49m[39m src/application/binaryDiagnostics/RecordedCrashService.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 19[2mms[22m[39m
+2026-10-20T14:32:28.3728728Z  [32m✓[39m [30m[43m services [49m[39m src/application/javascript/JavaScriptRecoveryService.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+2026-10-20T14:32:28.4176336Z (node:2541) Warning: Keys with collection values will be stringified due to JS Object restrictions: "Wed Oct 14 2026 00:00:00 GMT+0000 (...". Set mapAsMap: true to use object keys.
+2026-10-20T14:32:28.4178986Z  [32m✓[39m [30m[43m services [49m[39m src/application/HermesConfigurationYaml.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 37[2mms[22m[39m
+2026-10-20T14:32:28.4180746Z (Use `node --trace-warnings ...` to show where the warning was created)
+2026-10-20T14:32:28.4182639Z (node:2541) Warning: Keys with collection values will be stringified due to JS Object restrictions: "Wed Oct 14 2026 00:00:00 GMT+0000 (...". Set mapAsMap: true to use object keys.
+2026-10-20T14:32:28.4185364Z (node:2541) Warning: Keys with collection values will be stringified due to JS Object restrictions: "Wed Oct 14 2026 00:00:00 GMT+0000 (...". Set mapAsMap: true to use object keys.
+2026-10-20T14:32:28.4436200Z  [32m✓[39m [30m[43m services [49m[39m src/application/environment/environmentBundleWrite.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 321[2mms[22m[39m
+2026-10-20T14:32:28.4458138Z  [32m✓[39m [30m[43m services [49m[39m src/application/artifacts/ArtifactComparisonEvidence.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+2026-10-20T14:32:28.4674997Z  [32m✓[39m [30m[43m services [49m[39m src/application/WebRuntimeService.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+2026-10-20T14:32:28.4810968Z  [32m✓[39m [30m[43m services [49m[39m src/application/apktool/ApktoolResourceAnalysisService.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+2026-10-20T14:32:28.4941462Z  [32m✓[39m [30m[43m services [49m[39m src/application/ClientConfigurationDocument.repeatedMembers.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+2026-10-20T14:32:28.4945654Z  [32m✓[39m [30m[43m services [49m[39m src/application/binaryDiagnostics/PeResourcesService.test.ts [2m([22m[2m20 tests[22m[2m)[22m[32m 33[2mms[22m[39m
+2026-10-20T14:32:28.5118218Z  [32m✓[39m [30m[43m services [49m[39m src/application/binaryDiagnostics/BinaryLayoutService.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+2026-10-20T14:32:28.5120978Z  [32m✓[39m [30m[43m services [49m[39m src/application/evm/EvmInterfaceService.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+2026-10-20T14:32:28.5282013Z  [32m✓[39m [30m[43m services [49m[39m src/application/native/NativeApiInspection.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+2026-10-20T14:32:28.5470527Z  [32m✓[39m [30m[43m services [49m[39m src/application/il2cpp/Il2cppMetadataService.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+2026-10-20T14:32:28.5552522Z  [32m✓[39m [30m[43m services [49m[39m src/application/environment/environmentScenario.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 20[2mms[22m[39m
+2026-10-20T14:32:28.5648256Z  [32m✓[39m [30m[43m services [49m[39m src/application/sqlite/SqliteDatabaseService.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+2026-10-20T14:32:28.5807620Z  [32m✓[39m [30m[43m services [49m[39m src/application/javascript/JavaScriptArtifactGraphAccumulator.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+2026-10-20T14:32:28.5839709Z  [32m✓[39m [30m[43m services [49m[39m src/application/AppBundleExecutable.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 21[2mms[22m[39m
+2026-10-20T14:32:28.5958684Z  [32m✓[39m [30m[43m services [49m[39m src/application/wasm/WasmArtifactService.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+2026-10-20T14:32:28.5973985Z  [32m✓[39m [30m[43m services [49m[39m src/application/jeb/JebAnalysisService.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+2026-10-20T14:32:28.6486572Z  [32m✓[39m [30m[43m services [49m[39m src/application/javascript/JavaScriptSemanticGraphScope.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 32[2mms[22m[39m
+2026-10-20T14:32:28.6696696Z  [32m✓[39m [30m[43m services [49m[39m src/application/MipsGnuAttributes.test.ts [2m([22m[2m18 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+2026-10-20T14:32:29.3948551Z  [32m✓[39m [30m[43m services [49m[39m src/application/Doctor.lifecycle.test.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 783[2mms[22m[39m
+2026-10-20T14:32:29.3950991Z    [33m[2m✓[22m[39m retains a completed healthy report when cancellation arrives during final cleanup[33m 780[2mms[22m[39m
+2026-10-20T14:32:29.9602620Z  [32m✓[39m [30m[43m services [49m[39m src/application/binary/LazyAnalysisProvider.test.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 554[2mms[22m[39m
+2026-10-20T14:32:29.9867440Z  [32m✓[39m [30m[43m services [49m[39m src/application/BrowserScenarioCaptureService.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+2026-10-20T14:32:30.1980039Z  [32m✓[39m [30m[43m services [49m[39m src/application/native/NativeFunctionMatchingViews.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 198[2mms[22m[39m
+2026-10-20T14:32:30.2133544Z  [32m✓[39m [30m[43m services [49m[39m src/application/UpdateCommandProgress.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+2026-10-20T14:32:30.2259639Z  [32m✓[39m [30m[43m services [49m[39m src/application/adb/AdbDeviceAnalysisService.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+2026-10-20T14:32:30.2357783Z  [32m✓[39m [30m[43m services [49m[39m src/application/SetupInstallFailure.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+2026-10-20T14:32:30.2484417Z  [32m✓[39m [30m[43m services [49m[39m src/application/firmware/FirmwareAnalysisService.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+2026-10-20T14:32:30.4856201Z  [32m✓[39m [30m[43m services [49m[39m src/application/environment/environmentInputSnapshot.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 226[2mms[22m[39m
+2026-10-20T14:32:30.4987012Z  [32m✓[39m [30m[43m services [49m[39m src/application/flutter/FlutterBuildAnalysisService.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+2026-10-20T14:32:30.5088954Z  [32m✓[39m [30m[43m services [49m[39m src/application/binary/AnalysisClientCleanup.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+2026-10-20T14:32:30.5180675Z  [32m✓[39m [30m[43m services [49m[39m src/application/ProviderOperationExecution.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+2026-10-20T14:32:30.5456321Z  [32m✓[39m [30m[43m services [49m[39m src/application/UpdateRuntime.release.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+2026-10-20T14:32:30.5552278Z  [32m✓[39m [30m[43m services [49m[39m src/application/ReferenceSourceImportTypes.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 1[2mms[22m[39m
+2026-10-20T14:32:30.6281973Z  [32m✓[39m [30m[43m services [49m[39m src/application/javascript/JavaScriptSemanticGraphElectronProjection.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+2026-10-20T14:32:30.6608555Z  [32m✓[39m [30m[43m services [49m[39m src/application/environment/environmentInputCleanup.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 26[2mms[22m[39m
+2026-10-20T14:32:30.6725437Z  [32m✓[39m [30m[43m services [49m[39m src/application/analysisView/evidenceFileSource.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+2026-10-20T14:32:30.7318181Z  [32m✓[39m [30m[43m services [49m[39m src/application/javascript/JavaScriptSemanticGraphDestructuring.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 49[2mms[22m[39m
+2026-10-20T14:32:30.7501886Z  [32m✓[39m [30m[43m services [49m[39m src/application/javascript/JavaScriptArtifactPathResolution.syntheticRootEscape.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+2026-10-20T14:32:30.7639859Z  [32m✓[39m [30m[43m services [49m[39m src/application/HopperReleaseFeed.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+2026-10-20T14:32:30.7832936Z  [32m✓[39m [30m[43m services [49m[39m src/application/AppBundleOpenStepDepth.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+2026-10-20T14:32:30.8148263Z  [32m✓[39m [30m[43m services [49m[39m src/application/javascript/JavaScriptArtifactAnalysis.sourceMaps.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 3[2mms[22m[39m
+2026-10-20T14:32:30.8249680Z  [32m✓[39m [30m[43m services [49m[39m src/application/electron/ElectronFuseService.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+2026-10-20T14:32:30.9274083Z  [32m✓[39m [30m[43m services [49m[39m src/application/ClientConfigurationDocument.capacity.test.ts [2m([22m[2m4 tests[22m[2m)[22m[33m 2250[2mms[22m[39m
+2026-10-20T14:32:30.9276166Z    [32m✓[39m TOML configuration source capacity [2m(4)[22m
+2026-10-20T14:32:30.9277645Z      [33m[2m✓[22m[39m removes only REA from a large multiline Grok disabled-server list[33m 2026[2mms[22m[39m
+2026-10-20T14:32:30.9361768Z  [32m✓[39m [30m[43m services [49m[39m src/application/MacHopperPaths.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+2026-10-20T14:32:30.9364168Z  [32m✓[39m [30m[43m services [49m[39m src/application/environment/environmentReplayNumbers.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 104[2mms[22m[39m
+2026-10-20T14:32:30.9469456Z  [32m✓[39m [30m[43m services [49m[39m src/application/javascript/JavaScriptArtifactAnalysis.packageMain.test.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+2026-10-20T14:32:30.9474564Z  [32m✓[39m [30m[43m services [49m[39m src/application/ClientConfigurationDocument.shape.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+2026-10-20T14:32:30.9536557Z  [32m✓[39m [30m[43m services [49m[39m src/application/BinaryOverview.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 1[2mms[22m[39m
+2026-10-20T14:32:30.9599069Z  [32m✓[39m [30m[43m services [49m[39m src/application/EvidenceInputResolver.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 1[2mms[22m[39m
+2026-10-20T14:32:30.9758542Z  [32m✓[39m [30m[43m services [49m[39m src/application/javascript/JavaScriptAnalysisControl.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+2026-10-20T14:32:30.9843660Z  [32m✓[39m [30m[43m services [49m[39m src/application/sqlite/SqliteDatabaseCapability.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+2026-10-20T14:32:30.9897657Z  [32m✓[39m [30m[43m services [49m[39m src/application/ProgressReporter.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 0[2mms[22m[39m
+2026-10-20T14:32:30.9944257Z  [32m✓[39m [30m[43m services [49m[39m src/application/environment/environmentReplayCapacity.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 41[2mms[22m[39m
+2026-10-20T14:32:30.9949219Z  [32m✓[39m [30m[43m services [49m[39m src/application/Setup.initialSnapshot.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 1[2mms[22m[39m
+2026-10-20T14:32:31.0001133Z  [32m✓[39m [30m[43m services [49m[39m src/application/AnalysisProvider.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 1[2mms[22m[39m
+2026-10-20T14:32:31.0300096Z 
+2026-10-20T14:32:31.0301137Z [31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 3 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+2026-10-20T14:32:31.0301486Z 
+2026-10-20T14:32:31.0305136Z [41m[1m FAIL [22m[49m [30m[43m adapters [49m[39m src/cliJsonPaths.test.ts[2m > [22mCLI JSON path normalization[2m > [22mkeeps URL "file:///opt/electron" distinguishable from a local path
+2026-10-20T14:32:31.0306746Z [41m[1m FAIL [22m[49m [30m[43m adapters [49m[39m src/cliJsonPaths.test.ts[2m > [22mCLI JSON path normalization[2m > [22mkeeps URL "FILE:electron" distinguishable from a local path
+2026-10-20T14:32:31.0308298Z [41m[1m FAIL [22m[49m [30m[43m adapters [49m[39m src/cliJsonPaths.test.ts[2m > [22mCLI JSON path normalization[2m > [22mkeeps URL "https://example.test/app" distinguishable from a local path
+2026-10-20T14:32:31.0310902Z [31m[1mAssertionError[22m: expected [ { origin: 'string', …(5) } ] to deeply equal [ ObjectContaining{…} ][39m
+2026-10-20T14:32:31.0311384Z 
+2026-10-20T14:32:31.0311529Z [32m- Expected[39m
+2026-10-20T14:32:31.0311788Z [31m+ Received[39m
+2026-10-20T14:32:31.0311998Z 
+2026-10-20T14:32:31.0312173Z [2m  [[22m
+2026-10-20T14:32:31.0312515Z [2m    {[22m
+2026-10-20T14:32:31.0313200Z [32m-     "message": StringContaining "must be absolute local filesystem paths",[39m
+2026-10-20T14:32:31.0313748Z [31m+     "code": "invalid_format",[39m
+2026-10-20T14:32:31.0314423Z [31m+     "format": "regex",[39m
+2026-10-20T14:32:31.0314904Z [31m+     "message": "must be an absolute local filesystem path",[39m
+2026-10-20T14:32:31.0315342Z [31m+     "origin": "string",[39m
+2026-10-20T14:32:31.0315638Z [2m      "path": [[22m
+2026-10-20T14:32:31.0315942Z [2m        "executable_path",[22m
+2026-10-20T14:32:31.0316236Z [2m      ],[22m
+2026-10-20T14:32:31.0316523Z [31m+     "pattern": "/^\\//u",[39m
+2026-10-20T14:32:31.0316795Z [2m    },[22m
+2026-10-20T14:32:31.0317007Z [2m  ][22m
+2026-10-20T14:32:31.0317121Z 
+2026-10-20T14:32:31.0317413Z [36m [2m❯[22m src/cliJsonPaths.test.ts:[2m74:33[22m[39m
+2026-10-20T14:32:31.0341752Z     [90m 72|[39m     expect(parsed.success).toBe(false);
+2026-10-20T14:32:31.0342677Z     [90m 73|[39m     if (parsed.success) throw new Error("Expected URL path rejection");
+2026-10-20T14:32:31.0343274Z     [90m 74|[39m     expect(parsed.error.issues).toEqual([
+2026-10-20T14:32:31.0344158Z     [90m   |[39m                                 [31m^[39m
+2026-10-20T14:32:31.0344843Z     [90m 75|[39m       expect.objectContaining({
+2026-10-20T14:32:31.0345270Z     [90m 76|[39m         path: ["executable_path"],
+2026-10-20T14:32:31.0345639Z 
+2026-10-20T14:32:31.0346057Z [31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯[22m[39m
+2026-10-20T14:32:31.0346399Z 
+2026-10-20T14:32:31.0349406Z 
+2026-10-20T14:32:31.0389173Z [2m Test Files [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m742 passed[39m[22m[90m (743)[39m
+2026-10-20T14:32:31.0443359Z [2m      Tests [22m [1m[31m3 failed[39m[22m[2m | [22m[1m[32m12276 passed[39m[22m[2m | [22m[33m9 skipped[39m[90m (12288)[39m
+2026-10-20T14:32:31.0444436Z [2m   Start at [22m 14:29:04
+2026-10-20T14:32:31.0458612Z [2m   Duration [22m 206.48s[2m (tests 74%, import 21%, transform 4%, worker 1%)[22m
+2026-10-20T14:32:31.0499938Z 
+2026-10-20T14:32:31.2894332Z blob report written to /home/runner/work/rea/rea/.vitest/blob/blob-source.json
+2026-10-20T14:32:31.5396969Z ##[error]Process completed with exit code 1.
+2026-10-20T14:32:31.5471371Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+2026-10-20T14:32:31.5471802Z with:
+2026-10-20T14:32:31.5472018Z   name: vitest-report-source
+2026-10-20T14:32:31.5472271Z   path: .vitest/blob/*
+2026-10-20T14:32:31.5472500Z   include-hidden-files: true
+2026-10-20T14:32:31.5472758Z   if-no-files-found: error
+2026-10-20T14:32:31.5472984Z   retention-days: 7
+2026-10-20T14:32:31.5473191Z   compression-level: 6
+2026-10-20T14:32:31.5473401Z   overwrite: false
+2026-10-20T14:32:31.5473590Z env:
+2026-10-20T14:32:31.5473760Z   HUSKY: 0
+2026-10-20T14:32:31.5474249Z ##[endgroup]
+2026-10-20T14:32:31.7094090Z (node:8381) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-20T14:32:31.7094952Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-20T14:32:31.7146426Z With the provided path, there will be 1 file uploaded
+2026-10-20T14:32:31.7157517Z Artifact name is valid!
+2026-10-20T14:32:31.7171011Z Root directory input is valid!
+2026-10-20T14:32:32.0354094Z Beginning upload of artifact content to blob storage
+2026-10-20T14:32:32.2679808Z (node:8381) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-20T14:32:32.8268598Z Uploaded bytes 1460018
+2026-10-20T14:32:32.8920950Z Finished uploading artifact content to blob storage!
+2026-10-20T14:32:32.8922388Z SHA256 digest of uploaded artifact zip is 973d2a368305edc5c21cbb963d882c55501e21b19799d302fd8dd6d8a9ef741e
+2026-10-20T14:32:32.8923609Z Finalizing artifact upload
+2026-10-20T14:32:33.2523286Z Artifact vitest-report-source.zip successfully finalized. Artifact ID 12272339924
+2026-10-20T14:32:33.2525248Z Artifact vitest-report-source has been successfully uploaded! Final size is 1460018 bytes. Artifact ID is 12272339924
+2026-10-20T14:32:33.2531278Z Artifact download URL: https://github.com/zyxtoworld/rea/actions/runs/39439504364/artifacts/12272339924
+2026-10-20T14:32:33.2732861Z Post job cleanup.
+2026-10-20T14:32:33.2737049Z ##[start-action display=Restore and save npm package downloads;id=__e24343a4-23be-4d61-8bfe-c376f3647f6e.__actions_cache]
+2026-10-20T14:32:33.2739424Z ##[end-action id=__e24343a4-23be-4d61-8bfe-c376f3647f6e.__actions_cache;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-20T14:32:33.2814703Z Post job cleanup.
+2026-10-20T14:32:33.3661205Z [command]/usr/bin/git version
+2026-10-20T14:32:33.3690140Z git version 2.55.0
+2026-10-20T14:32:33.3731016Z Temporarily overriding HOME='/home/runner/work/_temp/59ebed03-4aba-4a94-8743-cc27a8aa8edf' before making global git config changes
+2026-10-20T14:32:33.3732868Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-20T14:32:33.3737051Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/rea/rea
+2026-10-20T14:32:33.3776471Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-20T14:32:33.3817307Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-20T14:32:33.4070545Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-20T14:32:33.4097828Z http.https://github.com/.extraheader
+2026-10-20T14:32:33.4111188Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-20T14:32:33.4145817Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-20T14:32:33.4412545Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-20T14:32:33.4450043Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-20T14:32:33.4868732Z Cleaning up orphan processes
+2026-10-20T14:32:33.5314549Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830, actions/checkout@11d5960a326750d5838078e36cf38b85af677262, actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020, actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
