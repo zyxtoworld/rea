@@ -1,5 +1,9 @@
 # MCP runtime contracts
 
+For pairing native functions before comparing selected dossiers, see
+[native function matching](native-function-matching.md). It operates on retained
+inventories, preserves aliases/unknowns and exposes selected fact pages.
+
 Use this reference to call REA tools and interpret their replies on one MCP
 connection. Start with [tool results](#tool-results), [retained Evidence](#retained-application-evidence-inputs),
 and [session discovery](#identity-and-discovery). See [transports](#transports)
@@ -21,6 +25,14 @@ directly to a compatible comparison tool: `analyze_function` Evidence can be pas
 directly to `compare_functions`, and `inspect_artifact` Evidence to
 `compare_artifacts`. Use `get_evidence_bundle` when the task needs broader
 retained session history or an explicit bundle for transfer.
+
+Ghidra inventories and function replies use `raw_result: null` when their facts
+are already preserved in `normalized_result`, limitations, locations and
+relationship coverage. Distinct overview details, measured load-image
+observations, file-offset selection roles and database types supplemented with
+derived metadata keep their upstream representation. Read function results from
+`normalized_result`; older retained Evidence keeps its original representation
+and identity.
 
 Artifact inventories declare `coverage.scope` (`root` or `container-entries`)
 and `coverage.status` (`complete` or `unknown`) independently of diagnostic
@@ -59,7 +71,13 @@ Call comparison additionally retains the Evidence relationship coverage
 checks. Ghidra and Hopper declare their observed dossier facets and complete
 provider-observed caller/callee sets, including empty sets. Missing decompiler
 output remains unavailable; complete call coverage does not claim every runtime
-target. Hopper's unavailable reference-kind metadata and reported unresolved
+target. When Ghidra's decompiler fails on one function, its dossier is still
+returned: `pseudocode`, `native_api` and `native_value_flow` are unavailable
+with the decompiler's failure as the reason, while the listing-backed facets
+are collected as usual. These failed decompiler observations and workflows
+derived from them retain Evidence but skip snapshot reuse, so a later request
+can observe backend recovery; healthy dossiers keep their existing cache policy.
+`procedure_pseudo_code` still fails for that function. Hopper's unavailable reference-kind metadata and reported unresolved
 calls still prevent equality conclusions for those dimensions. Analysis profiles
 version these declarations so older snapshots are not reused as current results.
 IDA declares the facets its selected adapter cannot provide; an empty
@@ -93,8 +111,9 @@ unresolved relationship reads. Cancellation remains a tool error.
 
 REA prepares complete MCP results within the pinned stdio client's 10 MiB
 receive-buffer budget, including both text and structured representations and
-room for the JSON-RPC envelope. Tool errors carry only their text
-representation and `isError` flag, so only those count against the budget. Response budget settings are captured at startup;
+room for the JSON-RPC envelope. Tool errors omit `structuredContent` from the
+wire; their text, `isError`, provenance marker and negotiated protocol framing
+count toward the wire budget. Response budget settings are captured at startup;
 restart or recreate the server to apply changes. If a result cannot fit, REA returns
 `resource_constraint` with `details.resource: "transport"` before constructing
 a document-sized string. Analysis Evidence remains complete in the current
@@ -104,6 +123,52 @@ that reference for a summary, one section/module, or a stable page, or call
 `export_evidence_bundle` with a destination path. Complete
 bundle exports stream canonical JSON into an atomically published file.
 
+On protocol revision `2026-07-28`, completed replies retain the SDK's
+`resultType: "complete"`, including the replacement for an oversized error.
+This marks completion of the MCP exchange; Evidence coverage, partial facts
+and unknowns retain their separate meaning. Legacy replies keep their existing
+framing.
+
+`list_procedures`, `search_procedures`, `list_strings`, `search_strings` and
+`list_names` accept `detail: "summary"`. Complete inline delivery remains the
+default. Summary retains the original complete Evidence and returns its row
+count, provider identity, analysis-profile digest, original query, parent Evidence
+ID, limitations and explicit unknown discovery coverage. Delivery detail is excluded from provider arguments
+and original Evidence identity.
+
+Read selected rows with `inspect_analysis_view`:
+
+```json
+{
+  "source": {
+    "kind": "retained-evidence",
+    "evidence_id": "ev_<source digest>"
+  },
+  "view": {
+    "kind": "native-inventory",
+    "offset": 0,
+    "limit": 32,
+    "fields": ["value"]
+  }
+}
+```
+
+Each row has `source_index` and `record`; parent Evidence ID plus source index
+identifies same-address alternatives. Order is the original retained order.
+Omit `fields` for complete records; a selected field list always retains
+`record.address`. Selecting `value` also retains available `string` and
+`decoding` qualifications, so native display text and unterminated fragments
+remain distinguishable. Search tools apply their existing filters before retention.
+Follow `coverage.next_offset`; exhaustion describes the retained list, not
+complete discovery of all code or strings. An unbound source keeps
+`artifact: null` and the derived Evidence keeps `subject: null`.
+
+The CLI uses the same projector. For an original complete Evidence JSON file,
+write `{"source":{"kind":"evidence-file","path":"/absolute/source.json"},"view":{"kind":"native-inventory","limit":32}}`
+to `/absolute/view-request.json`, then run
+`rea inspect-analysis-view /absolute/view-request.json --json`. This also reads
+pre-summary source records without changing their identity; no live provider is started.
+
 For oversized native function Evidence, `details.reported_limits.continuation`
 contains a ready-to-call `inspect_analysis_view` request for the retained
 pseudocode's first page. Use its `name` and `arguments` directly, then follow
@@ -112,6 +177,8 @@ limit is the view contract's default, not a guarantee that arbitrary source or
 metadata fits; reduce the limit or export when needed. Continuations are
 offered for completed `analyze_function` results only after session recording is
 acknowledged; the complete result and its retention reference remain intact.
+Oversized native inventories likewise include a ready-to-call first
+`native-inventory` page. Reduce its limit or select fields when a row is large.
 
 A broad follow-up or `get_evidence_bundle` can also exceed the response budget; exporting
 preserves the complete session without sending it through a single MCP frame.
@@ -218,12 +285,19 @@ no group was templated.
 See [derived API surfaces](web-network-captures.md#derived-api-surface).
 
 `inspect_analysis_view` also accepts `environment-manifest` for retained HAR capture
-Evidence, projecting the primary origin's request lines into named tools with path
+Evidence and `capture_browser_scenario` Evidence, projecting the primary origin's request lines into named tools with path
 templates, parameters, observed query names, value-free body shapes and record
 pointers, plus excluded groups and three fixed unknowns. Templates, parameters and
 names are inferences; the Evidence is inferred whenever any tool or excluded group
 is templated, and derived otherwise.
 See [environment manifests](web-network-captures.md#environment-manifest).
+
+`inspect_analysis_view` also accepts `environment-state` for the same parents,
+extracting the initial state the recorded reads observed: entity types with an
+identity field, entities, documents for written non-entity paths, and a render
+plan per read tool that reproduces its recordings from the state or names why it
+cannot. Types and identity are inferences, so the Evidence is always inferred.
+See [environment state](web-network-captures.md#environment-state).
 
 `inspect_analysis_view` projects a caller-selected view of already completed
 `inspect_binary_layout`, `analyze_javascript_application`, or `analyze_function`
@@ -778,6 +852,13 @@ the current client, so it is not a fresh-start recovery. On the same connection:
    `provider_id: "ghidra"`, then retry the first query with an appropriate client
    deadline. The connection and selected provider do not need to change.
 
+If REA's provider startup allowance also needs raising, preserve Evidence and
+close as above, then update `REA_GHIDRA_STARTUP_TIMEOUT_MS` in REA's launch
+environment and restart the server. Reconnect the MCP client before reopening
+the target. Configuration is read at process startup; close/reopen on the same
+connection cannot apply a changed environment. See the
+[CLI retry example](installation.md#ghidra).
+
 This close/reopen flow was exercised on one real Linux stdio connection after a
 controlled startup timeout, followed by a successful overview and function
 analysis. A separate Windows x64 stdio run with Ghidra 12.1.4, JDK 21 and Node
@@ -984,24 +1065,24 @@ families cover the catalog once, so a new tool cannot ship unfiled.
 
 | Family      | Tools | Contents                                                                         |
 | ----------- | ----: | -------------------------------------------------------------------------------- |
-| `session`   |    21 | Target lifecycle, Evidence bundles, residual unknowns, cross-Evidence comparison |
+| `session`   |    22 | Target lifecycle, Evidence bundles, residual unknowns, cross-Evidence comparison |
 | `native`    |    70 | Deep provider analysis, navigation, annotations, managed inspection              |
 | `artifacts` |    10 | Artifact inventory/extraction and managed reconstruction                         |
-| `data`      |    16 | Go, Rust, WASM, EVM, SQLite, firmware, Flutter, captures, signals                |
-| `web`       |    33 | Browser, Electron, JavaScript bundles, runtime observation, source recovery      |
+| `data`      |    17 | Go, Rust, WASM, EVM, SQLite, firmware, Flutter, captures, signals                |
+| `web`       |    25 | Browser, Electron, JavaScript bundles, runtime observation, source recovery      |
 | `mobile`    |    35 | Android packages, Apktool resources, JEB projects, ADB devices                   |
 | `debug`     |    21 | GDB, Rizin, Cutter, Frida, reverse-engineering command surface                   |
 | `workflows` |    10 | Application traces, version comparisons, reconstruction ledgers                  |
 
-A typical session that only walks binaries never calls the 33 web or 35 mobile
+A typical session that only walks binaries never calls the 25 web or 35 mobile
 operations, yet a full advertisement makes the client load and forward every
-one of them. The full catalog is 3,169,603 bytes of `tools/list` JSON; output
+one of them. The full catalog is 3,372,788 bytes of `tools/list` JSON; output
 schemas are 75% of it and input schemas 21%. `REA_MCP_TOOL_PROFILE` bounds that
 advertisement:
 
-- `full` (default) advertises all 207 tools and preserves the existing behavior
+- `full` (default) advertises all 210 tools and preserves the existing behavior
   and catalog digest.
-- `core` advertises `session`, `native`, and `artifacts`: 101 tools.
+- `core` advertises `session`, `native`, and `artifacts`: 102 tools.
 - A comma-separated family list advertises exactly those families, and always
   includes `session` so `open_binary` and `binary_session` stay reachable.
 
@@ -1009,12 +1090,12 @@ Measured `tools/list` sizes from this repository's contracts:
 
 | Profile and schema settings                  | Tools |     Bytes | ≈Tokens |
 | -------------------------------------------- | ----: | --------: | ------: |
-| `full`                                       |   207 | 3,169,603 | 969,104 |
-| `core`                                       |   101 | 1,513,240 | 461,627 |
-| `core` + compact input schemas               |   101 | 1,327,152 | 406,782 |
-| `core` + output schemas off                  |   101 |   288,276 |  82,804 |
-| `core` + compact input + output schemas off  |   101 |   102,188 |  27,959 |
-| `debug` + compact input + output schemas off |    42 |    51,028 |  14,642 |
+| `full`                                       |   210 | 3,372,788 | 1,031,268 |
+| `core`                                       |   102 | 1,664,166 |   507,764 |
+| `core` + compact input schemas               |   102 | 1,443,603 |   442,804 |
+| `core` + output schemas off                  |   102 |   329,386 |    94,742 |
+| `core` + compact input + output schemas off  |   102 |   108,823 |    29,782 |
+| `debug` + compact input + output schemas off |    43 |    53,489 |    15,391 |
 
 Token counts use `tokenx` over the serialized catalog and are estimates, not
 provider billing. The compact and output-schema profiles compose with the tool
