@@ -1088,8 +1088,8 @@ advertisement:
 
 Measured `tools/list` sizes from this repository's contracts:
 
-| Profile and schema settings                  | Tools |     Bytes | ≈Tokens |
-| -------------------------------------------- | ----: | --------: | ------: |
+| Profile and schema settings                  | Tools |     Bytes |   ≈Tokens |
+| -------------------------------------------- | ----: | --------: | --------: |
 | `full`                                       |   210 | 3,372,788 | 1,031,268 |
 | `core`                                       |   102 | 1,664,166 |   507,764 |
 | `core` + compact input schemas               |   102 | 1,443,603 |   442,804 |
