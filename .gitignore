@@ -28,10 +28,8 @@ env/
 .factory/
 codedb.snapshot
 
-# Local scratch scripts and probe output
-*.tmp.ts
-*.tmp.mjs
-*.tmp.txt
+# Local scratch scripts, probe output, and temporary backups
+*.tmp.*
 *.out.txt
 .tmp-*
 
