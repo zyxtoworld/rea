@@ -773,6 +773,19 @@ export class EvmoleInterfaceProvider implements EvmInterfacePort {
         return err(failure);
       }
     }
+    // Releasing the runtime root runs caller cleanup, which may abort the
+    // signal after the pre-cleanup check. A completed inspection stays
+    // Evidence-bearing, but a cancellation observed by then still wins.
+    if (result.ok && options?.signal?.aborted)
+      return err(
+        new AnalysisCancelledError(OPERATION, {
+          cause: options.signal.reason,
+          partialObservation: evmInterfaceEvidence(input, result.value),
+          ...(retainedOutput === undefined
+            ? {}
+            : { capturedOutput: retainedOutput }),
+        }),
+      );
     return result;
   }
 

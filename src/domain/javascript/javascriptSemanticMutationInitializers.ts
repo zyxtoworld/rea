@@ -397,9 +397,18 @@ const computeDirectInitializerPosition = (
   const parent = parents.get(node);
   if (t.isVariableDeclarator(parent) && parent.init === node) {
     const declaration = parents.get(parent);
-    return t.isVariableDeclaration(declaration)
-      ? statementPosition(declaration, parents, parent)
-      : null;
+    if (!t.isVariableDeclaration(declaration)) return null;
+    // `export const` wraps the declaration, so the enclosing statement is the
+    // export; without it the position is unresolvable and every alias call
+    // degrades to an ambiguous target.
+    const container = parents.get(declaration);
+    const statement =
+      (t.isExportNamedDeclaration(container) ||
+        t.isExportDefaultDeclaration(container)) &&
+      container.declaration === declaration
+        ? container
+        : declaration;
+    return statementPosition(statement, parents, parent);
   }
   if (
     t.isAssignmentExpression(parent) &&

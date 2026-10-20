@@ -732,7 +732,12 @@ it
               scenario === "cancelled-cleanup-failure"
             )
               controller.abort(reason);
-            if (denyClose) throw new Error("reported cleanup failure");
+            if (denyClose) {
+              // Deny one removal so the retry path is exercised; a later
+              // close must be able to confirm release.
+              denyClose = false;
+              throw new Error("reported cleanup failure");
+            }
           },
         };
       },
