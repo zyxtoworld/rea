@@ -22,9 +22,11 @@ import { compactPresentationForMcpInputSchemaProfile } from "../../../src/config
 import {
   CORE_TOOL_FAMILIES,
   TOOL_FAMILY_MEMBERS,
-  toolContractsForFamilies,
 } from "../../../src/contracts/toolFamilies.js";
-import { TOOL_CONTRACTS } from "../../../src/contracts/toolContracts.js";
+import {
+  TOOL_CONTRACTS,
+  toolContractsForFamilies,
+} from "../../../src/contracts/toolContracts.js";
 import { MCP_STARTUP_POLICY } from "../../../src/mcpStartupPolicy.js";
 
 afterEach(() => vi.useRealTimers());

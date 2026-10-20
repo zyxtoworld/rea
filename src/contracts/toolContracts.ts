@@ -36,6 +36,8 @@ import { REVERSE_ENGINEERING_TOOL_CONTRACTS } from "./reverseEngineeringToolCont
 import { GDB_TOOL_CONTRACTS } from "./gdbToolContracts.js";
 import { RIZIN_DEBUG_TOOL_CONTRACTS } from "./rizinDebugToolContracts.js";
 import { FRIDA_TOOL_CONTRACTS } from "./fridaToolContracts.js";
+import { TOOL_FAMILY_MEMBERS, type ToolFamily } from "./toolFamilies.js";
+import type { ToolContract } from "./toolContractTypes.js";
 
 /** Complete ordered public inventory used by registration and verification. */
 export const TOOL_CONTRACTS = [
@@ -95,4 +97,21 @@ export const toolContract = <
   );
   if (contract === undefined) throw new Error(`Missing tool contract: ${name}`);
   return contract;
+};
+
+/**
+ * Resolve the canonical contracts for the selected families in public catalog
+ * order, so registration and catalog digests stay deterministic.
+ *
+ * Lives here rather than in `toolFamilies.ts` so that profile parsing and
+ * other startup configuration can read the family partition without loading
+ * the complete catalog.
+ */
+export const toolContractsForFamilies = (
+  families: readonly ToolFamily[],
+): readonly ToolContract[] => {
+  const selected = new Set<string>(
+    families.flatMap((family) => TOOL_FAMILY_MEMBERS[family]),
+  );
+  return TOOL_CONTRACTS.filter(({ name }) => selected.has(name));
 };

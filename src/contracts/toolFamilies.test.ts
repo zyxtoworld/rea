@@ -1,12 +1,11 @@
 import { describe, expect, it } from "vitest";
 
-import { TOOL_CONTRACTS } from "./toolContracts.js";
+import { TOOL_CONTRACTS, toolContractsForFamilies } from "./toolContracts.js";
 import {
   CORE_TOOL_FAMILIES,
   TOOL_FAMILIES,
   TOOL_FAMILY_IDS,
   TOOL_FAMILY_MEMBERS,
-  toolContractsForFamilies,
   toolFamilyOf,
 } from "./toolFamilies.js";
 

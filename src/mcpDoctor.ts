@@ -13,8 +13,10 @@ import {
 import { parseMcpOutputSchemaProfile } from "./config/mcpOutputSchemaProfile.js";
 import { parseMcpToolProfile } from "./config/mcpToolProfile.js";
 import { PROMPT_CONTRACTS } from "./contracts/promptContracts.js";
-import { TOOL_CONTRACTS } from "./contracts/toolContracts.js";
-import { toolContractsForFamilies } from "./contracts/toolFamilies.js";
+import {
+  TOOL_CONTRACTS,
+  toolContractsForFamilies,
+} from "./contracts/toolContracts.js";
 import type { ToolContract } from "./contracts/toolContractTypes.js";
 import { err, ok } from "./domain/result.js";
 import { PRODUCT_IDENTITY } from "./identity.js";

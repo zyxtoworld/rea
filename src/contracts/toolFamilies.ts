@@ -1,5 +1,4 @@
-import { TOOL_CONTRACTS } from "./toolContracts.js";
-import type { ToolContract } from "./toolContractTypes.js";
+import type { TOOL_CONTRACTS } from "./toolContracts.js";
 
 type ToolName = (typeof TOOL_CONTRACTS)[number]["name"];
 
@@ -329,16 +328,3 @@ const FAMILY_BY_TOOL_NAME: Record<string, ToolFamily> = Object.fromEntries(
 /** Family that owns one tool name, or undefined for a name outside the catalog. */
 export const toolFamilyOf = (name: string): ToolFamily | undefined =>
   FAMILY_BY_TOOL_NAME[name];
-
-/**
- * Resolve the canonical contracts for the selected families in public catalog
- * order, so registration and catalog digests stay deterministic.
- */
-export const toolContractsForFamilies = (
-  families: readonly ToolFamily[],
-): readonly ToolContract[] => {
-  const selected = new Set<string>(
-    families.flatMap((family) => FAMILY_MEMBERS[family]),
-  );
-  return TOOL_CONTRACTS.filter(({ name }) => selected.has(name));
-};

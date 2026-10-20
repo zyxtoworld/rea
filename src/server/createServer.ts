@@ -53,7 +53,7 @@ import {
   parseMcpInputSchemaProfile,
 } from "../config/mcpInputSchemaProfile.js";
 import { parseMcpToolProfile } from "../config/mcpToolProfile.js";
-import { toolContractsForFamilies } from "../contracts/toolFamilies.js";
+import { toolContractsForFamilies } from "../contracts/toolContracts.js";
 import type { ToolContract } from "../contracts/toolContractTypes.js";
 import type { CompactInputSchemaPresentation } from "./EvidenceMcpServer.js";
 import { isAbsolute } from "node:path";

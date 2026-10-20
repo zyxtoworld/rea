@@ -6,11 +6,13 @@ import { createTestBinarySession } from "../../fixtures/binarySession.js";
 import { observed } from "../../fixtures/analysisExecution.js";
 import { ok as resultOk } from "../../../src/domain/result.js";
 import type { AnalysisProvider } from "../../../src/application/AnalysisProvider.js";
-import { TOOL_CONTRACTS } from "../../../src/contracts/toolContracts.js";
+import {
+  TOOL_CONTRACTS,
+  toolContractsForFamilies,
+} from "../../../src/contracts/toolContracts.js";
 import {
   CORE_TOOL_FAMILIES,
   TOOL_FAMILY_MEMBERS,
-  toolContractsForFamilies,
 } from "../../../src/contracts/toolFamilies.js";
 import {
   expandToolAvailability,
