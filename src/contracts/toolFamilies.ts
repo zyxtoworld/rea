@@ -194,6 +194,7 @@ const FAMILY_MEMBERS: Record<ToolFamily, readonly ToolName[]> = {
     "inspect_evm_interface",
     "inspect_firmware_regions",
     "inspect_go_binary",
+    "inspect_gpu_code_objects",
     "inspect_il2cpp_metadata",
     "inspect_model_artifact",
     "inspect_packet_capture",
