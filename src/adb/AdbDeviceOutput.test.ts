@@ -344,14 +344,21 @@ describe("parsePmPathOutput", () => {
     const { paths, rejectedPaths, unparsedLines } = parsePmPathOutput(
       `package:${devicePath}\r\n`,
     );
-    expect(paths).toEqual([
-      {
-        device_path: devicePath,
-        file_name: "résumé:final\\draft*.apk",
-        role: "unknown",
-      },
-    ]);
-    expect(rejectedPaths).toEqual([]);
+    if (process.platform === "win32") {
+      expect(paths).toEqual([]);
+      expect(rejectedPaths).toEqual([
+        { device_path: devicePath, reason: "unsupported_character" },
+      ]);
+    } else {
+      expect(paths).toEqual([
+        {
+          device_path: devicePath,
+          file_name: "résumé:final\\draft*.apk",
+          role: "unknown",
+        },
+      ]);
+      expect(rejectedPaths).toEqual([]);
+    }
     expect(unparsedLines).toEqual({ sample: [], total: 0 });
   });
 
