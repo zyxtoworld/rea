@@ -374,7 +374,7 @@ it("runs the existing onboarding and Python producer guards from their selected 
     "node scripts/run-exclusive.mjs artifacts node scripts/run-script.mjs check:ci:fast:tasks",
   );
   expect(scripts["check:ci:fast:tasks"]).toBe(
-    "turbo run typecheck lint:built format:check",
+    "node scripts/run-turbo.mjs run typecheck lint:built format:check",
   );
   expect(scripts["test:python"]).toContain(
     "bridge/native/test_rea_lldb_tracer.py",
