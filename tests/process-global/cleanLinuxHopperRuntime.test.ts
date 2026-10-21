@@ -35,7 +35,7 @@ it
     await mkdir(procRoot);
     const alternateMode = mode === "alternate launcher";
     if (alternateMode) {
-      await copyFile("/usr/bin/sleep", launcher);
+      await copyFile("/usr/bin/python3", launcher);
       await chmod(launcher, 0o700);
       await symlink(launcher, alternate);
     }
@@ -49,18 +49,22 @@ it
       procRoot,
     );
     const command = alternateMode ? alternate : process.execPath;
-    const arguments_ = alternateMode ? ["30"] : ["-e", childCode];
+    const arguments_ = alternateMode
+      ? ["-c", "import time; print('ready', flush=True); time.sleep(30)"]
+      : ["-e", childCode];
     const parentCode = `
       const { spawn } = require('node:child_process');
       const child = spawn(${JSON.stringify(command)}, ${JSON.stringify(arguments_)}, {
-        detached: true, stdio: ${JSON.stringify(alternateMode ? "ignore" : ["ignore", "ignore", "ignore", "ipc"])}
+        detached: true, stdio: ${JSON.stringify(alternateMode ? ["ignore", "pipe", "ignore"] : ["ignore", "ignore", "ignore", "ipc"])}
       });
       child.once('error', () => process.exit(1));
-      child.once(${JSON.stringify(alternateMode ? "spawn" : "message")}, () => {
+      const ready = () => {
         process.stdout.write(JSON.stringify({ pid: child.pid, parentPid: process.pid }));
         if (child.connected) child.disconnect();
+        child.stdout?.destroy();
         child.unref();
-      });
+      };
+      ${alternateMode ? "child.stdout.once('data', ready);" : "child.once('message', ready);"}
     `;
     const parent = execFileAsync(process.execPath, ["-e", parentCode], {
       env: { ...process.env, REA_PROCESS_RUN_ID: runId },

@@ -281,7 +281,7 @@ it.runIf(process.platform === "linux").each([
     const alternateMode = mode === "alternate launcher";
     const pythonMode = pythonOptions !== null;
     if (alternateMode) {
-      await copyFile("/usr/bin/sleep", launcher);
+      await copyFile("/usr/bin/python3", launcher);
       await chmod(launcher, 0o700);
       await symlink(launcher, alternate);
     }
@@ -304,12 +304,12 @@ it.runIf(process.platform === "linux").each([
         ? "/usr/bin/python3"
         : process.execPath;
     const arguments_ = alternateMode
-      ? ["30"]
+      ? ["-c", "import time; print('ready', flush=True); time.sleep(30)"]
       : pythonMode
         ? [...pythonOptions, helper]
         : ["-e", childCode];
     const stdio = alternateMode
-      ? "ignore"
+      ? ["ignore", "pipe", "ignore"]
       : pythonMode
         ? ["ignore", "pipe", "ignore"]
         : ["ignore", "ignore", "ignore", "ipc"];
@@ -325,7 +325,7 @@ it.runIf(process.platform === "linux").each([
         child.stdout?.destroy();
         child.unref();
       };
-      ${pythonMode ? "child.stdout.once('data', ready);" : `child.once(${JSON.stringify(alternateMode ? "spawn" : "message")}, ready);`}
+      ${pythonMode || alternateMode ? "child.stdout.once('data', ready);" : `child.once(${JSON.stringify(alternateMode ? "spawn" : "message")}, ready);`}
     `;
     const { reaper, ready } = launchReapedOrphan(runId, parentCode);
     let orphanPid: number | undefined;
