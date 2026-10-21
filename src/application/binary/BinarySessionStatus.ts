@@ -66,7 +66,8 @@ export const binarySessionStatus = async ({
     .map((descriptor) => {
       const targetRefusal =
         target === undefined ||
-        descriptor.provider.id !== ARTIFACT_GRAPH_PROVIDER.id
+        (descriptor.operation !== "trace_dylib_resolution" &&
+          descriptor.provider.id !== ARTIFACT_GRAPH_PROVIDER.id)
           ? undefined
           : artifactTargetRefusal(descriptor.operation, target);
       if (targetRefusal !== undefined && descriptor.available)
