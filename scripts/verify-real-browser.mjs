@@ -546,13 +546,13 @@ async function verifyPageScopedTransport(provider, proxy, origin) {
   const disconnected = await disconnectedPromise;
   if (
     !disconnected.ok ||
-    disconnected.value.window.end_reason !== "target_terminated" ||
+    disconnected.value.window.end_reason !== "transport_disconnected" ||
     !disconnected.value.timeline.some(
-      ({ type }) => type === "target_terminated",
+      ({ type }) => type === "transport_disconnected",
     )
   )
     throw new Error(
-      "Page-scoped CDP disconnect was not reported as target_terminated",
+      "Page-scoped CDP disconnect was not reported as transport_disconnected",
     );
 }
 
