@@ -49,7 +49,7 @@ export const registerWasmCommands = (
     }),
     options: z.object({
       commandTimeoutMs: inspectWasmArtifactInputSchema.shape.command_timeout_ms
-        .optional()
+        .exactOptional()
         .describe(
           "Deadline in milliseconds for each WABT command; defaults to 30000.",
         ),
