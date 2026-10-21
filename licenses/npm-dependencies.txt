@@ -2,7 +2,7 @@ REA npm dependency inventory
 Prepared from the root package-lock.json; refresh this inventory when locked dependencies change.
 License identifiers are upstream lockfile declarations, not a legal assessment.
 Runtime includes transitive and optional platform packages; development includes build, test and website tooling.
-Locked package entries: 751; runtime: 179.
+Locked package entries: 768; runtime: 179.
 Full runtime copyright/license/NOTICE texts: npm-runtime-notices.txt.
 
 @algolia/abtesting@1.25.0 | development | MIT
@@ -3000,11 +3000,11 @@ possible-typed-array-names@1.1.0 | runtime | MIT
   Package: https://www.npmjs.com/package/possible-typed-array-names/v/1.1.0
   Archive: https://registry.npmjs.org/possible-typed-array-names/-/possible-typed-array-names-1.1.0.tgz
   Integrity: sha512-/+5VFTchJDoVj3bhoqi6UeymcD00DAwb1nJwamzPvHEszJ4FpF6SNNbUbOS8yI56qHzdV8eK0qEfOSiodkTdxg==
-postcss@8.5.29 | development | MIT
+postcss@8.5.31 | development | MIT
   Lockfile path: node_modules/postcss
-  Package: https://www.npmjs.com/package/postcss/v/8.5.29
-  Archive: https://registry.npmjs.org/postcss/-/postcss-8.5.29.tgz
-  Integrity: sha512-49cGhUbXj8Qenv0iTMxA1cFBzxXoctpC9Ujd77t1WcbJIr6nF/eI7g/8MgxrYldFRuAXvja7xQRwavoW7kgrxQ==
+  Package: https://www.npmjs.com/package/postcss/v/8.5.31
+  Archive: https://registry.npmjs.org/postcss/-/postcss-8.5.31.tgz
+  Integrity: sha512-YUbWYCgErwnMAVkjUnYa+KlMBzGpHwiIt/DE7f0G33AuX2LH9UcTk6KgWxd3zRU+pN3u/C+Xl3EnMLM4Hea7Sg==
 preact@10.29.8 | development | MIT
   Lockfile path: node_modules/preact
   Package: https://www.npmjs.com/package/preact/v/10.29.8
@@ -3515,11 +3515,96 @@ vfile-message@4.0.3 | development | MIT
   Package: https://www.npmjs.com/package/vfile-message/v/4.0.3
   Archive: https://registry.npmjs.org/vfile-message/-/vfile-message-4.0.3.tgz
   Integrity: sha512-QTHzsGd1EhbZs4AsQ20JX1rC3cOlt/IWJruk893DfLRr57lcnOeMaWG4K0JrRta4mIJZKth2Au3mM3u03/JWKw==
-vite@8.3.2 | development | MIT
+vite@8.3.5 | development | MIT
   Lockfile path: node_modules/vite
-  Package: https://www.npmjs.com/package/vite/v/8.3.2
-  Archive: https://registry.npmjs.org/vite/-/vite-8.3.2.tgz
-  Integrity: sha512-SQr1x6W5vVSbROg7vsyXIaxK9b0G7zsT68acdWWRmnBUsgDieLCRG+Rep9WdZgcposvv/GSnr4GUUBqB3vXq6w==
+  Package: https://www.npmjs.com/package/vite/v/8.3.5
+  Archive: https://registry.npmjs.org/vite/-/vite-8.3.5.tgz
+  Integrity: sha512-z1YpjieJ9g0ebTmQpLBv/oq9E3F9EIlOe+7LahW8SrE3LTiG3udBRUXQOlYXP9b+IC2q2phHeVxj9xGlw34OEQ==
+@oxc-project/types@0.154.0 | development | MIT
+  Lockfile path: node_modules/vite/node_modules/@oxc-project/types
+  Package: https://www.npmjs.com/package/@oxc-project/types/v/0.154.0
+  Archive: https://registry.npmjs.org/@oxc-project/types/-/types-0.154.0.tgz
+  Integrity: sha512-KYOUGQFlLWR+s4QMV2Q9ko38TZm7EdO87Qm7rvZLqk/webse/cDjtyxKhg/47l0byCbs/k46LT8qc4PKjAikzA==
+@rolldown/binding-android-arm-eabi@1.2.14 | development, optional | MIT
+  Lockfile path: node_modules/vite/node_modules/@rolldown/binding-android-arm-eabi
+  Package: https://www.npmjs.com/package/@rolldown/binding-android-arm-eabi/v/1.2.14
+  Archive: https://registry.npmjs.org/@rolldown/binding-android-arm-eabi/-/binding-android-arm-eabi-1.2.14.tgz
+  Integrity: sha512-aWR+XKH9+rW7m5fWq/5360J3mHycrx/o6xZM2DQFdJnTMdyP7/WzxPjhtLbVWdKo2y612/4U1bWqb3HQhiF7vg==
+@rolldown/binding-android-arm64@1.2.14 | development, optional | MIT
+  Lockfile path: node_modules/vite/node_modules/@rolldown/binding-android-arm64
+  Package: https://www.npmjs.com/package/@rolldown/binding-android-arm64/v/1.2.14
+  Archive: https://registry.npmjs.org/@rolldown/binding-android-arm64/-/binding-android-arm64-1.2.14.tgz
+  Integrity: sha512-QiVxHofl6A8lQU7WAtOUY4QMVZXohxwz7WJJoeh8NBEUyKfIkMRKhYyq8az/1RypNiIXzNTtiS6KwHz0erxYRQ==
+@rolldown/binding-darwin-arm64@1.2.14 | development, optional | MIT
+  Lockfile path: node_modules/vite/node_modules/@rolldown/binding-darwin-arm64
+  Package: https://www.npmjs.com/package/@rolldown/binding-darwin-arm64/v/1.2.14
+  Archive: https://registry.npmjs.org/@rolldown/binding-darwin-arm64/-/binding-darwin-arm64-1.2.14.tgz
+  Integrity: sha512-lTQOzHuBIooh3jIr5XINQkjPGEuGy+Dsy0meXDr6Sjty0b99kYgGh4uBC/8mJX1T0kC8d6S0aPP1Y+bHkh6aBw==
+@rolldown/binding-darwin-x64@1.2.14 | development, optional | MIT
+  Lockfile path: node_modules/vite/node_modules/@rolldown/binding-darwin-x64
+  Package: https://www.npmjs.com/package/@rolldown/binding-darwin-x64/v/1.2.14
+  Archive: https://registry.npmjs.org/@rolldown/binding-darwin-x64/-/binding-darwin-x64-1.2.14.tgz
+  Integrity: sha512-hyMKEGatjmBYCs/Q4sbIcL/GqpFEqsX3wc+HYVQ/85A4rxc1o7rPm4DUI4GV4k/h0ITddwFSGpqQunI14GXjTA==
+@rolldown/binding-freebsd-x64@1.2.14 | development, optional | MIT
+  Lockfile path: node_modules/vite/node_modules/@rolldown/binding-freebsd-x64
+  Package: https://www.npmjs.com/package/@rolldown/binding-freebsd-x64/v/1.2.14
+  Archive: https://registry.npmjs.org/@rolldown/binding-freebsd-x64/-/binding-freebsd-x64-1.2.14.tgz
+  Integrity: sha512-u371GbXoVXrEgP20PwzoGNOdAOqAMhzo19JzzY+V4YmmnC+DTOoqdbMu+O+54emM59Mik/UdrtWgcuEDKWRPKA==
+@rolldown/binding-linux-arm-gnueabihf@1.2.14 | development, optional | MIT
+  Lockfile path: node_modules/vite/node_modules/@rolldown/binding-linux-arm-gnueabihf
+  Package: https://www.npmjs.com/package/@rolldown/binding-linux-arm-gnueabihf/v/1.2.14
+  Archive: https://registry.npmjs.org/@rolldown/binding-linux-arm-gnueabihf/-/binding-linux-arm-gnueabihf-1.2.14.tgz
+  Integrity: sha512-BqwKsdZQf6EqVWr8fv2MrDYzAvOZ7+NYFSJESRGs87fkseEhs0TU9TXgRJTkZoRRkxTizyEg1LKUXfU3/78uqg==
+@rolldown/binding-linux-arm64-gnu@1.2.14 | development, optional | MIT
+  Lockfile path: node_modules/vite/node_modules/@rolldown/binding-linux-arm64-gnu
+  Package: https://www.npmjs.com/package/@rolldown/binding-linux-arm64-gnu/v/1.2.14
+  Archive: https://registry.npmjs.org/@rolldown/binding-linux-arm64-gnu/-/binding-linux-arm64-gnu-1.2.14.tgz
+  Integrity: sha512-SD9kY8M009x/7s57Z1dgUVlP5+uYBgKQK0Tkr1WIWngrtUJmRCW1RJFMY7QDla2khXhmg2i5Io7MUjcmZNZ/KQ==
+@rolldown/binding-linux-arm64-musl@1.2.14 | development, optional | MIT
+  Lockfile path: node_modules/vite/node_modules/@rolldown/binding-linux-arm64-musl
+  Package: https://www.npmjs.com/package/@rolldown/binding-linux-arm64-musl/v/1.2.14
+  Archive: https://registry.npmjs.org/@rolldown/binding-linux-arm64-musl/-/binding-linux-arm64-musl-1.2.14.tgz
+  Integrity: sha512-BJ2CL19M6uuWesMgnqJzgxoI+N+eV7b0A9O9vLV42y+gitC41fNa8KElau1tHVzuLWX5GzEuxMPhAO0tQXQMkg==
+@rolldown/binding-linux-ppc64-gnu@1.2.14 | development, optional | MIT
+  Lockfile path: node_modules/vite/node_modules/@rolldown/binding-linux-ppc64-gnu
+  Package: https://www.npmjs.com/package/@rolldown/binding-linux-ppc64-gnu/v/1.2.14
+  Archive: https://registry.npmjs.org/@rolldown/binding-linux-ppc64-gnu/-/binding-linux-ppc64-gnu-1.2.14.tgz
+  Integrity: sha512-4+Kl8daPV8NDHaD7mfCcc1pRM+Qg7ab8DyMm5FG5WoZgv4h2i3KFN1CybYBNbQqmuYm7ftJLvmMI1eHYJ22S/Q==
+@rolldown/binding-linux-s390x-gnu@1.2.14 | development, optional | MIT
+  Lockfile path: node_modules/vite/node_modules/@rolldown/binding-linux-s390x-gnu
+  Package: https://www.npmjs.com/package/@rolldown/binding-linux-s390x-gnu/v/1.2.14
+  Archive: https://registry.npmjs.org/@rolldown/binding-linux-s390x-gnu/-/binding-linux-s390x-gnu-1.2.14.tgz
+  Integrity: sha512-V/h8ePq1fKDrmtFMz6xcCN3DKvuvMRrwwD1q0PkBeeo4DpK64biaKvqWGVxqCeYKqeRk7gE7/iKPxLCn08O97A==
+@rolldown/binding-linux-x64-gnu@1.2.14 | development, optional | MIT
+  Lockfile path: node_modules/vite/node_modules/@rolldown/binding-linux-x64-gnu
+  Package: https://www.npmjs.com/package/@rolldown/binding-linux-x64-gnu/v/1.2.14
+  Archive: https://registry.npmjs.org/@rolldown/binding-linux-x64-gnu/-/binding-linux-x64-gnu-1.2.14.tgz
+  Integrity: sha512-WxalXzgrLVpKC93xfpaJ3gCXUWzeCr+FRCbDVD2mUAy4L6Vo3lNVz0epUEUpxPWJkLNYUwM4OSIikv36OJ9mLg==
+@rolldown/binding-linux-x64-musl@1.2.14 | development, optional | MIT
+  Lockfile path: node_modules/vite/node_modules/@rolldown/binding-linux-x64-musl
+  Package: https://www.npmjs.com/package/@rolldown/binding-linux-x64-musl/v/1.2.14
+  Archive: https://registry.npmjs.org/@rolldown/binding-linux-x64-musl/-/binding-linux-x64-musl-1.2.14.tgz
+  Integrity: sha512-3G3tnAmTpdk9jO3GQtyHXqeFD2SlecfTws/Y3M2mmj9nMBwwuLT4kur8sZKeu7ENUHSpVO3cIsm5A52LEWWwlg==
+@rolldown/binding-openharmony-arm64@1.2.14 | development, optional | MIT
+  Lockfile path: node_modules/vite/node_modules/@rolldown/binding-openharmony-arm64
+  Package: https://www.npmjs.com/package/@rolldown/binding-openharmony-arm64/v/1.2.14
+  Archive: https://registry.npmjs.org/@rolldown/binding-openharmony-arm64/-/binding-openharmony-arm64-1.2.14.tgz
+  Integrity: sha512-qyr5XiNGxm2ytx17vvtcJ9nXn6v1gENETi503bJx3OGwZ1tSonj7BosxbMa/xeAfSl5iS9X6KjEWYXLu6v1L7Q==
+@rolldown/binding-win32-arm64-msvc@1.2.14 | development, optional | MIT
+  Lockfile path: node_modules/vite/node_modules/@rolldown/binding-win32-arm64-msvc
+  Package: https://www.npmjs.com/package/@rolldown/binding-win32-arm64-msvc/v/1.2.14
+  Archive: https://registry.npmjs.org/@rolldown/binding-win32-arm64-msvc/-/binding-win32-arm64-msvc-1.2.14.tgz
+  Integrity: sha512-oA4o5o0S2yB199YyYXDzKUv1Z56Rc+mgOjwm7Z/vJ9Z8igiDPYvoOuDyo6g7AK/ZaF09nPhDKVnGBcYHO11GXA==
+@rolldown/binding-win32-x64-msvc@1.2.14 | development, optional | MIT
+  Lockfile path: node_modules/vite/node_modules/@rolldown/binding-win32-x64-msvc
+  Package: https://www.npmjs.com/package/@rolldown/binding-win32-x64-msvc/v/1.2.14
+  Archive: https://registry.npmjs.org/@rolldown/binding-win32-x64-msvc/-/binding-win32-x64-msvc-1.2.14.tgz
+  Integrity: sha512-9mE94bf2GZUaR/fUSXCMpBoWkctu421Mi0ORpm4zqfbkjKep7RxzPFa5etcGs5h+2KApoWBOA/hAJa/7saGgEQ==
+rolldown@1.2.14 | development | MIT
+  Lockfile path: node_modules/vite/node_modules/rolldown
+  Package: https://www.npmjs.com/package/rolldown/v/1.2.14
+  Archive: https://registry.npmjs.org/rolldown/-/rolldown-1.2.14.tgz
+  Integrity: sha512-eTBTTqMR6uHKLgcUqpJP8ntzDI6V4LYA8negAMBEI7gkgVvOdrx6VsvS2Ym+83KhOPdLCHWJu0w7UQFJZhHKNw==
 vitepress@1.6.4 | development | MIT
   Lockfile path: node_modules/vitepress
   Package: https://www.npmjs.com/package/vitepress/v/1.6.4
