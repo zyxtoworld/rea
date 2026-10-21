@@ -19,12 +19,29 @@ import { parseEvidence } from "../../dist/domain/evidence.js";
 const document = (path) => {
   if (path.startsWith("/nested"))
     return `<script>throw new Error("nested popup failure")</script>
-      <script>opener.postMessage("nested-ready", "*")</script>`;
+      <script>window.addEventListener("load", () => {
+        opener.postMessage("nested-ready", "*");
+      });</script>`;
   if (path.startsWith("/popup"))
     return `<script>throw new Error("popup failure")</script>
-      <script>onmessage = e => {
-        if (e.data === "nested-ready") opener.postMessage("popup-ready", "*");
-      }; window.open("/nested");</script><iframe src="/child"></iframe>`;
+      <script>let nestedReady = false;
+        let popupLoaded = false;
+        const notifyReady = () => {
+          if (nestedReady && popupLoaded)
+            opener.postMessage("popup-ready", "*");
+        };
+        onmessage = e => {
+          if (e.data === "nested-ready") {
+            nestedReady = true;
+            notifyReady();
+          }
+        };
+        window.addEventListener("load", () => {
+          popupLoaded = true;
+          notifyReady();
+        });
+        window.open("/nested");
+      </script><iframe src="/child"></iframe>`;
   if (path.startsWith("/child")) return "child frame";
   return `<script>onmessage = e => {
     if (e.data === "popup-ready") document.body.dataset.ready = "true";
