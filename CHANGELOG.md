@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.9.0](https://github.com/zyxtoworld/rea/compare/rea-agents-6.8.0...rea-agents-6.9.0) (2026-10-21)
+
+
+### Bug Fixes
+
+* restore qualification regressions ([e062d69](https://github.com/zyxtoworld/rea/commit/e062d695cea6bd52e98d019e25110427cc090d82))
+
 ## [6.8.0](https://github.com/zyxtoworld/rea/compare/rea-agents-6.7.0...rea-agents-6.8.0) (2026-10-21)
 
 
