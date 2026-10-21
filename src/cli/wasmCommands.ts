@@ -48,8 +48,11 @@ export const registerWasmCommands = (
       path: z.string().describe("Local WASM artifact"),
     }),
     options: z.object({
-      commandTimeoutMs:
-        inspectWasmArtifactInputSchema.shape.command_timeout_ms.optional(),
+      commandTimeoutMs: inspectWasmArtifactInputSchema.shape.command_timeout_ms
+        .optional()
+        .describe(
+          "Deadline in milliseconds for each WABT command; defaults to 30000.",
+        ),
       glue_paths: z
         .array(z.string())
         .optional()
