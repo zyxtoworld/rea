@@ -1,5 +1,4 @@
 import { artifactTargetRefusal } from "../../domain/apple/artifactTargetApplicability.js";
-import { ARTIFACT_GRAPH_PROVIDER } from "../InvestigationProviders.js";
 import type { BinaryTarget } from "../../domain/binaryTargetTypes.js";
 import type { ResolvedAppBundleResourceRoot } from "../AppBundleExecutable.js";
 import { binaryTargetSummary } from "./BinaryTargetSummary.js";
@@ -65,9 +64,7 @@ export const binarySessionStatus = async ({
     )
     .map((descriptor) => {
       const targetRefusal =
-        target === undefined ||
-        (descriptor.operation !== "trace_dylib_resolution" &&
-          descriptor.provider.id !== ARTIFACT_GRAPH_PROVIDER.id)
+        target === undefined
           ? undefined
           : artifactTargetRefusal(descriptor.operation, target);
       if (targetRefusal !== undefined && descriptor.available)
