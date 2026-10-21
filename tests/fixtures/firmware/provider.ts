@@ -30,9 +30,9 @@ export const firmwareFixture = async (mode = "normal", banner?: string) => {
       const start = options.arguments.indexOf("--") + 2;
       const args = options.arguments.slice(start);
       const engine =
-        options.arguments[start - 1]?.endsWith("/true") === true
-          ? "binwalk"
-          : "unblob";
+        options.arguments[start - 1] === process.execPath
+          ? "unblob"
+          : "binwalk";
       const spawned = await spawnOwnedProviderProcess({
         ...options,
         command: process.execPath,

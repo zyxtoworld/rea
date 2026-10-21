@@ -351,11 +351,15 @@ it.runIf(process.platform === "linux").each([
       expect(group).toBe(pid);
 
       if (alternateMode) {
-        const commandLine = await readFile(
-          `/proc/${String(pid)}/cmdline`,
-          "utf8",
-        );
-        expect(commandLine.split("\0")[0]).toBe(alternate);
+        await expect
+          .poll(async () => {
+            const commandLine = await readFile(
+              `/proc/${String(pid)}/cmdline`,
+              "utf8",
+            );
+            return commandLine.split("\0")[0];
+          })
+          .toBe(alternate);
         await unlink(alternate);
       }
       if (pythonMode) {

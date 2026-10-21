@@ -96,6 +96,13 @@ const statementPosition = (
       : statement;
   const parent = parents.get(enclosing);
   if (!t.isProgram(parent) && !t.isBlockStatement(parent)) return null;
+  const declaration = t.isVariableDeclaration(statement)
+    ? statement
+    : (t.isExportNamedDeclaration(enclosing) ||
+          t.isExportDefaultDeclaration(enclosing)) &&
+        t.isVariableDeclaration(enclosing.declaration)
+      ? enclosing.declaration
+      : undefined;
   const index = parent.body.indexOf(enclosing);
   return index < 0
     ? null
@@ -103,8 +110,8 @@ const statementPosition = (
         body: parent.body,
         index,
         declaratorIndex:
-          t.isVariableDeclaration(statement) && declarator !== undefined
-            ? statement.declarations.indexOf(declarator)
+          declaration !== undefined && declarator !== undefined
+            ? declaration.declarations.indexOf(declarator)
             : -1,
       };
 };

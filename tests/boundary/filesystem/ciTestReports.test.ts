@@ -112,17 +112,27 @@ it("merges available failed-shard diagnostics and skips unavailable shard report
   );
   const command = steps[gate]?.run;
   if (command === undefined) throw new Error("Missing shard result gate");
+  const shellCommand =
+    process.platform === "win32" ? command.replaceAll("$", "\\$") : command;
+  const runGate = (environment: Record<string, string>) =>
+    execute(
+      "bash",
+      [
+        "-c",
+        `${Object.entries(environment)
+          .map(([name, value]) => `export ${name}=${JSON.stringify(value)};`)
+          .join(" ")}\n${shellCommand}`,
+      ],
+      { env: { ...process.env, ...environment } },
+    );
   for (const tier of ["fast", "full"]) {
     for (const shard of ["success", "failure", "cancelled", "skipped", ""]) {
       for (const source of ["success", "failure", "cancelled", "skipped", ""]) {
-        const check = execute("bash", ["-c", command], {
-          env: {
-            ...process.env,
-            CODE_REQUIRED: "true",
-            SHARD_RESULT: shard,
-            SOURCE_REQUIRED: String(tier === "fast"),
-            SOURCE_RESULT: source,
-          },
+        const check = runGate({
+          CODE_REQUIRED: "true",
+          SHARD_RESULT: shard,
+          SOURCE_REQUIRED: String(tier === "fast"),
+          SOURCE_RESULT: source,
         });
         if (shard === "success" && (tier !== "fast" || source === "success"))
           await expect(check).resolves.toMatchObject({ stderr: "" });
@@ -131,9 +141,7 @@ it("merges available failed-shard diagnostics and skips unavailable shard report
     }
   }
   await expect(
-    execute("bash", ["-c", command], {
-      env: { ...process.env, CODE_REQUIRED: "false", SHARD_RESULT: "skipped" },
-    }),
+    runGate({ CODE_REQUIRED: "false", SHARD_RESULT: "skipped" }),
   ).resolves.toMatchObject({ stderr: "" });
 });
 
@@ -344,9 +352,11 @@ it("runs the existing onboarding and Python producer guards from their selected 
   expect(deep?.steps.some((step) => step.run === "npm run check:ci:deep")).toBe(
     true,
   );
-  expect(scripts["check:ci:deep"]).toContain("npm run test:python");
+  expect(scripts["check:ci:deep"]).toContain(
+    "node scripts/run-script.mjs test:python",
+  );
   expect(scripts["check:ci:fast"]).toBe(
-    "node scripts/run-exclusive.mjs artifacts npm run check:ci:fast:tasks",
+    "node scripts/run-exclusive.mjs artifacts node scripts/run-script.mjs check:ci:fast:tasks",
   );
   expect(scripts["check:ci:fast:tasks"]).toBe(
     "turbo run typecheck lint:built format:check",
