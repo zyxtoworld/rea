@@ -5,6 +5,7 @@ import type { AnalysisProviderSelector } from "../contracts/providerSelection.js
 import type { GhidraLanguageOverride } from "./ghidraLanguageOverride.js";
 import type { McpInputSchemaProfile } from "./mcpInputSchemaProfile.js";
 import type { McpOutputSchemaProfile } from "./mcpOutputSchemaProfile.js";
+import type { ToolCatalogSelection } from "./mcpToolProfile.js";
 import type { BridgeMaxRequestBytes } from "./bridgeMaxRequestBytes.js";
 import type { RegexMatchingDeadline } from "./regexMatchingDeadline.js";
 import type { RegexWorkerHeapRequest } from "./regexWorkerHeapRequest.js";
@@ -13,6 +14,7 @@ export interface AppConfig {
   readonly mcpMaxResponseBytes?: number;
   readonly mcpInputSchemaProfile?: McpInputSchemaProfile;
   readonly mcpOutputSchemaProfile?: McpOutputSchemaProfile;
+  readonly mcpToolProfile?: ToolCatalogSelection;
   readonly analysisProvider: AnalysisProviderSelector;
   readonly idaMcpConfigPath?: string;
   readonly ghidraInstallDir: string | undefined;

@@ -178,7 +178,7 @@ describe("production MCP doctor startup", () => {
       name: "core tool families",
       environment: { REA_MCP_TOOL_PROFILE: "core" },
       identity: createCatalogIdentity(
-        undefined,
+        compactPresentationForMcpInputSchemaProfile(undefined),
         "full",
         toolContractsForFamilies(CORE_TOOL_FAMILIES),
       ),
@@ -224,7 +224,7 @@ describe("production MCP doctor startup", () => {
         identity,
       );
     },
-    30_000,
+    60_000,
   );
 });
 

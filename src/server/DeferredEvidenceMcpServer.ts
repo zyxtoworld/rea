@@ -8,6 +8,8 @@ import type {
 import type { PromptCompletionSource } from "./promptCompletion.js";
 import type { RecordedMcpCatalog } from "../recordedMcpCatalog.js";
 import type { ToolResultDelivery } from "./toolResult.js";
+import type { ToolContract } from "../contracts/toolContractTypes.js";
+import type { createCatalogIdentity } from "../catalogIdentity.js";
 import {
   EvidenceMcpServerCore,
   currentMcpRequestSignal,
@@ -60,6 +62,8 @@ export class DeferredEvidenceMcpServer extends EvidenceMcpServerCore {
     private readonly initialize: (
       server: DeferredEvidenceMcpServer,
     ) => Promise<void>,
+    advertisedContracts: readonly ToolContract[] | undefined = undefined,
+    identity: ReturnType<typeof createCatalogIdentity> = catalog.identity,
   ) {
     super(
       catalog.info,
@@ -71,9 +75,11 @@ export class DeferredEvidenceMcpServer extends EvidenceMcpServerCore {
       delivery,
       undefined,
       false,
-      catalog.identity,
+      identity,
     );
-    this.advertisedToolNames = new Set(catalog.tools.map(({ name }) => name));
+    this.advertisedToolNames = new Set(
+      (advertisedContracts ?? catalog.tools).map(({ name }) => name),
+    );
     for (const tool of catalog.tools) {
       const { name, inputSchema, outputSchema, ...metadata } = tool;
       let binding: DeferredTool;
@@ -127,6 +133,7 @@ export class DeferredEvidenceMcpServer extends EvidenceMcpServerCore {
         }) as InputCallback,
       );
       binding = { registered, input: inputSchema, output: outputSchema };
+      if (!this.advertisedToolNames.has(name)) registered.disable();
       this.tools.set(name, binding);
     }
     const completion = {

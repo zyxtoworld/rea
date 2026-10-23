@@ -4,15 +4,18 @@ import {
   STDIO_DEFAULT_MAX_BUFFER_SIZE,
   type McpRequestContext,
 } from "@modelcontextprotocol/server";
+import type { AppConfig } from "../config/types.js";
+import { createCatalogIdentity } from "../catalogIdentity.js";
+import {
+  compactPresentationForMcpInputSchemaProfile,
+  resolveMcpInputSchemaProfile,
+  type McpInputSchemaProfile,
+} from "../config/mcpInputSchemaProfile.js";
+import { toolContractsForFamilies } from "../contracts/toolContracts.js";
 import {
   RECORDED_MCP_CATALOG_SHA256,
   type RecordedMcpCatalog,
 } from "../recordedMcpCatalog.js";
-import type { AppConfig } from "../config/types.js";
-import {
-  resolveMcpInputSchemaProfile,
-  type McpInputSchemaProfile,
-} from "../config/mcpInputSchemaProfile.js";
 import { DeferredEvidenceMcpServer } from "../server/DeferredEvidenceMcpServer.js";
 import { ToolResultDelivery } from "../server/ToolResultDelivery.js";
 import { createLogger } from "../logger.js";
@@ -122,6 +125,16 @@ export const runDeferred = async (
     layer: "server",
   });
   const profile = resolveMcpInputSchemaProfile(config.mcpInputSchemaProfile);
+  const advertisedContracts =
+    config.mcpToolProfile === undefined ||
+    config.mcpToolProfile.profile === "full"
+      ? undefined
+      : toolContractsForFamilies(config.mcpToolProfile.families);
+  const catalogIdentity = createCatalogIdentity(
+    compactPresentationForMcpInputSchemaProfile(profile),
+    config.mcpOutputSchemaProfile ?? "full",
+    advertisedContracts,
+  );
   let firstCatalog: RecordedMcpCatalog | undefined = readCatalog(profile);
   const servers = new OwnedMcpServers<DeferredEvidenceMcpServer>();
   let handle: McpServerHandle | undefined;
@@ -201,6 +214,8 @@ export const runDeferred = async (
                   dependencies.setExitCode(1);
                   throw cause;
                 }),
+              advertisedContracts,
+              catalogIdentity,
             );
             return server;
           });
