@@ -50,6 +50,27 @@ git submodule update --init third_party/binwalk third_party/unblob
 Normal REA builds and npm packages do not include or build these sources or
 engine binaries. See [upstream provenance](https://github.com/morluto/rea/blob/main/third_party/README.md).
 
+### Windows submodule checkout
+
+On Windows, the Unblob checkout stops with `error: invalid path`. Several
+upstream test fixture names under `tests/integration/` contain characters,
+trailing dots, or trailing spaces that NTFS does not allow; REA does not use
+those fixtures. Keep the clone, exclude that directory, and retry from the
+repository root in PowerShell:
+
+```powershell
+git -C third_party/unblob config core.protectNTFS false
+git -C third_party/unblob sparse-checkout set --no-cone '/*' '!/tests/integration/'
+git submodule update third_party/unblob
+```
+
+Both settings are required. While `core.protectNTFS` is enabled, Git for
+Windows also rejects index paths that the sparse pattern excludes; the pattern
+keeps the invalid names out of the worktree. The setting applies only to the
+Unblob submodule. In Git Bash, prefix the `sparse-checkout` command with
+`MSYS_NO_PATHCONV=1`; otherwise `!/tests/integration/` is rewritten as a
+Windows path.
+
 ## CLI and MCP
 
 ```sh
@@ -183,6 +204,9 @@ tree semantics, vulnerability scanning, emulation or hardware runtime capture.
   120 CPU seconds and zero core-dump allowance through `prlimit`.
 - JSON reports: at most **8 MiB** and valid UTF-8; malformed encoding and
   oversized reports fail without repairing or truncating producer data.
+  Exit status 0 is not an empty result: a missing, empty, malformed or
+  oversized report fails with `unreadable_output`, its `report_state`, the
+  command, exit status and captured output. REA does not retry automatically.
   Diagnostic output is bounded with exact captured byte counts.
 - Default staging budget: **256 MiB** and **10,000 entries**, configurable using
   `max_output_bytes` / `max_output_files` (CLI `--max-output-bytes` /

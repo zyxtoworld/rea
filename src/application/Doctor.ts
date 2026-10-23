@@ -8,7 +8,7 @@ import { ArtifactReaderFailure } from "../artifacts/ArtifactReader.js";
 import { AnalysisCleanupLease } from "../artifacts/AnalysisCleanupLease.js";
 import { STARTUP_OWNER_CLOSED } from "../process/SharedStartupAttempt.js";
 import { constants } from "node:fs";
-import { access, readdir, stat } from "node:fs/promises";
+import { access, stat } from "node:fs/promises";
 import { ArtifactResourceScope } from "../artifacts/ArtifactResourceScope.js";
 import type { RetainedResourceScope } from "./AnalysisProvider.js";
 import { nativeAnalysisConfigurationError } from "../config/parseConfig.js";
@@ -27,10 +27,7 @@ import {
   type JavaScriptRuntime,
 } from "../domain/runtimeVersion.js";
 import { installedCaskAppdir, probeHomebrew } from "./homebrew.js";
-import {
-  macHopperApplicationRoots,
-  macHopperRenamedLauncherCandidates,
-} from "./MacHopperPaths.js";
+import { readMacHopperRenamedLauncherCandidates } from "./MacHopperPaths.js";
 import {
   inspectLinuxHopperLauncher,
   linuxSharedLibrariesAvailable,
@@ -45,7 +42,7 @@ import {
   type InstalledSkillIdentity,
   type SkillPathIssue,
 } from "./SetupSkill.js";
-import { CATALOG_IDENTITY } from "../catalogIdentity.js";
+import { DEFAULT_CATALOG_IDENTITY } from "../catalogIdentity.js";
 import { PRODUCT_IDENTITY, SDK_IDENTITY } from "../identity.js";
 import {
   readClientRegistrationStatuses,
@@ -128,7 +125,9 @@ export interface DoctorHost {
     path: string,
   ): Promise<Result<VerifiedLinuxHopperLauncher, HopperReleaseError>>;
   linuxDemoRuntimeCheck(): Promise<DoctorCheck>;
+  /** Homebrew cask launcher; consulted only where macOS bundles are probed. */
   brewHopperPath(): Promise<string | undefined>;
+  /** Renamed `Hopper*.app` launchers; consulted only where macOS bundles are probed. */
   manualHopperPaths(): Promise<readonly string[]>;
   providerInspections?(): Promise<readonly DoctorProviderInspection[]>;
   /** Resolve a parsed upstream request budget from the effective client environment. */
@@ -178,7 +177,8 @@ interface DoctorIdentity {
   readonly cli_package_version: string;
   readonly expected_skill_version: string;
   readonly sdk: typeof SDK_IDENTITY;
-  readonly catalog: typeof CATALOG_IDENTITY;
+  /** Package default advertisement; the active server reports its selected profile. */
+  readonly catalog: typeof DEFAULT_CATALOG_IDENTITY;
   readonly live_server: {
     readonly state: "unknown";
     readonly remediation: string;
@@ -390,8 +390,8 @@ const collectDoctorIdentity = async (
       expected_skill_version: PRODUCT_IDENTITY.skillVersion,
       sdk: SDK_IDENTITY,
       catalog: {
-        counts: CATALOG_IDENTITY.counts,
-        digests: CATALOG_IDENTITY.digests,
+        counts: DEFAULT_CATALOG_IDENTITY.counts,
+        digests: DEFAULT_CATALOG_IDENTITY.digests,
       },
       live_server: {
         state: "unknown",
@@ -422,7 +422,7 @@ const skillIdentityAligned = (
   identity: InstalledSkillIdentity | undefined,
 ): boolean =>
   identity?.version === PRODUCT_IDENTITY.skillVersion &&
-  identity.toolCount === CATALOG_IDENTITY.counts.mcp_tools &&
+  identity.toolCount === DEFAULT_CATALOG_IDENTITY.counts.mcp_tools &&
   identity.canonical;
 
 const skillIdentityState = (
@@ -565,7 +565,7 @@ export const systemDoctorHost = (
       : { configuredIlspyCmdPath: environment.REA_ILSPY_CMD_PATH }),
     macosVersion: () =>
       readMacosVersion(hostExecFileOutput, commandEnvironment),
-    linuxDistribution: readLinuxDistribution,
+    linuxDistribution: () => readLinuxDistribution(architecture),
     async validTarget(path) {
       return (
         await parseBinaryTarget(path, {
@@ -644,7 +644,8 @@ export const systemDoctorHost = (
           : join(appdir, "Hopper Disassembler.app/Contents/MacOS/hopper");
       });
     },
-    manualHopperPaths: () => manualHopperPaths(homeDirectory),
+    manualHopperPaths: () =>
+      readMacHopperRenamedLauncherCandidates(homeDirectory),
     ...(options.providerInspections === undefined
       ? {}
       : {
@@ -775,25 +776,6 @@ const uncomposedLinuxDemoRuntimeCheck = (): Promise<DoctorCheck> =>
     detail: "Linux Hopper private-display diagnostics were not composed",
     remediation: "Run rea doctor through the production CLI adapter.",
   });
-
-const manualHopperPaths = async (home: string): Promise<readonly string[]> => {
-  const roots = macHopperApplicationRoots(home);
-  const bundleNamesByRoot = new Map<string, readonly string[]>();
-  for (const root of roots) {
-    try {
-      bundleNamesByRoot.set(
-        root,
-        (await readdir(root, { withFileTypes: true }))
-          .filter((entry) => entry.isDirectory())
-          .map(({ name }) => name),
-      );
-    } catch (cause: unknown) {
-      // A missing or unreadable optional application directory is not fatal.
-      void cause;
-    }
-  }
-  return macHopperRenamedLauncherCandidates(home, bundleNamesByRoot);
-};
 
 const uniqueLines = (value: string): string[] => [
   ...new Set(

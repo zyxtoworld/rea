@@ -6,10 +6,12 @@ import type {
   RetainedResourceScope,
   ProviderIdentity,
 } from "../application/AnalysisProvider.js";
+import { createFunctionCoordinateContext } from "../domain/native/functionCoordinateContext.js";
 import { createAnalysisProfile } from "../domain/analysisProfile.js";
 import {
   isMachOFormat,
   isElfMetadataArchitecture,
+  type BinaryArchitecture,
   type BinaryTarget,
   type ElfMetadataArchitecture,
   type HeaderArchitecture,
@@ -135,6 +137,16 @@ const resolveHopperAnalysisProfileInScope = async (
   };
   return ok({
     profile: createAnalysisProfile(provider, {
+      ...(target.kind === "executable" &&
+      options.loaderArgsOverride.length === 0 &&
+      (machoContainer === undefined || targetSelection !== undefined)
+        ? {
+            function_coordinate_context: createFunctionCoordinateContext(
+              { loader_arguments: [...loaderArgs] },
+              targetSelection ?? null,
+            ),
+          }
+        : {}),
       target_kind: target.kind,
       target_format: target.format,
       function_dossier_coverage: "observed-facets-and-call-relationships-v1",
@@ -173,10 +185,25 @@ const HOPPER_DECLINED_ARCHITECTURE_LABELS: Record<
   hexagon: "Hexagon",
 };
 
+/** Families with no verified Hopper lane, declined before any loader selection. */
+export type HopperDeclinedArchitecture =
+  | ElfMetadataArchitecture
+  | "hexagon"
+  | "arm64_32";
+
+export const isHopperDeclinedArchitecture = (
+  architecture: BinaryArchitecture,
+): architecture is HopperDeclinedArchitecture =>
+  isElfMetadataArchitecture(architecture) ||
+  architecture === "hexagon" ||
+  architecture === "arm64_32";
+
 export const hopperDeclinedArchitectureReason = (
-  architecture: ElfMetadataArchitecture | "hexagon",
+  architecture: HopperDeclinedArchitecture,
 ): string =>
-  `REA's Hopper adapter does not admit ${HOPPER_DECLINED_ARCHITECTURE_LABELS[architecture]} targets. Select a verified Ghidra ${HOPPER_DECLINED_ARCHITECTURE_LABELS[architecture]} profile instead.`;
+  architecture === "arm64_32"
+    ? "REA's Hopper adapter has no verified arm64_32 lane."
+    : `REA's Hopper adapter does not admit ${HOPPER_DECLINED_ARCHITECTURE_LABELS[architecture]} targets. Select a verified Ghidra ${HOPPER_DECLINED_ARCHITECTURE_LABELS[architecture]} profile instead.`;
 
 /** Derive Hopper's complete non-interactive CLI loader selection. */
 export const hopperLoaderArgsForTarget = (
@@ -192,7 +219,7 @@ export const hopperLoaderArgsForTarget = (
   if (target.format === "raw-binary")
     return err(new ProviderAdapterError("hopper", "resolve_analysis_profile"));
   const architecture = target.architecture;
-  if (isElfMetadataArchitecture(architecture) || architecture === "hexagon")
+  if (isHopperDeclinedArchitecture(architecture))
     return err(
       new AnalysisCapabilityUnavailableError(
         "hopper",

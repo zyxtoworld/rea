@@ -1,3 +1,4 @@
+import { resolveAsarHeaderAdmission } from "../AsarHeader.js";
 import { locateGodotPck } from "../GodotPckLocation.js";
 import { withArtifactRegularFile } from "../ArtifactFileOperation.js";
 import type { ArtifactCleanupAttempt } from "../ArtifactResourceScope.js";
@@ -15,7 +16,9 @@ import {
   ArtifactReaderFailure,
   type ArtifactEntry,
   type ArtifactReader,
+  type ArtifactReaderTraversal,
 } from "../ArtifactReader.js";
+import { ArtifactTraversalObservation } from "../ArtifactTraversalObservation.js";
 import { abortIfNeeded } from "../ArtifactHash.js";
 import { DirectoryArtifactReader } from "../DirectoryArtifactReader.js";
 import { SafeOutputTree } from "../SafeOutputTree.js";
@@ -29,19 +32,16 @@ import {
   artifactExtractionResultSchema,
   type ArtifactExtractionResult,
   type ArtifactGraphManifest,
+  type ArtifactCommand,
   type ArtifactNode,
   type ArtifactOccurrence,
-  type IntegrityContradiction,
 } from "../../domain/artifactGraph.js";
 import { AnalysisUnsupportedTargetError } from "../../domain/analysisErrorCore.js";
 import type {
   ArtifactResourceOwner,
   ArtifactResourceScope,
 } from "../ArtifactResourceScope.js";
-import {
-  isMachOFormat,
-  type BinaryTarget,
-} from "../../domain/binaryTargetTypes.js";
+import type { BinaryTarget } from "../../domain/binaryTargetTypes.js";
 import type { ArtifactInventorySnapshot } from "../../domain/artifactInventorySnapshot.js";
 import { scanArtifactInventoryInScope } from "../inventory/ArtifactInventory.js";
 import type { ArtifactIntegrityPolicyName } from "../../domain/artifactIntegrityPolicy.js";
@@ -75,6 +75,7 @@ const extractArtifactInScope = async (
     resourceScope: input.resourceScope,
     signal,
     environment: input.environment,
+    asarHeaderAdmission: resolveAsarHeaderAdmission(input.environment),
     integrity: { mode: input.integrityPolicy },
   });
   return materializeArtifactInventoryInScope(
@@ -124,6 +125,11 @@ const materializeArtifactInventoryInScope = async (
   const regularPaths = new Set(
     selectedOccurrences.map(({ logical_path: path }) => path),
   );
+  const directoryPaths = new Set(
+    snapshot.occurrences
+      .filter(({ entry_kind }) => entry_kind === "directory")
+      .map(({ logical_path }) => logical_path),
+  );
   const activeOccurrences = selectedOccurrences.filter(({ logical_path }) => {
     // Nested members remain represented by their containing regular file;
     // only entries exposed by the active reader are materialized.
@@ -134,25 +140,16 @@ const materializeArtifactInventoryInScope = async (
       slash = path.lastIndexOf("/")
     ) {
       path = path.slice(0, slash);
-      if (regularPaths.has(path)) return false;
+      if (regularPaths.has(path) && !directoryPaths.has(path)) return false;
     }
     return true;
   });
-  const selectedIds = new Set(
-    activeOccurrences.map(({ occurrence_id: id }) => id),
-  );
   const neededNodes = new Set(
     activeOccurrences.map(({ artifact_id: id }) => id),
   );
   const nodes = new Map<string, ArtifactNode>();
   for (const node of snapshot.nodes)
     if (neededNodes.has(node.artifact_id)) nodes.set(node.artifact_id, node);
-  const inventory: ExtractionInventory = {
-    manifest: snapshot.manifest,
-    integrityContradictions: snapshot.integrity_contradictions.filter(
-      ({ occurrence_id: id }) => selectedIds.has(id),
-    ),
-  };
   const selected = activeOccurrences.map((occurrence) => {
     // REA never decrypts archive entries, so an encrypted entry makes the
     // complete extraction unsupported rather than the archive invalid.
@@ -200,7 +197,7 @@ const materializeArtifactInventoryInScope = async (
   return materializeSelection({
     input,
     sourcePath,
-    inventory,
+    inventory: snapshot,
     selected,
     signal,
   });
@@ -228,7 +225,7 @@ const materializeSelection = async ({
 }: {
   readonly input: ArtifactExtractionInput;
   readonly sourcePath: string;
-  readonly inventory: ExtractionInventory;
+  readonly inventory: ArtifactInventorySnapshot;
   readonly selected: readonly SelectedOccurrence[];
   readonly signal: AbortSignal | undefined;
 }): Promise<ArtifactExtractionResult> => {
@@ -265,7 +262,19 @@ const materializeSelection = async ({
       if (cause instanceof SafeOutputTreeCreationFailure) output = cause.tree;
       throw cause;
     }
-    await writeSelectedEntries({ reader, output, byPath, extracted, signal });
+    const traversal = new ArtifactTraversalObservation();
+    traversal.onCoverage({
+      status: inventory.coverage.status,
+      limitations: inventory.limitations,
+    });
+    await writeSelectedEntries({
+      reader,
+      output,
+      byPath,
+      extracted,
+      traversal,
+      signal,
+    });
     localReaderOwner = undefined;
     const closeAttempt = await input.resourceScope.release(readerOwner);
     if (closeAttempt.kind === "failed")
@@ -275,7 +284,14 @@ const materializeSelection = async ({
     extracted.sort((left, right) =>
       compareUnicodeCodePoints(left.relative_path, right.relative_path),
     );
-    completed = createExtractionResult(input, inventory, selected, extracted);
+    completed = createExtractionResult(
+      input,
+      inventory,
+      selected,
+      extracted,
+      traversal.snapshot(),
+      reader.provenance(),
+    );
     await output.commit(signal);
     return completed;
   } catch (cause: unknown) {
@@ -305,16 +321,18 @@ const writeSelectedEntries = async ({
   output,
   byPath,
   extracted,
+  traversal,
   signal,
 }: {
   readonly reader: ArtifactReader;
   readonly output: SafeOutputTree;
   readonly byPath: Map<string, SelectedOccurrence>;
   readonly extracted: ExtractedOccurrence[];
+  readonly traversal: ArtifactTraversalObservation;
   readonly signal: AbortSignal | undefined;
 }): Promise<void> => {
   const registry = new ArtifactPathRegistry();
-  for await (const entry of reader.entries(signal)) {
+  for await (const entry of reader.entries(signal, traversal)) {
     const path = normalizeArtifactPath(entry.path);
     registry.add(path, entry.kind);
     // Logical declarations may share a query path with a real file. They do
@@ -382,10 +400,18 @@ const releaseExtractionOwners = async (
 
 const createExtractionResult = (
   input: ArtifactExtractionInput,
-  inventory: ExtractionInventory,
+  inventory: ArtifactInventorySnapshot,
   selected: readonly SelectedOccurrence[],
   extracted: readonly ExtractedOccurrence[],
+  traversal: ArtifactReaderTraversal,
+  materializationProvenance: readonly ArtifactCommand[],
 ): ArtifactExtractionResult => {
+  const selectedIds = new Set(
+    selected.map(({ occurrence }) => occurrence.occurrence_id),
+  );
+  const integrityContradictions = inventory.integrity_contradictions.filter(
+    ({ occurrence_id: id }) => selectedIds.has(id),
+  );
   const extractionSemantic = {
     source_manifest_id: inventory.manifest.manifest_id,
     selected_occurrence_ids: selected
@@ -404,23 +430,31 @@ const createExtractionResult = (
     artifacts: extracted,
     containment_verified: true,
     cleanup: { attempted: false, verified: true, residual_paths: [] },
-    provenance: [],
-    integrity_contradictions: inventory.integrityContradictions,
+    provenance: [...inventory.provenance, ...materializationProvenance],
+    coverage: {
+      ...inventory.coverage,
+      status: traversal.status,
+    },
+    integrity_contradictions: integrityContradictions,
     limitations: [
-      "All regular files in the active artifact were materialized; nested archive contents remain represented by their containing file.",
-      ...(inventory.integrityContradictions.length === 0
+      ...traversal.limitations,
+      ...selected.flatMap(({ occurrence }) =>
+        occurrence.limitations.map(
+          (limitation) => `${occurrence.logical_path}: ${limitation}`,
+        ),
+      ),
+      traversal.status === "complete"
+        ? "All regular files in the active artifact were materialized; nested archive contents remain represented by their containing file."
+        : "All inventoried regular files exposed by the active reader were materialized; source traversal coverage is unknown, so the output is not established as a complete source copy. Nested archive contents remain represented by their containing file.",
+      "Publication verifies the selected inventoried regular files; it does not establish complete content decoding.",
+      ...(integrityContradictions.length === 0
         ? []
         : [
-            `${String(inventory.integrityContradictions.length)} extracted file(s) contradict declared integrity metadata; their bytes are observed-untrusted.`,
+            `${String(integrityContradictions.length)} extracted file(s) contradict declared integrity metadata; their bytes are observed-untrusted.`,
           ]),
     ],
   });
 };
-
-interface ExtractionInventory {
-  readonly manifest: ArtifactGraphManifest;
-  readonly integrityContradictions: readonly IntegrityContradiction[];
-}
 
 /**
  * Refuse a format without an extraction reader before inventory work starts.
@@ -437,11 +471,14 @@ const requireExtractableFormat = async (
 ): Promise<boolean> => {
   const format = input.inputFormat;
   const directory = (await lstat(path)).isDirectory();
+  // A thin Mach-O has no child entries of its own: inventory lists only its
+  // root unless it carries an embedded pack, so it takes the same pack probe
+  // as ELF and PE while only the universal container has a slice reader.
   if (
     !directory &&
     format !== "asar" &&
     format !== "godot-pck" &&
-    !isMachOFormat(format) &&
+    format !== "mach-o-universal" &&
     !isZipPackageFormat(format)
   ) {
     const pack = await withArtifactRegularFile(
@@ -451,7 +488,8 @@ const requireExtractableFormat = async (
       async (handle) => {
         const size = (await handle.stat()).size;
         if (await locateGodotPck(handle, size, signal)) return true;
-        if (format !== "elf" && format !== "pe") return false;
+        if (format !== "elf" && format !== "pe" && format !== "mach-o")
+          return false;
         abortIfNeeded(signal);
         const packaged = await containsPyInstallerArchive(handle, size, signal);
         abortIfNeeded(signal);
@@ -483,7 +521,10 @@ const createReader = async (
     return new PyInstallerArtifactReader(path);
   if (await requireExtractableFormat(path, input, signal))
     return new DirectoryArtifactReader(path);
-  if (format === "asar") return new AsarArtifactReader(path);
+  if (format === "asar")
+    return new AsarArtifactReader(path, {
+      headerAdmission: resolveAsarHeaderAdmission(input.environment),
+    });
   if (isZipPackageFormat(format)) return new ZipArtifactReader(path, format);
   return new MachOSliceArtifactReader(path, input.environment);
 };

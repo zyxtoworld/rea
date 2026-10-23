@@ -5,6 +5,7 @@ import {
   AnalysisOutputError,
   AnalysisResourceConstraintError,
 } from "../../domain/analysisErrorCore.js";
+import { fixedAllowanceOptions } from "../../domain/fixedAllowanceRemediation.js";
 import type { JsonValue } from "../../domain/jsonValue.js";
 import {
   binaryDatePrecisionOverlapLimitation,
@@ -31,16 +32,28 @@ import {
 import {
   decodeBinaryPlistScalars,
   scanBinaryPlistScalars,
+  UnsupportedBinaryPlistUidError,
 } from "../../artifacts/apple/PlistScalars.js";
 import {
   estimateBinaryPlistExpansion,
+  MAX_BINARY_PLIST_NESTING_DEPTH,
   PropertyListDecodeBudgetFailure,
 } from "../../artifacts/apple/PropertyListDecodeBudget.js";
 import { hasBinaryPlistSignature } from "../../domain/apple/appleArchiveFormat.js";
 
-/** Input ceiling matches native command output; projection is bounded separately. */
+/**
+ * Input ceiling matches native command output; projection is bounded separately.
+ * Provisional byte allowance. This release has no runtime override.
+ */
 export const MAX_NATIVE_PLIST_BYTES = 64 * 1024 * 1024;
+/** Provisional decode allowance. This release has no runtime override. */
 const MAX_NATIVE_PLIST_DECODE_BYTES = 64 * 1024 * 1024;
+
+const mebibytes = (bytes: number): string =>
+  `${String(bytes / (1024 * 1024))} MiB`;
+
+/** Recovery name for the fixed source-size ceiling. */
+export const NATIVE_PLIST_INPUT_ALLOWANCE = `the fixed ${mebibytes(MAX_NATIVE_PLIST_BYTES)} (${String(MAX_NATIVE_PLIST_BYTES)}-byte) native plist input allowance (no runtime override)`;
 
 const plistObject = z.record(z.string(), z.unknown());
 
@@ -236,7 +249,9 @@ export const parsePlistBinary = (
   bytes: Buffer,
 ): Result<
   ParsedPlist,
-  AnalysisOutputError | AnalysisResourceConstraintError
+  | AnalysisOutputError
+  | AnalysisResourceConstraintError
+  | UnsupportedBinaryPlistUidError
 > => {
   try {
     if (!hasBinaryPlistSignature(bytes))
@@ -281,14 +296,25 @@ export const parsePlistBinary = (
       ],
     });
   } catch (cause: unknown) {
+    if (cause instanceof UnsupportedBinaryPlistUidError) return err(cause);
     if (cause instanceof PropertyListDecodeBudgetFailure)
       return err(
         new AnalysisResourceConstraintError(
           "inspect_plist",
           "memory",
           cause.message,
-          { maximum_decoded_bytes: MAX_NATIVE_PLIST_DECODE_BYTES },
-          { cause, retryable: false },
+          cause.kind === "depth"
+            ? { maximum_nesting_depth: MAX_BINARY_PLIST_NESTING_DEPTH }
+            : { maximum_decoded_bytes: MAX_NATIVE_PLIST_DECODE_BYTES },
+          {
+            cause,
+            ...fixedAllowanceOptions(
+              cause.kind === "depth"
+                ? `The ${String(MAX_BINARY_PLIST_NESTING_DEPTH)}-level native binary plist nesting allowance (no runtime override)`
+                : `The ${mebibytes(MAX_NATIVE_PLIST_DECODE_BYTES)} (${String(MAX_NATIVE_PLIST_DECODE_BYTES)}-byte) native binary plist decode allowance (no runtime override)`,
+              "parser",
+            ),
+          },
         ),
       );
     return err(

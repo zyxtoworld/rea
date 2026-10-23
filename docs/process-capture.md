@@ -252,7 +252,14 @@ Successfully observed identity replacements use `identity_changed` with a null
 system code. Unstable symlink targets are omitted; already observed directory
 metadata remains available. The affected root stays incomplete, so omitted
 entries do not prove deletion. A path missing at its initial lookup remains an
-observed absence. Cancellation and unexpected I/O failures still stop capture.
+observed absence.
+
+Before launch, a selected root below a non-directory, or one whose lookup is
+denied or otherwise unavailable, fails capture. After admission, a root or descendant lookup that
+reports a missing path or a non-directory ancestor is an observed absence. A
+denied or otherwise unavailable lookup records an `entry_unavailable` omission
+for that path instead, and its root stays incomplete. Cancellation and
+unexpected I/O failures still stop capture.
 
 Terminal frame `data` is the comparison text after the selected normalization.
 New captures also preserve `raw_data` when normalization changes a PTY chunk;
@@ -261,6 +268,13 @@ original text for changed chunks. Both values participate in Evidence identity,
 while comparisons and trace assertions use the normalized text. Retaining the
 original adds at most `limits.output_bytes` of text, because it comes from the
 same admitted PTY chunks rather than a second unbounded stream.
+
+When path normalization is enabled, aliases apply to selected path identities
+at clear text delimiters. A selected executable path does not alias a longer
+sibling filename such as `tool-helper`; selected parent directories still
+normalize within descendant paths. The comparison contract records these rules as
+`path-component-boundaries-v2`, so captures made with the earlier prefix rules
+cannot be compared as if the text had the same meaning.
 
 Rendered frame `lines` hold the visible rows after normalization, with trailing
 U+0020 spaces removed. Blank rows and internal spaces remain. `columns` records
@@ -327,6 +341,10 @@ to a bare PID kill for either finalization signal; failed identity or ownership
 validation is recorded as `unverified` with its reason. Cancellation before any
 deadline keeps the existing terminal kill. Descendants are not signalled during
 finalization; owned-process cleanup handles them afterwards.
+
+For an `exited` capture, `exit.code` is the target's normal exit code. It is
+`null` when the target ended on a signal, such as one sent by a scenario
+`signal` event, and the observed signal stays in `exit.signal`.
 
 `exit.reason` keeps the initiating deadline (`timeout` or `idle_timeout`).
 `exit.code` is `null` for every deadline exit; the code of an exit observed
@@ -544,6 +562,15 @@ an unset or empty compiler setting keeps the normal `xcrun swiftc` path. A
 missing or relative SDK/compiler path fails with an actionable prerequisite
 error before compilation. An incompatible installation reports the compiler's
 bounded diagnostics; REA does not repair or replace the toolchain.
+
+The compile deadline is `REA_SWIFTC_COMPILE_TIMEOUT_MS`. An omitted value is
+120,000 ms, and accepted values are integers from 1 to 2,147,483,647. REA reads
+the variable from the environment that starts the process and keeps that
+deadline for every helper compile in that process. Restart REA to apply a
+change; the next ownership-helper compile uses the new value. A timeout names
+the effective milliseconds. Invalid values fail configuration validation at
+startup. Embedded compiler diagnostics are cut at 512 bytes, and this release
+has no runtime override for that excerpt.
 
 For example, select paths from your existing Xcode or Command Line Tools
 installation **before** entering an enforced write boundary:

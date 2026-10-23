@@ -343,6 +343,7 @@ describe("parsePmPathOutput", () => {
     const devicePath = "/data/app/My App/résumé:final\\draft*.apk";
     const { paths, rejectedPaths, unparsedLines } = parsePmPathOutput(
       `package:${devicePath}\r\n`,
+      "linux",
     );
     if (process.platform === "win32") {
       expect(paths).toEqual([]);

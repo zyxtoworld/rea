@@ -4,6 +4,7 @@ import {
   type JavaScriptSemanticAnalysisState,
 } from "./javascriptSemanticState.js";
 import {
+  isRuntimeJavaScriptClassProperty,
   semanticStaticPropertyKey,
   unwrapJavaScriptExpression,
 } from "./javascriptAstValues.js";
@@ -118,7 +119,7 @@ const instanceFieldReferences = (
         ? current.klass.body.body
         : current.klass.body.body.slice(0, before);
     for (const member of [...members].reverse()) {
-      if (!t.isClassProperty(member) || member.static) continue;
+      if (!isRuntimeJavaScriptClassProperty(member) || member.static) continue;
       const key = semanticStaticPropertyKey(member.key, member.computed);
       if (key !== null && shadowed.has(key)) continue;
       if (key !== null) shadowed.add(key);
@@ -169,10 +170,15 @@ const classPropertyDescriptors = (
       ? -1
       : klass.body.body.indexOf(initializedBefore);
   klass.body.body.forEach((member, index) => {
-    if (before >= 0 && index >= before && t.isClassProperty(member)) return;
+    if (
+      before >= 0 &&
+      index >= before &&
+      isRuntimeJavaScriptClassProperty(member)
+    )
+      return;
     if (
       (t.isClassMethod(member) ||
-        (kind === "static" && t.isClassProperty(member))) &&
+        (kind === "static" && isRuntimeJavaScriptClassProperty(member))) &&
       member.static === isStatic
     )
       indexedMembers.push({
@@ -605,6 +611,20 @@ export const semanticObjectPropertyReferences = (
   );
 };
 
+/** Select accessor descriptors without invoking them or following their return values. */
+export const semanticObjectAccessorReferences = (
+  node: t.ObjectExpression,
+  key: PropertyPath[number],
+  state: JavaScriptSemanticAnalysisState,
+  accessor: "get" | "set",
+): readonly JavaScriptSemanticObjectReference[] =>
+  new ObjectReferenceWalk(
+    node,
+    [key],
+    new SemanticGetterQuery(state),
+    accessor,
+  ).run();
+
 class ObjectReferenceWalk {
   readonly #references: JavaScriptSemanticObjectReference[] = [];
   readonly #overwritten = new Set<string>();
@@ -619,6 +639,7 @@ class ObjectReferenceWalk {
     readonly node: t.ObjectExpression,
     path: PropertyPath,
     readonly query: SemanticGetterQuery,
+    readonly accessor?: "get" | "set",
   ) {
     [this.#key, ...this.#remaining] = path;
   }
@@ -642,12 +663,14 @@ class ObjectReferenceWalk {
     const selected = this.#key ?? null;
     if (typeof selected !== "object" && this.#overwritten.has(String(selected)))
       return;
-    this.#references.push({
-      node: property.argument,
-      path: [this.#spreadKey(), ...this.#remaining],
-      capturedSelectionAt: property.argument,
-      ownEnumerable: true,
-    });
+    // Spread creates data properties; the source descriptor is not installed.
+    if (this.accessor === undefined)
+      this.#references.push({
+        node: property.argument,
+        path: [this.#spreadKey(), ...this.#remaining],
+        capturedSelectionAt: property.argument,
+        ownEnumerable: true,
+      });
     if (
       selected !== null &&
       typeof selected !== "object" &&
@@ -690,11 +713,31 @@ class ObjectReferenceWalk {
     property: t.ObjectMethod | t.ObjectProperty,
     name: string | null,
   ): void {
+    // An earlier unknown computed key cannot replace a later definite slot.
+    // Spreads obey the same overwrite proof; paired named accessors below
+    // retain their separate getter/setter semantics.
+    if (
+      name === null &&
+      this.#key != null &&
+      typeof this.#key !== "object" &&
+      (t.isObjectMethod(property) && property.kind === (this.accessor ?? "get")
+        ? this.#data.has(String(this.#key)) ||
+          (this.accessor === "set" ? this.#setters : this.#getters).has(
+            String(this.#key),
+          )
+        : this.#overwritten.has(String(this.#key)))
+    )
+      return;
     if (
       name !== null &&
       !semanticPropertyPathKeyMatches(this.#key ?? null, name)
     )
       return;
+    if (this.accessor !== undefined) {
+      if (t.isObjectMethod(property) && property.kind === this.accessor)
+        this.#references.push({ node: property, path: [] });
+      return;
+    }
     if (t.isObjectMethod(property)) {
       if (property.kind === "get")
         this.query.schedule(
