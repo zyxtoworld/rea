@@ -1,7 +1,7 @@
 import { execFile } from "node:child_process";
 import { readFile } from "node:fs/promises";
 import { createRequire } from "node:module";
-import { dirname, relative } from "node:path";
+import { dirname, relative, sep } from "node:path";
 import { promisify } from "node:util";
 import { fileURLToPath } from "node:url";
 import { requireCompleteReleaseHistory } from "./release-notes.mjs";
@@ -24,7 +24,8 @@ export async function applyReleasePleasePatch(
       "The release proposal patch requires release-please 17.3.0",
     );
   }
-  const args = ["--directory", relative(project, directory), patch];
+  const directoryPath = relative(project, directory).split(sep).join("/");
+  const args = ["--directory", directoryPath, patch];
   const check = async (reverse) => {
     try {
       await execute(
