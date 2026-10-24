@@ -15,9 +15,7 @@ describe("real Windows Ghidra workflow trust boundary", () => {
       ),
     );
 
-    expect(workflow.on).toEqual({
-      repository_dispatch: { types: ["real-ghidra-windows"] },
-    });
+    expect(workflow.on).toEqual({ workflow_dispatch: null });
     expect(workflow.permissions).toEqual({ contents: "read" });
     expect(workflow).toMatchObject({
       jobs: {

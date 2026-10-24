@@ -51,12 +51,9 @@ const readWorkflow = async () =>
       ),
     );
 
-it("runs both complete canonical sweeps independently of PR and release gates", async () => {
+it("keeps both complete canonical sweeps available for local/manual runs", async () => {
   const workflow = await readWorkflow();
-  expect(Object.keys(workflow.on).sort()).toEqual([
-    "schedule",
-    "workflow_dispatch",
-  ]);
+  expect(Object.keys(workflow.on).sort()).toEqual(["workflow_dispatch"]);
   const job = workflow.jobs.mutation;
   expect(job["continue-on-error"]).toBeUndefined();
   expect(job.if).toBeUndefined();

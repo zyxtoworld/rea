@@ -27,19 +27,23 @@ behavior, and complete CI evidence before merging.
 | `npm run docs:check`              | Generated-document validation and fresh onboarding example consistency checks                                           |
 | `npm run docs:build`              | Render VitePress documentation and apply its page-link checks; no live external-link or GitHub fragment verification    |
 
-The general source suite above runs on Linux in CI, and Windows CI runs a
-curated lane ([Native platform baseline in CI](#native-platform-baseline-in-ci)).
+The repository's GitHub workflows are intentionally manual or reusable only.
+Pushes, pull requests, schedules, repository dispatches, and workflow-run events
+do not start Actions. Use the local commands above for routine verification; a
+workflow can be invoked explicitly only when remote execution is intentionally
+needed.
+
 A Windows source checkout can fail source tests for reasons unrelated to the
 change, such as POSIX fixture paths, `#!/bin/sh` tool stubs, or POSIX rename
 semantics. Compare failures against the base revision, or run the suite on
 Linux or WSL, before attributing them to a change. See `CONTRIBUTING.md` →
 Windows source checkouts.
 
-The CI documentation lane runs both `docs:check` and `docs:build` when the
-existing change classifier selects documentation or its producing inputs.
-Generated facts and rendered page links have separate checks. VitePress does not
-establish that every external URL or GitHub-rendered localized heading exists;
-verify those destinations when editing them.
+When the documentation workflow is invoked manually, it runs both `docs:check`
+and `docs:build` for the selected revision. Generated facts and rendered page
+links have separate checks. VitePress does not establish that every external
+URL or GitHub-rendered localized heading exists; verify those destinations when
+editing them.
 
 For example:
 
@@ -213,8 +217,8 @@ Turbo caches deterministic preparation and static checks, but `test:run` always
 executes. Repository files do not fully describe installed tool contents or host
 state. A previous test pass therefore cannot replace current validation, even
 when the source tree is unchanged. `check:pr` also runs the fast Python producer
-suite; CI runs it in the static job for code changes. These producer tests do not
-establish real LLDB engine coverage.
+suite; the disabled GitHub workflows do not run it automatically. These
+producer tests do not establish real LLDB engine coverage.
 
 Vitest's persistent compile cache remains disabled. The `cliTest` fixture shares
 a temporary Node compile cache among its fresh CLI subprocesses. The worker
@@ -628,14 +632,13 @@ feedback and full qualification, including exact-revision release qualification,
 require coverage and both preflights. A failed, canceled, skipped or missing
 selected quality job still fails the required gate.
 
-The separate **Mutation sweep** workflow runs both complete configurations daily
-and on manual dispatch, in two isolated jobs. It is a maintenance check outside
-the PR and release publication gates. `ci:full` requests full regression,
+The separate **Mutation sweep** workflow is manual-only and runs both complete
+configurations in two isolated jobs. It is a maintenance check outside local
+verification and release publication gates. `ci:full` requests full regression,
 coverage and provider qualification; it does not request a complete mutation
-sweep. Use the Mutation sweep workflow to request that result. Targets,
-checkers, concurrency, deadlines and the existing non-blocking mutation-score
-threshold are unchanged. `npm run test:mutation:reverse-tools` also retains both
-complete passes for local callers.
+sweep. Use `npm run test:mutation:reverse-tools` for the same result locally.
+Targets, checkers, concurrency, deadlines, and the existing non-blocking
+mutation-score threshold are unchanged.
 
 The two passes write separate JSON and HTML reports under `reports/mutation/`:
 `reverse-tools` and `reverse-tools-semantics`. Required CI retains focused

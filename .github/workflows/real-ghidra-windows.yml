@@ -1,8 +1,7 @@
 name: Real Ghidra Windows E2E
 
 on:
-  repository_dispatch:
-    types: [real-ghidra-windows]
+  workflow_dispatch:
 
 env:
   HUSKY: "0"

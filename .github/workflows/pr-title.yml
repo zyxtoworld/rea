@@ -1,9 +1,7 @@
 name: PR title
 
 on:
-  pull_request:
-    branches: [main, "release/*"]
-    types: [opened, synchronize, reopened, edited]
+  workflow_dispatch:
 
 permissions: {}
 

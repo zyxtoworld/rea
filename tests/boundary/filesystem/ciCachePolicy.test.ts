@@ -475,10 +475,8 @@ it("deletes superseded caches only from the trusted follow-up workflow", async (
   const workflow = z
     .object({
       on: z.object({
-        workflow_run: z.object({
-          workflows: z.array(z.literal("CI")),
-          types: z.array(z.literal("completed")),
-        }),
+        workflow_dispatch: z.unknown(),
+        workflow_run: z.unknown().optional(),
         workflow_call: z.unknown().optional(),
         pull_request: z.unknown().optional(),
       }),
@@ -500,8 +498,8 @@ it("deletes superseded caches only from the trusted follow-up workflow", async (
         ),
       ),
     );
-  expect(workflow.on.workflow_call).toBeUndefined();
-  expect(workflow.on.pull_request).toBeUndefined();
+  expect(workflow.on).toHaveProperty("workflow_dispatch");
+  expect(workflow.on.workflow_run).toBeUndefined();
   expect(workflow.permissions).toEqual({
     contents: "read",
     actions: "write",

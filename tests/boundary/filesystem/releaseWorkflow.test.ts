@@ -100,13 +100,11 @@ it("validates the source before release creation and the prepared candidate befo
   }
 });
 
-it("keeps main pushes proposal-only and gates merged-release automation", async () => {
+it("keeps release automation manual-only", async () => {
   const workflow = await readReleaseWorkflow();
-  expect(workflow.on.push).toEqual({ branches: ["main"] });
-  expect(workflow.on.pull_request).toMatchObject({
-    types: ["closed"],
-    branches: ["main"],
-  });
+  expect(workflow.on.push).toBeUndefined();
+  expect(workflow.on.pull_request).toBeUndefined();
+  expect(workflow.on).toHaveProperty("workflow_dispatch");
   const proposal = workflow.jobs["release-proposal"];
   expect(proposal.if).toBe("github.event_name == 'push'");
   const controller = proposal.steps.find((step) =>
@@ -796,12 +794,11 @@ it.skipIf(process.platform === "win32").each([true, false])(
   },
 );
 
-it("runs release PR CI without enabling implementation pushes on release branches", async () => {
+it("keeps release branch CI manual-only", async () => {
   const workflow = z
     .object({
       on: z.object({
-        push: z.object({ branches: z.array(z.string()) }),
-        pull_request: z.object({ branches: z.array(z.string()) }),
+        workflow_dispatch: z.unknown(),
       }),
     })
     .parse(
@@ -812,10 +809,8 @@ it("runs release PR CI without enabling implementation pushes on release branche
         ),
       ),
     );
-  expect(workflow.on.push.branches).toEqual(["main"]);
-  expect(workflow.on.pull_request.branches).toEqual(
-    expect.arrayContaining(["main", "release/*"]),
-  );
+  expect(workflow.on).not.toHaveProperty("push");
+  expect(workflow.on).not.toHaveProperty("pull_request");
 });
 
 it("routes website verification through the central PR policy", async () => {

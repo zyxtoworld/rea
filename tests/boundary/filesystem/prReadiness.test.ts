@@ -439,10 +439,6 @@ const readWorkflow = async () =>
   z
     .object({
       on: z.object({
-        pull_request_target: z.object({
-          branches: z.array(z.string()),
-          types: z.array(z.string()),
-        }),
         workflow_dispatch: z.unknown(),
       }),
       permissions: z.record(z.string(), z.string()),
@@ -474,22 +470,10 @@ const readWorkflow = async () =>
       ),
     );
 
-it("executes the production workflow step with trusted code and status-only write authority", async () => {
+it("keeps the production readiness step manual-only with status-only write authority", async () => {
   const workflow = await readWorkflow();
-  expect(workflow.on.pull_request_target.branches).toEqual([
-    "main",
-    "release/*",
-  ]);
-  expect(workflow.on.pull_request_target.types).toEqual(
-    expect.arrayContaining([
-      "opened",
-      "edited",
-      "synchronize",
-      "reopened",
-      "ready_for_review",
-      "converted_to_draft",
-    ]),
-  );
+  expect(workflow.on).not.toHaveProperty("pull_request_target");
+  expect(workflow.on).toHaveProperty("workflow_dispatch");
   expect(workflow.permissions).toEqual({});
   expect(workflow.jobs.readiness.permissions).toEqual({
     contents: "read",

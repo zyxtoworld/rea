@@ -2,8 +2,6 @@ name: Real upstream Cutter verification
 
 on:
   workflow_dispatch:
-  repository_dispatch:
-    types: [real-cutter-upstream]
 
 permissions:
   contents: read

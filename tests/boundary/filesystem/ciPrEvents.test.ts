@@ -41,11 +41,10 @@ async function workflow(name: string) {
     );
 }
 
-it("refreshes title validation on edits without checking out PR code or cancelling CI", async () => {
+it("keeps title validation available without automatic PR execution", async () => {
   const title = await workflow("pr-title.yml");
-  expect(title.on.pull_request).toMatchObject({
-    types: ["opened", "synchronize", "reopened", "edited"],
-  });
+  expect(title.on).not.toHaveProperty("pull_request");
+  expect(title.on).toHaveProperty("workflow_dispatch");
   expect(title.permissions).toEqual({});
   expect(title.concurrency?.group).not.toBe(
     (await workflow("ci.yml")).concurrency?.group,
@@ -82,9 +81,10 @@ it("refreshes title validation on edits without checking out PR code or cancelli
   expect((await workflow("ci.yml")).jobs["pr-title"]).toBeUndefined();
 });
 
-it("qualifies only ci:full label additions at the caller's merge revision", async () => {
+it("keeps full qualification manually callable without automatic PR execution", async () => {
   const full = await workflow("ci-full-pr.yml");
-  expect(full.on.pull_request).toMatchObject({ types: ["labeled"] });
+  expect(full.on).not.toHaveProperty("pull_request");
+  expect(full.on).toHaveProperty("workflow_dispatch");
   expect(full.permissions).toEqual({ contents: "read", actions: "read" });
   expect(Object.values(full.jobs)).toEqual([
     {

@@ -96,18 +96,20 @@ it or require another human sign-off. Keep the PR description and affected
 validation current as work changes. AI agents must leave human declarations to
 the human owner and must not attest to a human review on their behalf.
 
-The `PR readiness` check reports pending for drafts and requires a named human
-owner and all three template declarations for non-drafts. It checks that the
-declaration is filled, not whether the code or evidence is correct. Existing PRs
-can copy the **Author readiness** section from the current template.
-Open PRs must have distinct head commits because GitHub shares commit statuses.
+The `PR readiness` workflow is manual-only in this fork while remote Actions are
+disabled. It reports pending for drafts and requires a named human owner and
+all three template declarations for non-drafts when explicitly invoked. It
+checks that the declaration is filled, not whether the code or evidence is
+correct. Existing PRs can copy the **Author readiness** section from the
+current template. Open PRs must have distinct head commits because GitHub
+shares commit statuses.
 
-Maintainers enable merge enforcement after the workflow is merged: run
+If remote Actions are intentionally re-enabled, maintainers may run
 `gh workflow run pr-readiness.yml -f pull_request_number=NUMBER` for existing
-open PRs, then add `PR readiness` from GitHub Actions to the branch's required
-status checks alongside its existing checks. Deploy the workflow to each
-protected target branch before requiring it there. The workflow reads PR
-metadata using trusted default-branch code and writes only a commit status.
+open PRs and add `PR readiness` to the branch's required status checks. Deploy
+the workflow to each protected target branch before requiring it there. The
+workflow reads PR metadata using trusted default-branch code and writes only a
+commit status.
 
 Maintainers may return a PR to the author or close it when the problem is
 unsupported, validation is missing, or the owner cannot explain the change.

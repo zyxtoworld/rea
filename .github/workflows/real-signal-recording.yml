@@ -1,29 +1,6 @@
 name: Real signal recording
 on:
   workflow_dispatch:
-  pull_request:
-    paths:
-      - "tests/boundary/signals/**"
-      - "tests/boundary/cli/signalCleanup.test.ts"
-      - "tests/boundary/mcp/signalRecordingMcp.test.ts"
-      - "src/signals/**"
-      - "src/domain/signals/**"
-      - "src/application/signals/**"
-      - "src/contracts/signals/**"
-      - "src/composition/signals.ts"
-      - "src/cli/signalCommands.ts"
-      - "src/server/registerSignalTools.ts"
-      - "src/server/createServer.ts"
-      - "src/server/sessionAvailabilityPolicy.ts"
-      - "src/application/CapabilityInventory.ts"
-      - "src/contracts/toolContracts.ts"
-      - "src/contracts/toolEffects.ts"
-      - "src/cli.ts"
-      - "src/cliCommandNames.ts"
-      - "src/process/**"
-      - "src/artifacts/readStableArtifact.ts"
-      - "scripts/verify-signal-recording.mjs"
-      - ".github/workflows/real-signal-recording.yml"
 permissions:
   contents: read
 env:

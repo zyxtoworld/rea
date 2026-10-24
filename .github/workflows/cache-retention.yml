@@ -1,9 +1,7 @@
 name: Cache retention
 
 on:
-  workflow_run:
-    workflows: ["CI"]
-    types: [completed]
+  workflow_dispatch:
 
 # Qualification calls ci.yml with actions: read. A nested workflow cannot raise
 # that token, so cache deletion stays in this workflow.
