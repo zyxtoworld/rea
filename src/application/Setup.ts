@@ -1,3 +1,4 @@
+import { parseEnvironmentValues } from "../config/environment.js";
 import type {
   ClientConfigurationResult,
   SetupAction,
@@ -114,6 +115,8 @@ const runSetupWorkflow = async (
   if (unsupported !== undefined) return fail(unsupported);
   const initialState = await host.initialSetupState(options.readinessScope);
   let { hopperPath, providerEnvironment } = initialState;
+  const validatedEnvironment = parseEnvironmentValues(providerEnvironment);
+  if (!validatedEnvironment.ok) throw validatedEnvironment.error;
   const discovery = await discoverSetupState({
     host,
     providerConfigured: initialState.providerConfigured,

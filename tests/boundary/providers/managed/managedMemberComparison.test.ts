@@ -821,6 +821,12 @@ describe("managed comparison snapshot admission and cleanup", () => {
     const rightPath = join(directory, "right.dll");
     await writeFile(leftPath, buildManagedPeFixture());
     await writeFile(rightPath, buildManagedPeFixture());
+    const leftTarget = await parseBinaryTarget(leftPath);
+    const rightTarget = await parseBinaryTarget(rightPath);
+    if (!leftTarget.ok) throw leftTarget.error;
+    if (!rightTarget.ok) throw rightTarget.error;
+    const resolveTarget = async (path: string) =>
+      path === leftPath ? leftTarget : rightTarget;
     const resources = new ArtifactResourceScope();
     const originalClose = OwnedFileHandle.prototype.close;
     const owners: OwnedFileHandle[] = [];
@@ -836,7 +842,7 @@ describe("managed comparison snapshot admission and cleanup", () => {
     try {
       const result = await compareManagedMemberPaths(
         { leftPath, rightPath },
-        {},
+        { resolveTarget },
         resources,
       );
 
@@ -857,6 +863,12 @@ describe("managed comparison snapshot admission and cleanup", () => {
     const rightPath = join(directory, "right.dll");
     await writeFile(leftPath, buildManagedPeFixture());
     await writeFile(rightPath, buildManagedPeFixture());
+    const leftTarget = await parseBinaryTarget(leftPath);
+    const rightTarget = await parseBinaryTarget(rightPath);
+    if (!leftTarget.ok) throw leftTarget.error;
+    if (!rightTarget.ok) throw rightTarget.error;
+    const resolveTarget = async (path: string) =>
+      path === leftPath ? leftTarget : rightTarget;
     const resources = new ArtifactResourceScope();
     const cleanupCause = new Error("injected persistent close failure");
     const owners: OwnedFileHandle[] = [];
@@ -870,7 +882,7 @@ describe("managed comparison snapshot admission and cleanup", () => {
     try {
       result = await compareManagedMemberPaths(
         { leftPath, rightPath },
-        {},
+        { resolveTarget },
         resources,
       );
       expect(result.ok).toBe(false);

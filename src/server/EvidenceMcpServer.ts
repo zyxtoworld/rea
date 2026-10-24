@@ -21,7 +21,6 @@ import {
 } from "./EvidenceMcpServerCore.js";
 
 export {
-  currentMcpRequestSignal,
   forgetPendingMcpRequest,
   type CompactInputSchemaPresentation,
 } from "./EvidenceMcpServerCore.js";

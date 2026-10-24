@@ -100,6 +100,30 @@ it("retains unknown executable-root traversal after a complete callback and keep
   }
 });
 
+it.skipIf(process.platform === "win32")(
+  "does not mark in-root symlink aliases as unknown root coverage",
+  async () => {
+    const root = await createTestTempDirectory("rea-dylib-root-alias-");
+    const bytes = machoImage({ commands: [buildVersionCommand(1)] });
+    const path = join(root, "App");
+    await writeFile(path, bytes);
+    await mkdir(join(root, "Frameworks", "Versions", "A"), {
+      recursive: true,
+    });
+    await symlink("App", join(root, "App-alias"));
+    await symlink("Versions/A", join(root, "Frameworks", "Current"));
+    const trace = await traceDylibResolution({
+      rootPath: root,
+      targetPath: path,
+      targetSha256: createHash("sha256").update(bytes).digest("hex"),
+      enumerateRoots: true,
+      parameters: {},
+    });
+    expect(trace.coverage.status).toBe("complete");
+    expect(trace.roots).toEqual([{ image: "App", architecture: "arm64" }]);
+  },
+);
+
 // Legacy `LC_VERSION_MIN_*` commands carry no simulator flag: per dyld
 // rules Intel images are simulator, ARM images are device (tvOS simulator
 // is x86_64 only). A legacy simulator executable must not fail resolution

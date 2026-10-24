@@ -105,9 +105,10 @@ export const compareManagedMemberPaths = async (
   const readSnapshot = dependencies.readSnapshot ?? readManagedSnapshot;
   let partialEvidence: Evidence | undefined;
   try {
+    const targetOptions = resources === undefined ? {} : { resources };
     const [leftTarget, rightTarget] = await Promise.all([
-      resolveTarget(input.leftPath),
-      resolveTarget(input.rightPath),
+      resolveTarget(input.leftPath, targetOptions),
+      resolveTarget(input.rightPath, targetOptions),
     ]);
     // Report an unopenable path like every other path-based command does,
     // with the failed path and constraint, rather than a bare input error.

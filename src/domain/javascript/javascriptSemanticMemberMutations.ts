@@ -1112,7 +1112,11 @@ export function* collectSemanticMemberMutationsSteps(
       if (writeTarget !== null && !semanticWriteSiteReadsFirst(node))
         for (const target of semanticWriteTargets(writeTarget))
           writeOnlyMembers.add(target);
-      for (const source of semanticIterationSources(node, parent))
+      for (const source of semanticIterationSources(node, parent)) {
+        // A local property store records the assigned source for later
+        // receiver propagation; the store itself does not expose that source
+        // to unknown code.
+        if (source.kind === "reference-store") continue;
         deferIterable({
           ...source,
           path: source.projection,
@@ -1122,6 +1126,7 @@ export function* collectSemanticMemberMutationsSteps(
           originAt: source.mutation,
           iterationOnly: source.kind === "iteration",
         });
+      }
       if (t.isMemberExpression(node) || t.isOptionalMemberExpression(node)) {
         // The write owner classifies direct and destructuring stores once.
         if (!writeOnlyMembers.has(node))

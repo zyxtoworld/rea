@@ -12,7 +12,6 @@ const ACCEPTED: readonly (readonly [string, string])[] = [
   ["a negative offset", "2026-10-09T04:00:00-03:00"],
   ["a half-hour offset", "2026-10-09T04:00:00+05:30"],
   ["a zero offset written negatively", "2026-10-09T04:00:00-00:00"],
-  ["omitted seconds", "2026-10-09T04:00Z"],
   ["fractional seconds", "2026-10-09T04:00:00.123Z"],
   [
     "long fractional seconds with an offset",
@@ -24,6 +23,7 @@ const ACCEPTED: readonly (readonly [string, string])[] = [
 ];
 
 const REJECTED: readonly (readonly [string, string])[] = [
+  ["omitted seconds", "2026-10-09T04:00Z"],
   ["a leap day in a non-leap year", "2023-02-29T00:00:00Z"],
   ["a leap day in a divisible-by-100 but not 400 year", "1900-02-29T00:00:00Z"],
   ["a day beyond the month length", "2026-04-31T00:00:00Z"],

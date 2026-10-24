@@ -8,6 +8,7 @@ import {
   resolvedAnalysisError,
   type AnalysisError,
 } from "../../domain/analysisErrorBase.js";
+import { projectAnalysisError } from "../../domain/analysisErrorProjection.js";
 import { analysisErrorWithCleanupFailure } from "../../domain/analysisErrorCleanup.js";
 import {
   AnalysisAccessDeniedError,
@@ -331,15 +332,18 @@ export class FridaInstrumentationService {
       );
     if (!loaded.ok) {
       const closed = await this.#provider.closeSession(started.value.sessionId);
-      return closed.ok
-        ? err(resolvedAnalysisError(loaded.error))
-        : err(
-            analysisErrorWithCleanupFailure(
-              loaded.error,
-              closed.error,
-              "instrument_with_frida",
-            ).bindCleanupDependencies([loaded.error, closed.error]),
-          );
+      if (closed.ok) {
+        loaded.error.resolveCleanup();
+        return err(resolvedAnalysisError(loaded.error));
+      }
+      return err(
+        fridaErrorWithCleanupFailure(
+          loaded.error,
+          closed.error,
+          "instrument_with_frida",
+          started.value.sessionId,
+        ),
+      );
     }
     if (signal?.aborted)
       return this.#cancelSession(
@@ -361,15 +365,15 @@ export class FridaInstrumentationService {
         const closed = await this.#provider.closeSession(
           started.value.sessionId,
         );
-        return closed.ok
-          ? resumed
-          : err(
-              analysisErrorWithCleanupFailure(
-                resumed.error,
-                closed.error,
-                "instrument_with_frida",
-              ).bindCleanupDependencies([resumed.error, closed.error]),
-            );
+        if (closed.ok) return resumed;
+        return err(
+          fridaErrorWithCleanupFailure(
+            resumed.error,
+            closed.error,
+            "instrument_with_frida",
+            started.value.sessionId,
+          ),
+        );
       }
       if (signal?.aborted)
         return this.#cancelSession(
@@ -445,6 +449,53 @@ export class FridaInstrumentationService {
     return this.#provider.closeAll();
   }
 }
+
+const fridaErrorWithCleanupFailure = (
+  primary: AnalysisError,
+  cleanup: AnalysisError,
+  operation: string,
+  cleanupResource: string,
+): AnalysisError => {
+  if (!(primary instanceof AnalysisCapabilityUnavailableError))
+    return analysisErrorWithCleanupFailure(
+      primary,
+      cleanup,
+      operation,
+    ).bindCleanupDependencies([primary, cleanup]);
+  const cleanupProjection = projectAnalysisError(cleanup);
+  const cleanupResources = [
+    ...new Set([
+      ...(primary.cleanupIncomplete ? primary.cleanupResources : []),
+      ...cleanup.cleanupResources,
+      ...(cleanup.cleanupResources.length === 0 ? [cleanupResource] : []),
+    ]),
+  ];
+  const composed = new AnalysisCapabilityUnavailableError(
+    primary.providerId,
+    primary.operation,
+    primary.reason,
+    {
+      cause: primary,
+      cleanupPrimary: primary,
+      diagnostics: primary.diagnostics,
+      capturedOutput: primary.capturedOutput,
+      partialObservation: primary.partialObservation,
+      ...(primary.userMessage === undefined
+        ? {}
+        : { userMessage: primary.userMessage }),
+      remediationAction: cleanupProjection.remediation.action,
+      cleanup: {
+        reason: cleanup.message,
+        resources: cleanupResources,
+      },
+    },
+  );
+  const dependencies = [primary, cleanup].filter(
+    (error) => error.cleanupIncomplete,
+  );
+  if (dependencies.length > 0) composed.bindCleanupDependencies(dependencies);
+  return composed;
+};
 
 const fridaEvidence = (
   operation: string,

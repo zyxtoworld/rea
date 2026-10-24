@@ -39,7 +39,7 @@ const LIMITATIONS = [
   "PKCS#7 fields are decoded structurally; cryptographic validity remains unobserved.",
 ] as const;
 
-const TELETEX_LIMITATION =
+export const PE_CERTIFICATE_TELETEX_LIMITATION =
   "TeletexString values use OpenSSL's ISO-8859-1 compatibility mapping; this is not a full T.61 decoder.";
 
 const ABSENT_LIMITATIONS = [
@@ -206,7 +206,7 @@ export const parsePeCertificates = (
       certificates,
     },
     limitations: teletexStringCompatibilityUsed
-      ? [...LIMITATIONS, TELETEX_LIMITATION]
+      ? [...LIMITATIONS, PE_CERTIFICATE_TELETEX_LIMITATION]
       : [...LIMITATIONS],
   };
 };

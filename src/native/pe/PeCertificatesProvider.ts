@@ -26,7 +26,10 @@ import {
 import { err, ok } from "../../domain/result.js";
 import { ProviderCleanupError } from "../../domain/providerCleanupError.js";
 import { PE_CERTIFICATES_PROVIDER } from "../../domain/investigationProviders.js";
-import { parsePeCertificates } from "./PeCertificateParser.js";
+import {
+  parsePeCertificates,
+  PE_CERTIFICATE_TELETEX_LIMITATION,
+} from "./PeCertificateParser.js";
 
 const OPERATION = "inspect_pe_certificates";
 
@@ -65,17 +68,21 @@ export class PeCertificatesProvider implements PeCertificatesPort {
           undefined,
           this.#resources,
         );
-        return ok(
-          parsePeCertificates(
-            snapshot.bytes,
-            {
-              path: input.path,
-              sha256: snapshot.sha256,
-              bytes: snapshot.bytes.length,
-            },
-            input,
-          ),
+        const parsed = parsePeCertificates(
+          snapshot.bytes,
+          {
+            path: input.path,
+            sha256: snapshot.sha256,
+            bytes: snapshot.bytes.length,
+          },
+          input,
         );
+        if (parsed.limitations.includes(PE_CERTIFICATE_TELETEX_LIMITATION))
+          throw new ArtifactReaderFailure(
+            "format",
+            "Unsupported certificate name encoding (DER tag 0x14).",
+          );
+        return ok(parsed);
       });
     } catch (cause) {
       return err(peCertificatesFailure(cause, input));

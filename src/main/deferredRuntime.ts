@@ -11,7 +11,6 @@ import {
   resolveMcpInputSchemaProfile,
   type McpInputSchemaProfile,
 } from "../config/mcpInputSchemaProfile.js";
-import { toolContractsForFamilies } from "../contracts/toolContracts.js";
 import {
   RECORDED_MCP_CATALOG_SHA256,
   type RecordedMcpCatalog,
@@ -129,7 +128,9 @@ export const runDeferred = async (
     config.mcpToolProfile === undefined ||
     config.mcpToolProfile.profile === "full"
       ? undefined
-      : toolContractsForFamilies(config.mcpToolProfile.families);
+      : (
+          await import("../contracts/toolContracts.js")
+        ).toolContractsForFamilies(config.mcpToolProfile.families);
   const catalogIdentity = createCatalogIdentity(
     compactPresentationForMcpInputSchemaProfile(profile),
     config.mcpOutputSchemaProfile ?? "full",

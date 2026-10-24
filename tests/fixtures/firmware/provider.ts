@@ -49,15 +49,14 @@ export const firmwareFixture = async (mode = "normal", banner?: string) => {
       const start = options.arguments.indexOf("--") + 2;
       const args = options.arguments.slice(start);
       const engine =
-        options.arguments[start - 1] === process.execPath
-          ? "unblob"
-          : "binwalk";
+        options.arguments[start - 1] === commands.unblob ? "unblob" : "binwalk";
       const spawned = await spawnOwnedProviderProcess({
         ...options,
         command: process.execPath,
         expectedCommand: process.execPath,
         arguments: [
           fileURLToPath(new URL("./producer.mjs", import.meta.url)),
+          engine,
           ...args,
         ],
         env: {

@@ -74,7 +74,13 @@ const readBundle = async (
         cause: signal.reason,
       }),
     );
-  const loaded = await readJsonFile(path, signal, resources, operation);
+  const loaded = await readJsonFile(
+    path,
+    signal,
+    resources,
+    operation,
+    resources === undefined,
+  );
   if (!loaded.ok) return loaded;
   if (signal?.aborted)
     return err(

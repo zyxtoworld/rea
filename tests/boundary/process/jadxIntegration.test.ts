@@ -24,7 +24,9 @@ import { createTestTempDirectory } from "../../fixtures/temporaryDirectory.js";
 const it = test.skipIf(process.platform === "win32");
 
 it("retains a failed input hash descriptor until provider shutdown retries it", async () => {
-  const { service, apk, provider, launches } = await setup();
+  const { apk, provider, launches } = await setup();
+  const target = await parseBinaryTarget(apk);
+  if (!target.ok) throw target.error;
   const closeCause = new Error("fixture source hash close unavailable");
   const owners: OwnedFileHandle[] = [];
   const originalClose = OwnedFileHandle.prototype.close;
@@ -39,8 +41,9 @@ it("retains a failed input hash descriptor until provider shutdown retries it", 
       throw closeCause;
     });
   try {
-    const result = await service.execute("inspect_android_package", {
-      path: apk,
+    const result = await provider.execute(target.value, {
+      operation: "inspect_android_package",
+      input: { path: apk },
     });
     expect(result).toMatchObject({
       ok: false,
@@ -64,7 +67,9 @@ it("retains a failed input hash descriptor until provider shutdown retries it", 
 });
 
 it("clears hash cleanup uncertainty when the provider immediately retries the same handle", async () => {
-  const { service, apk, provider, launches } = await setup();
+  const { apk, provider, launches } = await setup();
+  const target = await parseBinaryTarget(apk);
+  if (!target.ok) throw target.error;
   const closeCause = new Error("fixture source hash close unavailable");
   const originalClose = OwnedFileHandle.prototype.close;
   const close = vi
@@ -74,8 +79,9 @@ it("clears hash cleanup uncertainty when the provider immediately retries the sa
       return originalClose.call(this);
     });
   try {
-    const result = await service.execute("inspect_android_package", {
-      path: apk,
+    const result = await provider.execute(target.value, {
+      operation: "inspect_android_package",
+      input: { path: apk },
     });
     expect(result).toMatchObject({ ok: false });
     if (result.ok) throw new Error("Expected the hash close failure");

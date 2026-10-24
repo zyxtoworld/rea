@@ -204,7 +204,7 @@ const readJson = async (
 ): Promise<unknown> => {
   if (signal?.aborted)
     throw new AnalysisCancelledError(operation, { cause: signal.reason });
-  const loaded = await readJsonFile(path, signal);
+  const loaded = await readJsonFile(path, signal, undefined, operation, true);
   if (!loaded.ok && loaded.error instanceof AnalysisCancelledError)
     throw new AnalysisCancelledError(operation, { cause: loaded.error.cause });
   if (loaded.ok) {

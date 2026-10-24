@@ -1103,11 +1103,16 @@ it("retains original malformed file identity and decoded representation through 
       response.structuredContent,
     ).result,
   );
-  const records = bundle.records.filter(
-    (record) =>
+  const records = bundle.records.filter((record) => {
+    const normalized = record.normalized_result;
+    return (
       record.operation === "load_frida_script" &&
-      JSON.stringify(record.normalized_result).includes(path),
-  );
+      normalized !== null &&
+      typeof normalized === "object" &&
+      !Array.isArray(normalized) &&
+      normalized.source_path === path
+    );
+  });
   expect(records).toHaveLength(1);
   expect(records[0]).toMatchObject({
     normalized_result: {

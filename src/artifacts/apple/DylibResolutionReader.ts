@@ -32,6 +32,7 @@ import { assertArtifactReadActive } from "../ArtifactFileOperation.js";
 const OPERATION = "trace_dylib_resolution";
 /** Concurrent four-byte magic reads while enumerating bundle roots. */
 const MAGIC_READ_CONCURRENCY = 8;
+type RootRead = boolean | { readonly kind: "symlink"; readonly path: string };
 
 /** Lazily probed, symlink-preserving view of one analyzed directory. */
 class FilesystemTreeView implements DylibTreeView {
@@ -212,25 +213,32 @@ const executableRoots = async (
   const roots: string[] = [];
   const unclassified: string[] = [];
   const traversal = new ArtifactTraversalObservation();
-  let symlinks = 0;
-  let firstSymlink: string | undefined;
+  const enumeratedPaths = new Set<string>();
+  const symlinkPaths: string[] = [];
   // Bundles hold tens of thousands of files and few Mach-O images, so the
   // magic reads overlap the walk while results are classified in walk order.
   await consumeWithOrderedReads(
     new DirectoryArtifactReader(root).entries(signal, traversal),
     MAGIC_READ_CONCURRENCY,
     (entry) => {
-      // The ordered-read owner skips consume() when read() returns undefined.
-      // Discovery facts for skipped entries belong at this selection boundary.
-      if (entry.kind === "symlink") {
-        symlinks += 1;
-        firstSymlink ??= entry.path;
-      }
+      enumeratedPaths.add(entry.path);
+      // Symlink targets are classified after enumeration so an in-root alias
+      // to an already enumerated file or directory does not create a false
+      // coverage gap.
+      if (entry.kind === "symlink")
+        return Promise.resolve<RootRead>({
+          kind: "symlink",
+          path: entry.path,
+        });
       return entry.kind === "file"
         ? files.startsWithMachoMagic(entry)
         : undefined;
     },
     async (entry, macho) => {
+      if (typeof macho !== "boolean") {
+        symlinkPaths.push(macho.path);
+        return;
+      }
       if (!macho) return;
       const facts = await view.image(entry.path);
       if (facts.status === "malformed" || facts.status === "unsupported")
@@ -244,11 +252,41 @@ const executableRoots = async (
         roots.push(entry.path);
     },
   );
-  if (symlinks > 0)
+  let unresolvedSymlinks = 0;
+  let firstUnresolvedSymlink: string | undefined;
+  for (const path of symlinkPaths) {
+    let targetPath: string | undefined;
+    try {
+      targetPath = view.rootRelativePath(await realpath(join(root, path)));
+    } catch {
+      targetPath = undefined;
+    }
+    if (targetPath === undefined) {
+      unresolvedSymlinks += 1;
+      firstUnresolvedSymlink ??= path;
+      continue;
+    }
+    if (enumeratedPaths.has(targetPath)) continue;
+    const target = await view.entry(targetPath);
+    if (target?.kind !== "file") {
+      unresolvedSymlinks += 1;
+      firstUnresolvedSymlink ??= path;
+      continue;
+    }
+    const facts = await view.image(targetPath);
+    if (facts.status === "malformed" || facts.status === "unsupported")
+      unclassified.push(targetPath);
+    else if (
+      facts.status === "parsed" &&
+      machoImageSlices(facts).some(({ file_type: type }) => type === "execute")
+    )
+      roots.push(targetPath);
+  }
+  if (unresolvedSymlinks > 0)
     traversal.onCoverage({
       status: "unknown",
       limitations: [
-        `Executable-root discovery did not follow ${symlinks} symlink(s); their root roles and possible descendants are unknown. First path: ${JSON.stringify(firstSymlink)}.`,
+        `Executable-root discovery could not classify ${unresolvedSymlinks} symlink(s); their root roles and possible descendants are unknown. First path: ${JSON.stringify(firstUnresolvedSymlink)}.`,
       ],
     });
   return {

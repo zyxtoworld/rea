@@ -190,9 +190,13 @@ try {
     }),
   );
   if (!captureDiff.ok) throw captureDiff.error;
+  // The two captures intentionally use different source-approval selections.
+  // That can make the scripts dimension unknown while retaining zero identity
+  // changes; a changed inventory remains a verifier failure.
   if (
     captureDiff.value.dimensions.dom_structure.status !== "unchanged" ||
-    captureDiff.value.dimensions.scripts.status !== "unchanged"
+    captureDiff.value.dimensions.scripts.status === "changed" ||
+    captureDiff.value.dimensions.scripts.total_changes !== 0
   )
     throw new Error("Real Chrome stable capture identities did not reconcile");
 

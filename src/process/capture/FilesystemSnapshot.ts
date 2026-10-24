@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import { constants as fsConstants } from "node:fs";
 import { lstat, open, opendir, readlink } from "node:fs/promises";
-import { join, relative } from "node:path";
+import { dirname, isAbsolute, join, relative } from "node:path";
 import type { FileHandle } from "node:fs/promises";
 import type { ProcessScenario } from "../../domain/process/processScenario.js";
 import type { FilesystemCoverage } from "../../domain/process/processCaptureCoverage.js";
@@ -109,6 +109,17 @@ const observeSymlink = async (
   return hasSameIdentity(before, after.value, "symlink")
     ? target
     : err({ reason: "identity_changed", system_code: null });
+};
+
+/** An absolute or lexical link target outside the selected root has no omitted descendants in this scope. */
+const symlinkTargetWithinRoot = (
+  root: string,
+  path: string,
+  target: string,
+): boolean => {
+  const targetPath = isAbsolute(target) ? target : join(dirname(path), target);
+  const escaped = relative(root, targetPath);
+  return escaped === "" || (!escaped.startsWith("..") && !isAbsolute(escaped));
 };
 
 type PathLookup =
@@ -461,6 +472,7 @@ export const snapshotRoots = async (
         sha256: null,
         symlink_target: target.value,
       });
+      if (!symlinkTargetWithinRoot(root, path, target.value)) return true;
       truncated = true;
       enumerationReasons.add("symlink_not_followed");
       enumerationOmissions.push({

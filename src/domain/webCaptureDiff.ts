@@ -223,6 +223,13 @@ const compareResources = (
   complete: boolean,
   reason: string,
 ): Dimension => {
+  if (before === after)
+    return {
+      status: "unchanged",
+      total_changes: 0,
+      changes: [],
+      reason: null,
+    };
   const left = resourceGroups(before);
   const right = resourceGroups(after);
   const changes: Change[] = [];
@@ -243,7 +250,7 @@ const compareResources = (
     // loses multiplicity, so do not infer modifications from the remaining
     // known sizes in a group that contains unknown size evidence.
     if (leftSizes.has(null) || rightSizes.has(null)) {
-      unresolved = true;
+      if (!sameResourceSizes(leftSizes, rightSizes)) unresolved = true;
       continue;
     }
     if (!sameResourceSizes(leftSizes, rightSizes))
@@ -457,9 +464,13 @@ const networkDimension = (
   before: WebPageInspection,
   after: WebPageInspection,
 ): Dimension => {
-  const requestsComplete = [before, after].every((inspection) =>
-    networkInventoryComplete(inspection, ["network_requests"]),
-  );
+  const beforeRequestsComplete = networkInventoryComplete(before, [
+    "network_requests",
+  ]);
+  const afterRequestsComplete = networkInventoryComplete(after, [
+    "network_requests",
+  ]);
+  const requestsComplete = beforeRequestsComplete && afterRequestsComplete;
   const webSocketFramesComplete = [before, after].every((inspection) =>
     networkInventoryComplete(inspection, [
       "websocket_connections",
@@ -546,8 +557,16 @@ const networkDimension = (
   const [beforeRequests, afterRequests] = networkComparisonMaps(
     networkMap(before, sources, projection),
     networkMap(after, sources, projection),
-    networkInventoryComplete(before, ["network_requests"]),
-    networkInventoryComplete(after, ["network_requests"]),
+    beforeRequestsComplete,
+    afterRequestsComplete,
+    before.completeness.dropped_events.network_requests > 0,
+    after.completeness.dropped_events.network_requests > 0,
+    ambiguousRedirectIdentities(
+      before,
+      after,
+      beforeRequestsComplete,
+      afterRequestsComplete,
+    ),
   );
   const compared = compareDimension(
     new Map([
@@ -662,24 +681,83 @@ const networkMap = (
   return grouped;
 };
 
-/** A partial multiset may omit any sample, including a distinct response. */
+/** A partial inventory cannot distinguish a new redirect from an omitted hop. */
+const ambiguousRedirectIdentities = (
+  before: WebPageInspection,
+  after: WebPageInspection,
+  beforeComplete: boolean,
+  afterComplete: boolean,
+): ReadonlySet<string> => {
+  const ambiguous = new Set<string>();
+  if (beforeComplete || afterComplete) return ambiguous;
+  const redirectCounts = (
+    inspection: WebPageInspection,
+  ): ReadonlyMap<string, readonly number[]> => {
+    const counts = new Map<string, number[]>();
+    for (const request of inspection.network.requests) {
+      const identity = networkIdentity(request);
+      const values = counts.get(identity) ?? [];
+      values.push(request.redirects?.length ?? 0);
+      counts.set(identity, values);
+    }
+    for (const values of counts.values())
+      values.sort((left, right) => left - right);
+    return counts;
+  };
+  const beforeCounts = redirectCounts(before);
+  const afterCounts = redirectCounts(after);
+  for (const identity of new Set([
+    ...beforeCounts.keys(),
+    ...afterCounts.keys(),
+  ])) {
+    const previous = beforeCounts.get(identity);
+    const next = afterCounts.get(identity);
+    if (
+      previous !== undefined &&
+      next !== undefined &&
+      (previous.length !== next.length ||
+        previous.some((count, index) => count !== next[index]))
+    )
+      ambiguous.add(identity);
+  }
+  return ambiguous;
+};
+
+/** A partial multiset may omit any sample, including a distinct response. A shared identity still carries a directly observed content comparison unless drops make its occurrence ambiguous. */
 const networkComparisonMaps = (
   before: ReadonlyMap<string, readonly string[]>,
   after: ReadonlyMap<string, readonly string[]>,
   beforeComplete: boolean,
   afterComplete: boolean,
+  beforeHasDroppedRequests: boolean,
+  afterHasDroppedRequests: boolean,
+  ambiguousRedirects: ReadonlySet<string>,
 ): readonly [ReadonlyMap<string, string>, ReadonlyMap<string, string>] => {
   const left = new Map<string, string>();
   const right = new Map<string, string>();
   for (const identity of new Set([...before.keys(), ...after.keys()])) {
     const previous = before.get(identity) ?? [];
     const next = after.get(identity) ?? [];
-    if (
-      !(beforeComplete && afterComplete) &&
-      !(beforeComplete && !networkSamplesContained(next, previous)) &&
-      !(afterComplete && !networkSamplesContained(previous, next))
-    )
-      continue;
+    const shared = before.has(identity) && after.has(identity);
+    const uniquePrevious = [...new Set(previous)].sort();
+    const uniqueNext = [...new Set(next)].sort();
+    const sharedSamplesDiffer =
+      uniquePrevious.length !== uniqueNext.length ||
+      uniquePrevious.some((sample, index) => sample !== uniqueNext[index]);
+    const sharedComparable =
+      shared &&
+      !ambiguousRedirects.has(identity) &&
+      ((beforeComplete && afterComplete) ||
+        (sharedSamplesDiffer &&
+          (beforeComplete ||
+            afterComplete ||
+            (!beforeHasDroppedRequests && !afterHasDroppedRequests))));
+    const membershipComparable =
+      !shared &&
+      ((beforeComplete && afterComplete) ||
+        (beforeComplete && !networkSamplesContained(next, previous)) ||
+        (afterComplete && !networkSamplesContained(previous, next)));
+    if (!sharedComparable && !membershipComparable) continue;
     if (before.has(identity))
       left.set(identity, digestCanonicalValue([...previous].sort()));
     if (after.has(identity))

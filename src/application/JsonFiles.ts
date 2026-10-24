@@ -60,13 +60,20 @@ export const readJsonFile = async (
   signal?: AbortSignal,
   resources?: ArtifactResourceScope,
   operation = "read_evidence_file",
+  throwCleanupFailure = false,
 ): Promise<
   Result<
     unknown,
     EvidenceFileError | AnalysisResourceConstraintError | AnalysisCancelledError
   >
 > => {
-  const read = await readJsonFileWithSource(path, signal, resources, operation);
+  const read = await readJsonFileWithSource(
+    path,
+    signal,
+    resources,
+    operation,
+    throwCleanupFailure,
+  );
   return read.ok ? ok(read.value.data) : read;
 };
 
@@ -76,6 +83,7 @@ export const readJsonFileWithSource = (
   signal?: AbortSignal,
   resources?: ArtifactResourceScope,
   operation = "read_evidence_file",
+  throwCleanupFailure = false,
 ): Promise<
   Result<
     { readonly data: unknown; readonly path: string },
@@ -95,6 +103,7 @@ export const readJsonFileWithSource = (
     },
     signal,
     operation,
+    throwCleanupFailure,
   );
 
 /** Read selected JSON members through the same regular-file error boundary. */
@@ -136,6 +145,7 @@ const readJsonFileInput = async <Value>(
   read: (selected: string) => Promise<DecodedJsonInput<Value>>,
   signal?: AbortSignal,
   operation = "read_evidence_file",
+  throwCleanupFailure = false,
 ): Promise<Result<Value, JsonFileReadFailure>> => {
   const requestedPath = absoluteCallerPath(path);
   try {
@@ -144,7 +154,8 @@ const readJsonFileInput = async <Value>(
     // Caller reasons are opaque, including instances of lifecycle failure types.
     if (signal?.aborted === true && cause === signal.reason)
       return err(new AnalysisCancelledError(operation, { cause }));
-    if (cause instanceof RegularFileCleanupFailure)
+    if (cause instanceof RegularFileCleanupFailure) {
+      if (throwCleanupFailure) throw cause;
       return err(
         jsonFileCleanupError(
           cause as RegularFileCleanupFailure<DecodedJsonInput<Value>>,
@@ -153,6 +164,7 @@ const readJsonFileInput = async <Value>(
           signal,
         ),
       );
+    }
     if (cause instanceof ArtifactReaderFailure && cause.cleanup !== undefined) {
       const primary =
         cause.reason === "cancelled"
@@ -278,13 +290,18 @@ const isJsonReadCancellation = (
 ): boolean => {
   if (signal?.aborted !== true) return false;
   if (cause === signal.reason) return true;
-  return (
+  if (
     cause instanceof Error &&
     cause.name === "AbortError" &&
     "code" in cause &&
-    cause.code === "ABORT_ERR" &&
-    cause.cause === signal.reason
-  );
+    cause.code === "ABORT_ERR"
+  ) {
+    const nested = "cause" in cause ? cause.cause : undefined;
+    return (
+      nested === signal.reason || nested instanceof JsonInputCancellationFailure
+    );
+  }
+  return false;
 };
 
 /** Atomically write text to the caller-supplied path. */
