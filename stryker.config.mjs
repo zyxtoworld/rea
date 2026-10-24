@@ -104,15 +104,12 @@ export default {
         name: "captureProviderEnvironment",
       },
     ]),
-    ...mutationRanges(
-      "src/server/tools/debug/registerReverseEngineeringTools.ts",
-      [
-        {
-          kind: "declaration",
-          name: "registerReverseEngineeringTools",
-        },
-      ],
-    ),
+    ...mutationRanges("src/server/registerReverseEngineeringTools.ts", [
+      {
+        kind: "declaration",
+        name: "registerReverseEngineeringTools",
+      },
+    ]),
     ...mutationRanges("src/gdb/GdbSessionManager.ts", [
       {
         kind: "constructor",
