@@ -77,7 +77,7 @@ export const readRecordedDateTime = (
         ? zone
         : `${zone.slice(0, 3)}:${zone.slice(3)}`;
   const normalized = offsetDateTimeSchema.safeParse(
-    `${date}T${time}${seconds === undefined ? "" : `:${seconds}`}${fraction === "" ? "" : `.${fraction}`}${offset}`,
+    `${date}T${time}${seconds === undefined ? ":00" : `:${seconds}`}${fraction === "" ? "" : `.${fraction}`}${offset}`,
   );
   if (!normalized.success) return undefined;
   return {

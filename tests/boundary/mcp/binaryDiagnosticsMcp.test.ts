@@ -18,7 +18,7 @@ import { ok } from "../../../src/domain/result.js";
 import { createServer } from "../../../src/server/createServer.js";
 import { EvidenceMcpServer } from "../../../src/server/EvidenceMcpServer.js";
 import { registerByteEntropyTool } from "../../../src/server/registerByteEntropyTool.js";
-import { registerAnalysisViewTool } from "../../../src/server/tools/native/registerAnalysisViewTool.js";
+import { registerAnalysisViewTool } from "../../../src/server/registerAnalysisViewTool.js";
 import { createToolResultDelivery } from "../../../src/server/toolResult.js";
 import { withAdmittedAnalysis } from "../../../src/server/analysisAdmission.js";
 import { silentLogger } from "../../../src/logger.js";

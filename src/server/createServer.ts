@@ -7,16 +7,16 @@ import {
   createPacketCaptureService,
   tsharkHostSupported,
 } from "../composition/captures.js";
-import { registerCaptureTools } from "./tools/data/registerCaptureTools.js";
+import { registerCaptureTools } from "./registerCaptureTools.js";
 import type { SignalRecordingService } from "../application/signals/SignalRecordingService.js";
 import {
   createSignalRecordingService,
   sigrokHostSupported,
 } from "../composition/signals.js";
-import { registerSignalTools } from "./tools/data/registerSignalTools.js";
+import { registerSignalTools } from "./registerSignalTools.js";
 import type { WasmArtifactService } from "../application/wasm/WasmArtifactService.js";
 import { wasmArtifactModule } from "../composition/wasm.js";
-import { registerWasmTools } from "./tools/data/registerWasmTools.js";
+import { registerWasmTools } from "./registerWasmTools.js";
 import type { ApkSignatureService } from "../application/apkSignature/ApkSignatureService.js";
 import { apkSignatureModule } from "../composition/apkSignature.js";
 import { registerApkSignatureTools } from "./registerApkSignatureTools.js";
@@ -34,7 +34,7 @@ import type { PeResourcesService } from "../application/binaryDiagnostics/PeReso
 import type { NativeExportsService } from "../application/binaryDiagnostics/NativeExportsService.js";
 import { registerElfNotesTool } from "./registerElfNotesTool.js";
 import { registerPeCertificatesTool } from "./registerPeCertificatesTool.js";
-import { registerPeResourcesTool } from "./tools/native/registerPeResourcesTool.js";
+import { registerPeResourcesTool } from "./registerPeResourcesTool.js";
 import { registerNativeExportsTool } from "./registerNativeExportsTool.js";
 import type { EvmInterfaceService } from "../application/evm/EvmInterfaceService.js";
 import {
@@ -42,14 +42,14 @@ import {
   evmInterfaceModule,
   evmLimiterAvailability,
 } from "../composition/evm.js";
-import { registerEvmTools } from "./tools/data/registerEvmTools.js";
+import { registerEvmTools } from "./registerEvmTools.js";
 import type { SqliteDatabaseService } from "../application/sqlite/SqliteDatabaseService.js";
 import { createSqliteDatabaseService } from "../composition/sqlite.js";
-import { registerSqliteTools } from "./tools/data/registerSqliteTools.js";
-import { registerRecordedCrashTools } from "./tools/native/registerRecordedCrashTools.js";
+import { registerSqliteTools } from "./registerSqliteTools.js";
+import { registerRecordedCrashTools } from "./registerRecordedCrashTools.js";
 import { createRecordedCrashService } from "../composition/binaryDiagnostics.js";
 import { createDesktopApplicationService } from "../composition/desktop.js";
-import { registerDesktopApplicationTool } from "./tools/web/registerDesktopApplicationTool.js";
+import { registerDesktopApplicationTool } from "./registerDesktopApplicationTool.js";
 import { createGoBinaryService } from "../composition/go.js";
 import { createModelArtifactService } from "../composition/model.js";
 import { registerModelArtifactTools } from "./registerModelArtifactTools.js";
@@ -58,11 +58,11 @@ import type { Il2cppMetadataService } from "../application/il2cpp/Il2cppMetadata
 import type { GoBinaryService } from "../application/go/GoBinaryService.js";
 import { createElectronFuseService } from "../composition/electronFuses.js";
 import type { ElectronFuseService } from "../application/electron/ElectronFuseService.js";
-import { registerGoTools } from "./tools/data/registerGoTools.js";
-import { registerIl2cppTools } from "./tools/data/registerIl2cppTools.js";
+import { registerGoTools } from "./registerGoTools.js";
+import { registerIl2cppTools } from "./registerIl2cppTools.js";
 import { createRustBinaryService } from "../composition/rust.js";
 import type { RustBinaryService } from "../application/rust/RustBinaryService.js";
-import { registerRustTools } from "./tools/data/registerRustTools.js";
+import { registerRustTools } from "./registerRustTools.js";
 import { createPythonPycService } from "../composition/pythonPyc.js";
 import type { PythonPycService } from "../application/python/PythonPycService.js";
 import { registerPythonPycTool } from "./registerPythonPycTool.js";
@@ -70,10 +70,10 @@ import { createBeamService } from "../composition/erlang.js";
 import type { BeamService } from "../application/erlang/BeamService.js";
 import { registerErlangTools } from "./registerErlangTools.js";
 import type { RecordedCrashService } from "../application/binaryDiagnostics/RecordedCrashService.js";
-import { registerAnalysisViewTool } from "./tools/native/registerAnalysisViewTool.js";
-import { registerBinaryDiagnosticsTools } from "./tools/native/registerBinaryDiagnosticsTools.js";
+import { registerAnalysisViewTool } from "./registerAnalysisViewTool.js";
+import { registerBinaryDiagnosticsTools } from "./registerBinaryDiagnosticsTools.js";
 import { FridaInstrumentationManager } from "../frida/FridaInstrumentationManager.js";
-import { registerFridaTools } from "./tools/debug/registerFridaTools.js";
+import { registerFridaTools } from "./registerFridaTools.js";
 import {
   createByteEntropyService,
   createBinaryLayoutService,
@@ -92,9 +92,6 @@ import {
   compactPresentationForMcpInputSchemaProfile,
   parseMcpInputSchemaProfile,
 } from "../config/mcpInputSchemaProfile.js";
-import { parseMcpToolProfile } from "../config/mcpToolProfile.js";
-import { toolContractsForFamilies } from "../contracts/toolContracts.js";
-import type { ToolContract } from "../contracts/toolContractTypes.js";
 import type { CompactInputSchemaPresentation } from "./EvidenceMcpServer.js";
 import { isAbsolute } from "node:path";
 
@@ -110,49 +107,49 @@ import type { OptionalProviderLoadFailures } from "../application/OptionalObserv
 import { PRODUCT_IDENTITY } from "../identity.js";
 import { silentLogger } from "../logger.js";
 import type { Logger } from "pino";
-import { registerApplicationTools } from "./tools/workflows/registerApplicationTools.js";
-import { registerArtifactTools } from "./tools/artifacts/registerArtifactTools.js";
-import { registerNativeTools } from "./tools/native/registerNativeTools.js";
-import { registerBrowserScenarioTool } from "./tools/web/registerBrowserScenarioTool.js";
-import { registerBrowserTools } from "./tools/web/registerBrowserTools.js";
-import { registerWebScriptTool } from "./tools/web/registerWebScriptTool.js";
-import { registerWebModuleTool } from "./tools/web/registerWebModuleTool.js";
+import { registerApplicationTools } from "./registerApplicationTools.js";
+import { registerArtifactTools } from "./registerArtifactTools.js";
+import { registerNativeTools } from "./registerNativeTools.js";
+import { registerBrowserScenarioTool } from "./registerBrowserScenarioTool.js";
+import { registerBrowserTools } from "./registerBrowserTools.js";
+import { registerWebScriptTool } from "./registerWebScriptTool.js";
+import { registerWebModuleTool } from "./registerWebModuleTool.js";
 import type { WebModuleTraceService } from "../application/WebModuleTraceService.js";
 import { createWebModuleTraceService } from "../composition/webModules.js";
 import { createWebSourceLocationService } from "../composition/webSourceLocations.js";
-import { registerWebSourceLocationTool } from "./tools/web/registerWebSourceLocationTool.js";
+import { registerWebSourceLocationTool } from "./registerWebSourceLocationTool.js";
 import type { WebSourceLocationService } from "../application/WebSourceLocationService.js";
 import type { WebRuntimeService } from "../application/WebRuntimeService.js";
 import { createWebRuntimeService } from "../composition/webRuntime.js";
-import { registerWebRuntimeTools } from "./tools/web/registerWebRuntimeTools.js";
+import { registerWebRuntimeTools } from "./registerWebRuntimeTools.js";
 import type { WebNetworkCaptureService } from "../application/WebNetworkCaptureService.js";
 import { createWebNetworkCaptureService } from "../composition/webNetworkCaptures.js";
-import { registerWebNetworkCaptureTool } from "./tools/web/registerWebNetworkCaptureTool.js";
-import { registerJavaScriptRecoveryTool } from "./tools/web/registerJavaScriptRecoveryTool.js";
+import { registerWebNetworkCaptureTool } from "./registerWebNetworkCaptureTool.js";
+import { registerJavaScriptRecoveryTool } from "./registerJavaScriptRecoveryTool.js";
 import { JavaScriptRecoveryService } from "../application/javascript/JavaScriptRecoveryService.js";
 import type { JavaScriptRecoveryPort } from "../application/javascript/JavaScriptRecoveryPort.js";
 import {
   createJavaScriptRecoveryProvider,
   wakaruHostSupported,
 } from "../composition/javascriptRecovery.js";
-import { registerElectronTools } from "./tools/web/registerElectronTools.js";
+import { registerElectronTools } from "./registerElectronTools.js";
 import { ArtifactResourceScope } from "../artifacts/ArtifactResourceScope.js";
-import { registerEnhancedTools } from "./tools/native/registerEnhancedTools.js";
-import { registerJavaScriptRuntimeObservationTools } from "./tools/web/registerJavaScriptRuntimeObservationTools.js";
-import { registerManagedTools } from "./tools/native/registerManagedTools.js";
-import { registerFirmwareTools } from "./tools/data/registerFirmwareTools.js";
+import { registerEnhancedTools } from "./registerEnhancedTools.js";
+import { registerJavaScriptRuntimeObservationTools } from "./registerJavaScriptRuntimeObservationTools.js";
+import { registerManagedTools } from "./registerManagedTools.js";
+import { registerFirmwareTools } from "./registerFirmwareTools.js";
 import { FirmwareAnalysisService } from "../application/firmware/FirmwareAnalysisService.js";
 import type { FirmwareAnalysisPort } from "../application/firmware/FirmwareAnalysisPort.js";
 import {
   createFirmwareAnalysisProvider,
   firmwareHostSupported,
 } from "../composition/firmware.js";
-import { registerAndroidTools } from "./tools/mobile/registerAndroidTools.js";
-import { registerApktoolTools } from "./tools/mobile/registerApktoolTools.js";
-import { registerPcapTools } from "./tools/data/registerPcapTools.js";
-import { registerFlutterTools } from "./tools/data/registerFlutterTools.js";
-import { registerJebTools } from "./tools/mobile/registerJebTools.js";
-import { registerAdbTools } from "./tools/mobile/registerAdbTools.js";
+import { registerAndroidTools } from "./registerAndroidTools.js";
+import { registerApktoolTools } from "./registerApktoolTools.js";
+import { registerPcapTools } from "./registerPcapTools.js";
+import { registerFlutterTools } from "./registerFlutterTools.js";
+import { registerJebTools } from "./registerJebTools.js";
+import { registerAdbTools } from "./registerAdbTools.js";
 import { AndroidAnalysisService } from "../application/android/AndroidAnalysisService.js";
 import { JebAnalysisService } from "../application/jeb/JebAnalysisService.js";
 import type { AndroidAnalysisPort } from "../application/android/AndroidAnalysisPort.js";
@@ -175,10 +172,10 @@ import { createJebAnalysisProvider } from "../composition/jeb.js";
 import type { AdbDeviceAnalysisPort } from "../application/adb/AdbDeviceAnalysisPort.js";
 import { AdbDeviceAnalysisService } from "../application/adb/AdbDeviceAnalysisService.js";
 import { createAdbDeviceAnalysisProvider } from "../composition/adb.js";
-import { registerManagedWorkflowTools } from "./tools/artifacts/registerManagedWorkflowTools.js";
-import { registerOfficialTools } from "./tools/native/registerOfficialTools.js";
+import { registerManagedWorkflowTools } from "./registerManagedWorkflowTools.js";
+import { registerOfficialTools } from "./registerOfficialTools.js";
 import { registerGuidedPrompts } from "./registerPrompts.js";
-import { registerSessionTools } from "./tools/session/registerSessionTools.js";
+import { registerSessionTools } from "./registerSessionTools.js";
 import type { AvailabilityPolicy } from "../application/CapabilityInventory.js";
 import { sessionAvailabilityPolicy } from "./sessionAvailabilityPolicy.js";
 import {
@@ -187,14 +184,14 @@ import {
 } from "./analysisAdmission.js";
 import type { WithAdmittedAnalysis } from "./analysisAdmission.js";
 import { createReverseEngineeringService } from "../composition/reverseEngineering.js";
-import { registerReverseEngineeringTools } from "./tools/debug/registerReverseEngineeringTools.js";
+import { registerReverseEngineeringTools } from "./registerReverseEngineeringTools.js";
 import { CutterBridgeClient } from "../cutter/CutterBridgeClient.js";
 import { CutterBridgeService } from "../cutter/CutterBridgeService.js";
-import { registerCutterTools } from "./tools/debug/registerCutterTools.js";
+import { registerCutterTools } from "./registerCutterTools.js";
 import { GdbSessionManager } from "../gdb/GdbSessionManager.js";
-import { registerGdbTools } from "./tools/debug/registerGdbTools.js";
+import { registerGdbTools } from "./registerGdbTools.js";
 import { RizinDebugSessionManager } from "../rizin/RizinDebugSessionManager.js";
-import { registerRizinDebugTools } from "./tools/debug/registerRizinDebugTools.js";
+import { registerRizinDebugTools } from "./registerRizinDebugTools.js";
 
 const TARGET_FREE_INSTRUCTIONS =
   "REA provides reverse-engineering tools for local artifacts, native binaries, managed code, browser pages, and runtimes. Use the tool that directly answers the question; discover targets or inspect inventory only when needed. Tool results include inline Evidence and report their coverage and limitations. An opened target persists across turns. When finished, export needed Evidence and call close_binary; its snapshot_path can retain analysis.";
@@ -403,7 +400,6 @@ const createMcpServer = (
   delivery: ToolResultDelivery,
   compactPresentation: CompactInputSchemaPresentation | undefined,
   omitOutputSchemas: boolean,
-  advertisedContracts: readonly ToolContract[] | undefined,
 ): EvidenceMcpServer =>
   new EvidenceMcpServer(
     {
@@ -424,7 +420,10 @@ const createMcpServer = (
     delivery,
     compactPresentation,
     omitOutputSchemas,
-    advertisedContracts,
+    createCatalogIdentity(
+      compactPresentation,
+      omitOutputSchemas ? "off" : "full",
+    ),
   );
 
 /**
@@ -440,7 +439,6 @@ export const createServer = (
   const analysis = source.kind === "session" ? source.session : source.analysis;
   const environment = snapshotEnvironment(options.environment ?? process.env);
   const omitOutputSchemas = outputSchemasOmitted(environment);
-  const advertisedContracts = advertisedToolContracts(environment);
   const providerEnvironment = captureProviderEnvironment(
     options.providerEnvironment,
     environment,
@@ -496,15 +494,13 @@ export const createServer = (
   };
   const startedAt = options.startedAt ?? new Date().toISOString();
   const logger = options.logger ?? silentLogger;
-  const compactPresentation = selectCompactInputSchemaPresentation(environment);
   const server =
     options.mcpServer ??
     createMcpServer(
       session,
       delivery,
-      compactPresentation,
+      selectCompactInputSchemaPresentation(environment),
       omitOutputSchemas,
-      advertisedContracts,
     );
   if (options.mcpServer !== undefined) {
     server.attachRuntime(
@@ -513,9 +509,8 @@ export const createServer = (
         : (evidence) => session.recordEvidence(evidence),
       delivery,
       createCatalogIdentity(
-        compactPresentation,
+        selectCompactInputSchemaPresentation(environment),
         omitOutputSchemas ? "off" : "full",
-        advertisedContracts,
       ),
     );
   }
@@ -870,21 +865,6 @@ const selectCompactInputSchemaPresentation = (
   );
   if (!configured.ok) throw configured.error;
   return compactPresentationForMcpInputSchemaProfile(configured.value);
-};
-
-/**
- * Contracts the server advertises. Undefined keeps the complete catalog and
- * its recorded identity; a selected profile registers the same canonical
- * contracts but advertises only the requested families.
- */
-const advertisedToolContracts = (
-  environment: Readonly<NodeJS.ProcessEnv>,
-): readonly ToolContract[] | undefined => {
-  const configured = parseMcpToolProfile(environment.REA_MCP_TOOL_PROFILE);
-  if (!configured.ok) throw configured.error;
-  return configured.value === undefined || configured.value.profile === "full"
-    ? undefined
-    : toolContractsForFamilies(configured.value.families);
 };
 
 const registerConfiguredAnalysisTools = (

@@ -19,8 +19,8 @@ import { err, ok } from "../../../src/domain/result.js";
 import { GdbSessionManager } from "../../../src/gdb/GdbSessionManager.js";
 import { silentLogger } from "../../../src/logger.js";
 import { stopOwnedDebuggerProcess } from "../../../src/process/ownedDebuggerSession.js";
-import { registerGdbTools } from "../../../src/server/tools/debug/registerGdbTools.js";
-import type { GdbToolManager } from "../../../src/server/tools/debug/registerGdbTools.js";
+import { registerGdbTools } from "../../../src/server/registerGdbTools.js";
+import type { GdbToolManager } from "../../../src/server/registerGdbTools.js";
 import { createToolResultDelivery } from "../../../src/server/toolResult.js";
 import {
   createBinarySessionTargets,

@@ -18,7 +18,6 @@ import {
 } from "./providerStartupTimeout.js";
 import { mcpInputSchemaProfileSchema } from "./mcpInputSchemaProfile.js";
 import { mcpOutputSchemaProfileSchema } from "./mcpOutputSchemaProfile.js";
-import { mcpToolProfileSchema } from "./mcpToolProfile.js";
 import { mcpResponseBudgetSchema } from "./mcpResponseBudget.js";
 import { asarMaxHeaderBytesSchema } from "./asarHeaderAdmission.js";
 import { bridgeMaxRequestBytesSchema } from "./bridgeMaxRequestBytes.js";
@@ -49,7 +48,6 @@ const environmentSchema = z.object({
   REA_MCP_DOCTOR_DEADLINE_MS: mcpDoctorDeadlineMsSchema.optional(),
   REA_MCP_INPUT_SCHEMA_PROFILE: mcpInputSchemaProfileSchema.optional(),
   REA_MCP_OUTPUT_SCHEMA_PROFILE: mcpOutputSchemaProfileSchema.optional(),
-  REA_MCP_TOOL_PROFILE: mcpToolProfileSchema.optional(),
   REA_IDA_MCP_CONFIG: z
     .string()
     .min(1)

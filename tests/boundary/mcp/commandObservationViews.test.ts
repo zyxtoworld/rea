@@ -5,9 +5,9 @@ import { EvidenceMcpServer } from "../../../src/server/EvidenceMcpServer.js";
 import {
   registerGdbTools,
   type GdbToolManager,
-} from "../../../src/server/tools/debug/registerGdbTools.js";
-import { registerReverseEngineeringTools } from "../../../src/server/tools/debug/registerReverseEngineeringTools.js";
-import { registerAnalysisViewTool } from "../../../src/server/tools/native/registerAnalysisViewTool.js";
+} from "../../../src/server/registerGdbTools.js";
+import { registerReverseEngineeringTools } from "../../../src/server/registerReverseEngineeringTools.js";
+import { registerAnalysisViewTool } from "../../../src/server/registerAnalysisViewTool.js";
 import { createToolResultDelivery } from "../../../src/server/toolResult.js";
 import {
   createEvidence,

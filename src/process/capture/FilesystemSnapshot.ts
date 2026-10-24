@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import { constants as fsConstants } from "node:fs";
 import { lstat, open, opendir, readlink, realpath } from "node:fs/promises";
-import { basename, dirname, join, relative } from "node:path";
+import { basename, dirname, isAbsolute, join, relative } from "node:path";
 import type { FileHandle } from "node:fs/promises";
 import type { ProcessScenario } from "../../domain/process/processScenario.js";
 import type { FilesystemCoverage } from "../../domain/process/processCaptureCoverage.js";

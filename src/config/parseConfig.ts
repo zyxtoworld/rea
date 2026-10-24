@@ -3,7 +3,6 @@ import { accessSync, constants, statSync } from "node:fs";
 import type { ConfigurationError } from "../domain/configurationErrors.js";
 import { ok, type Result } from "../domain/result.js";
 import { parseEnvironment } from "./environment.js";
-import { parseMcpToolProfile } from "./mcpToolProfile.js";
 import { homeDirectoryFromEnvironment } from "./homeDirectory.js";
 import { DEFAULT_BRIDGE_MAX_REQUEST } from "./bridgeMaxRequestBytes.js";
 import { DEFAULT_REGEX_MATCHING_DEADLINE } from "./regexMatchingDeadline.js";
@@ -67,8 +66,6 @@ export const parseConfig = (
   const parsed = parseEnvironment(nativeAnalysisEnvironment(environment));
   if (!parsed.ok) return parsed;
   const env = parsed.value;
-  const mcpToolProfile = parseMcpToolProfile(env.REA_MCP_TOOL_PROFILE);
-  if (!mcpToolProfile.ok) return mcpToolProfile;
   return ok({
     ...(env.REA_MCP_MAX_RESPONSE_BYTES === undefined
       ? {}
@@ -79,9 +76,6 @@ export const parseConfig = (
     ...(env.REA_MCP_OUTPUT_SCHEMA_PROFILE === undefined
       ? {}
       : { mcpOutputSchemaProfile: env.REA_MCP_OUTPUT_SCHEMA_PROFILE }),
-    ...(mcpToolProfile.value === undefined
-      ? {}
-      : { mcpToolProfile: mcpToolProfile.value }),
     analysisProvider: env.REA_ANALYSIS_PROVIDER,
     ...(env.REA_IDA_MCP_CONFIG === undefined
       ? {}

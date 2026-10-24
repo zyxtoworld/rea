@@ -20,14 +20,6 @@ import {
 } from "../../../src/catalogIdentity.js";
 import { compactPresentationForMcpInputSchemaProfile } from "../../../src/config/mcpInputSchemaProfile.js";
 import {
-  CORE_TOOL_FAMILIES,
-  TOOL_FAMILY_MEMBERS,
-} from "../../../src/contracts/toolFamilies.js";
-import {
-  TOOL_CONTRACTS,
-  toolContractsForFamilies,
-} from "../../../src/contracts/toolContracts.js";
-import {
   MCP_PHASE_BUDGET_FLOOR_MS,
   MCP_PHASE_BUDGET_MAXIMUM_MS,
 } from "../../../src/config/mcpStartupBudgets.js";
@@ -100,9 +92,7 @@ describe("production MCP doctor", () => {
       { timeout: 30_000 },
     );
   }, 35_000);
-});
 
-describe("production MCP doctor startup", () => {
   it("preserves the full-output envelope for startup failures", async () => {
     const result = await runProductionMcpDoctorCli(
       ["--json", "--full-output"],
@@ -174,22 +164,9 @@ describe("production MCP doctor startup", () => {
         "off",
       ),
     },
-    {
-      name: "core tool families",
-      environment: { REA_MCP_TOOL_PROFILE: "core" },
-      identity: createCatalogIdentity(
-        compactPresentationForMcpInputSchemaProfile(undefined),
-        "full",
-        toolContractsForFamilies(CORE_TOOL_FAMILIES),
-      ),
-      toolCount: CORE_TOOL_FAMILIES.reduce(
-        (total, family) => total + TOOL_FAMILY_MEMBERS[family].length,
-        0,
-      ),
-    },
   ])(
-    "connects to the production stdio child and verifies the $name catalog",
-    async ({ environment, identity, toolCount = TOOL_CONTRACTS.length }) => {
+    "verifies the $name catalog through production stdio and both CLI inventories",
+    async ({ environment, identity }) => {
       const result = await runProductionMcpDoctor({
         command: process.execPath,
         args: [resolve("scripts/rea.mjs"), "mcp"],
@@ -210,9 +187,12 @@ describe("production MCP doctor startup", () => {
         },
         request_flow: { tool: "binary_session", ok: true },
       });
-      expect(result.inventory?.tools.expected).toBe(toolCount);
-      expect(result.inventory?.tools.observed).toBe(toolCount);
-      expect(result.inventory?.tools.expected).toBe(identity.counts.mcp_tools);
+      expect(result.inventory?.tools.expected).toBe(
+        result.inventory?.tools.observed,
+      );
+      expect(result.inventory?.tools.expected).toBe(
+        FULL_CATALOG_IDENTITY.counts.mcp_tools,
+      );
       expect(result.identity?.expected_catalog_digest).toBe(
         identity.digests.combined_sha256,
       );
@@ -224,7 +204,7 @@ describe("production MCP doctor startup", () => {
         identity,
       );
     },
-    60_000,
+    30_000,
   );
 });
 

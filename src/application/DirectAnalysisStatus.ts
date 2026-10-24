@@ -9,7 +9,6 @@ import { providerCapabilitySets } from "./binary/BinarySessionStatus.js";
 import { sqliteDatabaseCapability } from "./sqlite/SqliteDatabaseCapability.js";
 import { CURRENT_ENTRYPOINT_PATH } from "../process/CurrentEntrypointPath.js";
 import { createCatalogIdentity } from "../catalogIdentity.js";
-import { toolContractsForFamilies } from "../contracts/toolContracts.js";
 import { compactPresentationForMcpInputSchemaProfile } from "../config/mcpInputSchemaProfile.js";
 import {
   directAnalysisCleanupFailure,
@@ -48,10 +47,6 @@ export const runSessionStatus = async (
               config.value.mcpInputSchemaProfile,
             ),
             config.value.mcpOutputSchemaProfile ?? "full",
-            config.value.mcpToolProfile === undefined ||
-              config.value.mcpToolProfile.profile === "full"
-              ? undefined
-              : toolContractsForFamilies(config.value.mcpToolProfile.families),
           ),
         }),
       };

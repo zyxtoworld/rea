@@ -229,18 +229,22 @@ const executableRoots = async (
       reader.entries(signal, traversal),
       MAGIC_READ_CONCURRENCY,
       (entry) => {
-        // The ordered-read owner skips consume() when read() returns undefined.
-        // Discovery facts for skipped entries belong at this selection boundary.
-        if (entry.kind === "symlink") {
-          symlinks += 1;
-          firstSymlink ??= entry.path;
-        }
+        enumeratedPaths.add(entry.path);
+        if (entry.kind === "symlink")
+          return Promise.resolve<RootRead>({
+            kind: "symlink",
+            path: entry.path,
+          });
         return entry.kind === "file"
           ? files.startsWithMachoMagic(entry)
           : undefined;
       },
-      async (entry, macho) => {
-        if (!macho) return;
+      async (entry, read) => {
+        if (typeof read !== "boolean") {
+          symlinkPaths.push(read.path);
+          return;
+        }
+        if (!read) return;
         const facts = await view.image(entry.path);
         if (facts.status === "malformed" || facts.status === "unsupported")
           unclassified.push(entry.path);
@@ -264,8 +268,38 @@ const executableRoots = async (
   if (released.kind === "failed")
     throw resources.cleanupFailure(outcome, [released]);
   if (outcome.kind === "failed") throw outcome.cause;
+  let unresolvedSymlinks = 0;
+  let firstUnresolvedSymlink: string | undefined;
+  for (const path of symlinkPaths) {
+    let targetPath: string | undefined;
+    try {
+      targetPath = view.rootRelativePath(await realpath(join(root, path)));
+    } catch {
+      targetPath = undefined;
+    }
+    if (targetPath === undefined) {
+      unresolvedSymlinks += 1;
+      firstUnresolvedSymlink ??= path;
+      continue;
+    }
+    if (enumeratedPaths.has(targetPath)) continue;
+    const target = await view.entry(targetPath);
+    if (target?.kind !== "file") {
+      unresolvedSymlinks += 1;
+      firstUnresolvedSymlink ??= path;
+      continue;
+    }
+    const facts = await view.image(targetPath);
+    if (facts.status === "malformed" || facts.status === "unsupported")
+      unclassified.push(targetPath);
+    else if (
+      facts.status === "parsed" &&
+      machoImageSlices(facts).some(({ file_type: type }) => type === "execute")
+    )
+      roots.push(targetPath);
+  }
   assertArtifactReadActive(signal);
-  if (symlinks > 0)
+  if (unresolvedSymlinks > 0)
     traversal.onCoverage({
       status: "unknown",
       limitations: [

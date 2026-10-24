@@ -136,7 +136,7 @@ cliTest.skipIf(process.platform !== "linux")(
   },
 );
 
-cliTest(
+cliTest.skipIf(process.platform === "win32")(
   "reports skipped executable-root symlink subtrees as partial discovery",
   async ({ cli }) => {
     const app = await fixtureApp();
@@ -345,7 +345,11 @@ describe("trace-dylib-resolution CLI", () => {
       // A root below a symlinked directory that points outside the bundle.
       const outside = await createTestTempDirectory("rea-dylib-outside-");
       await writeFiles(outside, { Tool: machoImage({}) });
-      await symlink(outside, join(app, "Contents/Linked"), "dir");
+      await symlink(
+        outside,
+        join(app, "Contents/Linked"),
+        process.platform === "win32" ? "junction" : "dir",
+      );
       for (const [root, reason, message] of [
         ["../outside", "invalid_format", "Use a normalized path"],
         ["Contents/Info.plist", "invalid_value", "is not a Mach-O image"],

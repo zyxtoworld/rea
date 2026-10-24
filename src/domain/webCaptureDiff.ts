@@ -223,13 +223,6 @@ const compareResources = (
   complete: boolean,
   reason: string,
 ): Dimension => {
-  if (before === after)
-    return {
-      status: "unchanged",
-      total_changes: 0,
-      changes: [],
-      reason: null,
-    };
   const left = resourceGroups(before);
   const right = resourceGroups(after);
   const changes: Change[] = [];
@@ -250,7 +243,7 @@ const compareResources = (
     // loses multiplicity, so do not infer modifications from the remaining
     // known sizes in a group that contains unknown size evidence.
     if (leftSizes.has(null) || rightSizes.has(null)) {
-      if (!sameResourceSizes(leftSizes, rightSizes)) unresolved = true;
+      unresolved = true;
       continue;
     }
     if (!sameResourceSizes(leftSizes, rightSizes))

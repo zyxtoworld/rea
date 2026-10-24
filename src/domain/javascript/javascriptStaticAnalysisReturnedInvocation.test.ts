@@ -182,7 +182,6 @@ it("retains a finite shared callable alias graph", () => {
         projection: [],
       },
     ],
-    callables: expect.any(Set),
     precision: "exact",
   });
 });

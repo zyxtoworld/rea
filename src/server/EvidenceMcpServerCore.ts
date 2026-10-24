@@ -162,8 +162,6 @@ export interface StandardToolRegistration {
 
 /** Bind oversized MCP error recovery to this server's Evidence ledger. */
 export class EvidenceMcpServerCore extends RequestTrackingMcpServer {
-  /** Names exposed by the active catalog/profile for capability reporting. */
-  public advertisedToolNames: ReadonlySet<string> | undefined = undefined;
   private identity: ReturnType<typeof createCatalogIdentity> | undefined;
 
   /** Composition supplies identity without importing the canonical schema graph. */
