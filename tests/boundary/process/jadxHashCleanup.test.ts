@@ -1,9 +1,8 @@
 import { expect, it, vi } from "vitest";
 
-import { parseBinaryTarget } from "../../../src/application/BinaryTargetResolver.js";
-
 import { OwnedFileHandle } from "../../../src/filesystem/OwnedFileHandle.js";
 import { RegularFileCleanupFailure } from "../../../src/filesystem/OwnedRegularFile.js";
+import { parseBinaryTarget } from "../../../src/application/BinaryTargetResolver.js";
 import { AnalysisError } from "../../../src/domain/analysisErrorBase.js";
 import {
   createJadxProtocolFixture,
@@ -12,6 +11,7 @@ import {
 
 it("resolves descriptor uncertainty after an immediate owned hash close retry", async () => {
   const { apk, provider, launches } = await createJadxProtocolFixture();
+  // Resolve admission before injecting the provider-owned hash close failure.
   const target = await parseBinaryTarget(apk);
   if (!target.ok) throw target.error;
   const cause = new Error("controlled hash close failure");
@@ -50,6 +50,7 @@ it("resolves descriptor uncertainty after an immediate owned hash close retry", 
 
 it("keeps hash cleanup live until the exact retained descriptor closes", async () => {
   const { apk, provider, launches } = await createJadxProtocolFixture();
+  // Resolve admission before injecting the provider-owned hash close failure.
   const target = await parseBinaryTarget(apk);
   if (!target.ok) throw target.error;
   const cause = new Error("controlled persistent hash close failure");

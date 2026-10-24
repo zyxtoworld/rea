@@ -2,18 +2,16 @@ import type { EvidenceMcpServer } from "../../../EvidenceMcpServer.js";
 import { runAdmittedToolOperation } from "../../../admittedToolOperation.js";
 import { recordSessionEvidenceSources } from "../../../sessionEvidence.js";
 
-import { buildResolvedReconstructionObligationLedgerEvidence } from "../../../../application/ReconstructionObligationLedgerService.js";
-import { resolveReconstructionObligationLedgerRequest } from "../../../../application/ReconstructionObligationLedgerRequest.js";
-import { ok } from "../../../../domain/result.js";
-import { applicationToolContract } from "../../../../contracts/applicationToolContracts.js";
-import { logToolExecution } from "../../../toolLogging.js";
-import { toolRegistrationOptions } from "../../../toolRegistrationOptions.js";
+import { buildResolvedReconstructionObligationLedgerEvidence } from "../../application/ReconstructionObligationLedgerService.js";
+import { resolveReconstructionObligationLedgerRequest } from "../../application/ReconstructionObligationLedgerRequest.js";
+import { ok } from "../../domain/result.js";
+import { toolContract } from "../../contracts/toolContracts.js";
+import { logToolExecution } from "../toolLogging.js";
+import { toolRegistrationOptions } from "../toolRegistrationOptions.js";
 import { recordResult } from "./helpers.js";
 import type { ApplicationToolRegistration } from "./types.js";
 
-const contract = applicationToolContract(
-  "build_reconstruction_obligation_ledger",
-);
+const contract = toolContract("build_reconstruction_obligation_ledger");
 
 /** Register conservative reconstruction-obligation generation and closure. */
 export const registerReconstructionObligationLedgerTool = (

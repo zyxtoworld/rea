@@ -3,13 +3,13 @@ import type { EvidenceMcpServer } from "../../../EvidenceMcpServer.js";
 import { runAdmittedToolOperation } from "../../../admittedToolOperation.js";
 import { recordSessionEvidenceSources } from "../../../sessionEvidence.js";
 
-import { executeManagedMemberComparison } from "../../../../application/managed/ManagedMemberComparisonService.js";
-import { logToolExecution } from "../../../toolLogging.js";
-import { toolRegistrationOptions } from "../../../toolRegistrationOptions.js";
-import { managedWorkflowContract } from "./contract.js";
+import { executeManagedMemberComparison } from "../../application/managed/ManagedMemberComparisonService.js";
+import { logToolExecution } from "../toolLogging.js";
+import { toolRegistrationOptions } from "../toolRegistrationOptions.js";
+import { toolContract } from "../../contracts/toolContracts.js";
 import type { ManagedWorkflowToolRegistration } from "./types.js";
 
-const compareContract = managedWorkflowContract("compare_managed_members");
+const compareContract = toolContract("compare_managed_members");
 
 /** Register the managed member comparison workflow tool. */
 export const registerCompareManagedMembers = (

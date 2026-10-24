@@ -1,4 +1,5 @@
 import { Il2cppBinaryFormatFailure } from "../../../src/il2cpp/Il2cppBinaryFormat.js";
+import { readBinaryContainer } from "../../../src/native/metadata/readBinaryContainer.js";
 import {
   openImageSteps,
   readUInt32,
@@ -186,6 +187,37 @@ it("requires an explicit slice of a universal Mach-O and reads only that slice",
   expect(failure(universal, "ppc64").reason).toBe("slice-not-found");
   expect(failure(thin, "arm64").reason).toBe("slice-not-found");
 });
+
+it.each(["thin", "universal"] as const)(
+  "links a %s x86-64 Mach-O while retaining the reader's amd64 spelling",
+  (format) => {
+    const thin = createIl2cppBinaryFixture();
+    thin.writeUInt32LE(0x01000007, 4);
+    thin.writeUInt32LE(3, 8);
+    const bytes =
+      format === "thin"
+        ? thin
+        : createUniversalFixture([
+            { cpu: 0x0100000c, bytes: createIl2cppBinaryFixture() },
+            { cpu: 0x01000007, bytes: thin },
+          ]);
+    // Match the selected FAT declaration to CPU_SUBTYPE_X86_64_ALL in its header.
+    if (format === "universal") bytes.writeUInt32BE(3, 8 + 20 + 4);
+    const original = Buffer.from(bytes);
+    const linked = link(bytes, format === "thin" ? undefined : "amd64");
+    expect(linked).toMatchObject({
+      format: "macho",
+      architecture: "amd64",
+      code_gen_modules_field: FIXTURE_BINARY_BASE + 0x600n,
+      code_gen_modules_array: FIXTURE_BINARY_BASE + 0x500n,
+    });
+    expect(linked.method_addresses).toEqual(expectedAddresses);
+    expect(linked.return_types).toEqual(
+      link(createIl2cppBinaryFixture()).return_types,
+    );
+    expect(bytes).toEqual(original);
+  },
+);
 
 it.each<
   [string, Il2cppBinaryFixtureOptions, string, "unsupported" | "malformed"]
@@ -448,6 +480,58 @@ it("links an ELF shared object after applying its RELATIVE relocations", () => {
   const fromMacho = link(createIl2cppBinaryFixture());
   expect(link(elf)).toEqual({ ...fromMacho, format: "elf" });
 });
+
+it.each([183, 62])(
+  "links ELF relocations using the resolved PN_XNUM program count (machine %s)",
+  (machine) => {
+    const original = createElfFixture(createIl2cppBinaryFixture(), { machine });
+    const count = 65536;
+    const table = original.length;
+    const sectionZero = table + count * 56;
+    const extended = Buffer.concat([original, Buffer.alloc(count * 56 + 64)]);
+    // Keep mapped payload bytes untouched; the last declaration is beyond
+    // the raw 0xffff sentinel that the old relocation scan treated as a count.
+    original.copy(extended, table, 64, 120);
+    original.copy(extended, table + (count - 1) * 56, 120, 176);
+    extended.writeBigUInt64LE(BigInt(table), 32);
+    extended.writeBigUInt64LE(BigInt(sectionZero), 40);
+    extended.writeUInt16LE(0xffff, 56);
+    extended.writeUInt16LE(64, 58);
+    extended.writeUInt16LE(1, 60);
+    extended.writeUInt32LE(count, sectionZero + 44);
+    expect(link(extended).method_addresses).toEqual(
+      link(original).method_addresses,
+    );
+  },
+);
+
+it("ignores undefined PT_NULL fields while linking ELF relocations", () => {
+  const original = createElfFixture(createIl2cppBinaryFixture());
+  const bytes = Buffer.from(original);
+  bytes.writeUInt16LE(3, 56);
+  bytes.fill(0xff, 176, 232);
+  bytes.writeUInt32LE(0, 176);
+  expect(link(bytes).method_addresses).toEqual(link(original).method_addresses);
+});
+
+it.each(["outside", "misaligned", "duplicate"] as const)(
+  "refuses a %s dynamic declaration at relocation admission",
+  (shape) => {
+    const bytes = createElfFixture(createIl2cppBinaryFixture());
+    if (shape === "outside") bytes.writeBigUInt64LE(1n << 63n, 128);
+    else if (shape === "misaligned") bytes.writeBigUInt64LE(17n, 152);
+    else {
+      bytes.copy(bytes, 176, 120, 176);
+      bytes.writeUInt16LE(3, 56);
+    }
+    expect(() => readBinaryContainer(bytes)).not.toThrow();
+    expect(() => link(bytes)).toThrow(
+      shape === "duplicate"
+        ? "multiple PT_DYNAMIC segments"
+        : "PT_DYNAMIC is truncated or outside the file",
+    );
+  },
+);
 
 it.each([
   [{ dynamic: false }, "unsupported-container"],
@@ -740,3 +824,59 @@ it("reads type attributes without requiring file-backed alignment padding", () =
     Array.from({ length: 5 }, () => "int"),
   );
 });
+
+it("ignores CodeRegistration count alignment padding", () => {
+  const bytes = createIl2cppBinaryFixture();
+  bytes.fill(0xff, 0x604, 0x608);
+  expect(link(bytes).method_addresses).toEqual(expectedAddresses);
+});
+
+it.each([0, 8, 16])(
+  "finds registration with %s file-backed trailing zero bytes",
+  (tail) => {
+    const original = createIl2cppBinaryFixture();
+    const bytes = Buffer.alloc(0x1000 + tail);
+    original.copy(bytes);
+    original.copy(bytes, 0xf90, 0x800, 0x880);
+    bytes.fill(0, 0x800, 0x880);
+    bytes.writeBigUInt64LE(0x2000n, 64);
+    bytes.writeBigUInt64LE(BigInt(bytes.length), 80);
+    const linked = link(bytes);
+    expect(linked.types_field).toBe(FIXTURE_BINARY_BASE + 0xfc0n);
+    expect(linked.method_addresses).toEqual(expectedAddresses);
+    expect(linked.return_types).toEqual(link(original).return_types);
+    if (tail === 0) {
+      const missingTail = Buffer.from(bytes);
+      missingTail.writeBigUInt64LE(BigInt(bytes.length), 64);
+      expect(failure(missingTail).reason).toBe(
+        "metadata-registration-not-found",
+      );
+    }
+  },
+);
+
+it.each([0n, FIXTURE_BINARY_BASE + 0x980n, FIXTURE_BINARY_BASE + 0x9b0n])(
+  "retains unknown dyld-bound type names regardless of raw word %s",
+  (raw) => {
+    const control = link(createIl2cppBinaryFixture());
+    expect(control.return_types[0]).toEqual({
+      type: 0,
+      name: FIXTURE_RETURN_TYPE_NAME,
+    });
+    expect(control.method_addresses).toEqual(expectedAddresses);
+    const bytes = createIl2cppDyldBindFixture(raw, 0x900);
+    const linked = link(bytes);
+    for (const collection of [
+      "return_types",
+      "field_types",
+      "parameter_types",
+    ] as const)
+      expect(linked[collection]).toEqual(
+        control[collection].map((row) =>
+          row.type === 0 ? { type: row.type, name: null } : row,
+        ),
+      );
+    expect(linked.method_addresses).toEqual(control.method_addresses);
+    expect(bytes.readBigUInt64LE(0x900)).toBe(raw);
+  },
+);
