@@ -26,7 +26,7 @@ interface StatementPosition {
 
 interface BindingReadPosition {
   readonly position: StatementPosition | null;
-  readonly repeating: boolean;
+  readonly repeatingLoop: t.Loop | undefined;
 }
 
 interface ExpressionSiblings {
@@ -561,7 +561,7 @@ export const semanticDefiniteEffectPrecedesReference = (
 ): boolean => {
   const before = directMutationPosition(effect, parents);
   const after = bindingReadPosition(reference, parents);
-  if (before === null || after.position === null || after.repeating)
+  if (before === null || after.position === null || after.repeatingLoop)
     return false;
   if (positionPrecedes(before, after.position)) return true;
   return (
@@ -570,6 +570,25 @@ export const semanticDefiniteEffectPrecedesReference = (
     before.declaratorIndex === after.position.declaratorIndex &&
     expressionEvaluationOrder(effect, reference, parents) === "before"
   );
+};
+
+/** Order straight-line source effects in one activation, preserving deferred/repeating unknowns. */
+export const semanticEffectTimingWithinActivation = (
+  site: t.Node,
+  effect: t.Node | undefined,
+  state: JavaScriptSemanticAnalysisState,
+): JavaScriptSemanticEffectTiming => {
+  if (effect !== undefined) {
+    if (
+      semanticDefiniteEffectPrecedesReference(site, effect, state.parentsByNode)
+    )
+      return "after";
+    if (
+      semanticDefiniteEffectPrecedesReference(effect, site, state.parentsByNode)
+    )
+      return "before";
+  }
+  return semanticEffectTiming(site, effect, state);
 };
 
 const computeReferenceInitializerPosition = (
@@ -698,7 +717,7 @@ const bindingReadPosition = (
     path.push(current);
     const parent = parents.get(current);
     if (t.isLoop(parent)) {
-      result = { position: null, repeating: true };
+      result = { position: null, repeatingLoop: parent };
       break;
     }
     if (
@@ -706,7 +725,7 @@ const bindingReadPosition = (
       (t.isFunction(parent) && !semanticComputedMethodKey(parent, current)) ||
       delayedInstanceFieldValue(parent, current)
     ) {
-      result = { position: null, repeating: false };
+      result = { position: null, repeatingLoop: undefined };
       break;
     }
     current = parent;
@@ -731,6 +750,33 @@ const bindingReadPosition = (
     cache.set(node, result);
   }
   return result;
+};
+
+/** Repeated member reads share unknown ordering, while retaining their source sites. */
+export const semanticCaptureOrderingIdentity = (
+  capture: t.Node,
+  parents: WeakMap<t.Node, t.Node>,
+): t.Node => {
+  // Calls can have a distinct invocation effect at their own selection site.
+  if (!t.isMemberExpression(capture) && !t.isOptionalMemberExpression(capture))
+    return capture;
+  const loop = bindingReadPosition(capture, parents).repeatingLoop;
+  if (loop === undefined) return capture;
+  let child: t.Node = capture;
+  for (
+    let parent = parents.get(child);
+    parent !== undefined && parent !== loop;
+    parent = parents.get(child)
+  )
+    child = parent;
+  // These inputs run once, before the repeating portion of the loop.
+  if (
+    (t.isForStatement(loop) && child === loop.init) ||
+    ((t.isForInStatement(loop) || t.isForOfStatement(loop)) &&
+      child === loop.right)
+  )
+    return capture;
+  return loop;
 };
 
 /** Select a local alias at its read, before any later straight-line reassignment. */
@@ -808,7 +854,7 @@ export const semanticBindingAtRead = (
         ? null
         : initializerPosition(reference, parents, true)
       : initializerPosition(initializer, parents);
-  const { position, repeating } = bindingReadPosition(read, parents);
+  const { position, repeatingLoop } = bindingReadPosition(read, parents);
   // Coverage and latest-value selection are independent. A preceding write
   // can cover entry even when another write's order remains unknown.
   const hasDefiniteInitializer =
@@ -829,7 +875,7 @@ export const semanticBindingAtRead = (
       );
     });
   if (
-    !repeating &&
+    !repeatingLoop &&
     origin !== undefined &&
     binding.initializers.length + binding.referenceInitializers.length === 1 &&
     sourcePosition !== null &&
@@ -842,7 +888,7 @@ export const semanticBindingAtRead = (
       hasDefiniteInitializer,
     };
   const uncertainOrder =
-    repeating ||
+    repeatingLoop ||
     sourcePosition === null ||
     position === null ||
     sourcePosition.body !== position.body;
