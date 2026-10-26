@@ -242,6 +242,36 @@ to `/absolute/view-request.json`, then run
 `rea inspect-analysis-view /absolute/view-request.json --json`. This also reads
 pre-summary source records without changing their identity; no live provider is started.
 
+`procedure_address`, `procedure_callees`, `procedure_callers`,
+`resolve_containing_procedure` and `get_call_graph` also accept `detail: "summary"`
+(complete remains the default). The summary includes the first 64 recorded
+observations, exact source parameters and provider/profile identity, relationship
+coverage where recorded, and the retained complete parent's ID. Continue with
+`view: {"kind":"native-observation","offset":64,"limit":64}`. Array positions
+retain `source_index`; graph rows additionally retain their original `level`.
+Graph pages order levels by Unicode code point and keep original row order within
+each level. A recorded empty level is a `status: "empty-level"` row with
+`source_index: null`; observation counts include these markers. Graph diagnostic,
+limitation and reason IDs index that page's `items.messages` dictionary. Expand
+those references to recover exact text, repeated messages, and absent versus
+empty optional fields. Failed nodes retain their original error.
+
+These views reference complete source context through `source_context.digest`
+and caveat counts. Read it using the same parent with
+`view: {"kind":"native-context","facet":"overview"}`. The other facets are
+`analysis-profile`, `limitations` and `result-limitations`; all accept `offset`
+and `limit`. Overview includes source subject, provider, authority, execution
+environment and profile digest. Full profiles and caveat text remain accessible
+without repeating them in every fact response. Context digests follow Evidence's
+semantic subject identity, so caller-selected path aliases preserve context
+identity while responses retain the selected display path. A null profile means
+unavailable; null result-limitations means not applicable to a primitive and
+is distinct from an observed empty graph limitation list. Until the source
+caveats have been inspected, interpretations beyond the returned facts remain
+unknown. Exhausted pages describe the recorded observations and do not establish
+complete native discovery. The same views work through the CLI with historical
+Evidence files or bundles and require no live provider.
+
 For oversized native function Evidence, `details.reported_limits.continuation`
 contains a ready-to-call `inspect_analysis_view` request for the retained
 pseudocode's first page. Use its `name` and `arguments` directly, then follow
@@ -577,27 +607,37 @@ are currently unavailable. Opening or closing a target or observing a provider
 health transition leaves that catalog unchanged and does not emit
 `notifications/tools/list_changed`.
 
-When `REA_MCP_TOOL_PROFILE` selects tool families, the advertised catalog is the
+When `REA_MCP_TOOL_FAMILIES` selects tool families, the advertised catalog is the
 selected subset instead. Every canonical contract is still registered and still
 validates calls, but a tool outside the selection is absent from `tools/list`
 and reports as disabled on an explicit call. `binary_session` remains
-advertised in every profile, and both its `tool_availability` groups and its
-`server_identity.catalog` counts and digests describe the advertised subset, so
-the union of group names still equals `tools/list`. The selection is fixed at
-startup; restart the server to change it. See [tool family
-profiles](mcp-contracts.md#tool-family-profiles).
+advertised only when its family is selected, and its `tool_availability` groups
+and `server_identity.catalog` counts and digests describe the advertised subset.
+See [tool family advertising scope](mcp-contracts.md#tool-family-advertising-scope).
 
 Call `binary_session` with `{}` and read `result.tool_availability` to choose a
 callable operation for the current target, provider, host, and negotiated client
-capabilities. The default result contains the complete inventory in groups that
-share status facts. `tool_availability.client_requirements` is the baseline for
-each group; a group's optional `client_requirements` replaces that baseline for
-the group's tools. Expand each group's `names` into one tool entry, carrying its
-surface, availability, reason, remediation, default-mode status, modes, and
-client requirements. Compare the union of group names with `tools/list` when
-checking that a client received the full catalog. An operation absent from all
-groups is missing from the complete inventory; it is not an implicit
-unavailable entry.
+capabilities. The result contains the complete inventory for the selected
+registration in groups that share status facts. `tool_availability.client_requirements`
+is the baseline for each group; a group's optional `client_requirements` replaces
+that baseline for the group's tools. Expand each group's `names` into one tool
+entry, carrying its availability, reason, remediation, default-mode status,
+modes, and client requirements. Compare the union of group names with
+`tools/list` when checking the advertised catalog. An operation absent from all
+groups is outside the selected scope or missing from the complete catalog; it is
+not an implicit unavailable entry.
+
+`detail` selects the projection and the result echoes it. The default
+`summary` keeps open state, target identity, the binding, current-route
+`capabilities`, run, activity and health status, and each provider candidate's
+identity, selection, and availability and target-support `status`, `code`, and
+`reason`. It lists the fields it leaves out in `omitted_fields`: provider
+`diagnostics`, candidate `capabilities`, and each tool group's static `surface`,
+`effects`, and `annotations`. Omitted fields are not empty or false.
+`detail: "complete"` returns them inline, groups tools by those flags too, and
+has no `omitted_fields`. The output schema keys each result's candidate,
+tool-group and omission fields by its `detail`. CLI `capabilities` and
+`providers` always return complete provider facts.
 
 `get_call_graph` and `trace_call_path` report `forward` and `backward` modes.
 Each requires `procedure_address` plus `procedure_callees` or `procedure_callers`,
@@ -610,8 +650,8 @@ finish without reading relationships, even when neither traversal mode is
 available. Discovery does not block that direct invocation or replace its typed
 partial/error outcomes.
 
-The `effects` and `annotations` arrays list the true members of their fixed
-vocabularies. A known member omitted from either array is false. This applies
+With complete detail, the `effects` and `annotations` arrays list the true
+members of their fixed vocabularies. A known member omitted from either array is false. This applies
 only to these closed flag sets; it does not make an omitted tool, provider, mode,
 or limitation false. Keep availability reasons, remediation, client-feature
 requirements, and mode facts inline with the grouped tool names. The optional
@@ -642,7 +682,8 @@ identity, availability, reason, rejection code, effects, and ordered
 limitations.
 
 `binary_session.analysis_provider_candidates` is authoritative for deep-engine
-discovery. Each candidate's capability sets describe that possible provider;
+discovery. Each candidate's capability sets, returned with complete detail,
+describe that possible provider;
 they do not select it. The top-level `capabilities` describe the current route,
 while `analysis_provider_binding` identifies the concrete selected route. These
 fields are not interchangeable. Target-free discovery is sorted by provider ID,
@@ -942,6 +983,25 @@ of a later null value. Inspect the slot's `xrefs` and the writer's assembly or
 pseudocode, retaining uncertainty about execution order and runtime values.
 These operations inspect static evidence and do not execute the target.
 
+## Editable analysis settings
+
+Agents can call `update_analysis_settings` to raise a curated admission,
+timeout or worker heap default on a connected server, then retry the same
+request. Errors carry `details.limit` with the setting and bounds when the
+failing owner supports runtime recovery; `inspect_analysis_settings` is optional
+when those facts are supplied. Updates are atomic, apply to new work, survive
+target close/open, and vanish when REA exits. Explicit per-call arguments take
+precedence. Neither tool changes host deadlines or resolves retained cleanup.
+See [runtime settings and recovery](design/limits-and-recovery.md#runtime-settings-through-mcp)
+for the full setting list, reset/revision semantics and ASAR retry example.
+For implementation ownership, accepted-operation snapshots, provider wiring,
+and extension guidance, see the
+[maintainer design](design/limits-and-recovery.md#ownership-and-data-flow).
+
+Ghidra and Hopper startup updates apply to the next startup attempt without
+restarting REA. Ghidra decompile timeout updates apply on the existing Program.
+An operation already accepted retains its original budgets.
+
 ## Ghidra first-query deadlines and recovery
 
 A successful MCP initialize handshake establishes the REA connection.
@@ -1043,11 +1103,13 @@ the current client, so it is not a fresh-start recovery. On the same connection:
    `provider_id: "ghidra"`, then retry the first query with an appropriate client
    deadline. The connection and selected provider do not need to change.
 
-If REA's provider startup allowance also needs raising, preserve Evidence and
-close as above, then update `REA_GHIDRA_STARTUP_TIMEOUT_MS` in REA's launch
-environment and restart the server. Reconnect the MCP client before reopening
-the target. Configuration is read at process startup; close/reopen on the same
-connection cannot apply a changed environment. See the
+If REA's provider startup allowance also needs raising, set
+`ghidra.startup_timeout_ms` through `update_analysis_settings` before the next
+startup attempt. This needs no REA restart and does not change accepted work,
+clear cleanup blockers, or extend the client's deadline. Alternatively, change
+`REA_GHIDRA_STARTUP_TIMEOUT_MS` in REA's launch environment and restart the
+server, preserving Evidence and closing as above. Close/reopen on the same
+connection cannot apply a changed launch environment. See the
 [CLI retry example](installation.md#ghidra).
 
 This close/reopen flow was exercised on one real Linux stdio connection after a
@@ -1242,6 +1304,32 @@ Kimi-K3 backend, not the WorkBuddy MCP client. Set the profile on REA's
 registration in the actual MCP host; the host's name alone does not identify
 the downstream model or its schema constraints.
 
+The compact profile also protects strict Anthropic-compatible gateways from
+known schema-translation failures reported in [#3800](https://github.com/morluto/rea/issues/3800):
+primitive `enum` properties without a sibling `type`, and `oneOf`/`allOf`
+inside a property listed in `required`. Affected schemas use the same reduced
+first-level projection described below, so the gateway receives a plain object
+shape while REA continues to validate the complete canonical contract locally.
+This is a compatibility projection, not a claim that the gateway reproduces
+the full union semantics.
+
+For array items expressed as an untyped `oneOf`/`anyOf`, the compact profile
+adds a type when every branch has the same type. Mixed-type item unions use the
+reduced projection; selecting one branch's type would exclude valid calls.
+This addresses the emitted shape reported through a Gemini-backed gateway in
+[#5201](https://github.com/morluto/rea/issues/5201). Gateway conversion and
+live provider acceptance have not been verified for this projection.
+
+Gemini function declarations accept `items` only beside the single `array`
+type. Reduced array properties therefore advertise the element types their
+canonical item schemas accept, such as `{"type": "object"}` for a union of
+object actions, instead of an any-value type list with nested `items`. An
+element whose type is unknown, a tuple, or an array alongside other types uses
+the empty item schema, and a property that may be an array or another type
+lists typed `anyOf` branches. A boundary test rejects any compact
+advertisement that places `items` beside another type or uses an untyped item
+union.
+
 The compact profile renders the same tool set, output schemas, annotations,
 and canonical server-side validation. It changes only the advertised input
 JSON Schema:
@@ -1273,6 +1361,82 @@ Boundary tests pin every advertised compact schema to the budget, keep them
 valid JSON Schema that still accepts every canonical example. Client verification
 also checks provider-facing sizes and canonical examples after conversion by
 the actual Kimi Code CLI; local captures do not establish Moonshot acceptance.
+The SDK catalog test checks that full-profile schemas retain nested ADB extra,
+managed selection, and WASM timeout and detail restrictions. Path-contract tests
+check full-profile local-path rules. Compact MCP workflow tests verify canonical
+rejection of invalid inputs before provider work, independent of how much detail
+the selected advertisement retains.
+
+### Tool family advertising scope
+
+Agents pay context for every advertised tool schema, and clients that send
+catalog payloads with each request (see the Claude Code measurements above)
+can spend more context on tool definitions than on the investigation. Setting
+the server's `REA_MCP_TOOL_FAMILIES` environment variable to a comma-separated
+subset of the catalog's tool-family ids (the `tools.families` entries in the
+product catalog) restricts the registration to those families. A selection
+outside the published family ids fails server startup with the complete id
+list; the setting is read at startup, so restart the server to apply changes.
+
+Out-of-scope tools stay registered but disabled: `tools/list` omits their
+names and schemas entirely, and a direct call fails with the SDK's
+`Tool ... disabled` invalid-params error rather than disappearing silently.
+`binary_session.tool_availability` and the provider `capabilities` sets on the
+same report, including `analysis_provider_candidates`, list only operations
+whose tools the registration advertises; an operation omitted from those
+projections because of the scope is not callable through this registration,
+and `tools/list` remains the canonical catalog. Availability is derived from
+the complete provider facts before those sets are narrowed, so hiding a direct
+tool does not report an advertised composed tool as unavailable. Guided
+prompts follow the scope too: a workflow is advertised only when every tool in
+its suggested steps belongs to a selected family, so a partially available
+workflow is omitted from `prompts/list` instead of rendering a disabled call;
+`prompts/get` reports it as not found. A scope can omit all guided prompts;
+doctor treats a server without the prompts capability as an empty inventory.
+Recovery instructions recommend runtime settings tools only when `application`
+is advertised; otherwise they explain launch settings and how to widen the scope.
+The server identity digest and
+`rea mcp doctor` tool and prompt inventory derive from the
+same selected scope, so a scoped server reports itself healthy; a scope
+without the `session` family cannot serve `binary_session`, and doctor says
+so explicitly instead of reporting a mismatch. Canonical server-side
+validation and Evidence semantics are unchanged for
+the tools that remain advertised. The default (unset) advertises the complete
+catalog exactly as before. Saved registrations with an invalid selection
+report `invalid` in status instead of starting a server that fails.
+
+`rea setup --client <id> --tool-families <ids>` writes the same selection
+into the `env` object of that client's `rea` entry, so the scope travels with
+the registration; rerunning setup with a different selection refreshes it.
+
+#### Choosing families for common workflows
+
+Every investigation that opens a local binary still needs the `session`
+family: it owns `open_binary`, `binary_session`, the evidence-bundle and
+comparison tools, and the unknown ledger, so include it whenever the workflow
+touches a binary. The `tools.families` entries in the product catalog list
+each family's current inventory; the groupings below describe what a scope
+covers, not a frozen tool count.
+
+Include `application` when a workflow pages retained summaries through
+`inspect_analysis_view` or changes analysis settings. `session` owns Evidence
+bundle import/export; it does not include those view and settings tools.
+
+| Workflow                                          | Scope                                                     | Coverage                                                                                                                                                     |
+| ------------------------------------------------- | --------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Firmware extraction and analysis                  | `firmware,session,direct`                                 | extract firmware regions, open the extracted image, inspect it with the proxied disassembly tools                                                            |
+| Web investigation                                 | `browser,pcap,session,javascript-runtime`                 | page, bundle and session inspection, packet captures, JS runtime observation, evidence workflow                                                              |
+| Android application analysis                      | `android,adb,apktool,session`                             | class and method inspection, device bridge, resource decoding; add `frida` for dynamic instrumentation, `jeb` for JEB projects, `flutter` for Flutter builds |
+| Native macOS or iOS binary                        | `native,artifact,session`                                 | Mach-O, signature and property-list inspection plus container extraction                                                                                     |
+| Managed .NET assembly                             | `managed,session`                                         | managed member comparison and reconstruction against the evidence workflow                                                                                   |
+| Electron or browser-hosted JavaScript application | `browser,electron,application,javascript-runtime,session` | runtime targets, live page inspection, bundle and capture tools, feature tracing, JavaScript semantics and reconstruction obligations                        |
+| Evidence bookkeeping only                         | `session`                                                 | open and close binaries, bundles, comparisons, unknown tracking                                                                                              |
+
+Scopes are additive and start narrow: begin with the families the workflow
+names, then add one when a call fails with the SDK's `Tool ... disabled`
+error. The error names the disabled tool; `tools.families` in the product
+catalog maps it back to the family that would re-enable it, and the server
+restarts with the wider scope through the same setup flag.
 
 ### Output schemas
 
@@ -1283,78 +1447,37 @@ identity. Explicit schema IDs and relative external reference bases are
 preserved. This keeps every tool and validation rule in discovery and does not
 change the SDK's catalog invalidation or availability checks.
 
-The server identity's tool-schema digest includes both the canonical output
-contracts and the selected output-schema profile. `full` and `off` therefore
-have distinct identities even though `off` keeps the same canonical output
-validation on the server.
+The server identity's tool-schema digest includes the selected output-schema
+profile and the advertised form that profile produces. `full`, `compact`, and
+`off` therefore have distinct identities. The `compact` digest covers the
+bounded schemas clients receive; `off` keeps the canonical output contracts in
+the digest while advertising nothing.
 
 Some stdio hosts reject a complete `tools/list` frame before they load any
-tools. The opt-in `REA_MCP_OUTPUT_SCHEMA_PROFILE=off` setting omits `outputSchema`
-from the advertised catalog for hosts with a small frame limit (the measured
-pi-web-ui failure and catalog breakdown are in [#2512](https://github.com/morluto/rea/issues/2512)).
-The default `full` profile is unchanged. With `off`, REA validates successful
-structured results against the same named canonical tool contract before
-delivery; it still returns complete `structuredContent` and text results.
-Only client-side schema discovery and validation are omitted, so hosts using
-this profile should rely on REA's validation and retain their usual response
-size limits.
+tools. The opt-in `REA_MCP_OUTPUT_SCHEMA_PROFILE=compact` setting bounds every
+advertised output schema to 4,096 bytes; `off` omits `outputSchema` entirely
+(the measured pi-web-ui failure and catalog breakdown are in
+[#2512](https://github.com/morluto/rea/issues/2512)). The default `full` profile
+is unchanged. Both settings keep the same named canonical tool contract for
+server-side result validation, and both still return complete
+`structuredContent` and text results.
 
-### Tool family profiles
+`compact` keeps the complete validation structure when it fits the budget.
+Otherwise it advertises the root property shape, first-level reference-resolved
+types, first-level guidance, and the root's `required`/`additionalProperties`
+constraints, with nested validation detail elided. Local references are inlined
+within the budget, so the advertised form is self-contained and omits the
+canonical contract's content-bound `$id`. The projection only widens: a valid
+canonical result still satisfies the advertised schema, but a client validating
+against it can accept a result the canonical contract rejects. REA still
+validates every result before delivery. On catalogs large enough that full
+input schemas alone approach the frame limit, keep the input profile at its
+`compact` default as well; with full input schemas the advertisement is
+dominated by the input side.
 
-Every public tool belongs to exactly one family. The
-[partition test](../src/contracts/toolFamilies.test.ts) proves that the eight
-families cover the catalog once, so a new tool cannot ship unfiled.
-
-| Family      | Tools | Contents                                                                         |
-| ----------- | ----: | -------------------------------------------------------------------------------- |
-| `session`   |    22 | Target lifecycle, Evidence bundles, residual unknowns, cross-Evidence comparison |
-| `native`    |    70 | Deep provider analysis, navigation, annotations, managed inspection              |
-| `artifacts` |    10 | Artifact inventory/extraction and managed reconstruction                         |
-| `data`      |    17 | Go, Rust, WASM, EVM, SQLite, firmware, Flutter, captures, signals                |
-| `web`       |    25 | Browser, Electron, JavaScript bundles, runtime observation, source recovery      |
-| `mobile`    |    35 | Android packages, Apktool resources, JEB projects, ADB devices                   |
-| `debug`     |    21 | GDB, Rizin, Cutter, Frida, reverse-engineering command surface                   |
-| `workflows` |    10 | Application traces, version comparisons, reconstruction ledgers                  |
-
-A typical session that only walks binaries never calls the 25 web or 35 mobile
-operations, yet a full advertisement makes the client load and forward every
-one of them. The full catalog is 3,372,788 bytes of `tools/list` JSON; output
-schemas are 75% of it and input schemas 21%. `REA_MCP_TOOL_PROFILE` bounds that
-advertisement:
-
-- `full` (default) advertises all 210 tools and preserves the existing behavior
-  and catalog digest.
-- `core` advertises `session`, `native`, and `artifacts`: 102 tools.
-- A comma-separated family list advertises exactly those families, and always
-  includes `session` so `open_binary` and `binary_session` stay reachable.
-
-Measured `tools/list` sizes from this repository's contracts:
-
-| Profile and schema settings                  | Tools |     Bytes |   ≈Tokens |
-| -------------------------------------------- | ----: | --------: | --------: |
-| `full`                                       |   210 | 3,372,788 | 1,031,268 |
-| `core`                                       |   102 | 1,664,166 |   507,764 |
-| `core` + compact input schemas               |   102 | 1,443,603 |   442,804 |
-| `core` + output schemas off                  |   102 |   329,386 |    94,742 |
-| `core` + compact input + output schemas off  |   102 |   108,823 |    29,782 |
-| `debug` + compact input + output schemas off |    43 |    53,489 |    15,391 |
-
-Token counts use `tokenx` over the serialized catalog and are estimates, not
-provider billing. The compact and output-schema profiles compose with the tool
-profile; see [compact input schemas](#compact-input-schema-profile) and [output
-schemas](#output-schemas) for what each changes.
-
-A selected profile is a discovery bound, not an authority change. Canonical
-contracts, server-side input validation, effects, and Evidence provenance are
-identical, and a hidden tool rejects an explicit call as disabled. The setting
-is read at startup; restart the server after changing it, as with
-`REA_MCP_MAX_RESPONSE_BYTES`. `rea doctor` compares the live `tools/list` and
-`binary_session` catalog identity against the same profile it passes to the
-server.
-
-Because the catalog digest covers only the advertised tools, a client that
-reports `aligned` was started with the same profile the doctor used. A profile
-change requires the same restart that any catalog change requires.
+Only client-side schema discovery and validation are reduced or omitted, so
+hosts using these profiles should rely on REA's validation and retain their
+usual response size limits.
 
 ### Function comparison limitations
 

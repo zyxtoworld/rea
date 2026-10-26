@@ -24,8 +24,13 @@ export async function applyReleasePleasePatch(
       "The release proposal patch requires release-please 17.3.0",
     );
   }
-  const directoryPath = relative(project, directory).split(sep).join("/");
-  const args = ["--directory", directoryPath, patch];
+  // Git prefixes patch filenames with a slash-separated path, even on Windows.
+  // Split only native separators so POSIX backslashes remain filename bytes.
+  const args = [
+    "--directory",
+    relative(project, directory).split(sep).join("/"),
+    patch,
+  ];
   const check = async (reverse) => {
     try {
       await execute(

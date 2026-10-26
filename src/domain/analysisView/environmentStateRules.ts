@@ -33,7 +33,7 @@ export interface StateToolFacts {
   readonly record_ordinals: readonly number[];
 }
 
-/** A record's response body as JSON, or unusable when absent, cut, not JSON, not exactly representable or carrying a `__proto__` member. */
+/** A record's response body as JSON, or unusable when absent, cut, not JSON, not exactly representable. */
 export type ParsedBody =
   | { readonly kind: "json"; readonly value: JsonValue }
   | { readonly kind: "unusable" };
@@ -120,6 +120,8 @@ interface EntityViewPlan {
   readonly clock_formats?: Readonly<Record<string, ClockFormat>> | undefined;
   /** Fields whose string arrays the view lists in code-point order, whatever order they were written in. */
   readonly sorted_arrays?: string[] | undefined;
+  /** The keys the view shows of object fields it shows with fewer keys than stored. */
+  readonly nested_fields?: Readonly<Record<string, string[]>> | undefined;
   /** Envelope members each response there mints, which checks leave out and serving keeps as recorded. */
   readonly per_response_members?: string[] | undefined;
 }
@@ -263,6 +265,29 @@ export const scalarText = (value: JsonValue | undefined): string | undefined =>
     : typeof value === "number"
       ? String(value)
       : undefined;
+/** A JSON dictionary lookup observes only its own members, preserving absent fields. */
+export const ownMember = <Value>(
+  object: Readonly<Record<string, Value>> | undefined,
+  member: string,
+): Value | undefined =>
+  object !== undefined && Object.hasOwn(object, member)
+    ? object[member]
+    : undefined;
+
+/** Write one JSON member without interpreting its name as an inherited setter. */
+export const setOwnMember = (
+  object: JsonObject,
+  member: string,
+  value: JsonValue,
+): void => {
+  Object.defineProperty(object, member, {
+    value,
+    enumerable: true,
+    configurable: true,
+    writable: true,
+  });
+};
+
 /** Equal JSON values; object member order carries no meaning. */
 export const same = (
   left: JsonValue | undefined,
@@ -461,15 +486,6 @@ export const deeperThan = (value: JsonValue, limit: number): boolean => {
   return false;
 };
 
-/** JSON parsers keep a `__proto__` member that plain object construction would turn into a prototype. */
-export const hasPrototypeKey = (value: JsonValue): boolean =>
-  Array.isArray(value)
-    ? value.some(hasPrototypeKey)
-    : isObject(value) &&
-      Object.entries(value).some(
-        ([name, item]) => name === "__proto__" || hasPrototypeKey(item),
-      );
-
 export const pointerTo = (name: string): string =>
   `/${name.replaceAll("~", "~0").replaceAll("/", "~1")}`;
 /** The unescaped reference tokens of a pointer. */
@@ -485,7 +501,7 @@ const memberOf = (
   body: JsonValue | undefined,
   name: string,
 ): JsonValue | undefined =>
-  isObject(body) && Object.hasOwn(body, name) ? body[name] : undefined;
+  isObject(body) ? ownMember(body, name) : undefined;
 
 /** The element of a one-element array. */
 const soleElement = (value: JsonValue | undefined): JsonValue | undefined =>
@@ -568,7 +584,7 @@ export const identifies = (
   // Stop at the first missing or repeated value, so a sparse list costs one read per field.
   const seen = new Set<string>();
   for (const item of items) {
-    const value = scalarText(item[name]);
+    const value = scalarText(ownMember(item, name));
     if (value === undefined || seen.has(value)) return false;
     seen.add(value);
   }
@@ -601,7 +617,9 @@ export const locateList = (
   if (Array.isArray(body)) return body.every(isObject) ? "" : undefined;
   if (
     !isObject(body) ||
-    IDENTITY_NAMES.some((name) => scalarText(body[name]) !== undefined)
+    IDENTITY_NAMES.some(
+      (name) => scalarText(ownMember(body, name)) !== undefined,
+    )
   )
     return undefined;
   const arrays = Object.entries(body).filter(
@@ -660,7 +678,7 @@ export const renderStateEntity = (
   entity: StateEntity,
   view: Pick<
     EntityViewPlan,
-    "tool" | "fields" | "clock_formats" | "sorted_arrays"
+    "tool" | "fields" | "clock_formats" | "sorted_arrays" | "nested_fields"
   >,
   volatileFields: ReadonlySet<string>,
   observed?: JsonObject,
@@ -669,6 +687,7 @@ export const renderStateEntity = (
     entity.view_fields.find((candidate) => candidate.tool === view.tool)
       ?.fields ?? {};
   const formats = view.clock_formats ?? {};
+  const nested = view.nested_fields ?? {};
   const sorted = new Set(view.sorted_arrays);
   return Object.fromEntries(
     view.fields.flatMap((name): [string, JsonValue][] => {
@@ -679,15 +698,29 @@ export const renderStateEntity = (
             ? own
             : entity.fields;
       if (!Object.hasOwn(source, name)) return [];
-      // A stored value the view never recorded, such as a written one, takes the view's spelling.
+      // A stored value the view never recorded, such as a written one, takes the view's spelling and keys.
       const value =
-        source === entity.fields && Object.hasOwn(formats, name)
-          ? respellClock(source[name]!, formats[name]!)
-          : source[name]!;
+        source !== entity.fields
+          ? source[name]!
+          : Object.hasOwn(formats, name)
+            ? respellClock(source[name]!, formats[name]!)
+            : Object.hasOwn(nested, name)
+              ? shownKeys(source[name]!, nested[name]!)
+              : source[name]!;
       return [[name, sorted.has(name) ? inSetOrder(value) : value]];
     }),
   );
 };
+
+/** An object with only the keys a view shows of it, in the view's order; any other value as it is. */
+const shownKeys = (value: JsonValue, keys: readonly string[]): JsonValue =>
+  isObject(value)
+    ? Object.fromEntries(
+        keys.flatMap((key) =>
+          Object.hasOwn(value, key) ? [[key, value[key]!]] : [],
+        ),
+      )
+    : value;
 
 /** Whether a value is an array of strings. */
 export const isStringArray = (value: JsonValue): value is string[] =>

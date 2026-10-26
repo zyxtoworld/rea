@@ -1,3 +1,4 @@
+import type { McpToolFamilies } from "./mcpToolFamilies.js";
 import type { LogLevel } from "./processStart.js";
 import type { ReferenceSourcePolicy } from "../domain/referenceSourcePolicy.js";
 import type { AnalysisProviderSelector } from "../contracts/providerSelection.js";
@@ -10,6 +11,7 @@ import type { RegexMatchingDeadline } from "./regexMatchingDeadline.js";
 import type { RegexWorkerHeapRequest } from "./regexWorkerHeapRequest.js";
 
 export interface AppConfig {
+  readonly mcpToolFamilies?: readonly McpToolFamilies[number][];
   readonly mcpMaxResponseBytes?: number;
   readonly mcpInputSchemaProfile?: McpInputSchemaProfile;
   readonly mcpOutputSchemaProfile?: McpOutputSchemaProfile;
@@ -19,7 +21,7 @@ export interface AppConfig {
   readonly ghidraJavaHome: string | undefined;
   readonly ghidraStartupTimeoutMs: number;
   /** Per-function native decompiler limit; absent leaves decompiles unbounded. */
-  readonly ghidraDecompileTimeoutSeconds?: number;
+  readonly ghidraDecompileTimeoutSeconds?: number | undefined;
   readonly ghidraLanguageOverride?: GhidraLanguageOverride;
   readonly ghidraDisabledAnalyzers?: readonly string[];
   readonly ghidraSeedFile?: string;
