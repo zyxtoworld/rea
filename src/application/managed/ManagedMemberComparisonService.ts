@@ -13,6 +13,7 @@ import {
   AnalysisOutputError,
 } from "../../domain/analysisErrorCore.js";
 import { AnalysisError } from "../../domain/analysisErrorBase.js";
+import { analysisErrorWithCleanupFailure } from "../../domain/analysisErrorCleanup.js";
 import { createEvidence, type Evidence } from "../../domain/evidence.js";
 import {
   classifyBinaryTargetFilesystemFailure,
@@ -114,7 +115,17 @@ export const compareManagedMemberPaths = async (
     ]);
     // Report an unopenable path like every other path-based command does,
     // with the failed path and constraint, rather than a bare input error.
-    if (!leftTarget.ok) return err(leftTarget.error);
+    if (!leftTarget.ok) {
+      if (!rightTarget.ok && rightTarget.error.cleanupIncomplete)
+        return err(
+          analysisErrorWithCleanupFailure(
+            leftTarget.error,
+            rightTarget.error,
+            operation,
+          ).bindCleanupDependencies([leftTarget.error, rightTarget.error]),
+        );
+      return err(leftTarget.error);
+    }
     if (!rightTarget.ok) return err(rightTarget.error);
     const inspectTarget = async (
       target: BinaryTarget,
@@ -124,11 +135,10 @@ export const compareManagedMemberPaths = async (
       const selectedPath = input[inputField];
       let snapshot: Awaited<ReturnType<typeof readManagedSnapshot>>;
       try {
-        snapshot = await readSnapshot(
-          path,
-          operation,
-          resources === undefined ? {} : { resources },
-        );
+        snapshot = await readSnapshot(path, operation, {
+          expectedSha256: target.sha256,
+          ...(resources === undefined ? {} : { resources }),
+        });
       } catch (cause: unknown) {
         const failure = classifyBinaryTargetFilesystemFailure(path, cause);
         if (failure !== undefined) throw failure;
