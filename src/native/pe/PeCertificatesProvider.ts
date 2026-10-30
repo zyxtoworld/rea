@@ -27,11 +27,13 @@ import {
   type InspectPeCertificatesInput,
 } from "../../domain/native/peCertificates.js";
 import { err, ok } from "../../domain/result.js";
+import { fixedAllowanceOptions } from "../../domain/fixedAllowanceRemediation.js";
 import { PE_CERTIFICATES_PROVIDER } from "../../domain/investigationProviders.js";
 import {
-  parsePeCertificates,
-  PE_CERTIFICATE_TELETEX_LIMITATION,
-} from "./PeCertificateParser.js";
+  PeCertificateAsn1Failure,
+  type PeCertificateDecodeAllowance,
+} from "./PeCertificateAsn1.js";
+import { parsePeCertificates } from "./PeCertificateParser.js";
 
 const OPERATION = "inspect_pe_certificates";
 
@@ -71,11 +73,6 @@ export class PeCertificatesProvider implements PeCertificatesPort {
           },
           input,
         );
-        if (parsed.limitations.includes(PE_CERTIFICATE_TELETEX_LIMITATION))
-          throw new ArtifactReaderFailure(
-            "format",
-            "Unsupported certificate name encoding (DER tag 0x14).",
-          );
         return ok(parsed);
       });
     } catch (cause) {
@@ -95,6 +92,29 @@ const inputBudgetRemediation = (
     : input.max_entries >= MAX_INSPECT_PE_CERTIFICATE_ENTRIES
       ? `The image exceeds the ${String(MAX_INSPECT_PE_CERTIFICATE_ENTRIES)}-entry certificate-table ceiling this operation accepts; select a smaller artifact.`
       : `Raise max_entries above ${String(input.max_entries)} or select a smaller artifact; the limit is the caller-selected certificate entry budget.`;
+
+/** A fixed PKCS#7 decoder allowance; neither request fields nor retries raise it. */
+const decoderAllowanceFailure = (
+  cause: PeCertificateAsn1Failure,
+  { allowance, limit }: PeCertificateDecodeAllowance,
+) =>
+  new AnalysisResourceConstraintError(
+    OPERATION,
+    "memory",
+    `PKCS#7 signedData exceeds a fixed decoder allowance: ${cause.message}`,
+    allowance === "asn1-nodes"
+      ? { max_asn1_values: limit }
+      : { max_decoded_text_bytes: limit },
+    {
+      cause,
+      ...fixedAllowanceOptions(
+        allowance === "asn1-nodes"
+          ? `The PE certificate ASN.1 allowance of ${String(limit)} values per PKCS#7 payload (this release has no runtime override)`
+          : `The PE certificate decoded-text allowance of ${String(limit)} bytes per PKCS#7 payload (this release has no runtime override)`,
+        "parser",
+      ),
+    },
+  );
 
 const peCertificatesFailurePrimary = (
   facts: ArtifactFilePrimaryFacts,
@@ -122,6 +142,12 @@ const peCertificatesFailurePrimary = (
     return new AnalysisCancelledError(OPERATION, {
       cause: artifactFileCancellationCause(cause),
     });
+  if (
+    origin === "owned-or-classified" &&
+    cause instanceof PeCertificateAsn1Failure &&
+    cause.exhausted !== null
+  )
+    return decoderAllowanceFailure(cause, cause.exhausted);
   if (
     origin === "owned-or-classified" &&
     cause instanceof ArtifactReaderFailure

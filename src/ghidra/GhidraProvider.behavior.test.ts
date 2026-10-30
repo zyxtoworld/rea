@@ -519,23 +519,35 @@ describe("Ghidra raw-binary profile", () => {
 });
 
 describe("Ghidra Mach-O slice support", () => {
-  it("declines parsed thin arm64_32 Mach-O targets", () => {
+  it("declines parsed thin arm64_32 Mach-O targets, naming every admitted family", () => {
     const parsed = parseExecutableHeader(
       thinMach(0xcefaedfe, 0x0200000c),
       "arm64",
     );
     if (!parsed.ok) throw new Error("Expected valid arm64_32 Mach-O target");
-    expect(
-      provider().inspectTargetSupport({
-        path: "/tmp/watch.o",
-        sha256: "a".repeat(64),
-        kind: "executable",
-        ...parsed.value,
-      }),
-    ).toMatchObject({
-      status: "unsupported",
-      code: "architecture_unsupported",
+    const support = provider().inspectTargetSupport({
+      path: "/tmp/watch.o",
+      sha256: "a".repeat(64),
+      kind: "executable",
+      ...parsed.value,
     });
+    if (support.status !== "unsupported") throw new Error("Expected a refusal");
+    expect(support.code).toBe("architecture_unsupported");
+    expect(support.reason.match(/\w+/gu)).toEqual(
+      expect.arrayContaining([
+        "arm64_32",
+        "x86",
+        "x86_64",
+        "arm",
+        "arm64",
+        "mips",
+        "riscv",
+        "powerpc",
+        "hexagon",
+        "6502",
+        "m68k",
+      ]),
+    );
   });
   it("refuses universal targets whose selected slice cannot be enforced", () => {
     const ghidra = provider();
@@ -1811,7 +1823,7 @@ describe("Ghidra measured DOS load-image projection", () => {
           ok: true,
           value: {
             result: { status: state, observations: fixture.observation },
-            rawResult: fixture.observation,
+            rawResult: null,
             analysisProfile: profile.value.profile,
           },
         });
@@ -1894,7 +1906,7 @@ it("returns read-only NativeAOT metadata inline and drills down by derived Metho
           ],
         },
       },
-      rawResult: observations,
+      rawResult: null,
     },
   });
   for (const address of [
@@ -2149,9 +2161,7 @@ it("shares one session snapshot across callers while isolating cancellation and 
   expect(secondResult).toMatchObject({
     ok: true,
     value: {
-      rawResult: {
-        source_files: [{ name: "caller-2" }],
-      },
+      rawResult: null,
       result: {
         observations: {
           source_files: [{ name: "caller-2" }],
@@ -4615,6 +4625,26 @@ it("reports every Windows existing-project capability unavailable before open", 
           capability.availabilityCode === "unsupported_host",
       ),
     ).toBe(true);
+  } finally {
+    await ghidra.closeOwnedResources();
+  }
+});
+
+it("reports an unsupported existing-project target as an invalid REA_GHIDRA_PROJECT_PATH setting", async () => {
+  const ghidra = provider(installationHost(), undefined, {
+    REA_GHIDRA_PROJECT_PATH: join(process.cwd(), "selected.gpr"),
+  });
+  try {
+    const resolved = await ghidra.resolveAnalysisProfile({
+      ...executableTarget("elf", "x86_64"),
+      format: "dos-com",
+    } as unknown as BinaryTarget);
+    expect(resolved.ok).toBe(false);
+    if (resolved.ok) return;
+    expect(resolved.error).toMatchObject({
+      _tag: "ConfigurationError",
+      settings: [{ setting: "REA_GHIDRA_PROJECT_PATH" }],
+    });
   } finally {
     await ghidra.closeOwnedResources();
   }
