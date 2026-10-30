@@ -1,1 +1,12 @@
-node scripts/run-script.mjs check:fast
+# Git for Windows may expose Node without an npm launcher to its POSIX hook shell.
+if command -v npm >/dev/null 2>&1; then
+  npm run check:fast
+else
+  npm_cli="$(node -p 'const { dirname, join } = require("node:path"); join(dirname(process.execPath), "node_modules", "npm", "bin", "npm-cli.js")')"
+  if [ -f "$npm_cli" ]; then
+    node "$npm_cli" run check:fast
+  else
+    printf '%s\n' 'npm is required for the pre-push check.' >&2
+    exit 127
+  fi
+fi
