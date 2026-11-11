@@ -185,7 +185,6 @@ Windows-host behavior, authenticated forensic acquisition provenance, real
 V3/V4 captures, extension-list assembly or nonresident payload recovery. Those
 limits remain explicit alongside the existing synthesized boundary regressions.
 
-
 ## Acquired extension metadata verification
 
 At `b76b9716192db1f2bbfdcbb093bb01c29a7e8d10`, the MFT owner additionally resolves
@@ -201,10 +200,10 @@ records' fixups and decoded their `local` / `linked` filenames and source facts.
 The byte-level fixture defines the expected ownership relationship. This is
 synthesized extension coverage, not a real extension capture.
 
-| Source-built input | Bytes | SHA-256 |
-| --- | ---: | --- |
-| MFT pair | 2,048 | `b512f7b270679dd5107b76c2787c6ca137b667bae1d3921ea1a0117fb94b5723` |
-| V2 journal | 64 | `d4356fd78b1407d4e3fe1bf9ef4b55ef4552936334d5bc744db1531a31987b60` |
+| Source-built input | Bytes | SHA-256                                                            |
+| ------------------ | ----: | ------------------------------------------------------------------ |
+| MFT pair           | 2,048 | `b512f7b270679dd5107b76c2787c6ca137b667bae1d3921ea1a0117fb94b5723` |
+| V2 journal         |    64 | `d4356fd78b1407d4e3fe1bf9ef4b55ef4552936334d5bc744db1531a31987b60` |
 
 An 11-file focused run passed 121 tests. Nineteen new domain cases cover exact
 identity and attribute selection, reused sequences, missing/wrong owners,
