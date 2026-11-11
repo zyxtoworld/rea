@@ -47,6 +47,10 @@ if (await pathExists(join(root, "src"))) {
     run(process.execPath, [packageManagerPath, "run", "build:cached"]);
   else run(packageManagerPath, ["run", "build:cached"]);
   run(process.execPath, ["scripts/generate-skill-metadata.mjs", "--check"]);
+  run(process.execPath, [
+    "scripts/generate-cursor-plugin-skill.mjs",
+    "--check",
+  ]);
 } else {
   for (const path of [
     "scripts/lib/cli-process-environment.mjs",
