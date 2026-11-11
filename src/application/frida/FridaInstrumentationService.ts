@@ -599,6 +599,9 @@ const fridaParameters = (
         },
       }),
   mode: input.mode,
+  ...(input.captureLimits === undefined
+    ? {}
+    : { capture_limits: input.captureLimits }),
   ...(input.mode === "attach"
     ? { pid: input.pid }
     : {
@@ -614,6 +617,9 @@ const sourceOutput = (script: FridaScriptObservation) => ({
 });
 
 const scriptOutput = (script: FridaScriptObservation) => ({
+  ...(script.captureLimits === undefined
+    ? {}
+    : { capture_limits: script.captureLimits }),
   script_id: script.scriptId,
   ...sourceOutput(script),
   messages: script.messages,
@@ -621,6 +627,9 @@ const scriptOutput = (script: FridaScriptObservation) => ({
 });
 
 const sessionStatusOutput = (status: FridaSessionStatus) => ({
+  ...(status.captureLimits === undefined
+    ? {}
+    : { capture_limits: status.captureLimits }),
   session_id: status.sessionId,
   device_id: status.deviceId,
   state: status.state,

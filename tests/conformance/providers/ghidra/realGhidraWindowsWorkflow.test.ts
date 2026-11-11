@@ -17,6 +17,17 @@ describe("real Windows Ghidra workflow trust boundary", () => {
 
     expect(workflow.on).toEqual({ workflow_dispatch: null });
     expect(workflow.permissions).toEqual({ contents: "read" });
+    for (const name of ["native-artifact", "verify"]) {
+      const job = workflow.jobs[name];
+      expect(job.if).toBe("github.ref == 'refs/heads/main'");
+      const checkouts = job.steps.filter((step: { uses?: string }) =>
+        step.uses?.startsWith("actions/checkout@"),
+      );
+      expect(checkouts).toHaveLength(1);
+      expect(checkouts[0].uses).toMatch(/^actions\/checkout@[0-9a-f]{40}$/);
+      expect(checkouts[0].with?.ref).toBeUndefined();
+      expect(checkouts[0].with?.repository).toBeUndefined();
+    }
     expect(workflow).toMatchObject({
       jobs: {
         verify: {

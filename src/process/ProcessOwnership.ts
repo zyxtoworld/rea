@@ -7,9 +7,12 @@ import {
   errorMessage,
   readNativeProcessIdentityMap,
   readProcessOwnershipFacts,
+  reobserveUnavailableTokenFacts,
   settleExitingProcessIdentities,
   settleVanishedTokenFacts,
   systemProcessOwnershipHost as systemHost,
+  TOKEN_READ_RETRY_ATTEMPTS,
+  TOKEN_READ_RETRY_DELAY_MS,
 } from "./ProcessOwnershipObservation.js";
 import { launcherIdentityFailure } from "./ProcessOwnershipIdentity.js";
 import { descendantsOf, liveProcesses } from "./ProcessOwnershipProcessTree.js";
@@ -101,6 +104,11 @@ export type ProcessIdentityObservation =
       readonly lifecycle?: ProcessLifecycleObservation;
       /** Native relation facts read with this identity, never copied from a process-table row. */
       readonly relation?: ProcessNativeRelationObservation;
+      /**
+       * Short native process name (Darwin p_comm, Linux comm), possibly
+       * truncated. It names a process in diagnostics; never identity or lookup.
+       */
+      readonly name?: string;
     }
   | {
       readonly state: "absent";
@@ -221,6 +229,14 @@ interface ProcessOwnershipValidationFailure {
     | "run-token-mismatch"
     | "process-identity-unavailable";
   readonly diagnostic?: string;
+  /**
+   * Native identity read after an unreadable token. It names the live
+   * process in the failure; it is never ownership or signal authority.
+   */
+  readonly identityAfter?: Extract<
+    ProcessIdentityObservation,
+    { readonly state: "readable" }
+  >;
 }
 
 /**
@@ -1246,8 +1262,8 @@ const cleanupValidationFailure = (
       .join(", ");
     const candidates = unreadable
       .map(
-        ({ pid, diagnostic }) =>
-          `${String(pid)}=${sanitizedTokenReadFailure(diagnostic)}`,
+        ({ pid, diagnostic, identityAfter }) =>
+          `${String(pid)}=${sanitizedTokenReadFailure(diagnostic)}${unreadableCandidateFacts(identityAfter)}`,
       )
       .sort((left, right) => compareUnicodeCodePoints(left, right));
     return {
@@ -1263,6 +1279,39 @@ const cleanupValidationFailure = (
     failures,
     ...unverifiedEntry,
   };
+};
+
+/** Keep the native identity that bracketed an unreadable token read. */
+const unreadableTokenFailure = (
+  fact: ProcessOwnershipFact,
+  diagnostic: string,
+): ProcessOwnershipValidationFailure => ({
+  pid: fact.process.pid,
+  reason: "environment-unreadable",
+  diagnostic,
+  ...(fact.identityAfter.state === "readable"
+    ? { identityAfter: fact.identityAfter }
+    : {}),
+});
+
+/** Name an unreadable candidate from its native facts; display only. */
+const unreadableCandidateFacts = (
+  identity: ProcessOwnershipValidationFailure["identityAfter"],
+): string => {
+  if (identity === undefined) return "";
+  const facts = [
+    ...(identity.name === undefined
+      ? []
+      : [`name ${JSON.stringify(identity.name)}`]),
+    ...(identity.relation?.state === "observed"
+      ? [
+          `ppid ${String(identity.relation.parentPid)}`,
+          `pgid ${String(identity.relation.processGroupId)}`,
+        ]
+      : []),
+    `identity ${identity.identity}`,
+  ];
+  return ` (${facts.join(", ")})`;
 };
 
 const sanitizedTokenReadFailure = (diagnostic: string | undefined): string => {
@@ -1319,10 +1368,17 @@ const processOwnershipFailures = async (
 }> => {
   const runId = ownership.runId;
   if (host.processIdentities !== undefined) {
+    // Re-read transiently unreadable tokens before signaling, as the sweep
+    // does; one exec-time read must not decide this group's cleanup.
     const facts = await settleVanishedTokenFacts(
-      await readProcessOwnershipFacts(members, host, undefined, {
+      await reobserveUnavailableTokenFacts(
+        await readProcessOwnershipFacts(members, host, undefined, {
+          exitSettlement,
+        }),
+        host,
         exitSettlement,
-      }),
+        { generation: "first-observed", runId },
+      ),
       host,
       exitSettlement,
     );
@@ -1393,11 +1449,7 @@ const processOwnershipFailures = async (
         continue;
       }
       if (fact.token.state === "unavailable") {
-        failures.push({
-          pid: fact.process.pid,
-          reason: "environment-unreadable",
-          diagnostic: fact.token.reason,
-        });
+        failures.push(unreadableTokenFailure(fact, fact.token.reason));
       } else if (fact.token.runId !== runId) {
         failures.push({ pid: fact.process.pid, reason: "run-token-mismatch" });
       } else {
@@ -1496,9 +1548,6 @@ interface UnreadableTokenCandidate {
   readonly diagnostic: string;
 }
 
-const TOKEN_READ_RETRY_ATTEMPTS = 3;
-const TOKEN_READ_RETRY_DELAY_MS = 40;
-
 /** Darwin reports this when the kernel withholds a platform binary's environment. */
 const PLATFORM_BINARY_ENVIRONMENT_WITHHELD =
   "platform_binary_environment_withheld";
@@ -1515,8 +1564,9 @@ const currentProcessUid = (): number | undefined =>
  * CS_RESTRICT processes from KERN_PROCARGS2, and fails with EINVAL for
  * processes owned by another account. Linux denies `/proc/<pid>/environ` for
  * another account, mismatched real/saved IDs (setgid and setuid programs) and
- * non-dumpable processes. These classes cannot be token-verified by this
- * caller. An unrelated candidate is recorded as unverified instead of failing
+ * non-dumpable processes, and processes in other user namespaces when the
+ * environment read is permission-denied. These classes cannot be token-verified
+ * by this caller. An unrelated candidate is recorded as unverified instead of failing
  * an otherwise clean capture; every related or otherwise unreadable candidate
  * stays fail-closed.
  */
@@ -1525,6 +1575,8 @@ const environmentWithheldFromInspection = (
   observedUid: number | undefined,
   restriction?: LinuxEnvironmentRestriction,
 ): boolean => {
+  if (restriction === "user-namespace")
+    return /^(?:environment_errno_)?(?:EACCES|EPERM)(?::|\b)/u.test(diagnostic);
   if (restriction !== undefined) return true;
   const uid = currentProcessUid();
   if (uid !== undefined && observedUid !== undefined && observedUid !== uid)
@@ -1697,30 +1749,14 @@ const scanWithOwnershipEvidence = async (
       exitSettlement,
     },
   );
-  let facts = initialFacts;
-  for (let attempt = 0; attempt < TOKEN_READ_RETRY_ATTEMPTS; attempt += 1) {
-    const retryRows = facts
-      .filter(
-        ({ token, identityAfter }) =>
-          token.state === "unavailable" &&
-          !processIdentityHasExited(identityAfter) &&
-          !processIdentityIsExiting(identityAfter),
-      )
-      .map(({ process }) => process);
-    if (retryRows.length === 0) break;
-    await delay(TOKEN_READ_RETRY_DELAY_MS);
-    const retries = await readProcessOwnershipFacts(
-      retryRows,
-      host,
-      undefined,
-      { exitSettlement },
-    );
-    const retryByPid = new Map(retries.map((fact) => [fact.process.pid, fact]));
-    facts = facts.map((fact) => retryByPid.get(fact.process.pid) ?? fact);
-  }
-
   // Recheck final token-open races at the shared native identity boundary.
-  facts = await settleVanishedTokenFacts(facts, host, exitSettlement);
+  const facts = await settleVanishedTokenFacts(
+    await reobserveUnavailableTokenFacts(initialFacts, host, exitSettlement, {
+      generation: "current",
+    }),
+    host,
+    exitSettlement,
+  );
 
   const processGroupIds = new Set<number>([
     ...(relation === undefined ? [] : [relation.processGroupId]),
@@ -1820,11 +1856,7 @@ const scanWithOwnershipEvidence = async (
         fact.identityAfter.state === "readable" &&
         fact.identityAfter.identity === retainedCandidate.identity)
     )
-      failures.push({
-        pid: fact.process.pid,
-        reason: "environment-unreadable",
-        diagnostic: fact.token.reason,
-      });
+      failures.push(unreadableTokenFailure(fact, fact.token.reason));
   }
 
   for (const candidate of retained) {

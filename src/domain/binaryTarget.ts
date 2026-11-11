@@ -1,5 +1,9 @@
+import {
+  resolveMappedFileOffset,
+  type FileMapping,
+  type ZeroFillMapping,
+} from "./virtualFileMapping.js";
 import type {
-  BinaryArchitecture,
   ElfFamilyMetadata,
   HeaderArchitecture,
   MipsElfMetadata,
@@ -151,10 +155,7 @@ const parseThinMachO = (
   if (!table.ok) return table;
   if (table.value === null) return err("unsupported binary format");
   const { identity } = table.value;
-  const architecture =
-    identity.cpuType === CPU_TYPE_ARM64_32
-      ? "arm64_32"
-      : machArchitecture(identity.cpuType);
+  const architecture = machoBinaryArchitecture(identity.cpuType);
   if (architecture === undefined) return err("unsupported Mach-O architecture");
   const commands = new MachoLoadCommandCursor(table.value);
   while (commands.nextOffset !== null) {
@@ -274,9 +275,14 @@ const parseFatMachO = (
   // family declared more than once, such as arm64 and arm64e, has no
   // provider-neutral choice and is not selected.
   const preferred = fatHostArchitecture(host);
-  const hostSlice = declarations.find(
+  const hostSlices = declarations.filter(
     ({ architecture }) => architecture === preferred,
   );
+  if (hostSlices.length > 1)
+    return err(
+      `FAT binary declares several ${preferred} slices; no slice was selected`,
+    );
+  const hostSlice = hostSlices[0];
   const unambiguous = declarations.filter(
     ({ architecture }) =>
       declarations.filter((other) => other.architecture === architecture)
@@ -607,28 +613,37 @@ export const peRvaToFileOffset = (
   sizeOfHeaders: number,
   size = 1,
 ): number | undefined => {
-  if (rva < sizeOfHeaders && size <= sizeOfHeaders - rva) return rva;
-  for (let i = 0; i < numberOfSections; i++) {
-    const offset = i * 40;
+  const mappings: FileMapping[] = [
+    { address: 0n, offset: 0, size: sizeOfHeaders },
+  ];
+  const zeroFills: ZeroFillMapping[] = [];
+  for (let index = 0; index < numberOfSections; index += 1) {
+    const offset = index * 40;
     const parsed = readPeSectionHeader(
       sectionTable.subarray(offset, offset + 40),
     );
-    if (!parsed.ok) break;
-    const {
-      virtual_address: virtualAddress,
-      raw_size: sizeOfRawData,
-      offset: pointerToRawData,
-    } = parsed.value;
-    if (
-      pointerToRawData > 0 &&
-      rva >= virtualAddress &&
-      rva - virtualAddress < sizeOfRawData &&
-      size <= sizeOfRawData - (rva - virtualAddress)
-    ) {
-      return pointerToRawData + (rva - virtualAddress);
-    }
+    if (!parsed.ok) return undefined;
+    const section = parsed.value;
+    const address = BigInt(section.virtual_address);
+    if (section.raw_size > 0)
+      mappings.push({
+        address,
+        offset: section.offset,
+        size: section.raw_size,
+      });
+    if (section.virtual_size > section.raw_size)
+      zeroFills.push({
+        address: address + BigInt(section.raw_size),
+        size: BigInt(section.virtual_size - section.raw_size),
+      });
   }
-  return undefined;
+  const mapped = resolveMappedFileOffset(
+    mappings,
+    BigInt(rva),
+    size,
+    zeroFills,
+  );
+  return mapped.ok ? mapped.value : undefined;
 };
 
 /** CodeView RVA admission uses the same bounded prefix as target file reads. */
@@ -723,6 +738,12 @@ export const parsePeCodeViewFromBuffer = (
   }
   return undefined;
 };
+
+/** CPU family a Mach-O cpu type names, or undefined when it names none here. */
+export const machoBinaryArchitecture = (
+  cpu: number,
+): HeaderArchitecture | "arm64_32" | undefined =>
+  cpu === CPU_TYPE_ARM64_32 ? "arm64_32" : machArchitecture(cpu);
 
 const machArchitecture = (cpu: number): HeaderArchitecture | undefined => {
   switch (cpu) {
