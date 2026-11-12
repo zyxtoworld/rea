@@ -7,12 +7,11 @@ import {
   resolvedAnalysisError,
   type AnalysisError,
 } from "../../domain/analysisErrorBase.js";
-import { projectAnalysisError } from "../../domain/analysisErrorProjection.js";
 import { analysisErrorWithCleanupFailure } from "../../domain/analysisErrorCleanup.js";
+import { analysisErrorWithCancellation } from "../../domain/analysisErrorCancellation.js";
 import {
   AnalysisAccessDeniedError,
   AnalysisCancelledError,
-  AnalysisCapabilityUnavailableError,
   AnalysisInputError,
 } from "../../domain/analysisErrorCore.js";
 import { err, ok, type Result } from "../../domain/result.js";
@@ -167,6 +166,13 @@ export class FridaInstrumentationService {
         ),
       );
     const started = await this.#provider.startSession(input);
+    if (!started.ok && signal?.aborted)
+      return err(
+        analysisErrorWithCancellation(
+          started.error,
+          new AnalysisCancelledError(operation, { cause: signal.reason }),
+        ),
+      );
     if (!started.ok || !signal?.aborted) return started;
     return this.#cancelSession(operation, started.value, input, signal.reason);
   }
@@ -325,21 +331,12 @@ export class FridaInstrumentationService {
           ? loaded.error
           : undefined,
       );
-    if (!loaded.ok) {
-      const closed = await this.#provider.closeSession(started.value.sessionId);
-      if (closed.ok) {
-        loaded.error.resolveCleanup();
-        return err(resolvedAnalysisError(loaded.error));
-      }
-      return err(
-        fridaErrorWithCleanupFailure(
-          loaded.error,
-          closed.error,
-          "instrument_with_frida",
-          started.value.sessionId,
-        ),
+    if (!loaded.ok)
+      return this.#closeFailedInstrumentation(
+        started.value.sessionId,
+        loaded.error,
+        signal,
       );
-    }
     if (signal?.aborted)
       return this.#cancelSession(
         "instrument_with_frida",
@@ -356,20 +353,13 @@ export class FridaInstrumentationService {
       if (
         !resumed.ok &&
         !(signal?.aborted && resumed.error instanceof AnalysisCancelledError)
-      ) {
-        const closed = await this.#provider.closeSession(
+      )
+        return this.#closeFailedInstrumentation(
           started.value.sessionId,
+          resumed.error,
+          signal,
         );
-        if (closed.ok) return resumed;
-        return err(
-          fridaErrorWithCleanupFailure(
-            resumed.error,
-            closed.error,
-            "instrument_with_frida",
-            started.value.sessionId,
-          ),
-        );
-      }
+
       if (signal?.aborted)
         return this.#cancelSession(
           "instrument_with_frida",
@@ -436,6 +426,32 @@ export class FridaInstrumentationService {
     });
   }
 
+  /** Release the failed experiment while retaining its physical and caller outcomes. */
+  async #closeFailedInstrumentation(
+    sessionId: string,
+    primary: AnalysisError,
+    signal: AbortSignal | undefined,
+  ): Promise<Result<never, AnalysisError>> {
+    const closed = await this.#provider.closeSession(sessionId);
+    const failure = closed.ok
+      ? resolvedAnalysisError(primary)
+      : analysisErrorWithCleanupFailure(
+          primary,
+          closed.error,
+          "instrument_with_frida",
+        ).bindCleanupDependencies([primary, closed.error]);
+    return err(
+      signal?.aborted
+        ? analysisErrorWithCancellation(
+            failure,
+            new AnalysisCancelledError("instrument_with_frida", {
+              cause: signal.reason,
+            }),
+          )
+        : failure,
+    );
+  }
+
   closeSession(sessionId: string) {
     return this.#provider.closeSession(sessionId);
   }
@@ -444,53 +460,6 @@ export class FridaInstrumentationService {
     return this.#provider.closeAll();
   }
 }
-
-const fridaErrorWithCleanupFailure = (
-  primary: AnalysisError,
-  cleanup: AnalysisError,
-  operation: string,
-  cleanupResource: string,
-): AnalysisError => {
-  if (!(primary instanceof AnalysisCapabilityUnavailableError))
-    return analysisErrorWithCleanupFailure(
-      primary,
-      cleanup,
-      operation,
-    ).bindCleanupDependencies([primary, cleanup]);
-  const cleanupProjection = projectAnalysisError(cleanup);
-  const cleanupResources = [
-    ...new Set([
-      ...(primary.cleanupIncomplete ? primary.cleanupResources : []),
-      ...cleanup.cleanupResources,
-      ...(cleanup.cleanupResources.length === 0 ? [cleanupResource] : []),
-    ]),
-  ];
-  const composed = new AnalysisCapabilityUnavailableError(
-    primary.providerId,
-    primary.operation,
-    primary.reason,
-    {
-      cause: primary,
-      cleanupPrimary: primary,
-      diagnostics: primary.diagnostics,
-      capturedOutput: primary.capturedOutput,
-      partialObservation: primary.partialObservation,
-      ...(primary.userMessage === undefined
-        ? {}
-        : { userMessage: primary.userMessage }),
-      remediationAction: cleanupProjection.remediation.action,
-      cleanup: {
-        reason: cleanup.message,
-        resources: cleanupResources,
-      },
-    },
-  );
-  const dependencies = [primary, cleanup].filter(
-    (error) => error.cleanupIncomplete,
-  );
-  if (dependencies.length > 0) composed.bindCleanupDependencies(dependencies);
-  return composed;
-};
 
 const fridaEvidence = (
   operation: string,
