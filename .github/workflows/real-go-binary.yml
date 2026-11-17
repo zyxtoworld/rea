@@ -3,6 +3,7 @@ name: Real Go binary metadata
 on:
   workflow_dispatch:
 
+
 permissions:
   contents: read
 

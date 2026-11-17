@@ -1,4 +1,10 @@
-# husky prepends node_modules/.bin to PATH, so the local pinned binary is
+# Husky prepends node_modules/.bin to PATH, so the local pinned binary is
 # resolved directly and no package-manager entry point (npm/npx or pnpm/pnpx)
 # has to exist. pnpx is `pnpm dlx`: it downloads instead of using the lockfile.
+# A merge commit stages every file it brings in from the other branch; an
+# autofix here would rewrite that incoming code and put unrelated changes into
+# the merge. Conflict resolutions are checked by the pre-push hook and CI.
+if git rev-parse -q --verify MERGE_HEAD >/dev/null; then
+  exit 0
+fi
 lint-staged

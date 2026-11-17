@@ -1,3 +1,4 @@
+import { HOST_PLATFORM } from "../../platform/HostPlatform.js";
 import type { BigIntStats } from "node:fs";
 import { lstat, readlink, realpath } from "node:fs/promises";
 import { isAbsolute, join, relative, sep } from "node:path";
@@ -19,22 +20,23 @@ import { analysisInputErrorFromIssues } from "../../domain/inputIssueProjection.
 import {
   ArtifactReaderFailure,
   type ArtifactReaderTraversal,
-} from "../ArtifactReader.js";
+  ArtifactResourceScope,
+  assertArtifactReadActive,
+  targetDigestChangedFailure,
+  DirectoryArtifactReader,
+} from "../../resources/index.js";
 import { ArtifactTraversalObservation } from "../ArtifactTraversalObservation.js";
-import { DirectoryArtifactReader } from "../DirectoryArtifactReader.js";
 import { consumeWithOrderedReads } from "../OrderedReads.js";
 import {
   DylibFileAccess,
   classifyDylibReadFailure,
 } from "./DylibFileAccess.js";
-import { ArtifactResourceScope } from "../ArtifactResourceScope.js";
-import { assertArtifactReadActive } from "../ArtifactFileOperation.js";
 
 const OPERATION = "trace_dylib_resolution";
-const WINDOWS = process.platform === "win32";
+// Resolution reads paths on this host's filesystem.
+const WINDOWS = HOST_PLATFORM.platform === "win32";
 /** Concurrent four-byte magic reads while enumerating bundle roots. */
 const MAGIC_READ_CONCURRENCY = 8;
-type RootRead = boolean | { readonly kind: "symlink"; readonly path: string };
 
 /** Lazily probed, symlink-preserving view of one analyzed directory. */
 class FilesystemTreeView implements DylibTreeView {
@@ -208,9 +210,10 @@ export const traceDylibResolution = async (options: {
         digests.get(target) ??
         (await files.sha256(join(root, target), undefined));
       if (targetDigest !== options.targetSha256)
-        throw new ArtifactReaderFailure(
-          "integrity",
-          `Active target digest changed: expected ${options.targetSha256}, observed ${targetDigest}`,
+        throw targetDigestChangedFailure(
+          "target",
+          options.targetSha256,
+          targetDigest,
         );
       assertArtifactReadActive(options.signal);
       return dylibResolutionResultSchema.parse({
@@ -247,8 +250,8 @@ const executableRoots = async (
   const roots: string[] = [];
   const unclassified: string[] = [];
   const traversal = new ArtifactTraversalObservation();
-  const enumeratedPaths = new Set<string>();
-  const symlinkPaths: string[] = [];
+  let symlinks = 0;
+  let firstSymlink: string | undefined;
   // Bundles hold tens of thousands of files and few Mach-O images, so the
   // magic reads overlap the walk while results are classified in walk order.
   const reader = new DirectoryArtifactReader(root);
@@ -259,25 +262,21 @@ const executableRoots = async (
   };
   try {
     await consumeWithOrderedReads(
-      reader.entries(signal, traversal),
+      traversal.entries(reader, signal),
       MAGIC_READ_CONCURRENCY,
       (entry) => {
-        enumeratedPaths.add(entry.path);
-        if (entry.kind === "symlink")
-          return Promise.resolve<RootRead>({
-            kind: "symlink",
-            path: entry.path,
-          });
+        // The ordered-read owner skips consume() when read() returns undefined.
+        // Discovery facts for skipped entries belong at this selection boundary.
+        if (entry.kind === "symlink") {
+          symlinks += 1;
+          firstSymlink ??= entry.path;
+        }
         return entry.kind === "file"
           ? files.startsWithMachoMagic(entry)
           : undefined;
       },
-      async (entry, read) => {
-        if (typeof read !== "boolean") {
-          symlinkPaths.push(read.path);
-          return;
-        }
-        if (!read) return;
+      async (entry, macho) => {
+        if (!macho) return;
         const facts = await view.image(entry.path);
         if (facts.status === "malformed" || facts.status === "unsupported")
           unclassified.push(entry.path);
@@ -301,42 +300,12 @@ const executableRoots = async (
   if (released.kind === "failed")
     throw resources.cleanupFailure(outcome, [released]);
   if (outcome.kind === "failed") throw outcome.cause;
-  let unresolvedSymlinks = 0;
-  let firstUnresolvedSymlink: string | undefined;
-  for (const path of symlinkPaths) {
-    let targetPath: string | undefined;
-    try {
-      targetPath = view.rootRelativePath(await realpath(join(root, path)));
-    } catch {
-      targetPath = undefined;
-    }
-    if (targetPath === undefined) {
-      unresolvedSymlinks += 1;
-      firstUnresolvedSymlink ??= path;
-      continue;
-    }
-    if (enumeratedPaths.has(targetPath)) continue;
-    const target = await view.entry(targetPath);
-    if (target?.kind !== "file") {
-      unresolvedSymlinks += 1;
-      firstUnresolvedSymlink ??= path;
-      continue;
-    }
-    const facts = await view.image(targetPath);
-    if (facts.status === "malformed" || facts.status === "unsupported")
-      unclassified.push(targetPath);
-    else if (
-      facts.status === "parsed" &&
-      machoImageSlices(facts).some(({ file_type: type }) => type === "execute")
-    )
-      roots.push(targetPath);
-  }
   assertArtifactReadActive(signal);
-  if (unresolvedSymlinks > 0)
-    traversal.onCoverage({
+  if (symlinks > 0)
+    traversal.record({
       status: "unknown",
       limitations: [
-        `Executable-root discovery could not classify ${unresolvedSymlinks} symlink(s); their root roles and possible descendants are unknown. First path: ${JSON.stringify(firstUnresolvedSymlink)}.`,
+        `Executable-root discovery did not follow ${symlinks} symlink(s); their root roles and possible descendants are unknown. First path: ${JSON.stringify(firstSymlink)}.`,
       ],
     });
   return {
