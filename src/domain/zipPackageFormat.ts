@@ -1,5 +1,7 @@
+import { BinaryReader } from "./binaryContainer.js";
 import {
   zipEndOfCentralDirectoryCandidates,
+  zipEndUsesSingleVolume,
   ZIP_EOCD_BYTES,
   ZIP_MAX_COMMENT_BYTES,
 } from "./zipEndOfCentralDirectory.js";
@@ -23,15 +25,24 @@ export const isZipPackageFormat = (
 ): format is ZipPackageFormat =>
   ZIP_PACKAGE_FORMATS.some((candidate) => candidate === format);
 
-/** Recognize local-header, classic/Zip64 empty-archive, or split ZIP signatures, not validity. */
+/** Local-header, classic/Zip64 empty-archive, and split ZIP signatures. */
+export const ZIP_SIGNATURES = [
+  [0x50, 0x4b, 0x03, 0x04],
+  [0x50, 0x4b, 0x05, 0x06],
+  [0x50, 0x4b, 0x06, 0x06],
+  [0x50, 0x4b, 0x07, 0x08],
+] as const;
+
+/** A local file header can identify a ZIP before a complete end record is available. */
+export const hasZipLocalHeader = (bytes: Uint8Array): boolean =>
+  ZIP_SIGNATURES[0].every((byte, index) => bytes[index] === byte);
+
+/** Recognize a ZIP signature, not directory validity or supported storage. */
 export const hasZipSignature = (bytes: Uint8Array): boolean =>
   bytes.length >= 4 &&
-  bytes[0] === 0x50 &&
-  bytes[1] === 0x4b &&
-  ((bytes[2] === 0x03 && bytes[3] === 0x04) ||
-    (bytes[2] === 0x05 && bytes[3] === 0x06) ||
-    (bytes[2] === 0x06 && bytes[3] === 0x06) ||
-    (bytes[2] === 0x07 && bytes[3] === 0x08));
+  ZIP_SIGNATURES.some((signature) =>
+    signature.every((byte, index) => bytes[index] === byte),
+  );
 
 const CENTRAL_DIRECTORY_HEADER = 0x02014b50;
 const LOCAL_FILE_HEADER = 0x04034b50;
@@ -67,8 +78,7 @@ export const locateTrailingZipArchive = async (
       directoryOffset: declaredDirectory,
     } = candidate;
     if (
-      candidate.disk !== 0 ||
-      candidate.directoryDisk !== 0 ||
+      !zipEndUsesSingleVolume(candidate) ||
       entriesOnDisk === 0 ||
       entriesOnDisk === 0xffff ||
       entriesOnDisk !== candidate.totalEntries ||
@@ -81,15 +91,19 @@ export const locateTrailingZipArchive = async (
     const shift = directory - declaredDirectory;
     if (directory < 0 || shift < 0) continue;
     const header = Buffer.from(await read(directory, CENTRAL_HEADER_BYTES));
+    const headerReader = new BinaryReader(header, true, "zip");
     if (
       header.length !== CENTRAL_HEADER_BYTES ||
-      header.readUInt32LE(0) !== CENTRAL_DIRECTORY_HEADER
+      headerReader.u32(0) !== CENTRAL_DIRECTORY_HEADER
     )
       continue;
-    const firstLocal = header.readUInt32LE(42) + shift;
+    const firstLocal = headerReader.u32(42) + shift;
     if (firstLocal === 0 || firstLocal >= directory) continue;
     const local = Buffer.from(await read(firstLocal, 4));
-    if (local.length === 4 && local.readUInt32LE(0) === LOCAL_FILE_HEADER)
+    if (
+      local.length === 4 &&
+      new BinaryReader(local, true, "zip").u32(0) === LOCAL_FILE_HEADER
+    )
       return { leadingBytes: firstLocal };
   }
   return undefined;

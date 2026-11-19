@@ -47,6 +47,10 @@ Node.js, procps `ps`, the Docker CLI, a Docker daemon reachable without
 `sudo`, 20 GB free where Docker keeps images, agentenv-framework 0.9.1485,
 the runtime archive of this REA version, the build settings in the
 registration or the environment, and the skill. Each failure names its fix.
+Doctor reads the selected runtime archive without extracting it. The archive
+must supply one launcher at `scripts/rea.mjs` under a visible top folder.
+When doctor can identify the intended folder, it reports its declared package
+version even if the launcher is unusable.
 It also reports, without counting them against `healthy`, whether a model
 endpoint for solver runs is configured and which agentenv containers
 earlier builds left. Pass `--json` for the full report.
@@ -352,6 +356,10 @@ cancels the call in progress on the computer, refuses the calls waiting for
 it, and tears down once that call has ended. Closing the
 MCP server closes every computer the same way, and a helper whose REA server
 exits sees its stdin close and tears down.
+
+Once the helper reports a computer, SIGTERM or SIGINT can request teardown
+while stdin remains open. It exits 0 when agentenv confirms nothing is left,
+or 1 when agentenv still reports resources.
 
 A timed-out or cancelled export command is stopped by that command's
 supervisor. It sends SIGINT, then SIGTERM, then SIGKILL, with two seconds

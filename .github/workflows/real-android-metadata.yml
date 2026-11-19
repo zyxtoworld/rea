@@ -7,10 +7,6 @@ on:
 permissions:
   contents: read
 
-concurrency:
-  group: android-metadata-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   android-metadata:
     runs-on: ubuntu-24.04

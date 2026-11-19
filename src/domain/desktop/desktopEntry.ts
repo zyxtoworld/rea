@@ -1,4 +1,16 @@
 import { err, ok, type Result } from "../result.js";
+import {
+  DESKTOP_KEY,
+  DESKTOP_KEY_SEPARATOR,
+  DESKTOP_VALUE_ESCAPE,
+  DESKTOP_VALUE_ESCAPES,
+  ENV_PREFIX,
+  ENV_UNSET_NAME,
+  ENV_WRAPPER,
+  EXEC_LEXEME,
+  QUOTABLE,
+  QUOTED_ESCAPE,
+} from "./desktopLaunchSyntax.js";
 
 /** The unlocalized `[Desktop Entry]` keys a desktop capture uses. */
 export interface DesktopEntry {
@@ -16,20 +28,17 @@ export interface DesktopEntry {
 
 const GROUP = /^\[(?<name>[^\]]+)\]$/u;
 // Only LF separates records; Unicode line/paragraph separators are value data.
-const ENTRY = /^(?<key>[A-Za-z0-9-]+)[ \t]*=[ \t]*(?<value>.*)$/su;
-const VALUE_ESCAPES: Readonly<Record<string, string>> = {
-  s: " ",
-  n: "\n",
-  t: "\t",
-  r: "\r",
-  "\\": "\\",
-};
+const ENTRY = new RegExp(
+  `^(?<key>${DESKTOP_KEY})${DESKTOP_KEY_SEPARATOR}(?<value>.*)$`,
+  "su",
+);
+const valueEscape = new RegExp(DESKTOP_VALUE_ESCAPE, "gu");
 
 /** Undo the escapes the desktop entry format allows in string values. */
 const unescapeValue = (value: string): string =>
   value.replace(
-    /\\(.)/gu,
-    (match, next: string) => VALUE_ESCAPES[next] ?? match,
+    valueEscape,
+    (match, next: string) => DESKTOP_VALUE_ESCAPES[next] ?? match,
   );
 
 /**
@@ -78,7 +87,8 @@ const listValue = (value: string | undefined): readonly string[] => {
     const character = value.charAt(index);
     const next = value.charAt(index + 1);
     if (character === "\\" && next.length > 0) {
-      entry += next === ";" ? ";" : (VALUE_ESCAPES[next] ?? `\\${next}`);
+      entry +=
+        next === ";" ? ";" : (DESKTOP_VALUE_ESCAPES[next] ?? `\\${next}`);
       index += 1;
     } else if (character === ";") {
       entries.push(entry);
@@ -135,7 +145,8 @@ export const parseDesktopEntry = (
   });
 };
 
-const QUOTED_ESCAPES = new Set(['"', "`", "$", "\\"]);
+const execLexeme = new RegExp(EXEC_LEXEME, "uy");
+const quotedEscape = new RegExp(QUOTED_ESCAPE, "gu");
 
 /** Split an `Exec` value into arguments with the specification's quoting rules. */
 export const tokenizeDesktopExec = (
@@ -143,31 +154,25 @@ export const tokenizeDesktopExec = (
 ): Result<readonly string[], "unterminated_quote" | "empty_command"> => {
   const tokens: string[] = [];
   let current: string | undefined;
-  let quoted = false;
-  for (let index = 0; index < exec.length; index += 1) {
-    const character = exec.charAt(index);
-    if (quoted) {
-      const next = exec.charAt(index + 1);
-      if (character === "\\" && QUOTED_ESCAPES.has(next)) {
-        current = `${current ?? ""}${next}`;
-        index += 1;
-      } else if (character === '"') quoted = false;
-      else current = `${current ?? ""}${character}`;
-    } else if (character === '"') {
-      quoted = true;
-      current ??= "";
-    } else if (character === " " || character === "\t") {
+  execLexeme.lastIndex = 0;
+  while (execLexeme.lastIndex < exec.length) {
+    const part = execLexeme.exec(exec);
+    if (part === null) return err("unterminated_quote");
+    const [, quoted, unquoted, separator] = part;
+    if (separator !== undefined) {
       if (current !== undefined) tokens.push(current);
       current = undefined;
-    } else current = `${current ?? ""}${character}`;
+    } else
+      current =
+        (current ?? "") + (quoted?.replace(quotedEscape, "$1") ?? unquoted!);
   }
-  if (quoted) return err("unterminated_quote");
   if (current !== undefined) tokens.push(current);
   return tokens.length === 0 ? err("empty_command") : ok(tokens);
 };
 
 /** Reserved characters an unquoted `Exec` argument must not contain. */
 const EXEC_RESERVED = /[\t\n\r "'\\><~|&;$*?#()`]/u;
+const quotable = new RegExp(QUOTABLE, "gu");
 
 /**
  * Quote `Exec` arguments so `tokenizeDesktopExec` reads them back. The
@@ -179,7 +184,7 @@ export const formatDesktopExec = (argv: readonly string[]): string =>
     .map((argument) =>
       argument.length > 0 && !EXEC_RESERVED.test(argument)
         ? argument
-        : `"${argument.replace(/[\\"`$]/gu, (character) => `\\${character}`)}"`,
+        : `"${argument.replace(quotable, (character) => `\\${character}`)}"`,
     )
     .join(" ");
 
@@ -265,13 +270,29 @@ export const expandDesktopExec = (
 export type DesktopCommandWrapper = {
   /** The program `env` runs, or the first argument when there is no `env`. */
   readonly program: string;
+  /** The program's position in the expanded command, after any env operands. */
+  readonly index: number;
   /** Variables an `env` prefix sets; its `PATH` is the one that finds the program. */
   readonly environment: Readonly<Record<string, string>>;
+  /** Present when the env wrapper discards all inherited variables. */
+  readonly clearEnvironment?: true;
+  /** Variables env removes from the inherited environment before assignments. */
+  readonly unsetEnvironment?: readonly string[];
+  /** A malformed unset name is ignored by GNU env only for a clean launch. */
+  readonly invalidUnset?: true;
+  /** The last env chdir option and the argv span that carries its operand. */
+  readonly chdir?: {
+    readonly path: string;
+    readonly start: number;
+    readonly end: number;
+    /** This option also requests a clean environment, as in `-iC`. */
+    readonly includesClearEnvironment?: true;
+  };
+  /** First argument of the application, after the program or flatpak's app id. */
+  readonly argumentIndex: number;
 } & (
   | {
       readonly kind: "direct";
-      /** The program's position in the command. */
-      readonly index: number;
     }
   | { readonly kind: "flatpak"; readonly application_id: string | null }
 );
@@ -327,59 +348,125 @@ const FLATPAK_RUN_VALUE_OPTIONS: ReadonlySet<string> = new Set([
  * The application id a `flatpak run` argument list names: its first operand,
  * after options and their values, without a `/arch/branch` ref suffix.
  */
-const flatpakApplicationId = (arguments_: readonly string[]): string | null => {
-  for (let index = 0; index < arguments_.length; index += 1) {
-    const token = arguments_[index] ?? "";
-    if (token === "--") return arguments_[index + 1]?.split("/")[0] || null;
-    if (!token.startsWith("-")) return token.split("/")[0] || null;
+const flatpakApplication = (argv: readonly string[], start: number) => {
+  for (let index = start; index < argv.length; index += 1) {
+    const token = argv[index] ?? "";
+    if (token === "--")
+      return {
+        application_id: argv[index + 1]?.split("/")[0] || null,
+        argumentIndex: Math.min(index + 2, argv.length),
+      };
+    if (!token.startsWith("-"))
+      return {
+        application_id: token.split("/")[0] || null,
+        argumentIndex: index + 1,
+      };
     if (FLATPAK_RUN_VALUE_OPTIONS.has(token)) index += 1;
   }
-  return null;
+  return { application_id: null, argumentIndex: argv.length };
 };
 
-/** Apply `env NAME=value` prefixes and recognise `flatpak run` launchers. */
+const envUnsetName = new RegExp(`^(?:${ENV_UNSET_NAME})$`, "u");
+const envWrapper = new RegExp(`^${ENV_WRAPPER}$`, "u");
+const envPhases = ENV_PREFIX.map(({ repeat, rules }) => ({
+  repeat,
+  rules: rules.map((rule) => ({
+    rule,
+    pattern: new RegExp(`^(?:${rule.pattern})$`, "u"),
+  })),
+}));
+
+const envMatch = (phase: (typeof envPhases)[number], token: string) => {
+  for (const { rule, pattern } of phase.rules) {
+    const captures = pattern.exec(token);
+    if (captures !== null) return { rule, captures };
+  }
+  return undefined;
+};
+
+const desktopEnvironment = (argv: readonly string[]) => {
+  let index = 1;
+  let clearEnvironment = false;
+  let chdir: DesktopCommandWrapper["chdir"];
+  const unsetEnvironment: string[] = [];
+  // No prototype, so an assignment such as `__proto__=x` stays a variable.
+  const environment: Record<string, string> = Object.create(null);
+  for (const phase of envPhases) {
+    while (index < argv.length) {
+      const token = argv[index]!;
+      const match = envMatch(phase, token);
+      if (match === undefined) break;
+      const { rule, captures } = match;
+      const start = index;
+      index += 1;
+      if (rule.kind === "clear") clearEnvironment = true;
+      if (rule.kind === "assignment") {
+        const split = token.indexOf("=");
+        environment[token.slice(0, split)] = token.slice(split + 1);
+      }
+      if (rule.kind === "chdir" || rule.kind === "unset") {
+        const attached =
+          rule.operand === undefined ? undefined : captures[rule.operand];
+        const separate = attached === undefined;
+        const value = separate ? (argv[index] ?? "") : attached;
+        if (separate) index += 1;
+        const combined =
+          rule.clear !== undefined && Boolean(captures[rule.clear]);
+        clearEnvironment ||= combined;
+        if (rule.kind === "unset") unsetEnvironment.push(value);
+        else
+          chdir = {
+            path: value,
+            start,
+            end: index,
+            ...(combined ? { includesClearEnvironment: true as const } : {}),
+          };
+      }
+      if (!phase.repeat) break;
+    }
+  }
+  return { index, chdir, clearEnvironment, environment, unsetEnvironment };
+};
+
+/** Apply env prefixes and recognise flatpak run launchers. */
 export const unwrapDesktopCommand = (
   argv: readonly string[],
 ): DesktopCommandWrapper => {
-  let index = 0;
-  // No prototype, so an assignment such as `__proto__=x` stays a variable.
-  const environment: Record<string, string> = Object.create(null);
-  if (argv[0]?.split("/").at(-1) === "env") {
-    index = 1;
-    while (/^[A-Za-z_][A-Za-z0-9_]*=/u.test(argv[index] ?? "")) {
-      const assignment = argv[index] ?? "";
-      const split = assignment.indexOf("=");
-      environment[assignment.slice(0, split)] = assignment.slice(split + 1);
-      index += 1;
-    }
-  }
+  const { index, chdir, clearEnvironment, environment, unsetEnvironment } =
+    envWrapper.test(argv[0] ?? "")
+      ? desktopEnvironment(argv)
+      : {
+          index: 0,
+          chdir: undefined,
+          clearEnvironment: false,
+          unsetEnvironment: [],
+          environment: Object.create(null) as Record<string, string>,
+        };
   const program = argv[index] ?? "";
+  const wrapperOptions = {
+    ...(chdir === undefined ? {} : { chdir }),
+    ...(clearEnvironment ? { clearEnvironment: true as const } : {}),
+    ...(unsetEnvironment.length === 0 ? {} : { unsetEnvironment }),
+    ...(!clearEnvironment &&
+    unsetEnvironment.some((name) => !envUnsetName.test(name))
+      ? { invalidUnset: true as const }
+      : {}),
+  };
   if (program.split("/").at(-1) === "flatpak" && argv[index + 1] === "run")
     return {
       kind: "flatpak",
       program,
+      index,
       environment,
-      application_id: flatpakApplicationId(argv.slice(index + 2)),
+      ...flatpakApplication(argv, index + 2),
+      ...wrapperOptions,
     };
-  return { kind: "direct", program, environment, index };
-};
-
-/** The first argument after an `env` prefix, the program, and a `flatpak run` id. */
-export const desktopArgumentIndex = (argv: readonly string[]): number => {
-  const command = unwrapDesktopCommand(argv);
-  if (command.kind === "direct") return command.index + 1;
-  let index = 0;
-  if (argv[0]?.split("/").at(-1) === "env") {
-    index = 1;
-    while (/^[A-Za-z_][A-Za-z0-9_]*=/u.test(argv[index] ?? "")) index += 1;
-  }
-  index += 1;
-  if (argv[index] === "run") index += 1;
-  for (; index < argv.length; index += 1) {
-    const token = argv[index] ?? "";
-    if (token === "--") return Math.min(index + 2, argv.length);
-    if (!token.startsWith("-")) return index + 1;
-    if (FLATPAK_RUN_VALUE_OPTIONS.has(token)) index += 1;
-  }
-  return argv.length;
+  return {
+    kind: "direct",
+    program,
+    environment,
+    index,
+    argumentIndex: index + 1,
+    ...wrapperOptions,
+  };
 };
